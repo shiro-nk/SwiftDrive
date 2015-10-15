@@ -1,0 +1,20 @@
+
+public class Testing {
+	
+	
+	public class Animal {
+		int legs = 0;
+		
+		Animal(int legs) {
+			this.legs = legs;
+		}
+	}
+	
+	public class Dog extends Animal {
+
+		Dog(int legs) {
+			super(legs);
+		}
+		
+	}
+}

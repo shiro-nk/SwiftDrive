@@ -1,0 +1,12 @@
+
+public class Testing {
+	
+	
+	public class Animal {
+		
+	}
+	
+	public class Dog extends Animal {
+		
+	}
+}
