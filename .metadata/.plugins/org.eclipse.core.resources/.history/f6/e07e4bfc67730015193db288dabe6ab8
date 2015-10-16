@@ -1,0 +1,43 @@
+package sd.swiftserver.rk.net;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
+public class Runner implements Runnable {
+	
+	Socket server = null;
+	
+	DataInputStream  dis = null;
+	DataOutputStream dos = null;
+	
+	public Runner() {
+		
+	}
+	
+	public void run() {
+		
+	}
+	
+	public int getInt() {
+		try {
+			
+		}
+		catch(IOException ix) {
+			
+		}
+	}
+	
+	public String in() {
+		return "";
+	}
+	
+	public void out(String s) {
+		
+	}
+	
+	public void fileIn(int size) {
+		
+	}
+}

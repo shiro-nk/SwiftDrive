@@ -1,0 +1,5 @@
+package sd.swiftserver.rk.net;
+
+public class Runner implements Runnable {
+
+}

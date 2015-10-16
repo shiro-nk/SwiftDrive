@@ -1,0 +1,34 @@
+package sd.swiftserver.rk.net;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import sd.swiftglobal.rk.Settings;
+
+public class Server implements Settings {
+
+	final int port;
+	
+	ServerSocket server = null;
+	Socket       client = null;
+	
+	boolean accepting = false;
+	
+	public Server() {
+		this(DEF_PORT);
+	}
+
+	public Server(int port) {
+		this.port = port;
+		
+		try {
+			server = new ServerSocket(port);
+		}
+		catch(IOException ix) {
+			System.err.println("Failed to initalize server on " + port);
+			System.err.println(ix.getMessage());
+			accepting = false;
+		}
+	}
+}

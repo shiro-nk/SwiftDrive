@@ -1,0 +1,21 @@
+package sd.swiftglobal.rk.types;
+
+import java.nio.file.Path;
+
+@SuppressWarnings("unused")
+public class FileHandler {
+	
+	Path path = null;
+	
+	public FileHandler(String path) {
+		
+	}
+	
+	public FileHandler(Path path) {
+		
+	}
+	
+	private void readfile() {
+		
+	}
+}

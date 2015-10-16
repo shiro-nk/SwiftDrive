@@ -1,0 +1,13 @@
+package sd.swiftserver.rk.net;
+
+public class Server implements Settings {
+	int port = 3141;
+	
+	public Server() {
+		this(port);
+	}
+
+	public Server(int port) {
+		
+	}
+}

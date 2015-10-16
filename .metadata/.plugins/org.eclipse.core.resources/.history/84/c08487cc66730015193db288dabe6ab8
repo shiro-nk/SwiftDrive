@@ -1,0 +1,8 @@
+package sd.swiftglobal.rk.types;
+
+public class FileHandler {
+	
+	private void readfile() {
+		
+	}
+}

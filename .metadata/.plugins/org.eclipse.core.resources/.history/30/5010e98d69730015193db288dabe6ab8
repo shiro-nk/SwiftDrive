@@ -1,0 +1,9 @@
+package sd.swiftserver.rk.net;
+
+public class Server {
+	int port = 3141;
+	
+	public Server(int port) {
+		
+	}
+}

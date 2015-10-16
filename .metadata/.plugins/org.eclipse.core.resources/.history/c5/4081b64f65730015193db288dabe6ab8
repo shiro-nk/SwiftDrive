@@ -1,0 +1,9 @@
+package sd.swiftglobal.rk;
+
+public interface Settings {
+	
+	public static final int DAT_OFFLINE = 0,
+							DAT_PING    = 1,
+							DAT_FILE    = 2;
+	
+}

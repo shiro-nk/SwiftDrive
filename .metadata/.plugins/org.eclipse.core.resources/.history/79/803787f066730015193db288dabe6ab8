@@ -1,0 +1,17 @@
+package sd.swiftglobal.rk.types;
+
+@SuppressWarnings("unused")
+public class FileHandler {
+	
+	public FileHandler(String path) {
+		
+	}
+	
+	public FileHandler(Path path) {
+		
+	}
+	
+	private void readfile() {
+		
+	}
+}
