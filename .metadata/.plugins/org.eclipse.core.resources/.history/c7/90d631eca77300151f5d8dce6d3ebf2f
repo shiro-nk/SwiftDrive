@@ -1,0 +1,25 @@
+package sd.swiftclient.rk.net;
+
+import java.io.IOException;
+import java.net.Socket;
+
+public class Client extends Thread {
+	Socket server;
+	
+	public Client() {
+		try {
+			
+		}
+		catch(IOException ix) {
+			
+		}
+	}
+	
+	public int getInt() {
+		return 0;
+	}
+	
+	public String in() {
+		return "";
+	}
+}

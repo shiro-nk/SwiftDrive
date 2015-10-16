@@ -1,0 +1,7 @@
+package sd.swiftclient.rk.net;
+
+public class Client extends Thread {
+	public Client() {
+		
+	}
+}

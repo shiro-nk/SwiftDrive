@@ -1,0 +1,37 @@
+package sd.swiftclient.rk.net;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.Socket;
+
+import sd.swiftglobal.rk.Settings;
+
+public class Client extends Thread implements Settings {
+	
+	Socket server;
+	
+	DataInputStream  dis = null;
+	DataOutputStream dos = null;
+	
+	final int port;
+	
+	public Client(String hostname, int port) {
+		this.port = port;
+	}
+	
+	public Client(int[] ip, int port) {
+		this.port = port;
+	}
+	
+	public Client(String hostname) {
+		this(hostname, DEF_PORT);
+	}
+	
+	public int getInt() {
+		return 0;
+	}
+	
+	public String in() {
+		return "";
+	}
+}

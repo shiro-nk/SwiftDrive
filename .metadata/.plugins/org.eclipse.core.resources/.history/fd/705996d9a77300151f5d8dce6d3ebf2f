@@ -1,0 +1,19 @@
+package sd.swiftclient.rk.net;
+
+import java.net.Socket;
+
+public class Client extends Thread {
+	Socket server;
+	
+	public Client() {
+		
+	}
+	
+	public int getInt() {
+		return 0;
+	}
+	
+	public String in() {
+		return "";
+	}
+}
