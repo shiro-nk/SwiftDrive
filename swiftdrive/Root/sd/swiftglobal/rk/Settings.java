@@ -11,5 +11,6 @@ public interface Settings {
 							   LC_USER = System.getProperty("user.home"),
 							   LC_PATH = LC_USER + LC_DIV + "swift" + LC_DIV;
 
-	public static final int DEF_PORT = 3141;
+	public static final int DEF_PORT = 3141,
+							DEF_BEAT = 25;
 }
