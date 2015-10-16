@@ -263,3 +263,13 @@ org.eclipse.core.internal.resources.ResourceException: The project description f
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1488)
 !SUBENTRY 2 org.eclipse.core.resources 4 567 2015-10-14 22:26:57.524
 !MESSAGE The project description file (.project) for 'Thread Testing' is missing.  This file contains important information about the project.  The project will not function properly until this file is restored.
+!SESSION 2015-10-16 08:49:05.275 -----------------------------------------------
+eclipse.buildId=4.5.1.M20150904-0015
+java.version=1.8.0_60
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2015-10-16 08:49:13.730
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.

@@ -11,7 +11,7 @@ public class PingTimer extends Thread implements Runnable, Settings {
 	
 	boolean active,
 			kill;
-	
+
 	long increment;
 	
 	int cycle,

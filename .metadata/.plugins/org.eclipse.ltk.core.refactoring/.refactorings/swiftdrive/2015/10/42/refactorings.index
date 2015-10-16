@@ -1,3 +1,5 @@
 1444919716900	Delete element
 1444933627243	Rename field 'accepting'
 1444963116244	Rename type 'Timer'
+1445000256827	Rename type 'FileHandler'
+1445002587313	Rename method 'readfile'

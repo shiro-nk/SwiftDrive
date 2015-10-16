@@ -7,7 +7,6 @@ import java.net.Socket;
 
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
-import sd.swiftglobal.rk.util.PingTimer;
 
 public class Client extends Thread implements Settings {
 	
@@ -22,7 +21,7 @@ public class Client extends Thread implements Settings {
 	boolean online = false,
 			active = false;
 	
-	int timer = DEF_BEAT;
+	int timer = 0;
 	
 	public Client(String hostname, int port) {
 		this.port = port;
@@ -60,19 +59,44 @@ public class Client extends Thread implements Settings {
 	
 	public void run() {
 		while(online && !active && (timer <= DEF_BEAT)) {
+			try {
+				Thread.sleep(1000);
+			}
+			catch(InterruptedException ix) {
+				System.err.println(ix.getMessage());
+			}
 		}
 	}
-	
 	
 	public void resetTimer() {
 		timer = DEF_BEAT;
 	}
 	
-	public int getInt() {
-		return 0;
+	public int getInt() throws DisconnectException {
+		try {
+			return dis.readInt();
+		}
+		catch(IOException ix) {
+			throw new DisconnectException(ix.getMessage());
+		}
 	}
 	
 	public String in() {
 		return "";
+	}
+	
+	public void close() {
+		try {
+			if(dis != null) dis.close();
+			if(dos != null) dos.close();
+			
+			if(server != null) server.close();
+		}
+		catch(IOException ix) {
+			System.err.println("Failed to close resources!");
+			System.err.println(ix.getMessage());
+			
+			System.exit(100);
+		}
 	}
 }
