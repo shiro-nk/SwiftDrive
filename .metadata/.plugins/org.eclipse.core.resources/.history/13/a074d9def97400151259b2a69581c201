@@ -1,0 +1,8 @@
+package sd.swiftclient.rk.net;
+
+public class ClientTest {
+	public static void main(String[] args) {
+		Client c = new Client((byte) 127, (byte) 0, (byte) 0, (byte) 1, 3141);
+		
+	}
+}

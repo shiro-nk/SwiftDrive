@@ -15,8 +15,16 @@ public class SwiftFile extends Data {
 	File file = null;
 	byte[] fi = null;
 
+	//TODO: Fix Update Logic for BSET and FSET
 	boolean fset = false,
 			bset = false;
+
+	public SwiftFile(File f) throws FileException {
+		file = f;
+		fset = true;
+		
+		readFile();
+	}
 
 	public SwiftFile(String path) {
 		file = new File(path);
@@ -27,7 +35,7 @@ public class SwiftFile extends Data {
 		file = path.toFile();
 		fset = true;
 	}
-	
+
 	public SwiftFile(byte[] bytefile) {
 		if(bytefile.length < Integer.MAX_VALUE) {
 			fi = bytefile;
@@ -35,13 +43,17 @@ public class SwiftFile extends Data {
 			bset = true;
 		}
 	}
-	
+
 	public SwiftFile(String path, int size, DataInputStream in) throws FileException {
 		try {
+			file = new File(path);
 			fi = new byte[size];
 			
-			for(@SuppressWarnings("unused") byte b : fi) {
+			
+			System.out.println("Reading file of " + size + "bytse");
+			for(byte b : fi) {
 				b = in.readByte();
+				System.out.println(b);
 			}
 			
 			bset = true;
@@ -55,6 +67,7 @@ public class SwiftFile extends Data {
 	
 	public void readFile() throws FileException {
 		if(fset && file.exists() && file.isFile()) {
+			System.out.println("Reading file from " + file.getPath());
 			try {
 				if(Integer.MAX_VALUE <= file.length()) throw new IOException("File too large");
 				fi = Files.readAllBytes(file.toPath());
@@ -67,6 +80,7 @@ public class SwiftFile extends Data {
 				throw new FileException(ix.getMessage());
 			}
 		}
+		else throw new FileException("404 File Not Found");
 	}
 	
 	public void readFrom(String path) throws FileException {
@@ -124,6 +138,19 @@ public class SwiftFile extends Data {
 			}
 		}
 		else throw new FileException("No file specified!");
+	}
+	
+	public int getFileSize() {
+		return (int) (bset ? fi.length : fset ? file.length() : 0);
+	}
+	
+	public void setBytes(byte[] fbytes) {
+		bset = true;
+		fi = fbytes;
+	}
+	
+	public byte[] getBytes() {
+		return fi;
 	}
 	
 	public void toData() {

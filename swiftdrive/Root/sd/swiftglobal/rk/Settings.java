@@ -17,4 +17,6 @@ public interface Settings {
 							DEF_BEAT = 25;
 	
 	public static final Charset CHARSET = StandardCharsets.UTF_8;
+	
+	public static final int SIG_READY = 1;
 }
