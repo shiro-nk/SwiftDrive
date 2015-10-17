@@ -43,7 +43,6 @@ public class SwiftFile {
 			catch(IOException ix) {
 				System.err.println("Failed to read all bytes of file.");
 				System.err.println(ix.getMessage());
-				bset = false;
 			}
 		}
 	}
@@ -83,7 +82,7 @@ public class SwiftFile {
 		if(fset) {
 			try(FileOutputStream fos = new FileOutputStream(path, append)) {
 				if(!bset) readFile();
-				if(bset)  fos.write(fi);
+				
 			}
 			catch(IOException ix) {
 				

@@ -83,7 +83,7 @@ public class SwiftFile {
 		if(fset) {
 			try(FileOutputStream fos = new FileOutputStream(path, append)) {
 				if(!bset) readFile();
-				if(bset)  fos.write(fi);
+				if(!bset) fos.write(fi);
 			}
 			catch(IOException ix) {
 				

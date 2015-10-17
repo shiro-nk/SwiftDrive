@@ -34,7 +34,7 @@ public class SwiftFile {
 		
 	}
 	
-	public void readFile() {
+	public void readFile() throws IOException {
 		if(fset && file.exists() && file.isFile()) {
 			try {
 				fi = Files.readAllBytes(file.toPath());
@@ -83,7 +83,7 @@ public class SwiftFile {
 		if(fset) {
 			try(FileOutputStream fos = new FileOutputStream(path, append)) {
 				if(!bset) readFile();
-				if(bset)  fos.write(fi);
+				if(!bset) fos.write(fi);
 			}
 			catch(IOException ix) {
 				
