@@ -3,3 +3,4 @@
 1444963116244	Rename type 'Timer'
 1445000256827	Rename type 'FileHandler'
 1445002587313	Rename method 'readfile'
+1445052246043	Encapsulate field 'DATA_TYPE_ID'

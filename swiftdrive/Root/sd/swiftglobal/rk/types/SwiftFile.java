@@ -1,19 +1,23 @@
 package sd.swiftglobal.rk.types;
 
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
-public class SwiftFile {
+import sd.swiftglobal.rk.expt.FileException;
+
+public class SwiftFile extends Data {
 	
 	File file = null;
 	byte[] fi = null;
 
 	boolean fset = false,
 			bset = false;
-	
+
 	public SwiftFile(String path) {
 		file = new File(path);
 		fset = true;
@@ -25,30 +29,47 @@ public class SwiftFile {
 	}
 	
 	public SwiftFile(byte[] bytefile) {
-		fi = bytefile;
-		fset = false;
-		bset = true;
+		if(bytefile.length < Integer.MAX_VALUE) {
+			fi = bytefile;
+			fset = false;
+			bset = true;
+		}
 	}
 	
-	public SwiftFile() {
-		
+	public SwiftFile(String path, int size, DataInputStream in) throws FileException {
+		try {
+			fi = new byte[size];
+			
+			for(@SuppressWarnings("unused") byte b : fi) {
+				b = in.readByte();
+			}
+			
+			bset = true;
+		}
+		catch(IOException ix) {
+			System.err.println("Error while reading bytes from socket");
+			System.err.println(ix.getMessage());
+			throw new FileException(ix.getMessage());
+		}
 	}
 	
-	public void readFile() {
+	public void readFile() throws FileException {
 		if(fset && file.exists() && file.isFile()) {
 			try {
+				if(Integer.MAX_VALUE <= file.length()) throw new IOException("File too large");
 				fi = Files.readAllBytes(file.toPath());
 				bset = true;
 			}
 			catch(IOException ix) {
-				System.err.println("Failed to read all bytes of file.");
+				System.err.println("Error reading bytes from " + file.getPath());
 				System.err.println(ix.getMessage());
 				bset = false;
+				throw new FileException(ix.getMessage());
 			}
 		}
 	}
 	
-	public void readFrom(String path) {
+	public void readFrom(String path) throws FileException {
 		try {
 			File in = new File(path);
 			
@@ -60,37 +81,76 @@ public class SwiftFile {
 		catch(IOException ix) {
 			System.err.println("Error reading from: " + path);
 			System.err.println(ix.getMessage());
+			throw new FileException(ix.getMessage());
 		}
 	}
 	
-	public void writeFile() {
+	private void write(String path, boolean readFirst, boolean append) throws IOException {
+		try(FileOutputStream fos = new FileOutputStream(path, append)) {
+			if(readFirst) 
+				try { readFile(); }
+				catch(FileException fx) { throw new IOException(fx.getMessage()); }
+			if(fset && bset) fos.write(fi);
+			else throw new IOException("Missing information");
+		}
+	}
+	
+	public void writeFile() throws FileException {
 		writeFile(false);
 	}
 	
-	public void writeFile(boolean append) {
+	public void writeFile(boolean append) throws FileException {
 		if(fset && bset) {
-			try(FileOutputStream fos = new FileOutputStream(file.getPath(), append)) {
-				fos.write(fi);
+			try {
+				write(file.getPath(), false, append);
 			}
 			catch(IOException ix) {
-				System.err.println("Error while writing file:");
+				System.err.println("Writing to " + file.getPath());
 				System.err.println(ix.getMessage());
+				throw new FileException(ix.getMessage());
 			}
 		}
 	}
 	
-	public void writeFile(String path, boolean append) {
+	public void writeFile(String path, boolean append) throws FileException {
 		if(fset) {
-			try(FileOutputStream fos = new FileOutputStream(path, append)) {
-				if(!bset) readFile();
-				if(bset)  fos.write(fi);
+			try {
+				write(path, true, append);
 			}
 			catch(IOException ix) {
-				
+				System.err.println("Failed to write to " + path + " from " + file.getPath());
+				System.err.println(ix.getMessage());
+				throw new FileException(ix.getMessage());
 			}
 		}
-		else if(bset) {
-			
+		else throw new FileException("No file specified!");
+	}
+	
+	public void toData() {
+		ArrayList<String> build = new ArrayList<String>();
+		
+		if(!bset) {
+			try {
+				readFile();
+			}
+			catch(FileException fx) {
+				System.err.println(fx.getMessage());
+			}
 		}
+			
+		if(bset) {
+			String   convert = new String(fi, CHARSET);
+			String[] broken  = convert.split("\n");
+			
+			for(String f : broken) build.add(f);
+			
+			setData(build);
+		}
+	}
+	
+	public void fromData() {
+		String build = "";
+		for(String s : getData()) build += s;
+		fi = build.getBytes(CHARSET);
 	}
 }

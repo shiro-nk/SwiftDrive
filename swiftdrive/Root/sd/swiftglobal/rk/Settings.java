@@ -1,7 +1,9 @@
 package sd.swiftglobal.rk;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 public interface Settings {
-	
 	public static final int DAT_OFF  = 0,
 							DAT_PING = 1,
 							DAT_FILE = 2,
@@ -13,4 +15,6 @@ public interface Settings {
 
 	public static final int DEF_PORT = 3141,
 							DEF_BEAT = 25;
+	
+	public static final Charset CHARSET = StandardCharsets.UTF_8;
 }

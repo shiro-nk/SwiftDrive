@@ -21,8 +21,6 @@ public class Client extends Thread implements Settings {
 	boolean online = false,
 			active = false;
 	
-	int timer = 0;
-	
 	public Client(String hostname, int port) {
 		this.port = port;
 		this.host = hostname;
@@ -58,7 +56,7 @@ public class Client extends Thread implements Settings {
 	}
 	
 	public void run() {
-		while(online && !active && (timer <= DEF_BEAT)) {
+		while(online) {
 			try {
 				Thread.sleep(1000);
 			}
@@ -66,10 +64,6 @@ public class Client extends Thread implements Settings {
 				System.err.println(ix.getMessage());
 			}
 		}
-	}
-	
-	public void resetTimer() {
-		timer = DEF_BEAT;
 	}
 	
 	public int getInt() throws DisconnectException {
