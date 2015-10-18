@@ -8,8 +8,31 @@ import java.net.Socket;
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.types.SwiftFile;
+import sd.swiftglobal.rk.util.Logging;
 
-public class Runner implements Runnable, Settings {
+/*
+ * This file is part of Swift Drive
+ * Copyright (C) 2015 Ryan Kerr
+ *
+ * Swift Drive is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option)
+ * any later version.
+ *
+ * Swift Drive is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * Swift Drive. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ * 
+ * @author Ryan Kerr
+ */
+public class Runner implements Runnable, Settings, Logging {
 	
 	Server server = null;
 	Socket client = null;
@@ -33,7 +56,7 @@ public class Runner implements Runnable, Settings {
 			online = true;
 		}
 		catch(IOException ix) {
-			System.err.println("Error establishing sockets: " + ix.getMessage());
+			error("Error establishing sockets: " + ix.getMessage());
 			online = false;
 		}
 	}
@@ -50,10 +73,10 @@ public class Runner implements Runnable, Settings {
 					case DAT_PING:
 						break;
 					case DAT_FILE:
-						System.out.println("Ready to receive file of " + size + " bytes");
-						dos.writeInt(SIG_READY);
-						SwiftFile fi = new SwiftFile(in(), size, dis);
-						fi.writeFile();
+						echo("Ready to receive file of " + size + " bytes", LOG_SEC);
+						ready();
+						SwiftFile fi = new SwiftFile(LC_PATH + "output", size, dis);
+						fi.writeFile(false);
 						break;
 					case DAT_DATA:
 						String s = dis.readUTF();
@@ -63,11 +86,11 @@ public class Runner implements Runnable, Settings {
 			}
 		}
 		catch(IOException ix) {
-			
+			error("Failed to do something of the sort" + ix.getMessage());
 		}
 		catch(FileException fx) {
-			System.err.println("Error reading file");
-			System.err.println(fx.getMessage());
+			error("Error reading file");
+			error(fx.getMessage());
 		}
 	}
 	
@@ -76,8 +99,8 @@ public class Runner implements Runnable, Settings {
 			dos.writeInt(SIG_READY);
 		}
 		catch(IOException ix) {
-			System.err.println("Error while writing SIG_READY to socket");
-			System.err.println("Disconnecting client from server");
+			error("Error while writing SIG_READY to socket");
+			error("Disconnecting client from server");
 			close();
 		}
 	}
@@ -88,7 +111,7 @@ public class Runner implements Runnable, Settings {
 			return dis.readInt();
 		}
 		catch(IOException ix) {
-			System.err.println("Error reading integer from client: " + ix.getMessage());
+			error("Error reading integer from client: " + ix.getMessage());
 			return DAT_OFF;
 		}
 	}
@@ -114,8 +137,8 @@ public class Runner implements Runnable, Settings {
 			if(dos != null) dos.close();
 		}
 		catch(IOException ix) {
-			System.err.println("Failed to close resources!");
-			System.err.println(ix.getMessage());
+			error("Failed to close resources!");
+			error(ix.getMessage());
 		}
 	}
 }

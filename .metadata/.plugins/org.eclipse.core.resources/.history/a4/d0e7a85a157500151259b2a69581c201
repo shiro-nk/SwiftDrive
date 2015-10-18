@@ -1,0 +1,26 @@
+package sd.swiftglobal.rk.util;
+
+public class EchoLog {
+	
+	public static void echo(String s, int loglevel) {
+		
+	}
+	
+	public static void echo(
+	
+	public static void print() {
+		
+	}
+	
+	public static void eprint() {
+		
+	}
+	
+	public static void eecho() {
+		
+	}
+	
+	public static void log() {
+		
+	}
+}

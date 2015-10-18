@@ -1,0 +1,28 @@
+package sd.swiftglobal.rk.util;
+
+public interface Logging {
+
+	public static void echo(String s, int level) {
+		
+	}
+	
+	public static void echo(String s) {
+		
+	}
+	
+	public static void print(String s, int level) {
+		
+	}
+	
+	public static void print(String s) {
+		
+	}
+	
+	public static void error() {
+
+	}
+	
+	public static void error(String s) {
+		
+	}
+}

@@ -1,6 +1,7 @@
 package sd.swiftglobal.rk.types;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,8 +10,32 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 import sd.swiftglobal.rk.expt.FileException;
+import sd.swiftglobal.rk.util.Logging;
 
-public class SwiftFile extends Data {
+
+/*
+ * This file is part of Swift Drive
+ * Copyright (C) 2015 Ryan Kerr
+ *
+ * Swift Drive is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option)
+ * any later version.
+ *
+ * Swift Drive is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * Swift Drive. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ * 
+ * @author Ryan Kerr
+ */
+public class SwiftFile extends Data implements Logging {
 	
 	File file = null;
 	byte[] fi = null;
@@ -45,24 +70,7 @@ public class SwiftFile extends Data {
 	}
 
 	public SwiftFile(String path, int size, DataInputStream in) throws FileException {
-		try {
-			file = new File(path);
-			fi = new byte[size];
-			
-			
-			System.out.println("Reading file of " + size + "bytse");
-			for(byte b : fi) {
-				b = in.readByte();
-				System.out.println(b);
-			}
-			
-			bset = true;
-		}
-		catch(IOException ix) {
-			System.err.println("Error while reading bytes from socket");
-			System.err.println(ix.getMessage());
-			throw new FileException(ix.getMessage());
-		}
+		getSocketFile(path, size, in);
 	}
 	
 	public void readFile() throws FileException {
@@ -74,8 +82,8 @@ public class SwiftFile extends Data {
 				bset = true;
 			}
 			catch(IOException ix) {
-				System.err.println("Error reading bytes from " + file.getPath());
-				System.err.println(ix.getMessage());
+				error("Error reading bytes from " + file.getPath());
+				error(ix.getMessage());
 				bset = false;
 				throw new FileException(ix.getMessage());
 			}
@@ -90,11 +98,12 @@ public class SwiftFile extends Data {
 			if(in.exists()) {
 				fi   = Files.readAllBytes(file.toPath());
 				bset = true;
+				toData();
 			}
 		}
 		catch(IOException ix) {
-			System.err.println("Error reading from: " + path);
-			System.err.println(ix.getMessage());
+			error("Error reading from: " + path);
+			error(ix.getMessage());
 			throw new FileException(ix.getMessage());
 		}
 	}
@@ -119,8 +128,8 @@ public class SwiftFile extends Data {
 				write(file.getPath(), false, append);
 			}
 			catch(IOException ix) {
-				System.err.println("Writing to " + file.getPath());
-				System.err.println(ix.getMessage());
+				error("Writing to " + file.getPath());
+				error(ix.getMessage());
 				throw new FileException(ix.getMessage());
 			}
 		}
@@ -129,11 +138,11 @@ public class SwiftFile extends Data {
 	public void writeFile(String path, boolean append) throws FileException {
 		if(fset) {
 			try {
-				write(path, true, append);
+				write(path, bset ? false : true, append);
 			}
 			catch(IOException ix) {
-				System.err.println("Failed to write to " + path + " from " + file.getPath());
-				System.err.println(ix.getMessage());
+				error("Failed to write to " + path + " from " + file.getPath());
+				error(ix.getMessage());
 				throw new FileException(ix.getMessage());
 			}
 		}
@@ -142,6 +151,32 @@ public class SwiftFile extends Data {
 	
 	public int getFileSize() {
 		return (int) (bset ? fi.length : fset ? file.length() : 0);
+	}
+	
+	public void getSocketFile(String path, int size, DataInputStream dis) throws FileException {
+		try {
+			file = new File(path);
+			fset = true;
+			
+			fi = new byte[size];
+
+			echo("Reading file of " + size + "bytse");
+			for(int i = 0; i < size; i++) {
+				fi[i] = dis.readByte();
+				echo(fi[i], LOG_SEC);
+			}
+			
+			bset = true;
+		}
+		catch(IOException ix) {
+			error("Error while reading bytes from socket");
+			error(ix.getMessage());
+			throw new FileException(ix.getMessage());
+		}
+	}
+	
+	public void sendSocketFile(DataOutputStream dos) {
+		
 	}
 	
 	public void setBytes(byte[] fbytes) {
@@ -161,7 +196,7 @@ public class SwiftFile extends Data {
 				readFile();
 			}
 			catch(FileException fx) {
-				System.err.println(fx.getMessage());
+				error(fx.getMessage());
 			}
 		}
 			

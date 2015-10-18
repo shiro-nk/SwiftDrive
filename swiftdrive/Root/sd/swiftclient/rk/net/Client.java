@@ -11,8 +11,31 @@ import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.types.SwiftFile;
+import sd.swiftglobal.rk.util.Logging;
 
-public class Client extends Thread implements Settings, Closeable {
+/*
+ * This file is part of Swift Drive
+ * Copyright (C) 2015 Ryan Kerr
+ *
+ * Swift Drive is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option)
+ * any later version.
+ *
+ * Swift Drive is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * Swift Drive. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ * 
+ * @author Ryan Kerr
+ */
+public class Client extends Thread implements Settings, Closeable, Logging {
 	
 	Socket server = null;
 
@@ -26,14 +49,14 @@ public class Client extends Thread implements Settings, Closeable {
 			active = false;
 	
 	public Client(String hostname, int port) throws DisconnectException {
-		System.out.println("Client has been initialized");
+		echo("Client has been initialized");
 		
 		this.port = port;
 		this.host = hostname;
 		
 		try {
 			server = new Socket(this.host, this.port);
-			System.out.println("Connected to " + host + ":" + port);
+			echo("Connected to " + host + ":" + port);
 			
 			try {
 				dis = new DataInputStream(server.getInputStream());
@@ -68,7 +91,7 @@ public class Client extends Thread implements Settings, Closeable {
 				Thread.sleep(1000);
 			}
 			catch(InterruptedException ix) {
-				System.err.println(ix.getMessage());
+				error(ix.getMessage());
 			}
 		}
 	}
@@ -78,8 +101,8 @@ public class Client extends Thread implements Settings, Closeable {
 			return dis.readInt();
 		}
 		catch(IOException ix) {
-			System.err.println("Error while reading integer from socket");
-			System.err.println(ix.getMessage());
+			error("Error while reading integer from socket");
+			error(ix.getMessage());
 			return DAT_OFF;
 		}
 	}
@@ -89,7 +112,7 @@ public class Client extends Thread implements Settings, Closeable {
 			return dis.readUTF();
 		}
 		catch(IOException ix) {
-			System.err.println("Error while reading a string");
+			error("Error while reading a string");
 			return "";
 		}
 	}
@@ -113,8 +136,8 @@ public class Client extends Thread implements Settings, Closeable {
 			if(server != null) server.close();
 		}
 		catch(IOException ix) {
-			System.err.println("Failed to close resources!");
-			System.err.println(ix.getMessage());
+			error("Failed to close resources!");
+			error(ix.getMessage());
 			
 			System.exit(100);
 		}
@@ -127,29 +150,31 @@ public class Client extends Thread implements Settings, Closeable {
 	public void fileOut(File file) {
 		try {
 			SwiftFile fi = new SwiftFile(file);
+			
 			fi.toData();
 			for(String s : fi.getData()) {
-				System.out.println(s);
+				echo(s);
 			}
+			
 			try {
 				dos.writeInt(DAT_FILE);
 				dos.writeInt(fi.getFileSize());
 				
 				if(getInt() == SIG_READY) {
-					System.out.println("SIG_READY received!");
+					echo("SIG_READY received!");
 					for(byte b : fi.getBytes()) {
 						dos.writeByte(b);
-						System.out.println(b);
+						echo(b);
 					}
 				}
 			}
 			catch(IOException ix) {
-				System.err.println("Error while writing files to socket");
-				System.err.println(ix.getMessage());
+				error("Error while writing files to socket");
+				error(ix.getMessage());
 			}
 		}
 		catch(FileException fx) {
-			System.err.println("Failed to send file");
+			error("Failed to send file");
 		}
 	}
 }
