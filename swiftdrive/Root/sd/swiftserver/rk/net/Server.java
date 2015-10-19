@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 
 import sd.swiftglobal.rk.Settings;
+import sd.swiftglobal.rk.util.Logging;
 
 /*
  * This file is part of Swift Drive
@@ -28,7 +29,7 @@ import sd.swiftglobal.rk.Settings;
  * 
  * @author Ryan Kerr
  */
-public class Server implements Settings {
+public class Server implements Settings, Logging {
 
 	protected final int port;
 	
@@ -49,11 +50,11 @@ public class Server implements Settings {
 			server = new ServerSocket(port);
 			online = true;
 			
-			System.out.println("Server initialized on port " + port);
+			echo("Server initialized on port " + port, LOG_PRI);
 		}
 		catch(IOException ix) {
-			System.err.println("Failed to initalize server on " + port);
-			System.err.println(ix.getMessage());
+			error("Failed to initalize server on " + port, LOG_PRI);
+			error(ix.getMessage(), LOG_SEC);
 			online = false;
 		}
 		
@@ -63,16 +64,17 @@ public class Server implements Settings {
 				new Thread(r).start();
 				clients.add(r);
 				
-				System.out.println("Client connected >> ID: " + clients.size());
+				echo("Client Connected: " + clients.size(), LOG_PRI);
 			}
 			catch(IOException ix) {
-				System.err.println("Error while accepting connection from client");
-				System.err.println(ix.getMessage());
+				error("Error while accepting connection from client", LOG_PRI);
+				error(ix.getMessage(), LOG_SEC);
 			}
 		}
 	}
 	
 	protected void removeClient(int id) {
-		clients.set(id, null);
+		echo("Client " + id + " has disconnected", LOG_PRI);
+		clients.set(id - 1, null);
 	}
 }

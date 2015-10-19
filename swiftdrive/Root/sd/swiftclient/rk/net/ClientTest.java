@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
+import sd.swiftglobal.rk.util.Logging;
 
 /*
  * This file is part of Swift Drive
@@ -27,8 +28,12 @@ import sd.swiftglobal.rk.expt.DisconnectException;
  * 
  * @author Ryan Kerr
  */
-public class ClientTest implements Settings {
+public class ClientTest implements Settings, Logging {
 	public static void main(String[] args) {
+		new ClientTest();
+	}
+	
+	ClientTest() {
 		try(Client c = new Client("localhost", 3141)) {
 			c.fileOut(LC_PATH + "input");
 			
@@ -44,7 +49,8 @@ public class ClientTest implements Settings {
 			}
 		}
 		catch(DisconnectException dx) {
-			dx.printStackTrace();
+			error("Failed to initialize client", LOG_FRC);
+			error(dx.getMessage(), LOG_FRC);
 		}
 	}
 }

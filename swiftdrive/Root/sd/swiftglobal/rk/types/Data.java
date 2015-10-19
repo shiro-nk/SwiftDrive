@@ -75,6 +75,10 @@ public abstract class Data implements Settings {
 		return data.size();
 	}
 
+	public void clear() {
+		data = new ArrayList<String>();
+	}
+	
 	public static void setTypeID(int tid) {
 		DATA_TYPE_ID = tid != DAT_DATA ? DATA_TYPE_ID : tid;
 	}

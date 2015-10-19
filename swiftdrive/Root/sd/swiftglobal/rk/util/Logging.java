@@ -28,10 +28,10 @@ public interface Logging {
 	
 	public static final int LOG_DEF = Settings.DEF_LOGL,
 							LOG_LVL = Settings.LOG_LVL,
-							LOG_FRC = Settings.LOG_FRC;
+							LOG_FOR = Settings.LOG_FRC;
 	
 	public default void print(Object out, int level) {
-		if(level == LOG_FRC || level <= LOG_LVL) System.out.print(out);
+		if(level == LOG_FOR || level <= LOG_LVL) System.out.print(out);
 	}
 	
 	public default void print(Object out) {
@@ -47,7 +47,7 @@ public interface Logging {
 	}
 	
 	public default void error(Object out, int level) {
-		if(level == LOG_FRC || level <= LOG_LVL) System.err.println(out);;
+		if(level == LOG_FOR || level <= LOG_LVL) System.err.println(out);;
 	}
 	
 	public default void error(Object out) {

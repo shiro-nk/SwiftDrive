@@ -28,10 +28,11 @@ import java.nio.charset.StandardCharsets;
 public interface Settings {
 	
 	// Data Type Identifiers
-	public static final int DAT_OFF  = 0,
-							DAT_PING = 1,
-							DAT_FILE = 2,
-							DAT_DATA = 3;
+	public static final int DAT_NULL = 0,
+							DAT_INIT = 1,
+							DAT_PING = 2,
+							DAT_FILE = 3,
+							DAT_DATA = 4;
 	
 	// Log Level Specifiers
 	public static final int LOG_FRC = 0,

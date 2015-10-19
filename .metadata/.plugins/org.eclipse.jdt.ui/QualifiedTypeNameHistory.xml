@@ -5,10 +5,11 @@
 <fullyQualifiedTypeName name="nk.swift.data.Data"/>
 <fullyQualifiedTypeName name="nk.swift.Settings"/>
 <fullyQualifiedTypeName name="java.nio.file.Path"/>
-<fullyQualifiedTypeName name="java.io.DataOutputStream"/>
-<fullyQualifiedTypeName name="sd.swiftglobal.rk.Settings"/>
 <fullyQualifiedTypeName name="java.nio.file.Files"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="java.io.DataInputStream"/>
 <fullyQualifiedTypeName name="java.nio.charset.StandardCharsets"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="sd.swiftglobal.rk.Settings"/>
+<fullyQualifiedTypeName name="java.io.DataOutputStream"/>
 </qualifiedTypeNameHistroy>

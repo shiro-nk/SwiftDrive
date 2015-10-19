@@ -103,7 +103,7 @@ public class Client extends Thread implements Settings, Closeable, Logging {
 		catch(IOException ix) {
 			error("Error while reading integer from socket");
 			error(ix.getMessage());
-			return DAT_OFF;
+			return DAT_NULL;
 		}
 	}
 	
@@ -124,7 +124,7 @@ public class Client extends Thread implements Settings, Closeable, Logging {
 			dos.writeUTF(out);
 		}
 		catch(IOException ix) {
-			ix.printStackTrace();
+			error(ix.getMessage());
 		}
 	}
 	
@@ -138,13 +138,7 @@ public class Client extends Thread implements Settings, Closeable, Logging {
 		catch(IOException ix) {
 			error("Failed to close resources!");
 			error(ix.getMessage());
-			
-			System.exit(100);
 		}
-	}
-	
-	public void fileOut(String path) {
-		fileOut(new File(path));
 	}
 	
 	public void fileOut(File file) {
@@ -176,5 +170,9 @@ public class Client extends Thread implements Settings, Closeable, Logging {
 		catch(FileException fx) {
 			error("Failed to send file");
 		}
+	}
+
+	public void fileOut(String path) {
+		fileOut(new File(path));
 	}
 }

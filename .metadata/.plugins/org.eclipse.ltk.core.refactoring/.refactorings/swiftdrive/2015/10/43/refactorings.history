@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;LOG_FRC&apos; in &apos;sd.swiftglobal.rk.util.Logging&apos; to &apos;LOG_FOR&apos;&#x0A;- Original project: &apos;swiftdrive&apos;&#x0A;- Original element: &apos;sd.swiftglobal.rk.util.Logging.LOG_FRC&apos;&#x0A;- Renamed element: &apos;sd.swiftglobal.rk.util.Logging.LOG_FOR&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;LOG_FRC&apos;" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/Root&lt;sd.swiftglobal.rk.util{Logging.java[Logging^LOG_FRC" name="LOG_FOR" references="true" setter="false" stamp="1445218234128" textual="false" version="1.0"/>
+</session>

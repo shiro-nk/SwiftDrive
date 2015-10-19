@@ -3,15 +3,16 @@ package sd.swiftglobal.rk.types;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.util.Logging;
-
 
 /*
  * This file is part of Swift Drive
@@ -41,6 +42,7 @@ public class SwiftFile extends Data implements Logging {
 	byte[] fi = null;
 
 	//TODO: Fix Update Logic for BSET and FSET
+	//TODO: Fix Error Checking so that higher layers don't have to close streams
 	boolean fset = false,
 			bset = false;
 
@@ -77,9 +79,12 @@ public class SwiftFile extends Data implements Logging {
 		if(fset && file.exists() && file.isFile()) {
 			System.out.println("Reading file from " + file.getPath());
 			try {
-				if(Integer.MAX_VALUE <= file.length()) throw new IOException("File too large");
+				if(Integer.MAX_VALUE <= file.length()) throw new FileException("File too large");
 				fi = Files.readAllBytes(file.toPath());
 				bset = true;
+			}
+			catch(FileNotFoundException fnf) {
+				
 			}
 			catch(IOException ix) {
 				error("Error reading bytes from " + file.getPath());
@@ -88,33 +93,14 @@ public class SwiftFile extends Data implements Logging {
 				throw new FileException(ix.getMessage());
 			}
 		}
-		else throw new FileException("404 File Not Found");
+		else throw new FileException("40x File not found/set/file");
 	}
-	
-	public void readFrom(String path) throws FileException {
-		try {
-			File in = new File(path);
-			
-			if(in.exists()) {
-				fi   = Files.readAllBytes(file.toPath());
-				bset = true;
-				toData();
-			}
-		}
-		catch(IOException ix) {
-			error("Error reading from: " + path);
-			error(ix.getMessage());
-			throw new FileException(ix.getMessage());
-		}
-	}
-	
-	private void write(String path, boolean readFirst, boolean append) throws IOException {
+
+	private void write(String path, boolean readFirst, boolean append) throws IOException, FileException {
 		try(FileOutputStream fos = new FileOutputStream(path, append)) {
-			if(readFirst) 
-				try { readFile(); }
-				catch(FileException fx) { throw new IOException(fx.getMessage()); }
-			if(fset && bset) fos.write(fi);
-			else throw new IOException("Missing information");
+			if(fset && readFirst) readFile();
+			if(bset && (fset && file.getPath().equals(path))) fos.write(fi);
+			else throw new FileException("Missing information");
 		}
 	}
 	
@@ -141,9 +127,7 @@ public class SwiftFile extends Data implements Logging {
 				write(path, bset ? false : true, append);
 			}
 			catch(IOException ix) {
-				error("Failed to write to " + path + " from " + file.getPath());
-				error(ix.getMessage());
-				throw new FileException(ix.getMessage());
+				
 			}
 		}
 		else throw new FileException("No file specified!");
@@ -175,8 +159,19 @@ public class SwiftFile extends Data implements Logging {
 		}
 	}
 	
-	public void sendSocketFile(DataOutputStream dos) {
-		
+	public void sendSocketFile(DataOutputStream dos) throws DisconnectException {
+		try {
+			dos.writeInt(DAT_FILE);
+			dos.writeInt(getFileSize());
+			
+			for(byte b : fi) {
+				dos.writeByte(b);
+				echo(b);
+			}
+		}
+		catch(IOException ix) {
+			throw new DisconnectException("Error while reading from socket", ix);
+		}
 	}
 	
 	public void setBytes(byte[] fbytes) {
@@ -196,7 +191,6 @@ public class SwiftFile extends Data implements Logging {
 				readFile();
 			}
 			catch(FileException fx) {
-				error(fx.getMessage());
 			}
 		}
 			
