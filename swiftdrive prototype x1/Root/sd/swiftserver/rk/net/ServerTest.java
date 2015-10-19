@@ -1,5 +1,7 @@
 package sd.swiftserver.rk.net;
 
+import java.nio.charset.StandardCharsets;
+
 /*
  * This file is part of Swift Drive
  * Copyright (C) 2015 Ryan Kerr
@@ -24,6 +26,13 @@ package sd.swiftserver.rk.net;
  */
 public class ServerTest {
 	public static void main(String[] args) {
-		new Server();
+		String s = "";
+		String[] l = new String[0];
+		
+		for(String x : l) s += x;
+		byte[] b = s.getBytes(StandardCharsets.UTF_8);
+		
+		for(byte x : b) System.out.println(x);
+		System.out.println("Len: " + b.length + ", " + l.length);
 	}
 }

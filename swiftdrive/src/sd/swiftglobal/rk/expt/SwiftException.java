@@ -32,6 +32,8 @@ public class SwiftException extends Exception implements Settings {
 				return "File not found error";
 			case EXC_SIZE:
 				return "File too large";
+			case EXC_MISS:
+				return "Information missing error";
 		}
 	}
 	
