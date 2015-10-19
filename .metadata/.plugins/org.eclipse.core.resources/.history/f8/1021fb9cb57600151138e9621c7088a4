@@ -1,0 +1,50 @@
+package sd.swiftglobal.rk.type;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+import sd.swiftglobal.rk.expt.DisconnectException;
+
+public class LoginInformation extends Data {
+
+	private String username = "";
+	private byte[] password = new byte[0];
+	
+	public LoginInformation(String username, String password) {
+		super(DAT_LGIN, username, password);
+	}
+	
+	public LoginInformation(Data dat) {
+		super(DAT_LGIN);
+		convert(dat);
+	}
+	
+	public void send(DataInputStream dis) throws IOException {
+		int size = dis.readInt();
+	}
+	
+	public void receive(DataOutputStream dos) {
+		
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+	
+	public byte[] getPassword() {
+		return password;
+	}
+	
+	public void toData() {
+		
+	}
+
+	public void fromData() {
+		
+	}
+	
+	public void convert(Data dat) {
+		
+	}
+}
