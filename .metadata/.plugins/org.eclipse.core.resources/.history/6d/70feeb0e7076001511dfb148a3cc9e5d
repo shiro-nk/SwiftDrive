@@ -1,0 +1,18 @@
+package sd.swiftglobal.rk.util;
+
+public interface Logging {
+	
+	public static enum LOG { FRC, PRI, SEC, TRI, ALL }
+	
+	public default void print(String s, int lvl) {
+		if(lvl == )
+	}
+	
+	public default void print(String s) {
+		
+	}
+	
+	public default void echo() {
+		
+	}
+}

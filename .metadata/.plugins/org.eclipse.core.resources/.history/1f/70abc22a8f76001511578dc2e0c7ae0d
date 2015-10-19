@@ -1,0 +1,15 @@
+package sd.swiftglobal.rk.expt;
+
+import java.io.IOException;
+
+public class DisconnectException extends Exception {
+	private static final long serialVersionUID = 1L;
+	
+	public DisconnectException(int errid) {
+		
+	}
+	
+	public DisconnectException(int errid, IOException ix) {
+		
+	}
+}

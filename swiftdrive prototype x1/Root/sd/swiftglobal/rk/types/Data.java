@@ -79,7 +79,7 @@ public abstract class Data implements Settings {
 		data = new ArrayList<String>();
 	}
 	
-	public static void setTypeID(int tid) {
+	private static void setTypeID(int tid) {
 		DATA_TYPE_ID = tid != DAT_DATA ? DATA_TYPE_ID : tid;
 	}
 

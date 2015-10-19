@@ -1,5 +1,0 @@
-package sd.swiftglobal.rk;
-
-public static interface Settings {
-
-}

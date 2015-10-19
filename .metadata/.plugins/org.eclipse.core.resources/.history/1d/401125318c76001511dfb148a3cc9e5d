@@ -1,0 +1,23 @@
+package sd.swiftglobal.rk.type;
+
+public class SwiftFile extends Data {
+
+	
+	public SwiftFile(int type, int size) {
+		super(type, size);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void toData() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void fromData() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

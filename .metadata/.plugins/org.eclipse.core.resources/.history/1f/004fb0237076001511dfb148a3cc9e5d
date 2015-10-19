@@ -1,0 +1,5 @@
+package sd.swiftglobal.rk.cfg;
+
+public enum TypeIndex {
+	DATA_
+}

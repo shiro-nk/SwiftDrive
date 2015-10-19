@@ -1,0 +1,61 @@
+package sd.swiftglobal.rk.type;
+
+public class DatArray {
+	private String[] data;
+	
+	private int readPos = 0;
+	
+	public DatArray(int size) {
+		data = new String[size];
+	}
+	
+	public String next() {
+		return inRange(readPos) ? data[readpos++] : "";
+	}
+	
+	public void add(String a) {
+		String[] swap = new String[data.length];
+		for(int i = 0; i < data.length; i++) swap[i] = data[i];
+		swap[data.length - 1] = a;
+		data = swap;
+	}
+	
+	public void push() {
+		String[] swap = new String[data.length - 1];
+		for(int i = 0; i < data.length - 1; i++) swap[i] = data[i];
+		data = swap;
+	}
+	
+	public void rm(int i) {
+		if(inRange(i)) data[i] = null;
+	}
+	
+	public String get(int i) {
+		return (inRange(i)) ? data[i] : null;
+	}
+	
+	public void set(int i, String s) {
+		if(inRange(i)) data[i] = s;
+	}
+	
+	public int getIndex(String s) {
+		for(int i = 0; i < data.length; i++) if(data[i].equals(s)) return i;
+		return -1;
+	}
+	
+	public void setArray(String[] s) {
+		data = s;
+	}
+	
+	public String[] getArray() {
+		return data;
+	}
+	
+	public int getSize() {
+		return data.length;
+	}
+	
+	private boolean inRange(int i) {
+		return (0 < i && i < data.length) ? true : false;
+	}
+}

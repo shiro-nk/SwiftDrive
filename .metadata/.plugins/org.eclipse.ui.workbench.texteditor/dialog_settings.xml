@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Swift Drive" key="selection"/>
+		<item value="DAT" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="Settings.DAT"/>
 			<item value="This program"/>
 			<item value="System.err.println"/>
 			<item value="String s"/>
@@ -16,6 +17,7 @@
 			<item value="DEF"/>
 		</list>
 		<list key="replacehistory">
+			<item value="DAT"/>
 			<item value="Swift Drive"/>
 			<item value="error"/>
 			<item value="Object o"/>

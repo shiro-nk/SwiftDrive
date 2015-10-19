@@ -1,0 +1,45 @@
+package sd.swiftglobal.rk.expt;
+
+import java.io.IOException;
+
+public class FileException extends Exception {
+	private static final long serialVersionUID = 1L;
+
+	public static final int FATAL = 0,
+							FEX_WRITE = 1,
+							FEX_READ  = 2;
+
+	public static final String[] messages = new String[]{
+		"Fatal error of unknown origin",
+		"Error while writing to socket",
+		"Error while reading from socket"
+	};
+	
+	public final int ERRID;
+
+	public FileException(int errid) {
+		super(getErr(errid));
+		ERRID = errid;
+	}
+	
+	public FileException(int errid, IOException ix) {
+		super(getErr(errid) + ": " + ix.getMessage());
+		ERRID = errid;
+	}
+	
+	public static String getErr(int errid) {
+		switch(errid) {
+			default:
+			case FATAL:
+				return "Fatal error of unknown origin";
+			case FEX_WRITE:
+				return "Error while writing to socket";
+			case FEX_READ:
+				return "Error while reading from socket";
+		}
+	}
+	
+	public int getErrID() {
+		return ERRID;
+	}
+}

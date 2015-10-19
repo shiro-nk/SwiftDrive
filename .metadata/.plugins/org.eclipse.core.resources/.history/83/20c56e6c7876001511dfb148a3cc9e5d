@@ -1,0 +1,7 @@
+package sd.swiftglobal.rk;
+
+import sd.swiftglobal.rk.util.Logging;
+
+public interface Settings {
+	public static final int DEF_LOGL = Logging.LOG_SEC;
+}

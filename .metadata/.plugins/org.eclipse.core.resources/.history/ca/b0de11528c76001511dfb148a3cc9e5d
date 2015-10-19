@@ -1,0 +1,21 @@
+package sd.swiftglobal.rk.type;
+
+import sd.swiftglobal.rk.Settings;
+
+public class SwiftFile extends Data implements Settings {
+	
+	File f = new File();
+	
+	public SwiftFile(int size) {
+		super(DAT_FILE, size);
+	}
+
+	public void toData() {
+
+	}
+
+	public void fromData() {
+
+	}
+
+}

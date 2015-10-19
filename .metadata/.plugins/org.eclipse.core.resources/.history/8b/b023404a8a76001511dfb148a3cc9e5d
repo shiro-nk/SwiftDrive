@@ -1,0 +1,23 @@
+package sd.swiftglobal.rk.type;
+
+import sd.swiftglobal.rk.Settings;
+
+public abstract class Data implements Settings {
+	private DatArray data = null;
+	
+	private int readPos = 0;
+	
+	private final int TYPE_ID;
+	
+	public Data(int size) {
+		TYPE_ID = DAT_DATA;
+	}
+	
+	public String next() {
+		return readPos < data.getSize() ? data.get(readPos++) : "";
+	}
+	
+	public int getType() {
+		return TYPE_ID;
+	}
+}
