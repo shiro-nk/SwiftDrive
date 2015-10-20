@@ -37,6 +37,13 @@ public class SwiftFile extends Data implements Settings {
 		super(DAT_FILE, size);
 	}
 	
+	public SwiftFile(byte[] b) {
+		super(DAT_FILE, 0);
+		bytes = b;
+		checkByteFlag();
+		fromData();
+	}
+	
 	public SwiftFile(File f) throws IOException, FileException {
 		this();
 		file = f;

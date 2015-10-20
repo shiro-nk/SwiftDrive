@@ -37,10 +37,8 @@ public class Connection implements Runnable, Closeable, Settings, Logging {
 	public void run() {
 		try {
 			//Data last = null;
-			
 			while(online) {
 				int type = dis.readInt();
-				
 				switch(type) {
 					case DAT_PING:
 						break;

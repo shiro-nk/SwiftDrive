@@ -1,6 +1,7 @@
 package sd.swiftglobal.rk.type;
 
 import sd.swiftglobal.rk.Settings;
+import sd.swiftglobal.rk.util.Logging;
 
 /* This file is part of Swift Drive				   *
  * Copyright (C) 2015 Ryan Kerr                    *
@@ -10,7 +11,7 @@ import sd.swiftglobal.rk.Settings;
  * 
  * @author Ryan Kerr
  */
-public abstract class Data implements Settings {
+public abstract class Data implements Settings, Logging {
 	private String[] data;
 	
 	private int readPos = 0;
@@ -31,16 +32,16 @@ public abstract class Data implements Settings {
 	}
 	
 	public void add(String a) {
-		String[] swap = new String[data.length];
+		String[] swap = new String[data.length + 1];
 		for(int i = 0; i < data.length; i++) swap[i] = data[i];
-		swap[data.length - 1] = a;
+		swap[data.length] = a;
 		data = swap;
 	}
 	
 	public String fifo() {
 		String[] swap = new String[data.length - 1];
 		String   rtns = data[0];
-		for(int i = 1; i < data.length; i++) swap[i] = data[i];
+		for(int i = 1; i < data.length; i++) swap[i - 1] = data[i];
 		data = swap;
 		return rtns;
 	}
@@ -95,7 +96,7 @@ public abstract class Data implements Settings {
 	}
 	
 	private boolean inRange(int i) {
-		return (0 < i && i < data.length) ? true : false;
+		return (0 <= i && i < data.length) ? true : false;
 	}
 	
 	private static void setTypeID(int id) {
