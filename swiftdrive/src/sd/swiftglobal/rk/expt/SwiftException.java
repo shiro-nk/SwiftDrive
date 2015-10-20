@@ -4,23 +4,9 @@ import java.io.IOException;
 
 import sd.swiftglobal.rk.Settings;
 
-/*
- * This file is part of Swift Drive
- * Copyright (C) 2015 Ryan Kerr
- *
- * Swift Drive is free software: you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option)
- * any later version.
- *
- * Swift Drive is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
- *
- * You should have received a copy of the GNU General Public License along with
- * Swift Drive. If not, see <http://www.gnu.org/licenses/>.
- */
+/* This file is part of Swift Drive				   *
+ * Copyright (C) 2015 Ryan Kerr                    *
+ * Please refer to <http://www.gnu.org/licenses/>. */
 
 /**
  * 
@@ -44,8 +30,8 @@ public class SwiftException extends Exception implements Settings {
 	public static String getErr(int errid) {
 		switch(errid) {
 			default:
-			case EXC_FATAL:
-				return "Fatal error of unknown origin";
+			case EXC_UNKN:
+				return "Error of unknown magnitude";
 			case EXC_WRITE:
 				return "Error while writing to socket";
 			case EXC_READ:
@@ -56,6 +42,10 @@ public class SwiftException extends Exception implements Settings {
 				return "File too large";
 			case EXC_MISS:
 				return "Information missing error";
+			case EXC_CONN:
+				return "Error establishing/maintaining connection";
+			case EXC_FATAL:
+				return "Fatal Error! Program should now halt!";
 		}
 	}
 	

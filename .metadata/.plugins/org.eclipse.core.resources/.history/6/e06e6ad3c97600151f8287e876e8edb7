@@ -1,0 +1,43 @@
+package sd.swiftserver.rk.net;
+
+import java.io.Closeable;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.Socket;
+
+import sd.swiftglobal.rk.Settings;
+import sd.swiftglobal.rk.util.Logging;
+
+public class Connection implements Runnable, Closeable, Settings, Logging {
+	
+	private final Server server;
+	private final Socket socket;
+	
+	private DataInputStream  dis = null;
+	private DataOutputStream dos = null;
+	
+	private final int CLIENT_ID;
+	
+	public Connection(Server server, Socket socket, int id) {
+		this.server = server;
+		this.socket = socket;
+		CLIENT_ID   = id;
+	}
+	
+	public void run() {
+		
+	}
+	
+	public void close() {
+		server.rmClient(CLIENT_ID);
+		
+		try {
+			if(dis != null) dis.close();
+			if(dos != null) dos.close();
+			if(socket != null) socket.close();
+		}
+		catch(IOException ix) {
+			
+		}
+	}
+}

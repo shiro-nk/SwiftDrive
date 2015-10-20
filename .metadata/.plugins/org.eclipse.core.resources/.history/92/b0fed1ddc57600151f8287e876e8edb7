@@ -1,0 +1,23 @@
+package sd.swiftserver.rk.net;
+
+import java.net.ServerSocket;
+import java.util.ArrayList;
+
+public class Server {
+	private ArrayList<CliConnection> clients = new ArrayList<CliConnection>();
+	private ServerSocket server;
+	
+	private final int PORT;
+	
+	public Server(String hostname, int port) {
+		PORT = port;
+		
+		try(ServerSocket server = new ServerSocket(hostname, port)) {
+			
+		}
+	}
+	
+	public int getPort() {
+		return PORT;
+	}
+}

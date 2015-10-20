@@ -1,0 +1,5 @@
+package sd.swiftserver.rk;
+
+public class Commander implements Settings {
+
+}

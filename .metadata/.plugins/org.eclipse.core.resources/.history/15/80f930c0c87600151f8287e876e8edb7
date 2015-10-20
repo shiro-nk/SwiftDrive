@@ -1,0 +1,22 @@
+package sd.swiftserver.rk.net;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.Socket;
+
+public class Connection implements Runnable {
+	
+	private final Server server = null;
+	private final Socket socket = null;
+	
+	private DataInputStream  dis = null;
+	private DataOutputStream dos = null;
+	
+	public Connection(Server server, Socket socket, int id) {
+		
+	}
+	
+	public void run() {
+		
+	}
+}

@@ -21,3 +21,6 @@
 1445292252525	Move compilation unit
 1445292257332	Delete element
 1445296385322	Delete element
+1445302435837	Copy package
+1445302996822	Rename type 'CliConnection'
+1445305365878	Rename type 'Executor'
