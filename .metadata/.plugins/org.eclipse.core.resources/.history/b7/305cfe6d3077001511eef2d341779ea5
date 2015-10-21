@@ -1,0 +1,27 @@
+package sd.swiftglobal.rk;
+
+import sd.swiftglobal.rk.type.Data;
+
+public class SystemTest implements Settings {
+	public static void Main(String[] args) {
+		new SystemTest();
+	}
+	
+	public SystemTest() {
+		Data dat = new Data(DAT_DATA, 0) {
+			public void toData() {
+				
+			}
+
+			public void fromData() {
+				
+			}
+
+			public void convert(Data dat) {
+				
+			}
+		};
+		
+		
+	}
+}

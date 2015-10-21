@@ -15,4 +15,5 @@
 <fullyQualifiedTypeName name="java.io.DataInputStream"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="sd.swiftglobal.rk.type.Data"/>
+<fullyQualifiedTypeName name="sd.swiftglobal.rk.SystemTest"/>
 </qualifiedTypeNameHistroy>

@@ -1,0 +1,13 @@
+package sd.swiftglobal.rk;
+
+public class SystemTest {
+	public static void Main(String[] args) {
+		new SystemTest();
+	}
+	
+	public SystemTest() {
+		Data dat = new Data() {
+			
+		}
+	}
+}

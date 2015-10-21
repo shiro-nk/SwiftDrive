@@ -1,6 +1,10 @@
 package sd.swiftglobal.rk;
 
-import sd.swiftglobal.rk.type.Data;
+import java.io.File;
+import java.io.IOException;
+
+import sd.swiftglobal.rk.expt.FileException;
+import sd.swiftglobal.rk.type.SwiftFile;
 
 public class SystemTest implements Settings {
 	public static void main(String[] args) {
@@ -8,35 +12,26 @@ public class SystemTest implements Settings {
 	}
 	
 	public SystemTest() {
-		Data dat = new Data(DAT_DATA, 0) {
-			public void toData() {
-				
-			}
-
-			public void fromData() {
-				
-			}
-
-			public void convert(Data dat) {
-				
-			}
-		};
+		String msg = "Hello world\nMy name is I. Montoya\nYou killed my father\nPrepare to die";
+		byte[] byt = msg.getBytes();
 		
-		System.out.println("Start");
+		System.out.println(new String(byt));
 		
-		for(int i = 0; i != 10; i++) {
-			dat.add("This is " + i);
-			System.out.println(dat.getSize());
+		SwiftFile file = new SwiftFile(byt);
+		
+		for(byte b : file.getBytes()) System.out.println(b);
+		
+		for(String s : file.getArray()) {
+			System.out.println(s);
 		}
 		
-		for(int i = 0; i != 10; i++) {
-			System.out.println(dat.next());
+		try {
+			file.write(new File(LC_PATH + "testoutpt").toPath(), true);
 		}
+		catch(IOException ix) {
+			
+		} catch (FileException e) {
 		
-		for(int i = 0; i != 10; i++) {
-			System.out.println(dat.filo());
 		}
-		
-		System.out.println("END");
 	}
 }

@@ -1,0 +1,11 @@
+package sd.swiftglobal.rk;
+
+public class SystemTest implements Settings {
+	public static void main(String[] args) {
+		new SystemTest();
+	}
+	
+	public SystemTest() {
+		
+	}
+}
