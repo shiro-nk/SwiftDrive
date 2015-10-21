@@ -11,9 +11,9 @@
 <fullyQualifiedTypeName name="sd.swiftglobal.rk.Settings"/>
 <fullyQualifiedTypeName name="java.nio.file.Files"/>
 <fullyQualifiedTypeName name="java.net.ServerSocket"/>
-<fullyQualifiedTypeName name="java.io.DataOutputStream"/>
-<fullyQualifiedTypeName name="java.io.DataInputStream"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="sd.swiftglobal.rk.type.Data"/>
 <fullyQualifiedTypeName name="sd.swiftglobal.rk.SystemTest"/>
+<fullyQualifiedTypeName name="java.io.DataOutputStream"/>
+<fullyQualifiedTypeName name="java.io.DataInputStream"/>
 </qualifiedTypeNameHistroy>

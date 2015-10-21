@@ -1,0 +1,28 @@
+package sd.swiftclient.rk.nk;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.Socket;
+
+import sd.swiftglobal.rk.expt.DisconnectException;
+
+/* This file is part of Swift Drive				   *
+ * Copyright (C) 2015 Ryan Kerr                    *
+ * Please refer to <http://www.gnu.org/licenses/>. */
+
+public class Client extends Thread {
+	
+	private final Socket server;
+	
+	private DataInputStream  dis;
+	private DataOutputStream dos;
+	
+	public Client(String hostname, int port) throws DisconnectException {
+		try {
+			
+		}
+		catch(IOException ix) {
+			
+		}
+	}
+}

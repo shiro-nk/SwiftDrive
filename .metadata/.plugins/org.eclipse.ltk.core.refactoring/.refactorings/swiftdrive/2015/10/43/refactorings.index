@@ -25,3 +25,5 @@
 1445302996822	Rename type 'CliConnection'
 1445305365878	Rename type 'Executor'
 1445393583012	Rename local variable 'p'
+1445439091221	Rename method 'getSocketFile'
+1445439099200	Rename method 'sendSocketFile'

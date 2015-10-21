@@ -27,7 +27,7 @@ public class SystemTest implements Settings {
 
 		byte[] bx = { 00, 15, 25, 67, 80, 80, 70, 56 };
 		SwiftFile ax = new SwiftFile(bx);
-		ax.setFile(new File(LC_PATH + "output3"));
+		ax.setFile(new File(LC_PATH + "output4"));
 		
 		String[] cx = {
 				"Dear Compiler,",
@@ -37,6 +37,16 @@ public class SystemTest implements Settings {
 		};
 		SwiftFile zx = new SwiftFile(cx);
 		zx.setFile(new File(LC_PATH + "output3"));
+		
+		try {
+			SwiftFile nx = new SwiftFile(new File(LC_PATH + "output").toPath(), false);
+			nx.setBytes(new byte[]{0});
+			nx.write();
+		} 
+		catch (FileException | IOException e2) {
+			e2.printStackTrace();
+			System.err.println(e2.getMessage());
+		}
 		
 		try {
 			SwiftFile fx = new SwiftFile(LC_PATH + "input", true);
