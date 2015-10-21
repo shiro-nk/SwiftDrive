@@ -44,11 +44,23 @@ public class SwiftFile extends Data implements Settings {
 		toData();
 	}
 	
-	public SwiftFile(File f) throws IOException, FileException {
+	public SwiftFile(Path p, boolean read) throws IOException, FileException {
+		this(p.toFile(), read);
+	}
+	
+	public SwiftFile(String path, boolean read) throws IOException, FileException {
+		this(new File(path), read);
+	}
+
+	public SwiftFile(File f, boolean read) throws IOException, FileException {
 		this();
-		file = f;
-		checkFileFlag();
-		read();
+		setFile(f, read);
+	}
+	
+	public SwiftFile(String[] string) {
+		this();
+		for(String s : string) add(s);
+		fromData();
 	}
 	
 	public SwiftFile(DataInputStream dis) throws IOException, FileException {
@@ -101,6 +113,12 @@ public class SwiftFile extends Data implements Settings {
 	
 	public void write() throws IOException, FileException {
 		if(fset) write(file.toPath(), false);
+		else throw new FileException(EXC_MISS);
+	}
+	
+	public void append() throws IOException, FileException {
+		if(fset) write(file.toPath(), true);
+		else throw new FileException(EXC_MISS);
 	}
 	
 	public void writeFromData(boolean print) throws IOException, FileException {
@@ -151,6 +169,19 @@ public class SwiftFile extends Data implements Settings {
 	public void setFile(File f) {
 		file = f;
 		checkFileFlag();
+	}
+	
+	public void setFile(Path p, boolean read) throws IOException, FileException {
+		setFile(p.toFile(), read);
+	}
+	
+	public void setFile(String path, boolean read) throws IOException, FileException {
+		setFile(new File(path));
+	}
+	
+	public void setFile(File f, boolean read) throws IOException, FileException {
+		setFile(f);
+		if(read) read();
 	}
 	
 	public File getFile() {

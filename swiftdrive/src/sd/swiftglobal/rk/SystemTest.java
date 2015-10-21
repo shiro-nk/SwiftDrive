@@ -24,9 +24,38 @@ public class SystemTest implements Settings {
 		for(String s : file.getArray()) {
 			System.out.println(s);
 		}
+
+		byte[] bx = { 00, 15, 25, 67, 80, 80, 70, 56 };
+		SwiftFile ax = new SwiftFile(bx);
+		ax.setFile(new File(LC_PATH + "output3"));
+		
+		String[] cx = {
+				"Dear Compiler,",
+				//"Sometimes I feel you ignore my comments",
+				"this message is a test message to test the swift file write functionality!",
+				"Sincerely, Plaintext Java Code"
+		};
+		SwiftFile zx = new SwiftFile(cx);
+		zx.setFile(new File(LC_PATH + "output3"));
+		
+		try {
+			SwiftFile fx = new SwiftFile(LC_PATH + "input", true);
+			SwiftFile rx = new SwiftFile(fx.getBytes());
+			
+			for(String s : fx.getArray()) System.out.println(s);
+			for(byte   b : rx.getBytes()) System.out.println(b);
+			rx.setFile(new File(LC_PATH + "output2"));
+			rx.write();
+		} 
+		catch (FileException | IOException e1) {
+			e1.printStackTrace();
+			System.err.println(e1.getMessage());
+		}
 		
 		try {
 			file.write(new File(LC_PATH + "testoutpt").toPath(), true);
+			ax.write();
+			zx.append();
 		}
 		catch(IOException ix) {
 			
