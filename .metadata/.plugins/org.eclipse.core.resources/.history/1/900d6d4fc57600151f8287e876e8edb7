@@ -1,0 +1,9 @@
+package sd.swiftserver.rk.net;
+
+import java.net.ServerSocket;
+
+public class Server {
+	private ServerSocket server;
+	
+	private final port;
+}

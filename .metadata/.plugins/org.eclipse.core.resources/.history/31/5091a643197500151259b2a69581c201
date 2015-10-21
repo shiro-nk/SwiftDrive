@@ -1,0 +1,37 @@
+package sd.swiftglobal.rk.util;
+
+import sd.swiftglobal.rk.Settings;
+
+public interface Logging {
+	
+	public static final int LOG_DEF = Settings.DEF_LOGL,
+							LOG_LVL = Settings.LOG_LVL,
+							LOG_PRI = Settings.LOG_PRI,
+							LOG_SEC = Settings.LOG_SEC,
+							LOG_TRI = Settings.LOG_TRI,
+							LOG_FRC = Settings.LOG_FRC;
+	
+	public static void print(String s, int level) {
+		if(level <= LOG_LVL);
+	}
+	
+	public static void print(String s) {
+		print(s, LOG_DEF);
+	}
+	
+	public static void echo(String s, int level) {
+		
+	}
+	
+	public static void echo(String s) {
+	
+	}
+	
+	public static void error(String s, int level) {
+
+	}
+	
+	public static void error(String s) {
+		
+	}
+}

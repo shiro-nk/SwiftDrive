@@ -1,0 +1,12 @@
+package sd.swiftglobal.rk.util;
+
+public class Timer extends Thread implements Runnable {
+	
+	public Timer() {
+		
+	}
+	
+	public void run() {
+		
+	}
+}

@@ -1,0 +1,78 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+
+public class Testing {
+	
+	public static void main(String[] args) {
+		File fo = new File("output"),
+			 fi = new File("input");
+		
+		if(fi.exists()) {
+			if(fi.length() > Integer.MAX_VALUE) {
+				System.err.println("File too large: " + fi.length() + ". Limit is: " + Integer.MAX_VALUE);
+			}
+			
+			byte[] fire = null;
+			try {
+				fire = Files.readAllBytes(fi.toPath());
+			} 
+			catch (IOException e) {
+				e.printStackTrace();
+				System.exit(5);
+			}
+			
+			for(byte b : fire) {
+				System.out.println(b);
+			}
+			
+			try(FileOutputStream fos = new FileOutputStream(fo.getPath())) {
+				fos.write(fire);
+			}
+			catch(IOException ix) {
+				System.err.println(ix.getMessage());
+			}
+			
+			System.out.print(new String(fire, StandardCharsets.UTF_8));
+		}
+		
+		System.out.println("Done! " + Integer.MAX_VALUE + " :: " + fi.length() );
+	}
+	
+	public static int tset(int i) {
+		return 5;
+	}
+	
+	public static Class<? extends Object> getClass(Object o) {
+		return o.getClass();
+	}
+	
+	
+	public static class Animal {
+		int legs = 0;
+		
+		Animal(int legs) {
+			this.legs = legs;
+		}
+		
+		public int getLegs() {
+			return legs;
+		}
+	}
+	
+	public static class Dog extends Animal {
+		String name = "";
+		
+		Dog(String name, int legs) {
+			super(4); this.name = name;
+		}
+		
+		String getName() {
+			return name;
+		}
+	}
+}

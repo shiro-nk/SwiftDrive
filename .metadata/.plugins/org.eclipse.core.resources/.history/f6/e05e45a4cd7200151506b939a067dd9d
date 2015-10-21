@@ -1,0 +1,43 @@
+
+public class Testing {
+	
+	public static void main(String[] args) {
+		int i = 0;
+		
+		if((i = 3) == 3) System.out.println("Bing");
+		else System.out.println("Ping");
+	}
+	
+	public static int tset(int i) {
+		return 5;
+	}
+	
+	public static Class<? extends Object> getClass(Object o) {
+		return o.getClass();
+	}
+	
+	
+	public static class Animal {
+		int legs = 0;
+		
+		Animal(int legs) {
+			this.legs = legs;
+		}
+		
+		public int getLegs() {
+			return legs;
+		}
+	}
+	
+	public static class Dog extends Animal {
+		String name = "";
+		
+		Dog(String name, int legs) {
+			super(4); this.name = name;
+		}
+		
+		String getName() {
+			return name;
+		}
+	}
+}

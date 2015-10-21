@@ -1,0 +1,45 @@
+package sd.swiftglobal.rk.util;
+
+import sd.swiftglobal.rk.Settings;
+
+public interface Logging {
+	
+	public static final int LOG_DEF = Settings.DEF_LOGL,
+							LOG_PRI = 1,
+							LOG_SEC = 2,
+							LOG_TRI = 3,
+							LOG_FRC = 5;
+	
+	public static void print(String s, int level) {
+		switch(level) {
+		case LOG_PRI: 
+			break;
+		case LOG_SEC:
+			break;
+		case LOG_TRI:
+			break;
+		case LOG_FRC:
+			break;
+		}
+	}
+	
+	public static void print(String s) {
+		print(s, LOG_DEF);
+	}
+	
+	public static void echo(String s, int level) {
+		
+	}
+	
+	public static void echo(String s) {
+	
+	}
+	
+	public static void error(String s, int level) {
+
+	}
+	
+	public static void error(String s) {
+		
+	}
+}

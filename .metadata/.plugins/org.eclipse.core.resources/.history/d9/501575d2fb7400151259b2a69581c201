@@ -1,0 +1,21 @@
+package sd.swiftclient.rk.net;
+
+import java.util.Scanner;
+
+public class ClientTest {
+	public static void main(String[] args) {
+		Client c = new Client("localhost", 3141);
+		c.fileOut("input");
+		
+		try(Scanner scan = new Scanner(System.in)) {
+			String s;
+			
+			while((s = scan.nextLine()) != null && !s.equals("stop")) {
+				c.out(s);
+			}
+		}
+		catch(Exception e) {
+			
+		}
+	}
+}

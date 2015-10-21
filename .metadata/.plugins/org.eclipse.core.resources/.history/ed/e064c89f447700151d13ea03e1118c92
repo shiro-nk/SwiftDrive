@@ -1,0 +1,17 @@
+package sd.swiftglobal.rk;
+
+import sd.swiftglobal.rk.type.SwiftFile;
+
+public class SystemTest implements Settings {
+	public static void main(String[] args) {
+		new SystemTest();
+	}
+	
+	public SystemTest() {
+		SwiftFile file = new SwiftFile("Hello world\n My name is I. Montoya\n You killed my father \n Prepare to die".getBytes());
+		
+		for(String s : file.getArray()) {
+			System.out.println(s);
+		}
+	}
+}

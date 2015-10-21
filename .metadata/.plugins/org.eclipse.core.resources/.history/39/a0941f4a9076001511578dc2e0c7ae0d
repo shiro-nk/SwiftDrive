@@ -1,0 +1,43 @@
+package sd.swiftglobal.rk.expt;
+
+import java.io.IOException;
+
+public class DisconnectException extends Exception {
+	private static final long serialVersionUID = 1L;
+
+	public static final int DEX_FATAL = 0,
+							DEX_WRITE = 1,
+							DEX_READ  = 2;
+
+	public static final String[] messages = new String[]{
+		"Fatal error of unknown origin",
+		"Error while writing to socket",
+		"Error while reading from socket"
+	};
+	
+	public int ERRID;
+
+	public DisconnectException(int errid) {
+		super(getErr(ERRID = errid));
+	}
+	
+	public DisconnectException(int errid, IOException ix) {
+		super();
+	}
+	
+	public static String getErr(int errid) {
+		switch(errid) {
+			default:
+			case DEX_FATAL:
+				return "Fatal error of unknown origin";
+			case DEX_WRITE:
+				return "Error while writing to socket";
+			case DEX_READ:
+				return "Error while reading from socket";
+		}
+	}
+	
+	public int getErrID() {
+		return ERRID;
+	}
+}

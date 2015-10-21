@@ -1,0 +1,22 @@
+package sd.swiftglobal.rk.expt;
+
+import java.io.IOException;
+
+public class SwiftDataException extends Exception {
+	private static final long serialVersionUID = 1L;
+	
+	public static final int SDX_FRE = 0,
+							SDX_FWR = 0,
+							SDX_NRE = 0,
+							SDX_NWR = 0;
+	
+	public SwiftDataException(int errid) {
+		
+	}
+	
+	public SwiftDataException(int errid, IOException ix) {
+		
+	}
+	
+	
+}

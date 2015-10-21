@@ -1,0 +1,16 @@
+package sd.swiftglobal.rk.expt;
+
+import java.io.IOException;
+
+import sd.swiftglobal.rk.Settings;
+
+public class DisconnectException extends SwiftException implements Settings {
+
+	public DisconnectException(int errid) {
+		super(errid);
+	}
+	
+	public DisconnectException(int errid, IOException ix) {
+		super(errid, ix);
+	}
+}

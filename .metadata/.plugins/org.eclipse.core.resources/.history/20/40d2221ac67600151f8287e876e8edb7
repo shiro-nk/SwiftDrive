@@ -1,0 +1,35 @@
+package sd.swiftserver.rk.net;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.util.ArrayList;
+
+import sd.swiftglobal.rk.expt.DisconnectException;
+
+public class Server implements Settings {
+	private ArrayList<CliConnection> clients = new ArrayList<CliConnection>();
+	private boolean online = false;
+	private final int PORT;
+	
+	public Server(int port) throws DisconnectException {
+		PORT = port;
+		
+		try(ServerSocket server = new ServerSocket(port)) {
+			online = true;
+			while(online) {
+				
+			}
+		}
+		catch(IOException ix) {
+			
+		}
+	}
+	
+	public Server() throws DisconnectException {
+		this(DEF_PORT);
+	}
+	
+	public int getPort() {
+		return PORT;
+	}
+}

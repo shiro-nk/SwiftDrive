@@ -1,0 +1,46 @@
+package sd.swiftglobal.rk.type;
+
+public class LoginInformation extends Data {
+
+	private String username = "";
+	private byte[] password = new byte[0];
+	
+	public LoginInformation(String username, String password) {
+		super(DAT_LGIN, username, password);
+	}
+	
+	public LoginInformation(Data dat) {
+		super(DAT_LGIN);
+		convert(dat);
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+	
+	public byte[] getPassword() {
+		return password;
+	}
+	
+	public void simpleEncrypt() {
+		for(int i = 0; i < password.length; i++) {
+			
+		}
+	}
+	
+	public void simpleDecrypt() {
+		
+	}
+	
+	public void toData() {
+		
+	}
+
+	public void fromData() {
+		
+	}
+	
+	public void convert(Data dat) {
+		
+	}
+}

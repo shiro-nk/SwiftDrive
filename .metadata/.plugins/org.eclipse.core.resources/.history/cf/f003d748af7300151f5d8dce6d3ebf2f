@@ -1,0 +1,24 @@
+package sd.swiftglobal.rk.util;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+
+public class PingTimer extends Thread implements Runnable {
+	
+	boolean active,
+			kill;
+	
+	long increment;
+	
+	int cycle,
+		timer,
+		timeout;
+	
+	public PingTimer(DataInputStream dis, DataOutputStream dos) {
+		
+	}
+	
+	public void run() {
+		
+	}
+}

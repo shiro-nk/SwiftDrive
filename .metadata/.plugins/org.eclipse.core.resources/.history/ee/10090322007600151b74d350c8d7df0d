@@ -1,0 +1,15 @@
+package sd.swiftglobal.rk.expt;
+
+public class DataException extends Exception {
+	public DataException(String msg) {
+		
+	}
+	
+	public DataException(DisconnectException dx) {
+		
+	}
+	
+	public DataException(FileException fx) {
+		
+	}
+}
