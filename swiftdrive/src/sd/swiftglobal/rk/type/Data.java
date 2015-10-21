@@ -91,6 +91,11 @@ public abstract class Data implements Settings, Logging {
 		data = new String[0];
 	}
 	
+	public void reset() {
+		clear();
+		resetPos();
+	}
+	
 	public int getSize() {
 		return data.length;
 	}

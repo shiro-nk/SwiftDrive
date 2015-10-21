@@ -64,7 +64,7 @@ public class SwiftFile extends Data implements Settings, Logging {
 		fromData();
 	}
 	
-	public SwiftFile(DataInputStream dis) throws IOException, FileException {
+	public SwiftFile(DataInputStream dis) throws IOException {
 		this();
 		receive(dis);
 	}
@@ -103,6 +103,15 @@ public class SwiftFile extends Data implements Settings, Logging {
 		else throw new FileException(EXC_F404);
 	}
 	
+	public void read(int NULL) throws FileException {
+		try {
+			read();
+		}
+		catch(IOException ix) {
+			throw new FileException(EXC_READ, ix);
+		}
+	}
+	
 	public void write(Path path, boolean append) throws IOException, FileException {
 		if(bset) {
 			File parent = path.toFile().getParentFile();
@@ -114,6 +123,15 @@ public class SwiftFile extends Data implements Settings, Logging {
 			}
 		}
 		else throw new FileException(EXC_MISS);
+	}
+	
+	public void write(File output) throws FileException {
+		try {
+			write(output.toPath(), false);
+		}
+		catch(IOException ix) {
+			throw new FileException(EXC_WRITE, ix);
+		}
 	}
 	
 	public void write() throws IOException, FileException {
@@ -140,6 +158,15 @@ public class SwiftFile extends Data implements Settings, Logging {
 			fromData();
 			if(bset) write(); 
 			else throw new FileException(EXC_MISS);
+		}
+	}
+	
+	public void save() throws FileException {
+		try {
+			writeFromData(false);
+		}
+		catch(IOException ix) {
+			throw new FileException(EXC_WRITE, ix);
 		}
 	}
 	

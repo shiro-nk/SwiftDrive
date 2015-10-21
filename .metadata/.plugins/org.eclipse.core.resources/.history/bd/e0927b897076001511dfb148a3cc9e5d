@@ -1,5 +1,0 @@
-package sd.swiftglobal.rk;
-
-public interface Settings {
-	public static final int DEF_LOGL = LOG.PRI;
-}

@@ -1,5 +1,0 @@
-package sd.swiftserver.rk.net;
-
-public class Server {
-	private ServerSocket socket;
-}

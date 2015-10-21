@@ -8,6 +8,9 @@ import java.net.Socket;
 
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
+import sd.swiftglobal.rk.expt.FileException;
+import sd.swiftglobal.rk.type.Data;
+import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.util.Logging;
 
 /* This file is part of Swift Drive				   *
@@ -49,8 +52,54 @@ public class Client extends Thread implements Settings, Logging, Closeable, Runn
 		}
 	}
 	
-	public SwiftFile getFile() {
-		return null;
+	public Data getData(Data template) throws DisconnectException {
+		template.reset();
+		
+		try {
+			int size = dis.readInt();
+			for(int i = 0; i < size; i++) template.add(dis.readUTF());
+			return template;
+		}
+		catch(IOException ix) {
+			close();
+			throw new DisconnectException(EXC_NREAD, ix);
+		}
+	}
+	
+	public <Type extends Data> void sendData(Type data) throws DisconnectException {
+		try {
+			dos.writeInt(Type.getTypeID());
+			dos.writeInt(data.getSize());
+			for(String s : data.getArray()) dos.writeUTF(s);
+		}
+		catch(IOException ix) {
+			close();
+			throw new DisconnectException(EXC_CONN, ix);
+		}
+	}
+	
+	public SwiftFile getFile() throws DisconnectException {
+		try {
+			return new SwiftFile(dis);
+		}
+		catch(IOException ix) {
+			close();
+			throw new DisconnectException(EXC_CONN, ix);
+		}
+	}
+	
+	public void sendFile(SwiftFile file) throws DisconnectException, FileException {
+		try {
+			file.send(dos);
+		}
+		catch(IOException ix) {
+			close();
+			throw new DisconnectException(EXC_CONN, ix);
+		}
+	}
+	
+	public void disconnect() {
+		
 	}
 	
 	public void close() {
@@ -58,9 +107,10 @@ public class Client extends Thread implements Settings, Logging, Closeable, Runn
 			if(dis != null) dis.close();
 			if(dos != null) dos.close();
 			if(server != null) server.close();
+			online = false;
 		}
 		catch(IOException ix) {
-			
+			error("Error closing sockets", LOG_FRC);
 		}
 	}
 }

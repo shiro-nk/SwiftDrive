@@ -1,7 +1,0 @@
-package sd.swiftglobal.rk.expt;
-
-public class SwiftDataException extends Exception {
-	private static final long serialVersionUID = 1L;
-	
-	
-}

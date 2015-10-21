@@ -42,14 +42,17 @@ public interface Settings {
 							STA_SHUTDOWN   = 4;
 	
 	// Exception ID
-	public static final int EXC_FATAL = 0,
-							EXC_WRITE = 1,
-							EXC_READ  = 2,
-							EXC_SIZE  = 3,
-							EXC_F404  = 4,
-							EXC_MISS  = 5,
-							EXC_UNKN  = 6,
-							EXC_CONN  = 7;
+	public static final int EXC_FATAL  = 0,
+							EXC_WRITE  = 1,
+							EXC_READ   = 2,
+							EXC_SIZE   = 3,
+							EXC_F404   = 4,
+							EXC_MISS   = 5,
+							EXC_UNKN   = 6,
+							EXC_CONN   = 7,
+							EXC_NREAD  = 8,
+							EXC_NWRITE = 9,
+							EXC_TYPEMM = 10;
 	
 	// Program Defaults
 	public static final int DEF_PORT = 3141,
