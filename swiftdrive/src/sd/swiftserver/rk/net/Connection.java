@@ -8,6 +8,7 @@ import java.net.Socket;
 
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.type.Data;
+import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.util.Logging;
 
 /* This file is part of Swift Drive				   *
@@ -24,6 +25,9 @@ public class Connection implements Runnable, Closeable, Settings, Logging {
 	private DataOutputStream dos = null;
 	
 	private boolean online = false;
+
+	private SwiftFile swap = null;
+	private Data swap_data = null;
 	
 	public Connection(Server server, Socket socket, int id) throws IOException {
 		this.server = server;
@@ -36,17 +40,20 @@ public class Connection implements Runnable, Closeable, Settings, Logging {
 	
 	public void run() {
 		try {
-			//Data last = null;
 			while(online) {
 				int type = dis.readInt();
+
 				switch(type) {
 					case DAT_PING:
 						break;
 					case DAT_SCMD:
 						break;
 					case DAT_DATA:
+						dataHandler();
 						break;
 					case DAT_FILE:
+						swap = new SwiftFile(dis);
+						swap.resetPos();
 						break;
 				}
 			}
@@ -56,7 +63,29 @@ public class Connection implements Runnable, Closeable, Settings, Logging {
 		}
 	}
 	
-	public void dataHandler(Data d) {
+	public Data dataHandler() throws IOException {
+		int type = dis.readInt();
+		
+		switch(type) {
+			case DAT_DATA:
+				swap_data = getData(new SwiftFile(0));
+				swap_data.resetPos();
+				break;
+			default:
+		}
+		
+		return null;
+	}
+	
+	public Data getData(Data template) throws IOException {
+		template.reset();
+
+		int size = dis.readInt();
+		for(int i = 0; i < size; i++) template.add(dis.readUTF());
+		return template;
+	}
+	
+	public <Type extends Data> void sendData(Type template) throws IOException {
 		
 	}
 	
