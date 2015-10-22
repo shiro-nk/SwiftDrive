@@ -21,12 +21,13 @@ public interface Logging {
 							LOG_PRI = 1,
 							LOG_SEC = 2,
 							LOG_TRI = 3,
+							LOG_OFF = 4,
 							LOG_LVL = Settings.DEF_LOGL;
 	
 	public static final String LOG_DIR = Settings.LC_PATH + "log";
 	
 	public default void print(Object o, int lvl) {
-		if(lvl == LOG_FRC && lvl <= LOG_LVL) System.out.println(o);
+		if(lvl == LOG_FRC || lvl <= LOG_LVL) System.out.print(o);
 	}
 	
 	public default void print(Object o) {
@@ -38,11 +39,11 @@ public interface Logging {
 	}
 
 	public default void echo(Object o) {
-		echo(o + "\n", LOG_SEC);
+		echo(o, LOG_SEC);
 	}
 	
 	public default void error(Object o, int lvl) {
-		if(lvl == LOG_FRC && lvl <= LOG_LVL) System.err.println(o);
+		if(lvl == LOG_FRC || lvl <= LOG_LVL) System.err.println(o);
 	}
 	
 	public default void error(Object o) {

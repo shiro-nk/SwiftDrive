@@ -30,7 +30,7 @@ public class SwiftFile extends Data implements Settings, Logging {
 	private boolean bset   = false,
 					fset   = false;
 	
-	private SwiftFile() {
+	protected SwiftFile() {
 		super(DAT_FILE, 0);
 	}
 	
@@ -42,7 +42,7 @@ public class SwiftFile extends Data implements Settings, Logging {
 		super(DAT_FILE, 0);
 		bytes = b;
 		checkByteFlag();
-		toData();
+		fromData();
 	}
 	
 	public SwiftFile(Path p, boolean read) throws IOException, FileException {
@@ -61,7 +61,7 @@ public class SwiftFile extends Data implements Settings, Logging {
 	public SwiftFile(String[] string) {
 		this();
 		for(String s : string) add(s);
-		fromData();
+		toData();
 	}
 	
 	public SwiftFile(DataInputStream dis) throws IOException {
@@ -95,21 +95,12 @@ public class SwiftFile extends Data implements Settings, Logging {
 			if(file.length() < Integer.MAX_VALUE) {
 				bytes = Files.readAllBytes(file.toPath());
 				checkByteFlag();
-				toData();
+				fromData();
 			}
 			else throw new FileException(EXC_SIZE);
 		}
 		else if(!fset) throw new FileException(EXC_MISS);
 		else throw new FileException(EXC_F404);
-	}
-	
-	public void read(int NULL) throws FileException {
-		try {
-			read();
-		}
-		catch(IOException ix) {
-			throw new FileException(EXC_READ, ix);
-		}
 	}
 	
 	public void write(Path path, boolean append) throws IOException, FileException {
@@ -124,16 +115,7 @@ public class SwiftFile extends Data implements Settings, Logging {
 		}
 		else throw new FileException(EXC_MISS);
 	}
-	
-	public void write(File output) throws FileException {
-		try {
-			write(output.toPath(), false);
-		}
-		catch(IOException ix) {
-			throw new FileException(EXC_WRITE, ix);
-		}
-	}
-	
+		
 	public void write() throws IOException, FileException {
 		if(fset) write(file.toPath(), false);
 		else throw new FileException(EXC_MISS);
@@ -155,34 +137,25 @@ public class SwiftFile extends Data implements Settings, Logging {
 			else throw new FileException(EXC_MISS);
 		}
 		else {
-			fromData();
+			toData();
 			if(bset) write(); 
 			else throw new FileException(EXC_MISS);
 		}
 	}
 	
-	public void save() throws FileException {
-		try {
-			writeFromData(false);
-		}
-		catch(IOException ix) {
-			throw new FileException(EXC_WRITE, ix);
-		}
+	public void toData() {
+		String build = "";
+		for(String s : getArray()) build += s;
+		bytes = build.getBytes(CHARSET);
+		checkByteFlag();
 	}
 	
-	public void toData() {
+	public void fromData() {
 		if(bset) {
 			String   split = new String(bytes);
 			String[] build = split.split("\n");
 			setArray(build);
 		}
-	}
-	
-	public void fromData() {
-		String build = "";
-		for(String s : getArray()) build += s;
-		bytes = build.getBytes(CHARSET);
-		checkByteFlag();
 	}
 	
 	public void convert(Data dat) {
@@ -208,11 +181,12 @@ public class SwiftFile extends Data implements Settings, Logging {
 	}
 	
 	public void setFile(String path, boolean read) throws IOException, FileException {
-		setFile(new File(path));
+		setFile(new File(path), read);
 	}
 	
 	public void setFile(File f, boolean read) throws IOException, FileException {
-		setFile(f);
+		file = f;
+		checkFileFlag();
 		if(read) read();
 	}
 	
@@ -220,11 +194,11 @@ public class SwiftFile extends Data implements Settings, Logging {
 		return file;
 	}
 	
-	private void checkByteFlag() {
+	protected void checkByteFlag() {
 		bset = bytes == null ? false : 0 < bytes.length ? true : false;
 	}
 	
-	private void checkFileFlag() {
+	protected void checkFileFlag() {
 		fset = file != null ? true : false;
 	}
 	

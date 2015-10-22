@@ -1,0 +1,8 @@
+package sd.swiftglobal.rk.util;
+
+public class Ping extends Runnable {
+	
+	public void run() {
+		
+	}
+}

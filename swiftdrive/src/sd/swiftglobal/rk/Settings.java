@@ -56,6 +56,6 @@ public interface Settings {
 	
 	// Program Defaults
 	public static final int DEF_PORT = 3141,
-							DEF_BEAT = 25,
-							DEF_LOGL = Logging.LOG_SEC;
+							DEF_BEAT = 5000,
+							DEF_LOGL = Logging.LOG_TRI;
 }

@@ -1,0 +1,12 @@
+package sd.swiftglobal.rk.util;
+
+public class SwiftNet {
+	public interface SwiftNetTool {
+		public void getID();
+		public void kill();
+	}
+	
+	public interface SwiftNetContainer {
+		public void terminate(SwiftNetTool t);
+	}
+}

@@ -10,12 +10,14 @@ import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.type.Data;
 import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.util.Logging;
+import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
+import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 
 /* This file is part of Swift Drive				   *
  * Copyright (C) 2015 Ryan Kerr                    *
  * Please refer to <http://www.gnu.org/licenses/>. */
 
-public class Connection implements Runnable, Closeable, Settings, Logging {
+public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, Logging {
 	
 	private final Server server;
 	private final Socket socket;
@@ -41,14 +43,20 @@ public class Connection implements Runnable, Closeable, Settings, Logging {
 	public void run() {
 		try {
 			while(online) {
+				System.out.println("listen for int");
 				int type = dis.readInt();
-
 				switch(type) {
+					case DAT_NULL:
+						System.out.println("shutdown calls");
+						close();
+						break;
 					case DAT_PING:
+						echo("Pinged!", LOG_FRC);
 						break;
 					case DAT_SCMD:
 						break;
 					case DAT_DATA:
+						System.out.println("Got data");
 						dataHandler();
 						break;
 					case DAT_FILE:
@@ -59,17 +67,16 @@ public class Connection implements Runnable, Closeable, Settings, Logging {
 			}
 		}
 		catch(IOException ix) {
-			
+			ix.printStackTrace();
 		}
 	}
 	
 	public Data dataHandler() throws IOException {
 		int type = dis.readInt();
-		
 		switch(type) {
 			case DAT_DATA:
 				swap_data = getData(new SwiftFile(0));
-				swap_data.resetPos();
+				for(String s : swap_data.getArray()) echo(s);
 				break;
 			default:
 		}
@@ -97,13 +104,33 @@ public class Connection implements Runnable, Closeable, Settings, Logging {
 		
 	}
 	
-	public void close() {
-		server.rmClient(CLIENT_ID);
+	public boolean isOnline() {
+		return online;
+	}
+
+	public void setParent(SwiftNetContainer c) {
 		
+	}
+	
+	public SwiftNetContainer getParent() {
+		return server;
+	}
+	
+	public int getID() {
+		return CLIENT_ID;
+	}
+	
+	public void kill() {
+		close();
+		server.terminate(this);
+	}
+	
+	public void close() {
 		try {
 			if(dis    != null) dis.close();
 			if(dos    != null) dos.close();
 			if(socket != null) socket.close();
+			online = false;
 		}
 		catch(IOException ix) {
 			

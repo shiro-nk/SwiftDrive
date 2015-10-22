@@ -1,0 +1,101 @@
+package sd.swiftglobal.rk.util;
+
+import java.io.Closeable;
+import java.io.IOException;
+import java.nio.file.Path;
+
+import sd.swiftglobal.rk.Settings;
+import sd.swiftglobal.rk.expt.FileException;
+import sd.swiftglobal.rk.type.SwiftFile;
+
+/* This file is part of Swift Drive				   *
+ * Copyright (C) 2015 Ryan Kerr                    *
+ * Please refer to <http://www.gnu.org/licenses/>. */
+
+/**
+ * This class provides an IOException free implementation
+ * for the SwiftFile class
+ *
+ * (I know it isn't pretty, but it should help the other
+ * developers write their code without lengthly catch
+ * statements)
+ *
+ * @author hiroshi
+ */
+public class SwiftFront extends SwiftFile implements Settings, Logging, Closeable {
+	private SwiftFront() {
+		super();
+	}
+	
+	public SwiftFront(SwiftFile sfile) {
+		this();
+		setFile(sfile.getFile());
+		setBytes(sfile.getBytes());
+		setArray(sfile.getArray());
+		checkFileFlag();
+		checkByteFlag();
+		if(!getByteFlag()) fromData();
+	}
+	
+	public SwiftFront(int size) {
+		super(size);
+	}
+	
+	public SwiftFront(byte[] b) {
+		super(b);
+	}
+	
+	public SwiftFront(String[] string) {
+		super(string);
+	}
+	
+	public void write(Path path, boolean append) throws FileException {
+		try					  { super.write(path, append); }
+		catch(IOException ix) { exc(EXC_WRITE, ix);        }
+	}
+	
+	public void write() throws FileException {
+		try                   { super.write();		}
+		catch(IOException ix) {	exc(EXC_WRITE, ix); }
+	}
+
+	public void write(Path path) throws FileException {
+		try					  { super.write(path, false);  }
+		catch(IOException ix) { exc(EXC_WRITE, ix);        }		
+	}
+	
+	public void append() throws FileException {
+		try 				  { super.append();     }
+		catch(IOException ix) { exc(EXC_WRITE, ix); }
+	}
+	
+	public void append(Path path) throws FileException {
+		write(path, true);
+	}
+	
+	public void save() throws FileException {
+		try                   { super.writeFromData(false);  }
+		catch(IOException ix) { exc(EXC_WRITE, ix);          }
+	}
+	
+	public void read() throws FileException {
+		try 				  { super.read();      }
+		catch(IOException ix) {	exc(EXC_READ, ix); }
+	}
+	
+	public void echo(Object o) {
+		this.echo(o, VERBOSE ? LOG_FRC : LOG_OFF);
+	}
+	
+	public void error(Object o) {
+		this.error(o, VERBOSE ? LOG_FRC : LOG_OFF);
+	}
+	
+	private void exc(int ex, IOException ix) throws FileException {
+		throw new FileException(ex, ix);
+	}
+	
+	public void close() {
+		
+	}
+}

@@ -1,0 +1,37 @@
+package sd.swiftglobal.rk.util;
+
+import java.io.Closeable;
+import java.io.DataInputStream;
+
+public class Ping implements Runnable, Closeable {
+	private boolean online = false,
+					active = false;
+	
+	private DataInputStream  dis,
+			DataOutputStream dos;
+	
+	public Ping(DataInputStream dis, DataOuputStream dos) {
+		this.dis = dis;
+		this.dos = dos;
+	}
+	
+	public void run() {
+		while(online) {
+			while(active) {
+				
+			}
+		}
+	}
+	
+	public void deactivate() {
+		active = false;
+	}
+	
+	public void activate() {
+		active = true;
+	}
+	
+	public void close() {
+		
+	}
+}

@@ -1,5 +1,6 @@
 package sd.swiftserver.rk.net;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
@@ -7,35 +8,24 @@ import java.util.ArrayList;
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.util.Logging;
+import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
+import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 
 /* This file is part of Swift Drive				   *
  * Copyright (C) 2015 Ryan Kerr                    *
  * Please refer to <http://www.gnu.org/licenses/>. */
 
-public class Server implements Settings, Logging {
+public class Server implements SwiftNetContainer, Runnable, Settings, Logging, Closeable {
 	private ArrayList<Connection> clients = new ArrayList<Connection>();
-	
+	private final ServerSocket server;
 	private boolean   online = false;
 	private final int PORT;
 	
 	public Server(int port) throws DisconnectException {
 		PORT = port;
-		
-		try(ServerSocket server = new ServerSocket(port)) {
-			online = true;
-			echo("Server intialized on port" + port, LOG_SEC);
-			
-			while(online) {
-				try {
-					Connection cli = new Connection(this, server.accept(), clients.size());
-					new Thread(cli).start();
-					clients.add(cli);
-					echo("Client " + (clients.size() - 1) + " has connected", LOG_SEC);
-				}
-				catch(IOException ix) {
-					error("Error during client connect attempt: " + ix.getMessage(), LOG_SEC);
-				}
-			}
+		try {
+			server = new ServerSocket(port);
+			new Thread(this).start();
 		}
 		catch(IOException ix) {
 			throw new DisconnectException(EXC_CONN, ix);
@@ -46,11 +36,40 @@ public class Server implements Settings, Logging {
 		this(DEF_PORT);
 	}
 	
+	public void run() {
+		online = true;
+		echo("Server intialized on port " + PORT, LOG_PRI);
+		while(online) {
+			try {
+				Connection cli = new Connection(this, server.accept(), clients.size());
+				new Thread(cli).start();
+				clients.add(cli);
+				echo("Client " + (clients.size() - 1) + " has connected", LOG_PRI);
+			}
+			catch(IOException ix) {
+				error("Error during client connect attempt: " + ix.getMessage(), LOG_PRI);
+			}
+		}
+
+	}
+	
 	public int getPort() {
 		return PORT;
 	}
 	
-	public void rmClient(int id) {
+	public void terminate(SwiftNetTool t) {
+		int id = t.getID();
 		if(0 < id && id < clients.size()) clients.set(id, null);
+	}
+	
+	/** Force close **/
+	public void close() {
+		try {
+			server.close();
+			online = false;
+		}
+		catch(IOException ix) {
+		
+		}
 	}
 }

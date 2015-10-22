@@ -1,0 +1,15 @@
+package sd.swiftglobal.rk.util;
+
+import java.io.Closeable;
+
+public class Ping implements Runnable, Closeable {
+	private boolean online = false;
+	
+	public void run() {
+		
+	}
+	
+	public void close() {
+		
+	}
+}

@@ -1,0 +1,5 @@
+package sd.swiftglobal.rk.util;
+
+public abstract interface SwiftNet {
+	public abstract void kill();
+}

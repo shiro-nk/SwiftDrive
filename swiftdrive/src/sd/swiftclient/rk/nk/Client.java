@@ -12,18 +12,21 @@ import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.type.Data;
 import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.util.Logging;
+import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
+import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 
 /* This file is part of Swift Drive				   *
  * Copyright (C) 2015 Ryan Kerr                    *
  * Please refer to <http://www.gnu.org/licenses/>. */
 
-public class Client extends Thread implements Settings, Logging, Closeable, Runnable {
+public class Client extends Thread implements SwiftNetTool, Settings, Logging, Closeable, Runnable {
 	
 	private final Socket server;
 	
 	private DataInputStream  dis;
 	private DataOutputStream dos;
 	
+	@SuppressWarnings("unused")
 	private boolean online = false;
 	
 	public Client(String hostname, int port) throws DisconnectException {
@@ -42,13 +45,10 @@ public class Client extends Thread implements Settings, Logging, Closeable, Runn
 	public void run() {
 		//TODO: Add ping and timeout system
 		try {
-			while(online) {
-				//TODO: This is the ping loop
-			}
+
 		}
-//		catch(IOException ix) {
 		catch(Exception ex) {
-				
+			ex.printStackTrace();
 		}
 	}
 	
@@ -99,6 +99,22 @@ public class Client extends Thread implements Settings, Logging, Closeable, Runn
 	}
 	
 	public void disconnect() {
+		
+	}
+	
+	public int getID() {
+		return 0;
+	}
+	
+	public void setParent(SwiftNetContainer c) {
+		
+	}
+	
+	public SwiftNetContainer getParent() {
+		return null;
+	}
+	
+	public void kill() {
 		
 	}
 	

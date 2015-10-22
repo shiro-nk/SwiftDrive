@@ -27,3 +27,7 @@
 1445393583012	Rename local variable 'p'
 1445439091221	Rename method 'getSocketFile'
 1445439099200	Rename method 'sendSocketFile'
+1445461492729	Rename method 'fromData'
+1445461499637	Rename method 'toData'
+1445461532703	Rename method 'xtoData'
+1445474055559	Rename local variable 'ix'
