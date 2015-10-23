@@ -19,6 +19,11 @@ import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
  * Copyright (C) 2015 Ryan Kerr                    *
  * Please refer to <http://www.gnu.org/licenses/>. */
 
+/**
+ * Client side of the data transfer network.
+ *
+ * @author Ryan Kerr
+ */
 public class Client extends Thread implements SwiftNetTool, Settings, Logging, Closeable, Runnable {
 	
 	private final Socket server;
@@ -29,6 +34,12 @@ public class Client extends Thread implements SwiftNetTool, Settings, Logging, C
 	@SuppressWarnings("unused")
 	private boolean online = false;
 	
+	/**
+	 * Establishes a connecting and I/O sockets with the server
+	 * @param hostname Host to connect to
+	 * @param port Host port
+	 * @throws DisconnectException If something fails while connecting
+	 */
 	public Client(String hostname, int port) throws DisconnectException {
 		try {
 			server = new Socket(hostname, port);

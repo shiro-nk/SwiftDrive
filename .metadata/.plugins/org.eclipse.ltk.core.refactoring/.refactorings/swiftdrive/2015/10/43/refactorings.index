@@ -31,3 +31,5 @@
 1445461499637	Rename method 'toData'
 1445461532703	Rename method 'xtoData'
 1445474055559	Rename local variable 'ix'
+1445532543276	Rename local variable 'fx'
+1445562220463	Rename local variable 'template'

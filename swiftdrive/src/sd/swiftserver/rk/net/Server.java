@@ -15,12 +15,22 @@ import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
  * Copyright (C) 2015 Ryan Kerr                    *
  * Please refer to <http://www.gnu.org/licenses/>. */
 
+/**
+ * The server initializes the server socket and manages client connections. <br>
+ *
+ * @author Ryan Kerr
+ */
 public class Server implements SwiftNetContainer, Runnable, Settings, Logging, Closeable {
 	private ArrayList<Connection> clients = new ArrayList<Connection>();
 	private final ServerSocket server;
 	private boolean   online = false;
 	private final int PORT;
-	
+
+	/**
+	 * Initialize the server and the listening thread on the given port
+	 * @param port The port to accept connections on
+	 * @throws DisconnectException if the port is already in use
+	 */
 	public Server(int port) throws DisconnectException {
 		PORT = port;
 		try {
@@ -32,10 +42,18 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		}
 	}
 	
+	/**
+	 * Initialize the server and the listening thread on the default port
+	 * @throws DisconnectException if the port is already in use
+	 */
 	public Server() throws DisconnectException {
 		this(DEF_PORT);
 	}
 	
+	/**
+	 * Listens for and accepts client connections. <br>
+	 * Starts connection thread and indexes the connection in Client array
+	 */
 	public void run() {
 		online = true;
 		echo("Server intialized on port " + PORT, LOG_PRI);
@@ -53,12 +71,17 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 
 	}
 	
+	/** @return Port number **/
 	public int getPort() {
 		return PORT;
 	}
 	
-	public void terminate(SwiftNetTool t) {
-		int id = t.getID();
+	/**
+	 * Destroy client
+	 * @param client Client to destroy
+	 */
+	public void terminate(SwiftNetTool client) {
+		int id = client.getID();
 		if(0 < id && id < clients.size()) clients.set(id, null);
 	}
 	
