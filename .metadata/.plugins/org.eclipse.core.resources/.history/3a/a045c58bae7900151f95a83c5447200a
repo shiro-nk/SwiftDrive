@@ -1,0 +1,46 @@
+package sd.swiftglobal.rk;
+
+import java.util.Scanner;
+
+import sd.swiftclient.rk.nk.Client;
+import sd.swiftglobal.rk.expt.DisconnectException;
+import sd.swiftglobal.rk.type.SwiftFile;
+import sd.swiftserver.rk.net.Server;
+
+/* This file is part of Swift Drive				   *
+ * Copyright (C) 2015 Ryan Kerr                    *
+ * Please refer to <http://www.gnu.org/licenses/>. */
+
+/**
+ * Class to test other classes
+ *
+ * @author Ryan Kerr
+ */
+public class SystemTest implements Settings {
+	public static void main(String[] args) {
+		new SystemTest();
+	}
+	
+	public SystemTest() {
+		try(Server server = new Server()) {
+			try(Client client = new Client("localhost", 3141)) {
+				try(Scanner scan = new Scanner(System.in)) {
+					String sc = "";
+					while((scan.next()) != null && !scan.equals("stop")) {
+						SwiftFile file = new SwiftFile(0);
+						dat.add(sc);
+						try {
+							client.sendData(dat);
+						}
+						catch(DisconnectException dx) {
+							dx.printStackTrace();
+						}
+					}
+				}
+			}
+		}
+		catch(DisconnectException dx) {
+			dx.printStackTrace();
+		}
+	}
+}

@@ -12,6 +12,7 @@ import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
+import sd.swiftglobal.rk.util.Terminator;
 
 /* This file is part of Swift Drive				   *
  * Copyright (C) 2015 Ryan Kerr                    *
@@ -62,8 +63,9 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	public void run() {
 		try {
 			while(online) {
-				System.out.println("listen for int");
-				int type = dis.readInt();
+				System.out.println("Receiving int ... ");
+				int type = readInt();
+				System.out.println("Super Type: " + type);
 				switch(type) {
 					case DAT_NULL:
 						System.out.println("shutdown calls");
@@ -71,12 +73,14 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 						break;
 					case DAT_PING:
 						echo("Pinged!", LOG_FRC);
+						dos.writeInt(DAT_PING);
 						break;
 					case DAT_SCMD:
 						break;
 					case DAT_DATA:
 						System.out.println("Got data");
 						dataHandler();
+						dos.writeInt(5);
 						break;
 					case DAT_FILE:
 						swap = new SwiftFile(dis);
@@ -92,15 +96,9 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	}
 	
 	public Data dataHandler() throws IOException {
-		int type = dis.readInt();
-		switch(type) {
-			case DAT_DATA:
-				swap_data = getData(new SwiftFile(0));
-				for(String s : swap_data.getArray()) echo(s);
-				break;
-			default:
-		}
-		return null;
+		swap_data = getData(new SwiftFile(0));
+		for(String s : swap_data.getArray()) echo(s);
+		return swap_data;
 	}
 	
 	/**
@@ -111,8 +109,8 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	 */
 	public Data getData(Data template) throws IOException {
 		template.reset();
-		int size = dis.readInt();
-		for(int i = 0; i < size; i++) template.add(dis.readUTF());
+		int size = readInt();
+		for(int i = 0; i < size; i++) template.add(readUTF());
 		return template;
 	}
 	
@@ -157,6 +155,20 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	public void kill() {
 		close();
 		server.terminate(this);
+	}
+	
+	private String readUTF() throws IOException {
+		Terminator term = new Terminator(this, 30);
+		String rtn = dis.readUTF();
+		term.cancel();
+		return rtn;
+	}
+	
+	private int readInt() throws IOException {
+		Terminator term = new Terminator(this, 30);
+		int rtn = dis.readInt();
+		term.cancel();
+		return rtn;
 	}
 	
 	/** Allows for try-with-resources **/

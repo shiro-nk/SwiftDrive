@@ -1,13 +1,7 @@
 package sd.swiftglobal.rk.type;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-
 import sd.swiftglobal.rk.Settings;
-import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.util.Logging;
-import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 
 /* This file is part of Swift Drive				   *
  * Copyright (C) 2015 Ryan Kerr                    *
@@ -34,6 +28,7 @@ public abstract class Data implements Settings, Logging {
 	}
 	
 	public Data(int type, String... s) {
+		setTypeID(type);
 		data = s;
 	}
 	
@@ -58,36 +53,6 @@ public abstract class Data implements Settings, Logging {
 		for(int i = 0; i < data.length - 1; i++) swap[i] = data[i];
 		data = swap;
 		return rtns;
-	}
-	
-	public Data receive(Data template, SwiftNetTool tool, DataInputStream dis) throws DisconnectException {
-		if(tool != null) {
-			template.reset();
-			try {
-				int size = dis.readInt();
-				for(int i = 0; i < size; i++) template.add(dis.readUTF());
-				return template;
-			}
-			catch(IOException ix) {
-				tool.kill();
-				throw new DisconnectException(EXC_NREAD, ix);
-			}
-		}
-		return null;
-	}
-	
-	public <Type extends Data> void send(Type data, SwiftNetTool tool, DataOutputStream dos) throws DisconnectException {
-		if(tool != null) {
-			try {
-				dos.writeInt(Type.getTypeID());
-				dos.writeInt(data.getSize());
-				for(String s : data.getArray()) dos.writeUTF(s);
-			}
-			catch(IOException ix) {
-				tool.kill();
-				throw new DisconnectException(EXC_CONN, ix);
-			}
-		}
 	}
 	
 	public String next() {
@@ -141,7 +106,7 @@ public abstract class Data implements Settings, Logging {
 	}
 	
 	private static void setTypeID(int id) {
-		TYPE_ID = id != DAT_DATA ? TYPE_ID : id;
+		TYPE_ID = TYPE_ID != DAT_NULL ? TYPE_ID : id;
 	}
 
 	public static int getTypeID() {

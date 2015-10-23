@@ -1,0 +1,61 @@
+package sd.swiftglobal.rk.util;
+
+import sd.swiftglobal.rk.Settings;
+import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
+
+/* This file is part of Swift Drive				   *
+ * Copyright (C) 2015 Ryan Kerr                    *
+ * Please refer to <http://www.gnu.org/licenses/>. */
+
+public class Terminator extends Thread implements Runnable, Settings {
+	private final SwiftNetTool tool;
+	private final int timeout;
+	private boolean running    = false,
+					terminated = false;
+	
+	public Terminator(SwiftNetTool tool, int timeout) {
+		this.tool = tool;
+		this.timeout = timeout;
+		start();
+	}
+	
+	public Terminator(SwiftNetTool tool) {
+		this.tool = tool;
+		timeout = DEF_TOUT;
+		start();
+	}
+	
+	public void run() {
+		terminated = false;
+		running = false;
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					Thread.sleep(timeout * DEF_TIME);
+				}
+				catch(InterruptedException ix) {
+					
+				}
+			}
+		}).start();
+		
+		terminate();
+	}
+	
+	public void terminate() {
+		if(running) {
+			System.err.println("Timed out");
+			tool.kill();
+			terminated = true;
+		}
+	}
+	
+	public boolean terminated() {
+		return terminated;
+	}
+	
+	public void cancel() {
+		System.out.println("Time out canceled");
+		running = false;
+	}
+}

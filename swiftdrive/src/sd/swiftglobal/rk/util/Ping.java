@@ -27,6 +27,9 @@ public class Ping implements Settings, Runnable, Closeable {
 	private	DataOutputStream dos;
 	private SwiftNetTool 	tool;
 	
+	private Terminator term;
+	private int loopPos = 0;
+	
 	/**
 	 * Initialize the ping tool
 	 * @param dis Stream to read from
@@ -36,7 +39,8 @@ public class Ping implements Settings, Runnable, Closeable {
 		this.dis = dis;
 		this.dos = dos;
 		this.tool = t;
-		online = false;
+		online = true;
+		active = true;
 	}
 	
 	/**
@@ -48,12 +52,15 @@ public class Ping implements Settings, Runnable, Closeable {
 		while(online) {
 			while(active) {
 				try {
-					Thread.sleep(DEF_BEAT);
+					for(loopPos = 0; loopPos < DEF_PING * (1000/DEF_TIME); loopPos++) Thread.sleep(DEF_TIME);
 					dos.writeInt(DAT_PING);
+					System.out.println("Pinging");
+					term = new Terminator(tool);
 					dis.readInt();
+					term.cancel();
 				}
 				catch(IOException ix) {
-					close();
+					if(term == null || !term.terminated()) close();
 				}
 				catch(InterruptedException ix) {}
 			}
@@ -67,10 +74,13 @@ public class Ping implements Settings, Runnable, Closeable {
 	
 	/** Re-enables the ping **/
 	public void activate() {
+		loopPos = 0;
 		active = true;
 	}
 	
 	public void close() {
+		active = false;
+		online = false;
 		tool.kill();
 	}
 }

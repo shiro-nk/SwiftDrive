@@ -23,7 +23,7 @@ import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 public class Server implements SwiftNetContainer, Runnable, Settings, Logging, Closeable {
 	private ArrayList<Connection> clients = new ArrayList<Connection>();
 	private final ServerSocket server;
-	private boolean   online = false;
+	private boolean   accepting = false;
 	private final int PORT;
 
 	/**
@@ -55,14 +55,15 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 	 * Starts connection thread and indexes the connection in Client array
 	 */
 	public void run() {
-		online = true;
+		accepting = true;
 		echo("Server intialized on port " + PORT, LOG_PRI);
-		while(online) {
+		while(accepting) {
 			try {
 				Connection cli = new Connection(this, server.accept(), clients.size());
 				new Thread(cli).start();
 				clients.add(cli);
 				echo("Client " + (clients.size() - 1) + " has connected", LOG_PRI);
+				if(DEF_DDOS < clients.size()) accepting = false;
 			}
 			catch(IOException ix) {
 				error("Error during client connect attempt: " + ix.getMessage(), LOG_PRI);
@@ -89,7 +90,7 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 	public void close() {
 		try {
 			server.close();
-			online = false;
+			accepting = false;
 		}
 		catch(IOException ix) {
 		
