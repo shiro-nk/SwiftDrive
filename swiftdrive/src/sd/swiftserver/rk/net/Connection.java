@@ -65,14 +65,13 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 			while(online) {
 				System.out.println("Receiving int ... ");
 				int type = readInt();
-				System.out.println("Super Type: " + type);
 				switch(type) {
 					case DAT_NULL:
 						System.out.println("shutdown calls");
 						close();
 						break;
 					case DAT_PING:
-						echo("Pinged!", LOG_FRC);
+						echo("Pong", LOG_FRC);
 						dos.writeInt(DAT_PING);
 						break;
 					case DAT_SCMD:
@@ -153,19 +152,20 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	
 	/** Close and remove the index of the connection from the parent **/
 	public void kill() {
+		System.out.println("Server close");
 		close();
 		server.terminate(this);
 	}
 	
 	private String readUTF() throws IOException {
-		Terminator term = new Terminator(this, 30);
+		Terminator term = new Terminator(this);
 		String rtn = dis.readUTF();
 		term.cancel();
 		return rtn;
 	}
 	
 	private int readInt() throws IOException {
-		Terminator term = new Terminator(this, 30);
+		Terminator term = new Terminator(this);
 		int rtn = dis.readInt();
 		term.cancel();
 		return rtn;

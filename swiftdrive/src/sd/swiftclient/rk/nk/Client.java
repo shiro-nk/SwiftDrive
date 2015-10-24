@@ -87,6 +87,8 @@ public class Client extends Thread implements SwiftNetTool, Settings, Logging, C
 	
 	public <Type extends Data> void sendData(Type data) throws DisconnectException {
 		try {
+			echo("Ping lock", LOG_FRC);
+			ping.lock();
 			ping.deactivate();
 			dos.writeInt(Type.getTypeID());
 			dos.writeInt(data.getSize());

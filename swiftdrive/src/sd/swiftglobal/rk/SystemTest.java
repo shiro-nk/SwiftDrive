@@ -59,5 +59,6 @@ public class SystemTest implements SwiftNetContainer, Settings {
 	public void terminate(SwiftNetTool t) {
 		scanning = false;
 		System.out.println("Client close");
+		System.exit(1000);
 	}
 }
