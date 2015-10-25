@@ -1,0 +1,18 @@
+package sd.swiftglobal.rk.util;
+
+public class Pause extends Thread implements Runnable {
+	private int sleep;
+	
+	public Pause(int sleep) {
+		
+	}
+	
+	public void run() {
+		try {
+			
+		}
+		catch(InterruptedException ix) {
+			
+		}
+	}
+}

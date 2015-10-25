@@ -158,16 +158,16 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	}
 	
 	private String readUTF() throws IOException {
-		Terminator term = new Terminator(this);
+//		Terminator term = new Terminator(this);
 		String rtn = dis.readUTF();
-		term.cancel();
+//		term.cancel();
 		return rtn;
 	}
 	
 	private int readInt() throws IOException {
-		Terminator term = new Terminator(this);
+//		Terminator term = new Terminator(this);
 		int rtn = dis.readInt();
-		term.cancel();
+//		term.cancel();
 		return rtn;
 	}
 	

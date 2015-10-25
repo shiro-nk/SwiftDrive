@@ -20,15 +20,17 @@ import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
  * @author Ryan Kerr
  */
 public class Ping implements Settings, Runnable, Closeable {
-	private boolean online = false,
-					active = false,
-					pinged = false;
+	private boolean online   = false,
+					active   = false;
 	
 	private DataInputStream  dis;
 	private	DataOutputStream dos;
 	private SwiftNetTool 	tool;
+	private Thread sleep;
+	private Terminator term;;
 	
-	private int loopPos = 0;
+	private Lock lock = new Lock(),
+				 ping = new Lock();
 	
 	/**
 	 * Initialize the ping tool
@@ -39,6 +41,7 @@ public class Ping implements Settings, Runnable, Closeable {
 		this.dis = dis;
 		this.dos = dos;
 		this.tool = t;
+		term = new Terminator(tool);
 		online = true;
 		active = true;
 	}
@@ -48,61 +51,119 @@ public class Ping implements Settings, Runnable, Closeable {
 	 * This thread only pings every DEF_BEAT seconds while active.
 	 * Once the ping timer is offline, it cannot be reactivated.
 	 */
+	int x = 0; int y = 0;
 	public void run() {
 		while(online) {
-			while(active) {
-				System.out.println("ActiveC: " + active);
-				Terminator term = null;
-				try {
-					for(loopPos = 0; loopPos < DEF_PING * (1000/DEF_TIME); loopPos++) 
-						try {
-							Thread.sleep(DEF_TIME);
-						}
-						catch(InterruptedException ix) {
-							ix.printStackTrace();
-							active = false;
-						}
-					System.out.println("Active: " + active);
-					if(active) {
-						pinged = true;
-						System.out.println("Ping");
-						dos.writeInt(DAT_PING);
-						term = new Terminator(tool);
-						dis.readInt();
-						System.out.println("xPing");
-						term.cancel();
-						pinged = false;
+			System.out.println("AAC: " + active);
+			synchronized(ping) {
+				if(!active) {
+					try {
+						ping.wait();
+					}
+					catch(InterruptedException ix) {
+						
 					}
 				}
-				catch(IOException ix) {
-					if(term == null || !term.terminated()) close();
+			}
+			System.out.println("Passed: " + active);
+			while(active) {
+				System.out.println("Ping: " + ++x);
+				sleep = new Thread(new Runnable() {
+					public void run() {
+						try {
+							Thread.sleep(DEF_PING * 1000);
+							System.out.println("xasdf");
+							if(active) {
+								try {
+									lock.lock();
+									System.out.println("Ping");
+									dos.writeInt(DAT_PING);
+									term.run();
+									dis.readInt();
+									System.out.println("xping");
+									term.cancel();
+									lock.unlock();
+								}
+								catch(IOException ix) {
+									if(term == null || !term.terminated()) close();
+								}
+							}
+						}
+						catch(InterruptedException ix) {
+							active = false;
+							System.out.println("xx");
+						}
+					}
+				});
+				sleep.start();
+				try {
+					sleep.join();
+				} 
+				catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
 		}
-		System.out.println("break the loop");
+		System.out.println(y);
+		if(y== 5) System.exit(128904);
 	}
 	
 	/** Temporarily disable the ping heart beat **/
 	public void deactivate() {
 		System.out.println("Deactivated");
 		active = false;
+		sleep.interrupt();
 	}
 	
 	/** Re-enables the ping **/
 	public void activate() {
 		System.out.println("Activated");
-		loopPos = 0;
+		synchronized(ping) {
+			ping.notifyAll();
+		}
 		active = true;
 	}
 	
-	public void lock() {
-		while(pinged);
+	public void standby() {
+		System.out.println("Waiting for locks to release");
+		lock.standby();
 	}
+
 	
 	public void close() {
-		pinged = false;
 		active = false;
 		online = false;
 		tool.kill();
+	}
+	
+	private class Lock {
+		private boolean locked = false;
+		
+		public void lock() {
+			synchronized(this) {
+				locked = true;
+			}
+		}
+		
+		public void unlock() {
+			synchronized(this) {
+				locked = false;
+				notifyAll();
+			}
+		}
+		
+		public void standby() {
+			synchronized(this) {
+				System.out.println("Is " + locked);
+				if(locked) {
+					try {
+						this.wait();
+					}
+					catch(InterruptedException ix) {
+						ix.printStackTrace();
+					}
+				}
+			}
+		}
 	}
 }

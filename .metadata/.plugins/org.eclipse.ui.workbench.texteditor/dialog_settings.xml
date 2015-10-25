@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="output" key="selection"/>
+		<item value="ocked" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="ocked"/>
 			<item value="output"/>
 			<item value="SwiftFile"/>
 			<item value="send"/>
@@ -15,7 +16,6 @@
 			<item value="FATAL"/>
 			<item value="EXC_"/>
 			<item value="fset"/>
-			<item value="Settings.DAT"/>
 		</list>
 		<list key="replacehistory">
 			<item value="SwiftFront"/>
