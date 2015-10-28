@@ -35,6 +35,8 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 
 	private SwiftFile swap = null;
 	private Data swap_data = null;
+
+	private Terminator term;
 	
 	/**
 	 * Creates DataInput and DataOutput streams for communication
@@ -77,9 +79,8 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 					case DAT_SCMD:
 						break;
 					case DAT_DATA:
-						System.out.println("Got data");
+						System.out.print("Got data: ");
 						dataHandler();
-						dos.writeInt(5);
 						break;
 					case DAT_FILE:
 						swap = new SwiftFile(dis);
@@ -158,16 +159,18 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	}
 	
 	private String readUTF() throws IOException {
-//		Terminator term = new Terminator(this);
+		term = new Terminator(this);
+		term.run();
 		String rtn = dis.readUTF();
-//		term.cancel();
+		term.cancel();
 		return rtn;
 	}
 	
 	private int readInt() throws IOException {
-//		Terminator term = new Terminator(this);
+		term = new Terminator(this);
+		term.run();
 		int rtn = dis.readInt();
-//		term.cancel();
+		term.cancel();
 		return rtn;
 	}
 	

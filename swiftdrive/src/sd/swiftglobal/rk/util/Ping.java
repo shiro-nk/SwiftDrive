@@ -20,8 +20,9 @@ import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
  * @author Ryan Kerr
  */
 public class Ping implements Settings, Runnable, Closeable {
-	private boolean online   = false,
-					active   = false;
+	private boolean online = false,
+					active = false,
+					locked = false;
 	
 	private DataInputStream  dis;
 	private	DataOutputStream dos;
@@ -30,7 +31,8 @@ public class Ping implements Settings, Runnable, Closeable {
 	private Terminator term;;
 	
 	private Lock lock = new Lock(),
-				 ping = new Lock();
+				 ping = new Lock(),
+				 stby = new Lock();
 	
 	/**
 	 * Initialize the ping tool
@@ -54,18 +56,20 @@ public class Ping implements Settings, Runnable, Closeable {
 	int x = 0; int y = 0;
 	public void run() {
 		while(online) {
-			System.out.println("AAC: " + active);
+			System.out.println("Ping has started");
 			synchronized(ping) {
 				if(!active) {
 					try {
+						System.out.println("Ping: Waiting");
 						ping.wait();
+						System.out.println("Ping: Unlocked");
 					}
 					catch(InterruptedException ix) {
 						
 					}
 				}
 			}
-			System.out.println("Passed: " + active);
+			System.out.println("Ping: " + active);
 			while(active) {
 				System.out.println("Ping: " + ++x);
 				sleep = new Thread(new Runnable() {
@@ -75,14 +79,15 @@ public class Ping implements Settings, Runnable, Closeable {
 							System.out.println("xasdf");
 							if(active) {
 								try {
-									lock.lock();
-									System.out.println("Ping");
+									locked = true;
+									System.out.println("Ping: Ping");
 									dos.writeInt(DAT_PING);
 									term.run();
 									dis.readInt();
-									System.out.println("xping");
+									System.out.println("Ping: Response");
 									term.cancel();
-									lock.unlock();
+									
+									synchronized(lock) { lock.notifyAll(); }
 								}
 								catch(IOException ix) {
 									if(term == null || !term.terminated()) close();
@@ -91,17 +96,19 @@ public class Ping implements Settings, Runnable, Closeable {
 						}
 						catch(InterruptedException ix) {
 							active = false;
-							System.out.println("xx");
+							System.out.println("Ping: Interrupted");
 						}
 					}
 				});
 				sleep.start();
 				try {
 					sleep.join();
+					System.out.println("Ping joined");
 				} 
 				catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				System.out.println("Ping hit end");
 			}
 		}
 		System.out.println(y);
@@ -117,18 +124,31 @@ public class Ping implements Settings, Runnable, Closeable {
 	
 	/** Re-enables the ping **/
 	public void activate() {
-		System.out.println("Activated");
-		synchronized(ping) {
-			ping.notifyAll();
+		try {
+			Thread.sleep(500);
 		}
+		catch(InterruptedException ix) {
+			
+		}
+		System.out.println("Activated");
 		active = true;
+		ping.unlock();
+		synchronized(ping) { ping.notifyAll(); }
 	}
 	
 	public void standby() {
 		System.out.println("Waiting for locks to release");
-		lock.standby();
+		if(locked) {
+			synchronized(lock) {
+				try {
+					lock.wait();
+				}
+				catch(InterruptedException ix) {
+					
+				}
+			}
+		}
 	}
-
 	
 	public void close() {
 		active = false;
@@ -138,26 +158,34 @@ public class Ping implements Settings, Runnable, Closeable {
 	
 	private class Lock {
 		private boolean locked = false;
+		private Object locking = new Object();
 		
 		public void lock() {
-			synchronized(this) {
+			synchronized(locking) {
 				locked = true;
 			}
 		}
 		
 		public void unlock() {
-			synchronized(this) {
+			try {
+				Thread.sleep(1000);
+			}
+			catch(InterruptedException ix) {
+				
+			}
+			
+			synchronized(locking) {
 				locked = false;
-				notifyAll();
+				locking.notifyAll();
 			}
 		}
 		
 		public void standby() {
-			synchronized(this) {
+			synchronized(locking) {
 				System.out.println("Is " + locked);
 				if(locked) {
 					try {
-						this.wait();
+						locking.wait();
 					}
 					catch(InterruptedException ix) {
 						ix.printStackTrace();

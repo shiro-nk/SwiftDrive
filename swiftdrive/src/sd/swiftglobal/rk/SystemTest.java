@@ -28,7 +28,6 @@ public class SystemTest implements SwiftNetContainer, Settings {
 	public SystemTest() {
 		try(Server server = new Server()) {
 			try(Client client = new Client(this, "localhost", 3141)) {
-				client.start();
 				try(Scanner scan = new Scanner(System.in)) {
 					String sc = "";
 					while((sc = scan.nextLine()) != null && !scan.equals("stop") && scanning) {

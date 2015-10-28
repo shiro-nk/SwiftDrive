@@ -25,7 +25,7 @@ import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
  *
  * @author Ryan Kerr
  */
-public class Client extends Thread implements SwiftNetTool, Settings, Logging, Closeable, Runnable {
+public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	
 	private final Socket server;
 	private DataInputStream  dis;
@@ -47,27 +47,13 @@ public class Client extends Thread implements SwiftNetTool, Settings, Logging, C
 			dis = new DataInputStream(server.getInputStream());
 			dos = new DataOutputStream(server.getOutputStream());
 			online = true;
+			ping = new Ping(dis, dos, this);
+			new Thread(ping).start();
 		}
 		catch(IOException ix) {
 			online = false;
 			throw new DisconnectException(EXC_CONN);
 		}
-	}
-	
-	public void run() {
-		try {
-			while(online) {
-				if(ping == null) {
-					ping = new Ping(dis, dos, this);
-					new Thread(ping).start();
-				}
-			}
-		}
-		catch(Exception ex) {
-			ex.printStackTrace();
-		}
-		
-		System.out.println("CLIENT CLOSED");
 	}
 	
 	public Data receiveData(Data template) throws DisconnectException {
