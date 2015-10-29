@@ -54,29 +54,42 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 	
-	public Data scmd(ServerCommand scmd, int type, Data output) throws DisconnectException {
+	public Data scmd(ServerCommand scmd, int type, Data inbound) throws DisconnectException {
 		ping.standby();
 		ping.deactivate();
 		try {
-			output.reset();
+			inbound.reset();
 			dos.writeInt(DAT_SCMD);
 			dos.writeUTF(scmd.next());
 			int stype = dis.readInt();
-			if(stype == type) {
-				int size = dis.readInt();
-				for(int i = 0; i < size; i++) output.add(dis.readUTF());
-			}
-			else {
-				
-			}
-			return output;
+			if(stype == type) receiveData(inbound);
+			else ;;
+			ping.activate();
+			return inbound;
 		}
 		catch(IOException ix) {
-			throw new DisconnectException(0, ix);
+			throw new DisconnectException(EXC_NETIO, ix);
 		}
 	}
 	
-	public <Type extends Data> int scmd(ServerCommand scmd, Type input) {
+	public <Type extends Data> int scmd(ServerCommand scmd, Type outbound) throws DisconnectException {
+		ping.standby();
+		ping.deactivate();
+		try {
+			sendData(outbound);
+			dos.writeInt(DAT_SCMD);
+			scmd.resetPos();
+			dos.writeUTF(scmd.next());
+			int status = dis.readInt();
+			ping.activate();
+			return status;
+		}
+		catch(IOException ix) {
+			throw new DisconnectException(EXC_NETIO, ix);
+		}
+	}
+	
+	public int scmd(SwiftFile file, ServerCommand scmd) throws FileException, DisconnectException {
 		return 0;
 	}
 	
@@ -97,9 +110,12 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 	
+	public boolean login(String username, byte[] password) {
+		return false;
+	}
+	
 	private <Type extends Data> void sendData(Type data) throws DisconnectException {
 		try {
-			echo("Ping lock", LOG_FRC);
 			dos.writeInt(Type.getTypeID());
 			dos.writeInt(data.getSize());
 			for(String s : data.getArray()) dos.writeUTF(s);
@@ -110,7 +126,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 	
-	public SwiftFile getFile() throws DisconnectException {
+	private SwiftFile getFile() throws DisconnectException {
 		try {
 			return new SwiftFile(dis);
 		}
@@ -120,7 +136,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 	
-	public void sendFile(SwiftFile file) throws DisconnectException, FileException {
+	private void sendFile(SwiftFile file) throws DisconnectException, FileException {
 		try {
 			file.send(dos);
 		}

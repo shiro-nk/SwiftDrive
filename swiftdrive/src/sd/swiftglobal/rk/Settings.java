@@ -61,7 +61,8 @@ public interface Settings {
 							EXC_CONN   = 7,
 							EXC_NREAD  = 8,
 							EXC_NWRITE = 9,
-							EXC_TYPEMM = 10;
+							EXC_NETIO  = 10,
+							EXC_TYPEMM = 11;
 	
 	/** Preset Defaults / Definitions (DEF) **/
 	public static final int DEF_PORT = 3141,
