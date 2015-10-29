@@ -31,8 +31,7 @@ public class Ping implements Settings, Runnable, Closeable {
 	private Terminator term;;
 	
 	private Lock lock = new Lock(),
-				 ping = new Lock(),
-				 stby = new Lock();
+				 ping = new Lock();
 	
 	/**
 	 * Initialize the ping tool
@@ -132,7 +131,6 @@ public class Ping implements Settings, Runnable, Closeable {
 		}
 		System.out.println("Activated");
 		active = true;
-		ping.unlock();
 		synchronized(ping) { ping.notifyAll(); }
 	}
 	
@@ -150,48 +148,16 @@ public class Ping implements Settings, Runnable, Closeable {
 		}
 	}
 	
+	public void stop() {
+		deactivate();
+		online = false;
+	}
+	
 	public void close() {
 		active = false;
 		online = false;
 		tool.kill();
 	}
 	
-	private class Lock {
-		private boolean locked = false;
-		private Object locking = new Object();
-		
-		public void lock() {
-			synchronized(locking) {
-				locked = true;
-			}
-		}
-		
-		public void unlock() {
-			try {
-				Thread.sleep(1000);
-			}
-			catch(InterruptedException ix) {
-				
-			}
-			
-			synchronized(locking) {
-				locked = false;
-				locking.notifyAll();
-			}
-		}
-		
-		public void standby() {
-			synchronized(locking) {
-				System.out.println("Is " + locked);
-				if(locked) {
-					try {
-						locking.wait();
-					}
-					catch(InterruptedException ix) {
-						ix.printStackTrace();
-					}
-				}
-			}
-		}
-	}
+	private class Lock { /* Equivalent to C++ Typedef*/ }
 }

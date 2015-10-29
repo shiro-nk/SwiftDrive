@@ -41,7 +41,6 @@ public class SystemTest implements SwiftNetContainer, Settings {
 						};
 						dat.add(sc);
 						try {
-							client.sendData(dat);
 						}
 						catch(DisconnectException dx) {
 							dx.printStackTrace();

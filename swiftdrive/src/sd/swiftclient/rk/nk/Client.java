@@ -10,6 +10,7 @@ import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.type.Data;
+import sd.swiftglobal.rk.type.ServerCommand;
 import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.Ping;
@@ -30,7 +31,6 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	private final Socket server;
 	private DataInputStream  dis;
 	private DataOutputStream dos;
-	private boolean online = false;
 	private Ping ping;
 	private SwiftNetContainer parent;
 	
@@ -46,23 +46,49 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			server = new Socket(hostname, port);
 			dis = new DataInputStream(server.getInputStream());
 			dos = new DataOutputStream(server.getOutputStream());
-			online = true;
 			ping = new Ping(dis, dos, this);
 			new Thread(ping).start();
 		}
 		catch(IOException ix) {
-			online = false;
 			throw new DisconnectException(EXC_CONN);
 		}
 	}
 	
-	public Data receiveData(Data template) throws DisconnectException {
+	public Data scmd(ServerCommand scmd, int type, Data output) throws DisconnectException {
+		ping.standby();
 		ping.deactivate();
+		try {
+			output.reset();
+			dos.writeInt(DAT_SCMD);
+			dos.writeUTF(scmd.next());
+			int stype = dis.readInt();
+			if(stype == type) {
+				int size = dis.readInt();
+				for(int i = 0; i < size; i++) output.add(dis.readUTF());
+			}
+			else {
+				
+			}
+			return output;
+		}
+		catch(IOException ix) {
+			throw new DisconnectException(0, ix);
+		}
+	}
+	
+	public <Type extends Data> int scmd(ServerCommand scmd, Type input) {
+		return 0;
+	}
+	
+	public SwiftFile scmd(ServerCommand scmd) throws FileException, DisconnectException {
+		return null;
+	}
+	
+	private Data receiveData(Data template) throws DisconnectException {
 		template.reset();
 		try {
 			int size = dis.readInt();
 			for(int i = 0; i < size; i++) template.add(dis.readUTF());
-			ping.activate();
 			return template;
 		}
 		catch(IOException ix) {
@@ -71,15 +97,12 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 	
-	public <Type extends Data> void sendData(Type data) throws DisconnectException {
+	private <Type extends Data> void sendData(Type data) throws DisconnectException {
 		try {
 			echo("Ping lock", LOG_FRC);
-			ping.standby();
-			ping.deactivate();
 			dos.writeInt(Type.getTypeID());
 			dos.writeInt(data.getSize());
 			for(String s : data.getArray()) dos.writeUTF(s);
-			ping.activate();
 		}
 		catch(IOException ix) {
 			kill();
@@ -135,10 +158,10 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	
 	public void close() {
 		try {
+			ping.stop();
 			if(dis != null) dis.close();
 			if(dos != null) dos.close();
 			if(server != null) server.close();
-			online = false;
 		}
 		catch(IOException ix) {
 			error("Error closing sockets", LOG_FRC);
