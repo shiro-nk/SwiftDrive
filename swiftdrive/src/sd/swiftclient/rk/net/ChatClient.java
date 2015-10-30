@@ -1,4 +1,4 @@
-package sd.swiftclient.rk.nk;
+package sd.swiftclient.rk.net;
 
 import java.io.Closeable;
 

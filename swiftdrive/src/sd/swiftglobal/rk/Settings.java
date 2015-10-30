@@ -42,9 +42,11 @@ public interface Settings {
 	/** Transfer response signals (SIG) **/
 	public static final int SIG_CLOSE = 0,
 							SIG_READY = 1,
-							SIG_FAIL  = 2;
+							SIG_FAIL  = 2,
+							SIG_BCMD  = 3;
 
 	/** States (STA) that the server is in **/
+	@Deprecated
 	public static final int STA_LISTENING  = 1,
 							STA_PROCESSING = 2,
 							STA_RESPONDING = 3,
@@ -70,4 +72,5 @@ public interface Settings {
 							DEF_PING = 5,
 							DEF_DDOS = 500,
 							DEF_LOGL = Logging.LOG_TRI;
+	
 }

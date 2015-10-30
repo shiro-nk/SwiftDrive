@@ -5,6 +5,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import sd.swiftglobal.rk.Meta.Typedef;
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 
@@ -148,6 +149,11 @@ public class Ping implements Settings, Runnable, Closeable {
 		}
 	}
 	
+	public void pause() {
+		deactivate();
+		standby();
+	}
+	
 	public void stop() {
 		deactivate();
 		online = false;
@@ -159,5 +165,6 @@ public class Ping implements Settings, Runnable, Closeable {
 		tool.kill();
 	}
 	
+	@Typedef("Lock")
 	private class Lock { /* Equivalent to C++ Typedef*/ }
 }

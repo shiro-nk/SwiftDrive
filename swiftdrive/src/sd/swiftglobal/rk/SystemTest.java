@@ -2,7 +2,7 @@ package sd.swiftglobal.rk;
 
 import java.util.Scanner;
 
-import sd.swiftclient.rk.nk.Client;
+import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.type.Data;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
@@ -40,11 +40,6 @@ public class SystemTest implements SwiftNetContainer, Settings {
 							}
 						};
 						dat.add(sc);
-						try {
-						}
-						catch(DisconnectException dx) {
-							dx.printStackTrace();
-						}
 					}
 				}
 			}
