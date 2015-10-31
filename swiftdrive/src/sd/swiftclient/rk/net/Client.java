@@ -71,7 +71,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		ping.standby();
 		ping.deactivate();
 		sendData(outbound);
-		scmd(scmd);
+		if(scmd(scmd) )
 		ping.activate();
 	}
 	
@@ -86,12 +86,35 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		else {
 			int exc = readInt();
 			ping.activate();
-			throw new CommandException(exc);
+			throw new CommandException(EXC_UNKN);
+		}
+	}
+	
+	public int sfcmd(ServerCommand scmd, SwiftFile sf) throws DisconnectException, FileException, CommandException {
+		ping.pause();
+		try {
+			sf.send(dos);
+		}
+		catch(IOException ix) {
+			throw new DisconnectException(EXC_NWRITE, ix);
+		}
+		
+		switch(scmd(scmd)) {
+			case SIG_READY:
+				ping.activate();
+				return 1;
+			case SIG_FAIL:
+				int exc = readInt();
+				ping.activate();
+				return exc;
+			case SIG_BCMD:
+			default:
+				throw new CommandException(EXC_UNKN);
 		}
 	}
 	
 	@PingHandler @IndirectTimeout
-	public SwiftFile scmd(ServerCommand scmd, int zero) throws DisconnectException, FileException, CommandException {
+	public SwiftFile sfcmd(ServerCommand scmd) throws DisconnectException, FileException, CommandException {
 		ping.pause();
 		switch(scmd(scmd)) {
 			case SIG_READY:
@@ -121,7 +144,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			return readInt();
 		}
 		else {
-			return SIG_BCMD;
+			return 0;
 		}
 	}
 	
