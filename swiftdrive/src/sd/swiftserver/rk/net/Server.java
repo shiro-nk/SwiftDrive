@@ -22,6 +22,8 @@ import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
  */
 public class Server implements SwiftNetContainer, Runnable, Settings, Logging, Closeable {
 	private ArrayList<Connection> clients = new ArrayList<Connection>();
+	private ArrayList<String>   usernames = new ArrayList<String>();
+	private ArrayList<Boolean>     active = new ArrayList<Boolean>();
 	private final ServerSocket server;
 	private boolean   accepting = false;
 	private final int PORT;
@@ -62,6 +64,8 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 				Connection cli = new Connection(this, server.accept(), clients.size());
 				new Thread(cli).start();
 				clients.add(cli);
+				usernames.add("");
+				active.add(true);
 				echo("Client " + (clients.size() - 1) + " has connected", LOG_PRI);
 				if(DEF_DDOS < clients.size()) accepting = false;
 			}
@@ -69,7 +73,6 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 				error("Error during client connect attempt: " + ix.getMessage(), LOG_PRI);
 			}
 		}
-
 	}
 	
 	/** @return Port number **/
@@ -77,13 +80,24 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		return PORT;
 	}
 	
+	public void setUsername(int id, String s) {
+		usernames.add(id, s);
+	}
+	
+	public String[] getUsernames() {
+		return usernames.toArray(new String[usernames.size()]);
+	}
+	
 	/**
 	 * Destroy client
 	 * @param client Client to destroy
 	 */
-	public void terminate(SwiftNetTool client) {
+	public void dereference(SwiftNetTool client) {
 		int id = client.getID();
-		if(0 < id && id < clients.size()) clients.set(id, null);
+		if(0 < id && id < clients.size()) {
+			clients.set(id, null);
+			usernames.set(id, "");
+		}
 	}
 	
 	/** Force close **/

@@ -43,6 +43,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	private Ping ping;
 	private SwiftNetContainer parent;
 	private Terminator term;
+	private int connectionID = 0;
 	
 	/**
 	 * Establishes a connecting and I/O sockets with the server
@@ -50,7 +51,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	 * @param port Host port
 	 * @throws DisconnectException If something fails while connecting
 	 */
-	public Client(SwiftNetContainer parent, String hostname, int port) throws DisconnectException {
+	public Client(String hostname, int port, SwiftNetContainer parent) throws DisconnectException {
 		try {
 			this.parent = parent;
 			server = new Socket(hostname, port);
@@ -67,30 +68,31 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	}
 	
 	@PingHandler @IndirectTimeout
-	public <Type extends Data> void scmd(ServerCommand scmd, Type outbound) throws DisconnectException {
+	public <Type extends Data> void scmd(ServerCommand scmd, Type outbound) throws DisconnectException, CommandException {
 		ping.standby();
 		ping.deactivate();
 		sendData(outbound);
-		if(scmd(scmd) )
+		int signal = scmd(scmd);
 		ping.activate();
+		if(signal != SIG_READY) throw new CommandException(signal);
 	}
 	
 	@PingHandler @IndirectTimeout
 	public Data scmd(ServerCommand scmd, Data inbound, int Type) throws DisconnectException, CommandException {
 		ping.pause();
-		if(scmd(scmd) == SIG_READY) {
+		int signal = scmd(scmd);
+		if(signal == SIG_READY) {
 			getData(inbound);
 			ping.activate();
 			return inbound;
 		} 
 		else {
-			int exc = readInt();
 			ping.activate();
-			throw new CommandException(EXC_UNKN);
+			throw new CommandException(signal);
 		}
 	}
 	
-	public int sfcmd(ServerCommand scmd, SwiftFile sf) throws DisconnectException, FileException, CommandException {
+	public void sfcmd(ServerCommand scmd, SwiftFile sf) throws DisconnectException, FileException, CommandException {
 		ping.pause();
 		try {
 			sf.send(dos);
@@ -98,53 +100,40 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		catch(IOException ix) {
 			throw new DisconnectException(EXC_NWRITE, ix);
 		}
-		
-		switch(scmd(scmd)) {
-			case SIG_READY:
-				ping.activate();
-				return 1;
-			case SIG_FAIL:
-				int exc = readInt();
-				ping.activate();
-				return exc;
-			case SIG_BCMD:
-			default:
-				throw new CommandException(EXC_UNKN);
-		}
+		int signal = scmd(scmd);
+		ping.activate();
+		if(signal != SIG_READY) throw new CommandException(signal);
 	}
 	
 	@PingHandler @IndirectTimeout
 	public SwiftFile sfcmd(ServerCommand scmd) throws DisconnectException, FileException, CommandException {
 		ping.pause();
-		switch(scmd(scmd)) {
-			case SIG_READY:
-				try {
-					SwiftFile file = new SwiftFile(dis);
-					ping.activate();
-					return file;
-				}
-				catch(IOException ix) {
-					throw new DisconnectException(EXC_NREAD, ix);
-				}
-			case SIG_FAIL:
+		int signal = scmd(scmd);
+		if(signal == SIG_READY) {
+			try {
+				SwiftFile file = new SwiftFile(dis);
 				ping.activate();
-				throw new FileException(EXC_F404);
-			case SIG_BCMD:
-			default:
-				ping.activate();
-				throw new CommandException(0);
+				return file;
+			}
+			catch(IOException ix) {
+				throw new DisconnectException(EXC_NREAD, ix);
+			}
+		}
+		else {
+			ping.activate();
+			throw new CommandException(signal);
 		}
 	}
 	
 	@IndirectTimeout @RequiresPingHandler
-	private int scmd(ServerCommand scmd) throws DisconnectException {
+	private int scmd(ServerCommand scmd) throws DisconnectException, CommandException {
 		if(scmd.get(0) != null) {
 			writeInt(DAT_SCMD);
 			writeUTF(scmd.get(0));
 			return readInt();
 		}
 		else {
-			return 0;
+			return EXC_BCMD;
 		}
 	}
 	
@@ -214,19 +203,39 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	}
 	
 	@PingHandler @DirectKiller
+	public boolean login(String username, byte[] password) throws DisconnectException {
+		boolean rtn = false;
+		ping.pause();
+		writeInt(DAT_LGIN);
+		writeUTF(username);
+		writeInt(password.length);
+		try {
+			for(byte p : password) dos.writeByte(p);
+			rtn = dis.readBoolean();
+		} 
+		catch(IOException ix) {
+			kill();
+			throw new DisconnectException(EXC_NETIO, ix);
+		}
+		if(rtn) connectionID = readInt();
+		ping.activate();
+		return false;
+	}
+	
+	@PingHandler @DirectKiller
 	public void disconnect() throws DisconnectException {
 		ping.pause();
 		writeInt(DAT_NULL);
 		ping.activate();
+		kill();
 	}
 	
 	@Override
 	public int getID() {
-		return 500;
+		return connectionID;
 	}
 	
-	@Override
-	@LeaveBlank
+	@Override @LeaveBlank
 	public void setParent(SwiftNetContainer c) {
 		
 	}
@@ -238,7 +247,8 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	
 	@Override
 	public void kill() {
-		parent.terminate(this);
+		close();
+		parent.dereference(this);
 	}
 	
 	@Override

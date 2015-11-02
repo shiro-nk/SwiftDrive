@@ -132,6 +132,10 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	public void pingHandler() {
 		
 	}
+	
+	public void loginHandler() {
+		
+	}
 
 	/** @return False if connection is down **/
 	public boolean isOnline() {
@@ -155,7 +159,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	public void kill() {
 		System.out.println("Server close");
 		close();
-		server.terminate(this);
+		server.dereference(this);
 	}
 	
 	private String readUTF() throws IOException {

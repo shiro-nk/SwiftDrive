@@ -25,9 +25,11 @@ public class SwiftNet {
 		 * @return Identifier for 
 		 */
 		public int getID();
-		public void kill();
 		public void setParent(SwiftNetContainer c);
 		public SwiftNetContainer getParent();
+		public default void kill() {
+			getParent().dereference(this);
+		}
 	}
 	
 	/**
@@ -40,6 +42,9 @@ public class SwiftNet {
 		 * This prevents methods from being called after the resources is closed.
 		 * @param t 
 		 */
-		public void terminate(SwiftNetTool t);
+		public void dereference(SwiftNetTool t);
+		public default void terminate(SwiftNetTool t) {
+			t.kill();
+		}
 	}
 }

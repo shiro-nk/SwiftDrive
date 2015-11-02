@@ -39,12 +39,6 @@ public interface Settings {
 	/** The default charset **/
 	public static final Charset CHARSET = StandardCharsets.UTF_8;
 
-	/** Transfer response signals (SIG) **/
-	public static final int SIG_CLOSE = 0,
-							SIG_READY = 1,
-							SIG_FAIL  = 2,
-							SIG_BCMD  = 3;
-
 	/** States (STA) that the server is in **/
 	@Deprecated
 	public static final int STA_LISTENING  = 1,
@@ -60,11 +54,17 @@ public interface Settings {
 							EXC_F404   = 4,
 							EXC_MISS   = 5,
 							EXC_UNKN   = 6,
-							EXC_CONN   = 7,
-							EXC_NREAD  = 8,
-							EXC_NWRITE = 9,
-							EXC_NETIO  = 10,
-							EXC_TYPEMM = 11;
+							EXC_BCMD   = 7,
+							EXC_CONN   = 8,
+							EXC_NREAD  = 9,
+							EXC_NWRITE = 10,
+							EXC_NETIO  = 11,
+							EXC_TYPEMM = 12;
+
+	/** Transfer response signals (SIG) **/
+	public static final int SIG_READY = 0,
+							SIG_FAIL  = 1;
+
 	
 	/** Preset Defaults / Definitions (DEF) **/
 	public static final int DEF_PORT = 3141,

@@ -27,7 +27,7 @@ public class SystemTest implements SwiftNetContainer, Settings {
 	
 	public SystemTest() {
 		try(Server server = new Server()) {
-			try(Client client = new Client(this, "localhost", 3141)) {
+			try(Client client = new Client("localhost", 3141, this)) {
 				try(Scanner scan = new Scanner(System.in)) {
 					String sc = "";
 					while((sc = scan.nextLine()) != null && !scan.equals("stop") && scanning) {
@@ -49,7 +49,7 @@ public class SystemTest implements SwiftNetContainer, Settings {
 		}
 	}
 	
-	public void terminate(SwiftNetTool t) {
+	public void dereference(SwiftNetTool t) {
 		scanning = false;
 		System.out.println("Client close");
 		System.exit(1000);
