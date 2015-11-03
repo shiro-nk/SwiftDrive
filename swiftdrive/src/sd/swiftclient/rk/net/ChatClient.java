@@ -60,6 +60,10 @@ public class ChatClient extends Data implements SwiftNetTool, Settings, Logging,
 		}
 	}
 	
+	public void start() {
+		inthread.start();
+	}
+	
 	public void send(String message) throws DisconnectException {
 		try {
 			dos.writeUTF(id + ";" + message);
@@ -69,7 +73,11 @@ public class ChatClient extends Data implements SwiftNetTool, Settings, Logging,
 		}
 	}
 	
-	private void pushMessageToStack(String raw) {
+	public boolean hasNext() {
+		return false;
+	}
+	
+	private void pushMessageToStack(String raw) throws IOException {
 		
 	}
 	
@@ -85,7 +93,7 @@ public class ChatClient extends Data implements SwiftNetTool, Settings, Logging,
 	
 	@Override @LeaveBlank
 	public void setParent(SwiftNetContainer c) {
-		
+	
 	}
 
 	@Override

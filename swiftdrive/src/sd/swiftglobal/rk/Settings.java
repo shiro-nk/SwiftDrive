@@ -61,6 +61,13 @@ public interface Settings {
 							EXC_NETIO  = 11,
 							EXC_TYPEMM = 12;
 
+	public static final int CMD_READ_FILE  = 1,
+							CMD_READ_DATA  = 2,
+							CMD_WRITE_FILE = 3,
+							CMD_WRITE_DATA = 4,
+							CMD_APPND_FILE = 5,
+							CMD_APPND_DATA = 6;
+	
 	/** Transfer response signals (SIG) **/
 	public static final int SIG_READY = 0,
 							SIG_FAIL  = 1;

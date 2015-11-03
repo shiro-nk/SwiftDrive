@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.net.Socket;
 
 import sd.swiftglobal.rk.Settings;
+import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.type.Data;
+import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
@@ -31,7 +33,8 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	private DataInputStream  dis = null;
 	private DataOutputStream dos = null;
 	
-	private boolean online = false;
+	private boolean online  = false,
+					closing = false;
 
 	private SwiftFile swap = null;
 	private Data swap_data = null;
@@ -69,22 +72,27 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 				int type = readInt();
 				switch(type) {
 					case DAT_NULL:
-						System.out.println("shutdown calls");
-						close();
+						kill();
 						break;
-					case DAT_PING:
+
+					case DAT_PING:						
 						echo("Pong", LOG_FRC);
-						dos.writeInt(DAT_PING);
+						dos.writeInt(closing ? SIG_FAIL : SIG_READY);
 						break;
-					case DAT_SCMD:
-						break;
-					case DAT_DATA:
-						System.out.print("Got data: ");
-						dataHandler();
-						break;
+					
 					case DAT_FILE:
 						swap = new SwiftFile(dis);
 						swap.resetPos();
+						break;
+						
+					case DAT_SCMD:
+						command();
+						break;
+
+					case DAT_DATA:
+						swap_data = new Generic();
+						int size = readInt();
+						for(int i = size; i < size; i++) swap_data.add(readUTF());
 						break;
 				}
 			}
@@ -95,24 +103,18 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		}
 	}
 	
-	public Data dataHandler() throws IOException {
-		swap_data = getData(new SwiftFile(0));
-		for(String s : swap_data.getArray()) echo(s);
-		return swap_data;
-	}
-	
-	/**
-	 * Receive generic data type from socket
-	 * @param template Data to write information from socket to
-	 * @return The data in the parameters with new information
-	 * @throws IOException If something fails while reading from the socket 
-	 */
-	public Data getData(Data template) throws IOException {
-		template.reset();
-		int size = readInt();
-		for(int i = 0; i < size; i++) template.add(readUTF());
-		return template;
-	}
+//	/**
+//	 * Receive generic data type from socket
+//	 * @param template Data to write information from socket to
+//	 * @return The data in the parameters with new information
+//	 * @throws IOException If something fails while reading from the socket 
+//	 */
+//	public Data getData(Data template) throws IOException {
+//		template.reset();
+//		int size = readInt();
+//		for(int i = 0; i < size; i++) template.add(readUTF());
+//		return template;
+//	}
 	
 	/**
 	 * Send data over socket
@@ -125,18 +127,38 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		for(String s : data.getArray()) dos.writeUTF(s);
 	}
 	
-	public void fileHandler() {
+	public void command() throws IOException {
+		String commandLine = readUTF();
+		String[] split = commandLine.split(":");
+		int command = split.length == 2 ? Integer.parseInt(split[0]) : 0,
+			status  = 0;
 		
+		try {
+			switch(command) {
+			case CMD_READ_FILE:
+				swap = new SwiftFile(split[0], true);
+				break;
+			case CMD_READ_DATA:
+				swap_data = new SwiftFile(split[0], true);
+				break;
+			case CMD_WRITE_FILE:
+				break;
+			case CMD_WRITE_DATA:
+				break;
+			case CMD_APPND_FILE:
+				break;
+			case CMD_APPND_DATA:
+				break;
+			}
+		}
+		catch(FileException fx) { 
+			
+		}
+		catch(IOException ix) {
+			
+		}
 	}
 	
-	public void pingHandler() {
-		
-	}
-	
-	public void loginHandler() {
-		
-	}
-
 	/** @return False if connection is down **/
 	public boolean isOnline() {
 		return online;
