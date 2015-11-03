@@ -139,7 +139,6 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	
 	@IndirectTimeout @RequiresPingHandler
 	private <Type extends Data> void sendData(Type outbound) throws DisconnectException {
-		//writeInt(Type.getTypeID());
 		writeInt(DAT_DATA);
 		writeInt(outbound.getSize());
 		for(String s : outbound.getArray()) writeUTF(s);

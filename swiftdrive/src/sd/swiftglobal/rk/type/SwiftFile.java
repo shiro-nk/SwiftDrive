@@ -274,7 +274,7 @@ public class SwiftFile extends Data implements Settings, Logging {
 	 */
 	public void convert(Data dat) {
 		setArray(dat.getArray());
-		fromData();
+		toData();
 	}
 	
 	/**

@@ -3,8 +3,10 @@ package sd.swiftglobal.rk;
 import java.util.Scanner;
 
 import sd.swiftclient.rk.net.Client;
+import sd.swiftglobal.rk.expt.CommandException;
 import sd.swiftglobal.rk.expt.DisconnectException;
-import sd.swiftglobal.rk.type.Data;
+import sd.swiftglobal.rk.type.Generic;
+import sd.swiftglobal.rk.util.ServerCommand;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 import sd.swiftserver.rk.net.Server;
@@ -31,18 +33,19 @@ public class SystemTest implements SwiftNetContainer, Settings {
 				try(Scanner scan = new Scanner(System.in)) {
 					String sc = "";
 					while((sc = scan.nextLine()) != null && !scan.equals("stop") && scanning) {
-						Data dat = new Data(DAT_DATA, 0) {
-							public void toData() {
-							}
-							public void fromData() {
-							}
-							public void convert(Data dat) {
-							}
-						};
-						dat.add(sc);
+						Generic gen = new Generic();
+						gen.add(sc);
+						client.scmd(new ServerCommand(CMD_WRITE_DATA, LC_PATH + "test"), gen);
 					}
+				} catch (CommandException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
+			Thread.sleep(10000000);
+		}
+		catch(InterruptedException ix) {
+			
 		}
 		catch(DisconnectException dx) {
 			dx.printStackTrace();

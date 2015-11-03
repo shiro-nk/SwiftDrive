@@ -75,8 +75,8 @@ public interface Settings {
 	
 	/** Preset Defaults / Definitions (DEF) **/
 	public static final int DEF_PORT = 3141,
-							DEF_TIME = 15,
-							DEF_PING = 5,
+							DEF_TIME = 50,
+							DEF_PING = 25,
 							DEF_DDOS = 500,
 							DEF_LOGL = Logging.LOG_TRI;
 	

@@ -3,6 +3,7 @@ package sd.swiftserver.rk.net;
 import java.io.Closeable;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -11,6 +12,7 @@ import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.type.Data;
 import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.SwiftFile;
+import sd.swiftglobal.rk.util.Console;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
@@ -41,6 +43,8 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 
 	private Terminator term;
 	
+//	private Console con = new Console();
+	
 	/**
 	 * Creates DataInput and DataOutput streams for communication
 	 * @param server Parent server (required for termination)
@@ -68,8 +72,9 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	public void run() {
 		try {
 			while(online) {
-				System.out.println("Receiving int ... ");
+				echo("Receiving int ... ");
 				int type = readInt();
+				echo("Type: " + type);
 				switch(type) {
 					case DAT_NULL:
 						kill();
@@ -81,18 +86,23 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 						break;
 					
 					case DAT_FILE:
+						System.out.println("Moving data to swap file");
 						swap = new SwiftFile(dis);
 						swap.resetPos();
 						break;
 						
 					case DAT_SCMD:
+						System.out.println("Command Started");
 						command();
 						break;
 
 					case DAT_DATA:
+						System.out.println("Creating generic object");
 						swap_data = new Generic();
 						int size = readInt();
-						for(int i = size; i < size; i++) swap_data.add(readUTF());
+						System.out.println("Size: " + size);
+						for(int i = 0; i < size; i++) swap_data.add(readUTF());
+						for(String s : swap_data.getArray()) echo(s, LOG_FRC);
 						break;
 				}
 			}
@@ -130,33 +140,44 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	public void command() throws IOException {
 		String commandLine = readUTF();
 		String[] split = commandLine.split(":");
-		int command = split.length == 2 ? Integer.parseInt(split[0]) : 0,
+		String path = split[0];
+		int command = split.length == 2 ? Integer.parseInt(split[1]) : 0,
 			status  = 0;
-		
-		try {
-			switch(command) {
-			case CMD_READ_FILE:
-				swap = new SwiftFile(split[0], true);
-				break;
-			case CMD_READ_DATA:
-				swap_data = new SwiftFile(split[0], true);
-				break;
-			case CMD_WRITE_FILE:
-				break;
-			case CMD_WRITE_DATA:
-				break;
-			case CMD_APPND_FILE:
-				break;
-			case CMD_APPND_DATA:
-				break;
+		boolean append = false;
+		if(split[0] != null && !split.equals(""))		
+			try {
+				System.out.println(split[0]);
+				switch(command) {
+					case CMD_READ_FILE:
+						swap = new SwiftFile(split[0], true);
+						break;
+					case CMD_READ_DATA:
+						swap_data = new SwiftFile(split[0], true);
+						break;
+					case CMD_APPND_FILE:
+						append = true;
+					case CMD_WRITE_FILE:
+						swap.write(new File(path).toPath(), append);
+						break;
+					case CMD_APPND_DATA:
+						append = true;
+					case CMD_WRITE_DATA:
+						SwiftFile temp = new SwiftFile(0);
+						temp.convert(swap_data);
+						temp.write(new File(path).toPath(), append);
+						break;
 			}
 		}
 		catch(FileException fx) { 
-			
+			fx.printStackTrace();
+			kill();
 		}
 		catch(IOException ix) {
-			
+			ix.printStackTrace();
+			kill();
 		}
+		
+		dos.writeInt(status);
 	}
 	
 	/** @return False if connection is down **/
@@ -212,4 +233,14 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 			
 		}
 	}
+	
+//	@Deprecated
+//	public void echo(String str) {
+//		con.append(str);
+//	}
+	
+//	@Deprecated
+//	public void echo(String str, int level) {
+//		echo(str);
+//	}
 }
