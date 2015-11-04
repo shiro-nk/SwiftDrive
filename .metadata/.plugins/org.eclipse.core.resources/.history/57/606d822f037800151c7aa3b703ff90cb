@@ -1,8 +1,0 @@
-package sd.swiftglobal.rk.type;
-
-import java.io.IOException;
-
-public interface SpecialNetworkType {
-	public void send() 	  throws IOException, SwiftException;
-	public void receive() throws IOException, SwiftException;
-}

@@ -23,6 +23,7 @@ import sd.swiftserver.rk.net.Server;
 public class SystemTest implements SwiftNetContainer, Settings {
 	public static void main(String[] args) {
 		new SystemTest();
+		System.out.
 	}
 	
 	private boolean scanning = true;
