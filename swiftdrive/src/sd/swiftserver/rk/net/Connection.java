@@ -143,7 +143,9 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		String path = split[0];
 		int command = split.length == 2 ? Integer.parseInt(split[1]) : 0,
 			status  = 0;
-		boolean append = false;
+		boolean append = false,
+				send   = true;
+
 		if(split[0] != null && !split.equals(""))		
 			try {
 				System.out.println(split[0]);
@@ -151,9 +153,32 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 					case CMD_READ_FILE:
 						swap = new SwiftFile(split[0], true);
 						break;
+					case CMD_SEND_FILE:
+						send = false;
+						if(swap != null) {
+							writeInt(SIG_READY);
+							swap.send(dos);
+						}
+						else {
+							writeInt(SIG_FAIL);
+						}
+						break;
+
+
 					case CMD_READ_DATA:
 						swap_data = new SwiftFile(split[0], true);
 						break;
+					case CMD_SEND_DATA:
+						send = false;
+						if(swap != null) {
+							writeInt(SIG_READY);
+							sendData(swap_data);
+						}
+						else {
+							writeInt(SIG_FAIL);
+						}
+						break;
+
 					case CMD_APPND_FILE:
 						append = true;
 					case CMD_WRITE_FILE:
@@ -177,7 +202,17 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 			kill();
 		}
 		
-		dos.writeInt(status);
+		if(send) dos.writeInt(status);
+	}
+
+	private void writeInt(int i) {
+		try {
+			dos.writeInt(i);
+		}
+		catch(IOException ix) {
+			ix.printStackTrace();
+			kill();
+		}
 	}
 	
 	/** @return False if connection is down **/

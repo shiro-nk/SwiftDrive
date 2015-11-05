@@ -108,8 +108,9 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	@PingHandler @IndirectTimeout
 	public SwiftFile sfcmd(ServerCommand scmd) throws DisconnectException, FileException, CommandException {
 		ping.pause();
-		int signal = scmd(scmd);
-		if(signal == SIG_READY) {
+		int signal1 = scmd(scmd),
+			signal2 = scmd(new ServerCommand(CMD_SEND_FILE, ""));
+		if(signal1 == SIG_READY && signal2 == SIG_READY) {
 			try {
 				SwiftFile file = new SwiftFile(dis);
 				ping.activate();
@@ -121,7 +122,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 		else {
 			ping.activate();
-			throw new CommandException(signal);
+			throw new CommandException(signal1);
 		}
 	}
 	

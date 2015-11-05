@@ -29,7 +29,8 @@ public interface Settings {
 							DAT_DATA = 4,
 							DAT_SCMD = 5,
 							DAT_LGIN = 6,
-							DAT_LGCF = 7;
+							DAT_LGCF = 7,
+							DAT_RQST = 8;
 
 	/** Local (LC) Environment Variables **/
 	public static final String LC_DIV  = System.getProperty("file.separator"),
@@ -66,7 +67,11 @@ public interface Settings {
 							CMD_WRITE_FILE = 3,
 							CMD_WRITE_DATA = 4,
 							CMD_APPND_FILE = 5,
-							CMD_APPND_DATA = 6;
+							CMD_APPND_DATA = 6,
+							CMD_SEND_FILE  = 7,
+							CMD_SEND_DATA  = 8,
+							CMD_RSEND_FILE = 9,
+							CMD_RSEND_DATA = 10;
 	
 	/** Transfer response signals (SIG) **/
 	public static final int SIG_READY = 0,
