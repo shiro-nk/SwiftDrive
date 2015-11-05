@@ -7,6 +7,8 @@ import java.io.IOException;
 
 import sd.swiftglobal.rk.Meta.Typedef;
 import sd.swiftglobal.rk.Settings;
+import sd.swiftglobal.rk.expt.FileException;
+import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 
 /* This file is part of Swift Drive				   *
@@ -33,7 +35,9 @@ public class Ping implements Settings, Runnable, Closeable {
 	
 	private Lock lock = new Lock(),
 				 ping = new Lock();
-	
+
+	private SwiftFile output;
+
 	/**
 	 * Initialize the ping tool
 	 * @param dis Stream to read from
@@ -56,35 +60,35 @@ public class Ping implements Settings, Runnable, Closeable {
 	int x = 0; int y = 0;
 	public void run() {
 		while(online) {
-			System.out.println("Ping has started");
+			echo("Ping has started");
 			synchronized(ping) {
 				if(!active) {
 					try {
-						System.out.println("Ping: Waiting");
+						echo("Ping: Waiting");
 						ping.wait();
-						System.out.println("Ping: Unlocked");
+						echo("Ping: Unlocked");
 					}
 					catch(InterruptedException ix) {
 						
 					}
 				}
 			}
-			System.out.println("Ping: " + active);
+			echo("Ping: " + active);
 			while(active) {
-				System.out.println("Ping: " + ++x);
+				echo("Ping: " + ++x);
 				sleep = new Thread(new Runnable() {
 					public void run() {
 						try {
 							Thread.sleep(DEF_PING * 1000);
-							System.out.println("xasdf");
+							echo("xasdf");
 							if(active) {
 								try {
 									locked = true;
-									System.out.println("Ping: Ping");
+									echo("Ping: Ping");
 									dos.writeInt(DAT_PING);
 									term.run();
 									dis.readInt();
-									System.out.println("Ping: Response");
+									echo("Ping: Response");
 									term.cancel();
 									
 									synchronized(lock) { lock.notifyAll(); }
@@ -96,28 +100,28 @@ public class Ping implements Settings, Runnable, Closeable {
 						}
 						catch(InterruptedException ix) {
 							active = false;
-							System.out.println("Ping: Interrupted");
+							echo("Ping: Interrupted");
 						}
 					}
 				});
 				sleep.start();
 				try {
 					sleep.join();
-					System.out.println("Ping joined");
+					echo("Ping joined");
 				} 
 				catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				System.out.println("Ping hit end");
+				echo("Ping hit end");
 			}
 		}
-		System.out.println(y);
+		echo(y);
 		if(y== 5) System.exit(128904);
 	}
 	
 	/** Temporarily disable the ping heart beat **/
 	public void deactivate() {
-		System.out.println("Deactivated");
+		echo("Deactivated");
 		active = false;
 		sleep.interrupt();
 	}
@@ -130,13 +134,13 @@ public class Ping implements Settings, Runnable, Closeable {
 		catch(InterruptedException ix) {
 			
 		}
-		System.out.println("Activated");
+		echo("Activated");
 		active = true;
 		synchronized(ping) { ping.notifyAll(); }
 	}
 	
 	public void standby() {
-		System.out.println("Waiting for locks to release");
+		echo("Waiting for locks to release");
 		if(locked) {
 			synchronized(lock) {
 				try {
@@ -164,7 +168,29 @@ public class Ping implements Settings, Runnable, Closeable {
 		online = false;
 		tool.kill();
 	}
+
+	@Deprecated
+	public void echo(Object str) {
+		try {
+			if(output == null) output = new SwiftFile(LC_PATH + "ping", false);
+			output.reset();
+			output.add(str.toString() + "\n");
+			output.toData();
+			output.append();
+		}
+		catch(IOException ix) {
+			ix.printStackTrace();
+		}
+		catch(FileException fx) {
+			fx.printStackTrace();
+		}
+	}
+
+	@Deprecated
+	public void echo(Object str, int level) {
+		echo(str);
+	}
 	
 	@Typedef("Lock")
-	private class Lock { /* Equivalent to C++ Typedef*/ }
+	private class Lock {}
 }

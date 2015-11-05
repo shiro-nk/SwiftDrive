@@ -38,10 +38,12 @@ public class SystemTest implements SwiftNetContainer, Settings {
 					String sc = "";
 					SwiftFile file = client.sfcmd(new ServerCommand(CMD_READ_FILE, LC_PATH + "input"));
 					file.write(new File(LC_PATH + "output").toPath(), false);
-					while((sc = scan.nextLine()) != null && !scan.equals("stop") && scanning) {
-						Generic gen = new Generic();
-						gen.add(sc);
-						client.scmd(new ServerCommand(CMD_WRITE_DATA, LC_PATH + "test"), gen);
+					while((sc = scan.nextLine()) != null && !sc.equals("stop") && scanning) {
+						if(!sc.equals("")) {
+							Generic gen = new Generic();
+							gen.add(sc);
+							client.scmd(new ServerCommand(CMD_WRITE_DATA, LC_PATH + "test"), gen);
+						}
 					}
 				} catch (CommandException e) {
 					// TODO Auto-generated catch block

@@ -12,7 +12,6 @@ import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.type.Data;
 import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.SwiftFile;
-import sd.swiftglobal.rk.util.Console;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
@@ -43,7 +42,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 
 	private Terminator term;
 	
-//	private Console con = new Console();
+	private SwiftFile output;
 	
 	/**
 	 * Creates DataInput and DataOutput streams for communication
@@ -86,21 +85,21 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 						break;
 					
 					case DAT_FILE:
-						System.out.println("Moving data to swap file");
+						echo("Moving data to swap file");
 						swap = new SwiftFile(dis);
 						swap.resetPos();
 						break;
 						
 					case DAT_SCMD:
-						System.out.println("Command Started");
+						echo("Command Started");
 						command();
 						break;
 
 					case DAT_DATA:
-						System.out.println("Creating generic object");
+						echo("Creating generic object");
 						swap_data = new Generic();
 						int size = readInt();
-						System.out.println("Size: " + size);
+						echo("Size: " + size);
 						for(int i = 0; i < size; i++) swap_data.add(readUTF());
 						for(String s : swap_data.getArray()) echo(s, LOG_FRC);
 						break;
@@ -146,9 +145,9 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		boolean append = false,
 				send   = true;
 
-		if(split[0] != null && !split.equals(""))		
+		if(split[0] != null)		
 			try {
-				System.out.println(split[0]);
+				if(!split[0].equals("")) echo(split[0]);
 				switch(command) {
 					case CMD_READ_FILE:
 						swap = new SwiftFile(split[0], true);
@@ -269,13 +268,26 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		}
 	}
 	
-//	@Deprecated
-//	public void echo(String str) {
-//		con.append(str);
-//	}
-	
-//	@Deprecated
-//	public void echo(String str, int level) {
-//		echo(str);
-//	}
+	@Deprecated
+	public void echo(Object str) {
+		try {
+			if(output == null) output = new SwiftFile(LC_PATH + "con" + getID(), false);
+			output.reset();
+			if(str.toString().equals("") || str == null) output.add(" ");
+			else output.add(str.toString() + "\n");
+			output.toData();
+			output.append();
+		}
+		catch(IOException ix) {
+			ix.printStackTrace();
+		}
+		catch(FileException fx) {
+			fx.printStackTrace();
+		}
+	}
+
+	@Deprecated
+	public void echo(Object str, int level) {
+		echo(str);
+	}
 }
