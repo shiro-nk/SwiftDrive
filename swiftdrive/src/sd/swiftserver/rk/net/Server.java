@@ -25,6 +25,7 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 	private ArrayList<String>   usernames = new ArrayList<String>();
 	private ArrayList<Boolean>     active = new ArrayList<Boolean>();
 	private final ServerSocket server;
+	private final ChatServer chatserver;
 	private boolean   accepting = false;
 	private final int PORT;
 
@@ -38,6 +39,8 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		try {
 			server = new ServerSocket(port);
 			new Thread(this).start();
+			chatserver = new ChatServer(port + 1, this);
+			new Thread(chatserver).start();
 		}
 		catch(IOException ix) {
 			throw new DisconnectException(EXC_CONN, ix);

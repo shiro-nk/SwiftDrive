@@ -78,7 +78,9 @@ public class ChatClient extends Data implements SwiftNetTool, Settings, Logging,
 	}
 	
 	private void pushMessageToStack(String raw) throws IOException {
-		
+		add(raw);
+		String[] split = raw.split();
+		echo(split[0] + ": " + split[1]);
 	}
 	
 	@Override
