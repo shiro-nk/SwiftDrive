@@ -18,10 +18,10 @@ import sd.swiftglobal.rk.expt.CommandException;
 import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.type.Data;
+import sd.swiftglobal.rk.type.ServerCommand;
 import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.Ping;
-import sd.swiftglobal.rk.util.ServerCommand;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 import sd.swiftglobal.rk.util.Terminator;
@@ -44,6 +44,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	private SwiftNetContainer parent;
 	private Terminator term;
 	private int connectionID = 0;
+	private ChatClient cclient;
 	
 	/**
 	 * Establishes a connecting and I/O sockets with the server
@@ -251,7 +252,11 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		close();
 		parent.dereference(this);
 	}
-	
+
+	public ChatClient getChat() {
+		return cclient;
+	}
+
 	@Override
 	public void close() {
 		try {
@@ -259,6 +264,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			if(dis != null) dis.close();
 			if(dos != null) dos.close();
 			if(server != null) server.close();
+			if(cclient != null) cclient.close();
 		}
 		catch(IOException ix) {
 			error("Error closing sockets", LOG_FRC);

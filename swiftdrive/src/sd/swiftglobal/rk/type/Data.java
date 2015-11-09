@@ -81,6 +81,7 @@ public abstract class Data implements Settings, Logging {
 	}
 	
 	public void setArray(String[] s) {
+		reset();
 		data = s;
 	}
 	

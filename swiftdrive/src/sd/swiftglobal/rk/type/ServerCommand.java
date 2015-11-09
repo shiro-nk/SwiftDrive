@@ -1,4 +1,4 @@
-package sd.swiftglobal.rk.util;
+package sd.swiftglobal.rk.type;
 
 import sd.swiftglobal.rk.Meta.Typedef;
 import sd.swiftglobal.rk.Settings;

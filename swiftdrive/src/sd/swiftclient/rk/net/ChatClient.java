@@ -79,7 +79,7 @@ public class ChatClient extends Data implements SwiftNetTool, Settings, Logging,
 	
 	private void pushMessageToStack(String raw) throws IOException {
 		add(raw);
-		String[] split = raw.split();
+		String[] split = raw.split("");
 		echo(split[0] + ": " + split[1]);
 	}
 	
@@ -89,13 +89,12 @@ public class ChatClient extends Data implements SwiftNetTool, Settings, Logging,
 	}
 
 	public void kill() {
-		close();
-		getParent().dereference(this);
+		client.kill();	
 	}
 	
 	@Override @LeaveBlank
 	public void setParent(SwiftNetContainer c) {
-	
+		
 	}
 
 	@Override

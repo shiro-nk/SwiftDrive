@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 
-public class ChatServer implements Runnable {
+public class ChatServer implements Runnable, SwiftNetContainer {
 	private ServerSocket server;	
 	private boolean accepting = false;
 
