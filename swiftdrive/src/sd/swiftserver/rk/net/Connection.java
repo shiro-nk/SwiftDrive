@@ -3,9 +3,11 @@ package sd.swiftserver.rk.net;
 import java.io.Closeable;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Arrays;
 
 import sd.swiftglobal.rk.Settings;
@@ -78,8 +80,9 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 				echo("Receiving int ... ");
 				int type = readInt();
 				echo("Type: " + type);
-				
+				System.out.println("Logged in? " + loggedin);	
 				if(!loggedin) {
+					System.err.println("Warning: User is not logged in!");
 					if(type == DAT_LGIN) login();
 					if(type == DAT_FILE) new SwiftFile(dis);
 				}
@@ -109,6 +112,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 							echo("Creating generic object");
 							swap_data = new Generic();
 							int size = readInt();
+							System.out.println("Size received!");
 							echo("Size: " + size);
 							for(int i = 0; i < size; i++) swap_data.add(readUTF());
 							for(String s : swap_data.getArray()) echo(s, LOG_FRC);
@@ -203,12 +207,8 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 						break;
 			}
 		}
-		catch(FileException fx) { 
-			fx.printStackTrace();
-			kill();
-		}
-		catch(IOException ix) {
-			ix.printStackTrace();
+		catch(IOException | FileException exc) {
+			exc.printStackTrace();
 			kill();
 		}
 		
@@ -224,6 +224,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		rtn = user != null ? Arrays.equals(user.getPassword(), pass) ? true : false : false;	
 		dos.writeBoolean(rtn);
 		loggedin = rtn;
+		System.out.println("Login was: " + loggedin);
 		//if(rtn) dos.writeInt(CLIENT_ID);
 	}
 
@@ -275,19 +276,29 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	}
 	
 	private String readUTF() throws IOException {
-		term = new Terminator(this);
-		term.run();
-		String rtn = dis.readUTF();
-		term.cancel();
-		return rtn;
+		try {
+			term = new Terminator(this);
+			term.run();
+			String rtn = dis.readUTF();
+			term.cancel();
+			return rtn;
+		}
+		catch(SocketException | EOFException exc) {
+			throw new IOException("Fatal error: Connection Lost");
+		}
 	}
 	
 	private int readInt() throws IOException {
-		term = new Terminator(this);
-		term.run();
-		int rtn = dis.readInt();
-		term.cancel();
-		return rtn;
+		try {
+			term = new Terminator(this);
+			term.run();
+			int rtn = dis.readInt();
+			term.cancel();
+			return rtn;
+		}
+		catch(SocketException | EOFException exc) {
+			throw new IOException("Fatal error: Connection Lost");
+		}
 	}
 
 	private byte[] readByteArray(int size) throws IOException {
@@ -307,6 +318,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 			if(dis    != null) dis.close();
 			if(dos    != null) dos.close();
 			if(socket != null) socket.close();
+			if(term   != null) term.cancel();
 			online = false;
 		}
 		catch(IOException ix) {

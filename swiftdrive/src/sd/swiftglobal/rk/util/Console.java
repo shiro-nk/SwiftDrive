@@ -5,6 +5,10 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
+/* This file is part of Swift Drive                * 
+ * Copyright (C) 2015 Ryan Kerr                    *
+ * Please refer to <http://www.gnu.org/licenses/>. */
+
 public class Console extends JFrame {
 	private static final long serialVersionUID = 1L;
 	

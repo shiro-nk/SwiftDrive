@@ -35,8 +35,8 @@ public class SystemTest implements SwiftNetContainer, Settings {
 			try(Client client = new Client("localhost", 3141, this)) {
 				try(Scanner scan = new Scanner(System.in)) {
 					String sc = "";
+					client.login("username", "password");
 					while((sc = scan.nextLine()) != null && !sc.equals("stop") && scanning) {
-						client.login("username", "password");
 						if(!sc.equals("")) {
 							Generic gen = new Generic();
 							gen.add(sc);

@@ -12,6 +12,10 @@ import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 
+/* This file is part of Swift Drive                * 
+ * Copyright (C) 2015 Ryan Kerr                    *
+ * Please refer to <http://www.gnu.org/licenses/>. */
+
 public class ChatConnection implements SwiftNetTool, Settings, Logging, Runnable, Closeable {
 	private DataInputStream dis;
 	private DataOutputStream dos;

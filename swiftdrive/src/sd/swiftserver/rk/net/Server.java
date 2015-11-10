@@ -67,7 +67,7 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 				Connection cli = new Connection(this, server.accept(), clients.size());
 				new Thread(cli).start();
 				clients.add(cli);
-				echo("Client " + cli.getIP() + ":" + cli.getPort() + " has connected", LOG_PRI);
+				echo("Client " + cli.getIP() + ":" + cli.getPort() + " has connected w/" + cli.getID() , LOG_PRI);
 				if(DEF_DDOS < clients.size()) accepting = false;
 			}
 			catch(IOException ix) {
@@ -80,11 +80,14 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		ArrayList<Connection> swap = new ArrayList<Connection>();
 		for(Connection c : clients.toArray(new Connection[clients.size()])) {
 			if(c != null) swap.add(c);
-			if(c != null) System.out.println(c.getID());
 		}
-
+		
+		clients.clear();
 		Connection[] current = swap.toArray(new Connection[swap.size()]);
-		for(int i = 0; i < current.length; i++) current[i].setID(i);
+		for(int i = 0; i < current.length; i++) { 
+			current[i].setID(i);
+			clients.add(current[i]);
+		}
 	}
 
 	public UserHandler getUserlist() {
@@ -106,10 +109,10 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 	 */
 	public void dereference(SwiftNetTool client) {
 		int id = client.getID();
-		if(0 < id && id < clients.size()) {
+		if(0 <= id && id < clients.size()) {
 			clients.set(id, null);
 		}
-		System.out.println(clients.size());
+		System.out.println("Stack size: " + clients.size());
 		cleanStack();
 	}
 	

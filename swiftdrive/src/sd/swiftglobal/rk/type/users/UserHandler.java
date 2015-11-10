@@ -7,13 +7,17 @@ import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.util.SwiftFront;
 
+/* This file is part of Swift Drive                * 
+ * Copyright (C) 2015 Ryan Kerr                    *
+ * Please refer to <http://www.gnu.org/licenses/>. */
+
 public class UserHandler implements Settings {
 	private ArrayList<User> userlist = new ArrayList<User>();
 	private SwiftFront source;
 
 	public UserHandler() {
 		try {
-			source = new SwiftFront(new File(LC_PATH + "users").toPath(), false);
+			source = new SwiftFront(new File(LC_PATH + "users"), false);
 			readUsers();
 		}
 		catch(FileException fx) {
@@ -54,7 +58,7 @@ public class UserHandler implements Settings {
 			for(String s : ulist) userlist.add(new User(s));
 		}
 		catch(FileException fx) {
-			fx.printStackTrace();
+		
 		}
 	}
 

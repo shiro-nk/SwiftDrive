@@ -3,6 +3,10 @@ package sd.swiftglobal.rk;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
+/* This file is part of Swift Drive                * 
+ * Copyright (C) 2015 Ryan Kerr                    *
+ * Please refer to <http://www.gnu.org/licenses/>. */
+
 public interface Meta {
 	/**
 	 * Modification Notice: The following method or line has been <br>

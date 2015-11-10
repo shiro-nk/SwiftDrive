@@ -100,6 +100,7 @@ public class Ping implements Settings, Runnable, Closeable {
 						}
 						catch(InterruptedException ix) {
 							active = false;
+							synchronized(lock) { lock.notifyAll(); }
 							echo("Ping: Interrupted");
 						}
 					}
