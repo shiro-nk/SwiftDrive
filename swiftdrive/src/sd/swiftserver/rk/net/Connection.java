@@ -6,12 +6,14 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Arrays;
 
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.type.Data;
 import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.SwiftFile;
+import sd.swiftglobal.rk.type.users.User;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
@@ -29,13 +31,15 @@ import sd.swiftglobal.rk.util.Terminator;
 public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, Logging {
 	private final Server server;
 	private final Socket socket;
-	private final int CLIENT_ID;
+	
+	private int CLIENT_ID;
 	
 	private DataInputStream  dis = null;
 	private DataOutputStream dos = null;
 	
-	private boolean online  = false,
-					closing = false;
+	private boolean online   = false,
+					closing  = false,
+					loggedin = false;
 
 	private SwiftFile swap = null;
 	private Data swap_data = null;
@@ -74,35 +78,41 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 				echo("Receiving int ... ");
 				int type = readInt();
 				echo("Type: " + type);
-				switch(type) {
-					case DAT_NULL:
-						kill();
-						break;
+				
+				if(!loggedin) {
+					if(type == DAT_LGIN) login();
+				}
+				else {
+					switch(type) {
+						case DAT_NULL:
+							kill();
+							break;
 
-					case DAT_PING:						
-						echo("Pong", LOG_FRC);
-						dos.writeInt(closing ? SIG_FAIL : SIG_READY);
-						break;
+						case DAT_PING:						
+							echo("Pong", LOG_FRC);
+							dos.writeInt(closing ? SIG_FAIL : SIG_READY);
+							break;
 					
-					case DAT_FILE:
-						echo("Moving data to swap file");
-						swap = new SwiftFile(dis);
-						swap.resetPos();
-						break;
+						case DAT_FILE:
+							echo("Moving data to swap file");
+							swap = new SwiftFile(dis);
+							swap.resetPos();
+							break;
 						
-					case DAT_SCMD:
-						echo("Command Started");
-						command();
-						break;
+						case DAT_SCMD:
+							echo("Command Started");
+							command();
+							break;
 
-					case DAT_DATA:
-						echo("Creating generic object");
-						swap_data = new Generic();
-						int size = readInt();
-						echo("Size: " + size);
-						for(int i = 0; i < size; i++) swap_data.add(readUTF());
-						for(String s : swap_data.getArray()) echo(s, LOG_FRC);
-						break;
+						case DAT_DATA:
+							echo("Creating generic object");
+							swap_data = new Generic();
+							int size = readInt();
+							echo("Size: " + size);
+							for(int i = 0; i < size; i++) swap_data.add(readUTF());
+							for(String s : swap_data.getArray()) echo(s, LOG_FRC);
+							break;
+					}
 				}
 			}
 		}
@@ -204,6 +214,18 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		if(send) dos.writeInt(status);
 	}
 
+	private void login() throws IOException {
+		String username = readUTF();
+		int    size = readInt();
+		byte[] pass = readByteArray(size);
+		boolean rtn = false;
+		User user = server.getUserlist().getUser(username); 
+		rtn = user != null ? Arrays.equals(user.getPassword(), pass) ? true : false : false;	
+		dos.writeBoolean(rtn);
+		loggedin = rtn;
+		//if(rtn) dos.writeInt(CLIENT_ID);
+	}
+
 	private void writeInt(int i) {
 		try {
 			dos.writeInt(i);
@@ -227,6 +249,10 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		return server;
 	}
 	
+	public void setID(int id) {
+		CLIENT_ID = id;
+	}
+
 	/** @return The array index given in the constructor **/
 	public int getID() {
 		return CLIENT_ID;
@@ -252,6 +278,17 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		term.run();
 		int rtn = dis.readInt();
 		term.cancel();
+		return rtn;
+	}
+
+	private byte[] readByteArray(int size) throws IOException {
+		byte[] rtn = new byte[size];
+		for(int i = 0; i < size; i++) {
+			term = new Terminator(this);
+			term.run();
+			rtn[i] = dis.readByte();
+			term.cancel();
+		}
 		return rtn;
 	}
 	

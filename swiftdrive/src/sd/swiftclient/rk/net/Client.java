@@ -18,6 +18,7 @@ import sd.swiftglobal.rk.expt.CommandException;
 import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.type.Data;
+import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.ServerCommand;
 import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.util.Logging;
@@ -45,7 +46,8 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	private Terminator term;
 	private int connectionID = 0;
 	private ChatClient cclient;
-	
+	private boolean unlocked = false;
+
 	/**
 	 * Establishes a connecting and I/O sockets with the server
 	 * @param hostname Host to connect to
@@ -70,88 +72,106 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	
 	@PingHandler @IndirectTimeout
 	public <Type extends Data> void scmd(ServerCommand scmd, Type outbound) throws DisconnectException, CommandException {
-		ping.standby();
-		ping.deactivate();
-		sendData(outbound);
-		int signal = scmd(scmd);
-		ping.activate();
-		if(signal != SIG_READY) throw new CommandException(signal);
+		if(unlocked) {
+			ping.standby();
+			ping.deactivate();
+			sendData(outbound);
+			int signal = scmd(scmd);
+			ping.activate();
+			if(signal != SIG_READY) throw new CommandException(signal);
+		}
 	}
 	
 	@PingHandler @IndirectTimeout
 	public Data scmd(ServerCommand scmd, Data inbound, int Type) throws DisconnectException, CommandException {
-		ping.pause();
-		int signal = scmd(scmd);
-		if(signal == SIG_READY) {
-			getData(inbound);
-			ping.activate();
-			return inbound;
-		} 
-		else {
-			ping.activate();
-			throw new CommandException(signal);
+		if(unlocked) {
+			ping.pause();
+			int signal = scmd(scmd);
+			if(signal == SIG_READY) {
+				getData(inbound);
+				ping.activate();
+				return inbound;
+			} 
+			else {
+				ping.activate();
+				throw new CommandException(signal);
+			}
 		}
+		return new Generic();
 	}
 	
 	public void sfcmd(ServerCommand scmd, SwiftFile sf) throws DisconnectException, FileException, CommandException {
-		ping.pause();
-		try {
-			sf.send(dos);
+		if(unlocked) {
+			ping.pause();
+			try {
+				sf.send(dos);
+			}
+			catch(IOException ix) {
+				throw new DisconnectException(EXC_NWRITE, ix);
+			}
+			int signal = scmd(scmd);
+			ping.activate();
+			if(signal != SIG_READY) throw new CommandException(signal);
 		}
-		catch(IOException ix) {
-			throw new DisconnectException(EXC_NWRITE, ix);
-		}
-		int signal = scmd(scmd);
-		ping.activate();
-		if(signal != SIG_READY) throw new CommandException(signal);
 	}
 	
 	@PingHandler @IndirectTimeout
 	public SwiftFile sfcmd(ServerCommand scmd) throws DisconnectException, FileException, CommandException {
-		ping.pause();
-		int signal1 = scmd(scmd),
-			signal2 = scmd(new ServerCommand(CMD_SEND_FILE, ""));
-		if(signal1 == SIG_READY && signal2 == SIG_READY) {
-			try {
-				SwiftFile file = new SwiftFile(dis);
+		if(unlocked) {
+			ping.pause();
+			int signal1 = scmd(scmd),
+				signal2 = scmd(new ServerCommand(CMD_SEND_FILE, ""));
+			if(signal1 == SIG_READY && signal2 == SIG_READY) {
+				try {
+					SwiftFile file = new SwiftFile(dis);
+					ping.activate();
+					return file;
+				}
+				catch(IOException ix) {
+					throw new DisconnectException(EXC_NREAD, ix);
+				}
+			}
+			else {
 				ping.activate();
-				return file;
-			}
-			catch(IOException ix) {
-				throw new DisconnectException(EXC_NREAD, ix);
+				throw new CommandException(signal1);
 			}
 		}
-		else {
-			ping.activate();
-			throw new CommandException(signal1);
-		}
+		return new SwiftFile(0);
 	}
-	
+
 	@IndirectTimeout @RequiresPingHandler
 	private int scmd(ServerCommand scmd) throws DisconnectException, CommandException {
-		if(scmd.toString() != null) {
-			writeInt(DAT_SCMD);
-			writeUTF(scmd.toString());
-			return readInt();
+		if(unlocked) {
+			if(scmd.toString() != null) {
+				writeInt(DAT_SCMD);
+				writeUTF(scmd.toString());
+				return readInt();
+			}
+			else {
+				return EXC_BCMD;
+			}
 		}
-		else {
-			return EXC_BCMD;
-		}
-	}
+		return EXC_LOCK;
+	}	
 	
 	@IndirectTimeout @RequiresPingHandler
 	private <Type extends Data> void sendData(Type outbound) throws DisconnectException {
-		writeInt(DAT_DATA);
-		writeInt(outbound.getSize());
-		for(String s : outbound.getArray()) writeUTF(s);
+		if(unlocked) {
+			writeInt(DAT_DATA);
+			writeInt(outbound.getSize());
+			for(String s : outbound.getArray()) writeUTF(s);
+		}
 	}
 	
 	@IndirectTimeout @RequiresPingHandler
 	private Data getData(@Pointer Data inbound) throws DisconnectException {
-		inbound.reset();
-		int size = readInt();
-		for(int i = 0; i < size; i++) inbound.add(readUTF());
-		return inbound;
+		if(unlocked) {
+			inbound.reset();
+			int size = readInt();
+			for(int i = 0; i < size; i++) inbound.add(readUTF());
+			return inbound;
+		}
+		return new Generic();
 	}
 
 	@RequiresPingHandler @DirectKiller
@@ -204,6 +224,10 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 	
+	public boolean login(String u, String p) throws DisconnectException {
+		return login(u, p.getBytes());
+	}
+
 	@PingHandler @DirectKiller
 	public boolean login(String username, byte[] password) throws DisconnectException {
 		boolean rtn = false;
@@ -219,9 +243,9 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			kill();
 			throw new DisconnectException(EXC_NETIO, ix);
 		}
-		if(rtn) connectionID = readInt();
+		unlocked = rtn;
 		ping.activate();
-		return false;
+		return rtn;
 	}
 	
 	@PingHandler @DirectKiller

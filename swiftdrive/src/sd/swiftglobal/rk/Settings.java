@@ -60,7 +60,8 @@ public interface Settings {
 							EXC_NREAD  = 9,
 							EXC_NWRITE = 10,
 							EXC_NETIO  = 11,
-							EXC_TYPEMM = 12;
+							EXC_TYPEMM = 12,
+							EXC_LOCK   = 13;
 
 	public static final int CMD_READ_FILE  = 1,
 							CMD_READ_DATA  = 2,

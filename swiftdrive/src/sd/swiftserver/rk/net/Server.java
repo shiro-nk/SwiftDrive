@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
+import sd.swiftglobal.rk.type.users.UserHandler;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
@@ -22,12 +23,11 @@ import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
  */
 public class Server implements SwiftNetContainer, Runnable, Settings, Logging, Closeable {
 	private ArrayList<Connection> clients = new ArrayList<Connection>();
-	private ArrayList<String>   usernames = new ArrayList<String>();
-	private ArrayList<Boolean>     active = new ArrayList<Boolean>();
 	private final ServerSocket server;
 	private final ChatServer chatserver;
 	private boolean   accepting = false;
 	private final int PORT;
+	private UserHandler userlist;
 
 	/**
 	 * Initialize the server and the listening thread on the given port
@@ -67,8 +67,6 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 				Connection cli = new Connection(this, server.accept(), clients.size());
 				new Thread(cli).start();
 				clients.add(cli);
-				usernames.add("");
-				active.add(true);
 				echo("Client " + (clients.size() - 1) + " has connected", LOG_PRI);
 				if(DEF_DDOS < clients.size()) accepting = false;
 			}
@@ -77,18 +75,28 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 			}
 		}
 	}
-	
+
+	public void cleanStack() {
+		ArrayList<Connection> swap = new ArrayList<Connection>();
+		for(Connection c : clients.toArray(new Connection[clients.size()])) {
+			if(c != null) swap.add(c);
+		}
+
+		Connection[] current = swap.toArray(new Connection[swap.size()]);
+		for(int i = 0; i < current.length; i++) current[i].setID(i);
+	}
+
+	public UserHandler getUserlist() {
+		return userlist;
+	}
+
+	public void setUserlist(UserHandler list) {
+		userlist = list;
+	}
+
 	/** @return Port number **/
 	public int getPort() {
 		return PORT;
-	}
-	
-	public void setUsername(int id, String s) {
-		usernames.add(id, s);
-	}
-	
-	public String[] getUsernames() {
-		return usernames.toArray(new String[usernames.size()]);
 	}
 	
 	/**
@@ -99,8 +107,9 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		int id = client.getID();
 		if(0 < id && id < clients.size()) {
 			clients.set(id, null);
-			usernames.set(id, "");
 		}
+		System.out.println(clients.size());
+		cleanStack();
 	}
 	
 	/** Force close **/

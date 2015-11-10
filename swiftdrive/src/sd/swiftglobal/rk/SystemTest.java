@@ -1,16 +1,13 @@
 package sd.swiftglobal.rk;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 
 import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.expt.CommandException;
 import sd.swiftglobal.rk.expt.DisconnectException;
-import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.ServerCommand;
-import sd.swiftglobal.rk.type.SwiftFile;
+import sd.swiftglobal.rk.type.users.UserHandler;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 import sd.swiftserver.rk.net.Server;
@@ -33,12 +30,13 @@ public class SystemTest implements SwiftNetContainer, Settings {
 	
 	public SystemTest() {
 		try(Server server = new Server()) {
+			UserHandler list = new UserHandler();
+			server.setUserlist(list);
 			try(Client client = new Client("localhost", 3141, this)) {
 				try(Scanner scan = new Scanner(System.in)) {
 					String sc = "";
-					SwiftFile file = client.sfcmd(new ServerCommand(CMD_READ_FILE, LC_PATH + "input"));
-					file.write(new File(LC_PATH + "output").toPath(), false);
 					while((sc = scan.nextLine()) != null && !sc.equals("stop") && scanning) {
+						client.login("username", "password");
 						if(!sc.equals("")) {
 							Generic gen = new Generic();
 							gen.add(sc);
@@ -48,9 +46,6 @@ public class SystemTest implements SwiftNetContainer, Settings {
 				} catch (CommandException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
-				catch (FileException | IOException fix) {
-					fix.printStackTrace();
 				}
 			}
 			Thread.sleep(10000000);

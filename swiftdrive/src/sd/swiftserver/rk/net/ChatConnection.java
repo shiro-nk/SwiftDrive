@@ -1,11 +1,10 @@
 package sd.swiftserver.rk.net;
 
 import java.io.Closeable;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-
-import org.omg.CORBA.DataInputStream;
-import org.omg.CORBA.DataOutputStream;
 
 import sd.swiftglobal.rk.Meta.LeaveBlank;
 import sd.swiftglobal.rk.Settings;

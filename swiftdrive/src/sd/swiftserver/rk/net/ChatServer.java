@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
+import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 
 public class ChatServer implements Runnable, SwiftNetContainer {
 	private ServerSocket server;	
@@ -22,6 +23,10 @@ public class ChatServer implements Runnable, SwiftNetContainer {
 		catch(IOException ix) {
 
 		}
+	}
+	
+	public void dereference(SwiftNetTool tool) {
+		
 	}
 
 	public void close() {
