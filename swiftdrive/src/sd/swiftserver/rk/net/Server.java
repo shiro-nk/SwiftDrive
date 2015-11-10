@@ -67,7 +67,7 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 				Connection cli = new Connection(this, server.accept(), clients.size());
 				new Thread(cli).start();
 				clients.add(cli);
-				echo("Client " + (clients.size() - 1) + " has connected", LOG_PRI);
+				echo("Client " + cli.getIP() + ":" + cli.getPort() + " has connected", LOG_PRI);
 				if(DEF_DDOS < clients.size()) accepting = false;
 			}
 			catch(IOException ix) {
@@ -80,6 +80,7 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		ArrayList<Connection> swap = new ArrayList<Connection>();
 		for(Connection c : clients.toArray(new Connection[clients.size()])) {
 			if(c != null) swap.add(c);
+			if(c != null) System.out.println(c.getID());
 		}
 
 		Connection[] current = swap.toArray(new Connection[swap.size()]);

@@ -81,6 +81,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 				
 				if(!loggedin) {
 					if(type == DAT_LGIN) login();
+					if(type == DAT_FILE) new SwiftFile(dis);
 				}
 				else {
 					switch(type) {
@@ -257,7 +258,15 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	public int getID() {
 		return CLIENT_ID;
 	}
-	
+
+	public String getIP() {
+		return socket.getInetAddress().toString();
+	}
+
+	public int getPort() {
+		return socket.getPort();
+	}
+
 	/** Close and remove the index of the connection from the parent **/
 	public void kill() {
 		System.out.println("Server close");
