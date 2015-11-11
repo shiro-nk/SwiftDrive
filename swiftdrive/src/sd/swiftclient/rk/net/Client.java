@@ -104,6 +104,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		if(unlocked) {
 			ping.pause();
 			try {
+				writeInt(DAT_FILE);
 				sf.send(dos);
 			}
 			catch(IOException ix) {

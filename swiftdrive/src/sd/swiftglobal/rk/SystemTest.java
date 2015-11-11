@@ -1,14 +1,18 @@
 package sd.swiftglobal.rk;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.expt.CommandException;
 import sd.swiftglobal.rk.expt.DisconnectException;
+import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.gui.SwiftLogin;
 import sd.swiftglobal.rk.gui.SwiftScreen;
 import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.ServerCommand;
+import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.type.users.UserHandler;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
@@ -25,7 +29,7 @@ import sd.swiftserver.rk.net.Server;
  */
 public class SystemTest implements SwiftNetContainer, Settings {
 	public static void main(String[] args) {
-		new SystemTest();
+		new SystemTest(1);
 	}
 	
 	private boolean scanning = true;
@@ -35,7 +39,7 @@ public class SystemTest implements SwiftNetContainer, Settings {
 		screen.setPanel(new SwiftLogin(screen));
 	}
 
-	public SystemTest(int i) {
+	public SystemTest(int nill) {
 		try(Server server = new Server()) {
 			UserHandler list = new UserHandler();
 			server.setUserlist(list);
@@ -43,6 +47,10 @@ public class SystemTest implements SwiftNetContainer, Settings {
 				try(Scanner scan = new Scanner(System.in)) {
 					String sc = "";
 					client.login("username", "password");
+					SwiftFile file = new SwiftFile(LC_PATH + "cinput", true);
+					client.sfcmd(new ServerCommand(CMD_WRITE_FILE, LC_PATH + "coutput"), file);
+					file = client.sfcmd(new ServerCommand(CMD_READ_FILE, LC_PATH + "input"));
+					file.write(new File(LC_PATH + "output").toPath(), false);
 					while((sc = scan.nextLine()) != null && !sc.equals("stop") && scanning) {
 						if(!sc.equals("")) {
 							Generic gen = new Generic();
@@ -50,7 +58,7 @@ public class SystemTest implements SwiftNetContainer, Settings {
 							client.scmd(new ServerCommand(CMD_WRITE_DATA, LC_PATH + "test"), gen);
 						}
 					}
-				} catch (CommandException e) {
+				} catch (CommandException | FileException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
