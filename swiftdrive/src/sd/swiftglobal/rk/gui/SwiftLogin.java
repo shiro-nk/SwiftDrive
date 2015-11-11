@@ -10,27 +10,34 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import sd.swiftclient.SwiftClient;
+import sd.swiftclient.rk.net.Client;
+import sd.swiftglobal.rk.Settings;
+import sd.swiftglobal.rk.expt.DisconnectException;
+
 /* This file is part of Swift Drive				 *
  * Copyright (C) 2015 Ryan Kerr					 *
  * Please refer to <http://www.gnu.org/licenses> */
 
-public class SwiftLogin extends JPanel implements SwiftPanel, ActionListener {
+public class SwiftLogin extends JPanel implements Settings, SwiftPanel, ActionListener {
 	public static final long serialVersionUID = 1l;
 	private SwiftContainer parent;
+	private SwiftClient clientHandler;
 	private JTextField userfield;
 	private JPasswordField passfield;
 	private JLabel login;
 	private JButton submit,
 					settings; 
 
-	public SwiftLogin(SwiftContainer parent) {
+	public SwiftLogin(SwiftContainer parent, SwiftClient net) {
 		int fheight = 40,
 			fwidth  = 400,
 			fposx   = 100,
 			fposy   = 200;
 			
 		setParent(parent);
-		setSize(1000, 500);
+		clientHandler = net;
+		setSize(GUI_FRAME_BORDER, GUI_FRAME_HEIGHT);
 		setLocation(0, 0);
 		setLayout(null);
 		
@@ -87,6 +94,18 @@ public class SwiftLogin extends JPanel implements SwiftPanel, ActionListener {
 		Object src = ae.getSource();
 
 		if(src == userfield) passfield.requestFocus();
-		if(src == passfield) next();
+	
+		if(src == passfield || src == submit) {
+			try {
+				Client cli = new Client("localhost", 3141, clientHandler);
+				Thread.sleep(500);
+				if(cli.login(userfield.getText(), passfield.getPassword())) 
+					next();
+				clientHandler.setClient(cli);
+			}
+			catch(InterruptedException | DisconnectException ex) {
+				ex.printStackTrace();
+			}
+		}
 	}
 }

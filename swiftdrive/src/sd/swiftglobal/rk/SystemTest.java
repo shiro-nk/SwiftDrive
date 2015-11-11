@@ -37,7 +37,7 @@ public class SystemTest implements SwiftNetContainer, Settings {
 	public SystemTest() {
 		Client cli = null;
 		SwiftScreen screen = new SwiftScreen("SwiftScreen", cli);
-		screen.setPanel(new SwiftLogin(screen));
+		screen.setPanel(new SwiftLogin(screen, null));
 	}
 
 	public SystemTest(int nill) {
@@ -74,6 +74,9 @@ public class SystemTest implements SwiftNetContainer, Settings {
 		}
 	}
 	
+	public void kill() {
+
+	}
 	public void dereference(SwiftNetTool t) {
 		scanning = false;
 		System.out.println("Client close");

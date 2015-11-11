@@ -6,11 +6,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
+import sd.swiftglobal.rk.Settings;
+
 /* This file is part of Swift Drive				 *
  * Copyright (C) 2015 Ryan Kerr					 *
  * Please refer to <http://www.gnu.org/licenses> */
 
-public class SwiftMenu extends JPanel implements SwiftContainer, SwiftPanel, ActionListener {
+public class SwiftMenu extends JPanel implements Settings, SwiftContainer, SwiftPanel, ActionListener {
 	private static final long serialVersionUID = 1l;
 	private SwiftContainer parent;
 	private JPanel current;
@@ -25,7 +27,7 @@ public class SwiftMenu extends JPanel implements SwiftContainer, SwiftPanel, Act
 
 	public JPanel getPanel() {
 		JPanel output = new JPanel();
-		output.setSize(1000, 500);
+		output.setSize(GUI_FRAME_BORDER, GUI_FRAME_HEIGHT);
 		output.setLocation(0, 0);
 		output.setLayout(null);
 		output.add(this);
@@ -36,7 +38,7 @@ public class SwiftMenu extends JPanel implements SwiftContainer, SwiftPanel, Act
 	public void setPanel(SwiftPanel panel) {
 		if(current != null) current.setVisible(false);
 		current = panel.getPanel();
-		current.setLocation(250, 0);
+		current.setLocation(252, 0);
 		current.setVisible(true);
 	}
 

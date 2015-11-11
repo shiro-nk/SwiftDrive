@@ -5,11 +5,11 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.Meta.Typedef;
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.type.SwiftFile;
-import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 
 /* This file is part of Swift Drive				   *
  * Copyright (C) 2015 Ryan Kerr                    *
@@ -29,7 +29,7 @@ public class Ping implements Settings, Runnable, Closeable {
 	
 	private DataInputStream  dis;
 	private	DataOutputStream dos;
-	private SwiftNetTool 	tool;
+	private Client tool;
 	private Thread sleep;
 	private Terminator term;;
 	
@@ -43,10 +43,10 @@ public class Ping implements Settings, Runnable, Closeable {
 	 * @param dis Stream to read from
 	 * @param dos Stream to ping to
 	 */
-	public Ping(DataInputStream dis, DataOutputStream dos, SwiftNetTool t) {
+	public Ping(DataInputStream dis, DataOutputStream dos, Client c) {
 		this.dis = dis;
 		this.dos = dos;
-		this.tool = t;
+		this.tool = c;
 		term = new Terminator(tool);
 		online = true;
 		active = true;
@@ -81,7 +81,7 @@ public class Ping implements Settings, Runnable, Closeable {
 						try {
 							Thread.sleep(DEF_PING * 1000);
 							echo("xasdf");
-							if(active) {
+							if(active && tool.isUnlocked()) {
 								try {
 									locked = true;
 									echo("Ping: Ping");
@@ -124,7 +124,7 @@ public class Ping implements Settings, Runnable, Closeable {
 	public void deactivate() {
 		echo("Deactivated");
 		active = false;
-		sleep.interrupt();
+		if(sleep != null) sleep.interrupt();
 	}
 	
 	/** Re-enables the ping **/

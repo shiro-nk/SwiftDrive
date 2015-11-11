@@ -225,8 +225,9 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 	
-	public boolean login(String u, String p) throws DisconnectException {
-		return login(u, p.getBytes());
+	public boolean login(String u, char[] p) throws DisconnectException {
+		System.out.println(u + ": " + new String(p));
+		return login(u, new String(p).getBytes());
 	}
 
 	@PingHandler @DirectKiller
@@ -281,15 +282,18 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	public ChatClient getChat() {
 		return cclient;
 	}
+	
+	public boolean isUnlocked() {
+		return unlocked;
+	}
 
 	@Override
 	public void close() {
 		try {
-			ping.stop();
+			if(ping != null) ping.stop();
 			if(dis != null) dis.close();
 			if(dos != null) dos.close();
 			if(server != null) server.close();
-			if(cclient != null) cclient.close();
 		}
 		catch(IOException ix) {
 			error("Error closing sockets", LOG_FRC);

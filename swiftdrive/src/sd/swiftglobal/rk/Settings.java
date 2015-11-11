@@ -63,6 +63,12 @@ public interface Settings {
 							EXC_TYPEMM = 12,
 							EXC_LOCK   = 13;
 
+	public static final int GUI_FRAME_HEIGHT = 450,
+							GUI_FRAME_WIDTH  = 800,
+		   					GUI_FRAME_BORDER = GUI_FRAME_WIDTH + 2,
+							GUI_PANEL_HEIGHT = 450,
+							GUI_PANEL_WIDTH  = GUI_FRAME_WIDTH - 250;
+
 	public static final int CMD_READ_FILE  = 1,
 							CMD_READ_DATA  = 2,
 							CMD_WRITE_FILE = 3,

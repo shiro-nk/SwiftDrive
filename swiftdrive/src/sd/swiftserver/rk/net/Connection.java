@@ -224,6 +224,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		rtn = user != null ? Arrays.equals(user.getPassword(), pass) ? true : false : false;	
 		dos.writeBoolean(rtn);
 		loggedin = rtn;
+		if(!rtn) kill();
 		System.out.println("Login was: " + loggedin);
 		//if(rtn) dos.writeInt(CLIENT_ID);
 	}
@@ -242,7 +243,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	public boolean isOnline() {
 		return online;
 	}
-
+	
 	/* This is already set in the constructor */
 	public void setParent(SwiftNetContainer c) { /* null */ }
 	
@@ -266,6 +267,10 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 
 	public int getPort() {
 		return socket.getPort();
+	}
+
+	public int getUserID() {
+		return 0;
 	}
 
 	/** Close and remove the index of the connection from the parent **/
