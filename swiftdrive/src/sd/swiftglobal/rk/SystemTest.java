@@ -29,13 +29,14 @@ import sd.swiftserver.rk.net.Server;
  */
 public class SystemTest implements SwiftNetContainer, Settings {
 	public static void main(String[] args) {
-		new SystemTest(1);
+		new SystemTest();
 	}
 	
 	private boolean scanning = true;
 
 	public SystemTest() {
-		SwiftScreen screen = new SwiftScreen("SwiftScreen");
+		Client cli = null;
+		SwiftScreen screen = new SwiftScreen("SwiftScreen", cli);
 		screen.setPanel(new SwiftLogin(screen));
 	}
 

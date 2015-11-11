@@ -3,6 +3,8 @@ package sd.swiftglobal.rk.gui;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
+
 /* This file is part of Swift Drive				 *
  * Copyright (C) 2015 Ryan Kerr					 *
  * Please refer to <http://www.gnu.org/licenses> */
@@ -11,8 +13,9 @@ public class SwiftScreen extends JFrame implements SwiftContainer {
 	public static final long serialVersionUID = 1l;
 	private JPanel current;
 	private SwiftPanel panel;
+	private SwiftNetTool tool;
 
-	public SwiftScreen(String title) {
+	public SwiftScreen(String title, SwiftNetTool tool) {
 		setSize(800, 450);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,6 +39,10 @@ public class SwiftScreen extends JFrame implements SwiftContainer {
 		current.repaint();
 	}
 	
+	public SwiftNetTool getNetTool() {
+		return tool;
+	}
+
 	public SwiftContainer getSwiftParent() {
 		return this;
 	}

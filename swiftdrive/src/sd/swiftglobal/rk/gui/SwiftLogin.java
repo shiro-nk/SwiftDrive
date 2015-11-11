@@ -1,8 +1,11 @@
 package sd.swiftglobal.rk.gui;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -16,25 +19,49 @@ public class SwiftLogin extends JPanel implements SwiftPanel, ActionListener {
 	private SwiftContainer parent;
 	private JTextField userfield;
 	private JPasswordField passfield;
+	private JLabel login;
+	private JButton submit,
+					settings; 
 
 	public SwiftLogin(SwiftContainer parent) {
+		int fheight = 40,
+			fwidth  = 400,
+			fposx   = 100,
+			fposy   = 200;
+			
 		setParent(parent);
 		setSize(1000, 500);
 		setLocation(0, 0);
 		setLayout(null);
 		
 		userfield = new JTextField(25);
-		userfield.setLocation(200, 50);
-		userfield.setSize(250, 25);
+		userfield.setLocation(fposx, fposy);
+		userfield.setSize(fwidth, fheight);
 		userfield.addActionListener(this);
 		userfield.requestFocus();
 		add(userfield);
 
 		passfield = new JPasswordField(25);
-		passfield.setLocation(200, 100);
-		passfield.setSize(250, 25);
+		passfield.setLocation(fposx, fposy + fheight + 25);
+		passfield.setSize(fwidth, fheight);
 		passfield.addActionListener(this);
 		add(passfield);
+
+		login = new JLabel("Login");
+		login.setFont(new Font("Sans", Font.BOLD, 75));
+		login.setLocation(100, -125);
+		login.setSize(500, 500);
+		add(login);
+	
+		settings = new JButton("Settings");
+		settings.setLocation(fposx + fwidth + 25, fposy);
+		settings.setSize(160, fheight);
+		add(settings);
+
+		submit = new JButton("Submit");
+		submit.setLocation(fposx + fwidth + 25, fposy + fheight + 25); 
+		submit.setSize(160, fheight);
+		add(submit);
 	}
 	
 	public void next() {
