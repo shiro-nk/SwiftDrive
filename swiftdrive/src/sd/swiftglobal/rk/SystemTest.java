@@ -5,6 +5,8 @@ import java.util.Scanner;
 import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.expt.CommandException;
 import sd.swiftglobal.rk.expt.DisconnectException;
+import sd.swiftglobal.rk.gui.SwiftLogin;
+import sd.swiftglobal.rk.gui.SwiftScreen;
 import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.ServerCommand;
 import sd.swiftglobal.rk.type.users.UserHandler;
@@ -27,8 +29,13 @@ public class SystemTest implements SwiftNetContainer, Settings {
 	}
 	
 	private boolean scanning = true;
-	
+
 	public SystemTest() {
+		SwiftScreen screen = new SwiftScreen("SwiftScreen");
+		screen.setPanel(new SwiftLogin(screen));
+	}
+
+	public SystemTest(int i) {
 		try(Server server = new Server()) {
 			UserHandler list = new UserHandler();
 			server.setUserlist(list);
