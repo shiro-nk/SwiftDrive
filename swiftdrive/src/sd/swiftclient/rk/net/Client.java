@@ -45,7 +45,6 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	private SwiftNetContainer parent;
 	private Terminator term;
 	private int connectionID = 0;
-	private ChatClient cclient;
 	private boolean unlocked = false;
 
 	/**
@@ -282,9 +281,9 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		parent.dereference(this);
 	}
 
-	public ChatClient getChat() {
-		return cclient;
-	}
+//	public ChatClient getChat() {
+//		return cclient;
+//	}
 	
 	public boolean isUnlocked() {
 		return unlocked;

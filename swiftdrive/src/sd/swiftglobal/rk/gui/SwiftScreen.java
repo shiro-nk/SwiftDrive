@@ -17,8 +17,8 @@ public class SwiftScreen extends JFrame implements Settings, SwiftContainer {
 	private SwiftPanel panel;
 	private SwiftNetTool tool;
 	private SwiftNetContainer container;
-	
-	public SwiftScreen(String title, SwiftNetContainer c, SwiftNetTool tool) {
+
+	public SwiftScreen(String title, SwiftNetContainer c) {
 		setSize(GUI_FRAME_BORDER, GUI_FRAME_HEIGHT);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

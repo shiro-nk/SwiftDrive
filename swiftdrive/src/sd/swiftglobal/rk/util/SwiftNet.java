@@ -46,5 +46,7 @@ public class SwiftNet {
 		public default void terminate(SwiftNetTool t) {
 			t.kill();
 		}
+		public boolean hasTool();
+		public SwiftNetTool getTool();
 	}
 }

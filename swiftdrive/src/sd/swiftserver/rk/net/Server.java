@@ -24,7 +24,6 @@ import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 public class Server implements SwiftNetContainer, Runnable, Settings, Logging, Closeable {
 	private ArrayList<Connection> clients = new ArrayList<Connection>();
 	private final ServerSocket server;
-	private final ChatServer chatserver;
 	private boolean   accepting = false;
 	private final int PORT;
 	private UserHandler userlist;
@@ -39,8 +38,6 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		try {
 			server = new ServerSocket(port);
 			new Thread(this).start();
-			chatserver = new ChatServer(port + 1, this);
-			new Thread(chatserver).start();
 		}
 		catch(IOException ix) {
 			throw new DisconnectException(EXC_CONN, ix);
@@ -102,7 +99,15 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 	public int getPort() {
 		return PORT;
 	}
-	
+
+	public boolean hasTool() {
+		return false;
+	}
+
+	public SwiftNetTool getTool() {
+		return null;
+	}
+
 	/**
 	 * Destroy client
 	 * @param client Client to destroy

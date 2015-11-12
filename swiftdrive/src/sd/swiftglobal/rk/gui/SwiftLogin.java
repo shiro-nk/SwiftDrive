@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 
 import sd.swiftclient.SwiftClient;
 import sd.swiftclient.rk.net.Client;
+import sd.swiftglobal.rk.Meta.LeaveBlank;
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
 
@@ -21,7 +22,7 @@ import sd.swiftglobal.rk.expt.DisconnectException;
 
 public class SwiftLogin extends JPanel implements Settings, SwiftPanel, ActionListener {
 	public static final long serialVersionUID = 1l;
-	private SwiftContainer parent;
+	private SwiftScreen screen;
 	private SwiftClient clientHandler;
 	private JTextField userfield;
 	private JPasswordField passfield;
@@ -29,13 +30,13 @@ public class SwiftLogin extends JPanel implements Settings, SwiftPanel, ActionLi
 	private JButton submit,
 					settings; 
 
-	public SwiftLogin(SwiftContainer parent, SwiftClient net) {
+	public SwiftLogin(SwiftScreen screen, SwiftClient net) {
 		int fheight = 40,
 			fwidth  = 400,
 			fposx   = 100,
 			fposy   = 200;
-			
-		setParent(parent);
+		
+		this.screen = screen;
 		clientHandler = net;
 		setSize(GUI_FRAME_BORDER, GUI_FRAME_HEIGHT);
 		setLocation(0, 0);
@@ -79,29 +80,30 @@ public class SwiftLogin extends JPanel implements Settings, SwiftPanel, ActionLi
 
 	//TODO DEBUG
 	public void next() {
-		SwiftMenu menu = new SwiftMenu(parent);
+		SwiftMenu menu = new SwiftMenu(screen);
 		SwiftClientDebugger scd = new SwiftClientDebugger(menu, clientHandler.getClient());
 		menu.setPanel(scd);
-		parent.setPanel(menu);
+		screen.setPanel(menu);
 	}
 
 	public void next(int i) {
-		SwiftMenu menu = new SwiftMenu(parent);
+		SwiftMenu menu = new SwiftMenu(screen);
 		SwiftGreeter greeter = new SwiftGreeter(menu);
 		menu.setPanel(greeter);
-		parent.setPanel(menu);
+		screen.setPanel(menu);
 	}
 
 	public JPanel getPanel() {
 		return this;
 	}
 
+	@LeaveBlank
 	public void setParent(SwiftContainer parent) {
-		this.parent = parent;
+	
 	}
 
 	public SwiftContainer getSwiftParent() {
-		return parent;
+		return screen;
 	}
 
 	public void actionPerformed(ActionEvent ae) {
@@ -113,6 +115,7 @@ public class SwiftLogin extends JPanel implements Settings, SwiftPanel, ActionLi
 			try {
 				Client cli = new Client("localhost", 3141, clientHandler);
 				Thread.sleep(500);
+				screen.setNetTool(cli);
 				clientHandler.setClient(cli);
 				if(cli.login(userfield.getText(), passfield.getPassword())) 
 					next();

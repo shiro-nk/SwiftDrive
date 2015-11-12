@@ -1,5 +1,9 @@
 package sd.swiftglobal.rk.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -23,7 +27,7 @@ public class SwiftGreeter extends JPanel implements SwiftPanel, ActionListener {
 		JButton button = new JButton("Debug");
 		button.setSize(100, 50);
 		button.setLocation(250, 150);
-		buton.addActionListener(this);
+		button.addActionListener(this);
 		add(button);
 	}
 

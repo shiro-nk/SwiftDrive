@@ -36,7 +36,7 @@ public class SwiftClient implements SwiftNetContainer, Settings {
 		}
 		//TODO END TESTING
 		
-		screen = new SwiftScreen("Server", this, client);
+		screen = new SwiftScreen("Server", this);
 		SwiftLogin login = new SwiftLogin(screen, this);
 		screen.setPanel(login);
 		
@@ -55,6 +55,14 @@ public class SwiftClient implements SwiftNetContainer, Settings {
 
 	public Client getClient() {
 		return client;
+	}
+
+	public boolean hasTool() {
+		return client != null ? true : false;
+	}
+
+	public SwiftNetTool getTool() {
+		return client;	
 	}
 
 	public void kill() {

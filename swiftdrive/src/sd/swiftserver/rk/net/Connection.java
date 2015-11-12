@@ -80,7 +80,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 				echo("Receiving int ... ");
 				int type = readInt();
 				echo("Type: " + type);
-				System.out.println("Logged in? " + loggedin);	
 				if(!loggedin) {
 					System.err.println("Warning: User is not logged in!");
 					if(type == DAT_LGIN) login();

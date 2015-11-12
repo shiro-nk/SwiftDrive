@@ -82,6 +82,14 @@ public class SystemTest implements SwiftNetContainer, Settings {
 		}
 	}
 	
+	public boolean hasTool() {
+		return false;
+	}
+
+	public SwiftNetTool getTool() {
+		return null;
+	}
+
 	public void kill() {
 
 	}
