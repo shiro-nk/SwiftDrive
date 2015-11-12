@@ -182,7 +182,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 						break;
 					case CMD_SEND_DATA:
 						send = false;
-						if(swap != null) {
+						if(swap_data != null) {
 							writeInt(SIG_READY);
 							sendData(swap_data);
 						}

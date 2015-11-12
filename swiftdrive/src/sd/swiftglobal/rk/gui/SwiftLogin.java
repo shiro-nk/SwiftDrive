@@ -72,12 +72,20 @@ public class SwiftLogin extends JPanel implements Settings, SwiftPanel, ActionLi
 		submit.addActionListener(this);
 		add(submit);
 	}
-	
+
 	public void settings() {
 		
 	}
 
+	//TODO DEBUG
 	public void next() {
+		SwiftMenu menu = new SwiftMenu(parent);
+		SwiftClientDebugger scd = new SwiftClientDebugger(menu, clientHandler.getClient());
+		menu.setPanel(scd);
+		parent.setPanel(menu);
+	}
+
+	public void next(int i) {
 		SwiftMenu menu = new SwiftMenu(parent);
 		SwiftGreeter greeter = new SwiftGreeter(menu);
 		menu.setPanel(greeter);
@@ -105,9 +113,9 @@ public class SwiftLogin extends JPanel implements Settings, SwiftPanel, ActionLi
 			try {
 				Client cli = new Client("localhost", 3141, clientHandler);
 				Thread.sleep(500);
+				clientHandler.setClient(cli);
 				if(cli.login(userfield.getText(), passfield.getPassword())) 
 					next();
-				clientHandler.setClient(cli);
 			}
 			catch(InterruptedException | DisconnectException ex) {
 				ex.printStackTrace();

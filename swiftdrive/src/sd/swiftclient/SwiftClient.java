@@ -50,7 +50,7 @@ public class SwiftClient implements SwiftNetContainer, Settings {
 	}
 	
 	public void setClient(Client cli) {
-		cli = client;
+		client = cli;
 	}
 
 	public Client getClient() {
