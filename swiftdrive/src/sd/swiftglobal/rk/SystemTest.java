@@ -10,6 +10,7 @@ import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.gui.SwiftLogin;
 import sd.swiftglobal.rk.gui.SwiftScreen;
+import sd.swiftglobal.rk.type.Data;
 import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.ServerCommand;
 import sd.swiftglobal.rk.type.SwiftFile;
@@ -29,7 +30,7 @@ import sd.swiftserver.rk.net.Server;
  */
 public class SystemTest implements SwiftNetContainer, Settings {
 	public static void main(String[] args) {
-		new SystemTest();
+		new SystemTest(0);
 	}
 	
 	private boolean scanning = true;
@@ -47,16 +48,24 @@ public class SystemTest implements SwiftNetContainer, Settings {
 			try(Client client = new Client("localhost", 3141, this)) {
 				try(Scanner scan = new Scanner(System.in)) {
 					String sc = "";
-					client.login("username", "password");
+					System.out.println("Logging in");
+					client.login("username", "password".getBytes());
+					System.out.println("Reading cinput and sending");
 					SwiftFile file = new SwiftFile(LC_PATH + "cinput", true);
+					System.out.println("Dumping file to coutput");
 					client.sfcmd(new ServerCommand(CMD_WRITE_FILE, LC_PATH + "coutput"), file);
+					System.out.println("Requesting input");
 					file = client.sfcmd(new ServerCommand(CMD_READ_FILE, LC_PATH + "input"));
+					System.out.println("writing output");
 					file.write(new File(LC_PATH + "output").toPath(), false);
 					while((sc = scan.nextLine()) != null && !sc.equals("stop") && scanning) {
 						if(!sc.equals("")) {
 							Generic gen = new Generic();
 							gen.add(sc);
 							client.scmd(new ServerCommand(CMD_WRITE_DATA, LC_PATH + "test"), gen);
+							System.out.println("RESP Request");
+							client.scmd(new ServerCommand(CMD_SEND_DATA, ""), gen, DAT_DATA);
+							System.out.println("Response: " + gen.next());
 						}
 					}
 				} catch (CommandException | FileException | IOException e) {

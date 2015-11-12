@@ -112,7 +112,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 							echo("Creating generic object");
 							swap_data = new Generic();
 							int size = readInt();
-							System.out.println("Size received!");
 							echo("Size: " + size);
 							for(int i = 0; i < size; i++) swap_data.add(readUTF());
 							for(String s : swap_data.getArray()) echo(s, LOG_FRC);
@@ -146,7 +145,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	 * @throws IOException If something fails while writing to the socket
 	 */
 	public <Type extends Data> void sendData(Type data) throws IOException {
-		dos.writeInt(Type.getTypeID());
 		dos.writeInt(data.getSize());
 		for(String s : data.getArray()) dos.writeUTF(s);
 	}
@@ -225,7 +223,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		dos.writeBoolean(rtn);
 		loggedin = rtn;
 		if(!rtn) kill();
-		System.out.println("Login was: " + loggedin);
 		//if(rtn) dos.writeInt(CLIENT_ID);
 	}
 

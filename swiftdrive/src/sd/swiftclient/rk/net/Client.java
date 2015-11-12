@@ -88,7 +88,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			ping.pause();
 			int signal = scmd(scmd);
 			if(signal == SIG_READY) {
-				getData(inbound);
+				inbound = getData(inbound);
 				ping.activate();
 				return inbound;
 			} 
@@ -232,22 +232,25 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 
 	@PingHandler @DirectKiller
 	public boolean login(String username, byte[] password) throws DisconnectException {
-		boolean rtn = false;
-		ping.pause();
-		writeInt(DAT_LGIN);
-		writeUTF(username);
-		writeInt(password.length);
-		try {
-			for(byte p : password) dos.writeByte(p);
-			rtn = dis.readBoolean();
-		} 
-		catch(IOException ix) {
-			kill();
-			throw new DisconnectException(EXC_NETIO, ix);
+		if(!unlocked) {
+			boolean rtn = false;
+			ping.pause();
+			writeInt(DAT_LGIN);
+			writeUTF(username);
+			writeInt(password.length);
+			try {
+				for(byte p : password) dos.writeByte(p);
+				rtn = dis.readBoolean();
+			} 
+			catch(IOException ix) {
+				kill();
+				throw new DisconnectException(EXC_NETIO, ix);
+			}
+			unlocked = rtn;
+			ping.activate();
+			return rtn;
 		}
-		unlocked = rtn;
-		ping.activate();
-		return rtn;
+		return true;
 	}
 	
 	@PingHandler @DirectKiller
