@@ -22,7 +22,6 @@ public class SwiftMenu extends JPanel implements Settings, SwiftContainer, Swift
 		setSize(250, 500);
 		setLocation(0, 0);
 		setLayout(null);
-		setBackground(Color.CYAN);
 	}
 
 	public JPanel getPanel() {
@@ -30,6 +29,7 @@ public class SwiftMenu extends JPanel implements Settings, SwiftContainer, Swift
 		output.setSize(GUI_FRAME_BORDER, GUI_FRAME_HEIGHT);
 		output.setLocation(0, 0);
 		output.setLayout(null);
+		output.setBackground(Color.CYAN);
 		output.add(this);
 		output.add(current);
 		return output;

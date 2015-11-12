@@ -1,7 +1,5 @@
 package sd.swiftglobal.rk.gui;
 
-import java.awt.Color;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -17,7 +15,6 @@ public class SwiftGreeter extends JPanel implements SwiftPanel {
 		setParent(parent);
 		setSize(750, 500);
 		setLayout(null);
-		setBackground(Color.RED);
 		JLabel label = new JLabel("Welcome to SwiftDrive");
 		label.setSize(250, 100);
 		label.setLocation(100, 50);

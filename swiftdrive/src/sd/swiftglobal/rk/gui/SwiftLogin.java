@@ -63,14 +63,20 @@ public class SwiftLogin extends JPanel implements Settings, SwiftPanel, ActionLi
 		settings = new JButton("Settings");
 		settings.setLocation(fposx + fwidth + 25, fposy);
 		settings.setSize(160, fheight);
+		settings.addActionListener(this);
 		add(settings);
 
 		submit = new JButton("Submit");
 		submit.setLocation(fposx + fwidth + 25, fposy + fheight + 25); 
 		submit.setSize(160, fheight);
+		submit.addActionListener(this);
 		add(submit);
 	}
 	
+	public void settings() {
+		
+	}
+
 	public void next() {
 		SwiftMenu menu = new SwiftMenu(parent);
 		SwiftGreeter greeter = new SwiftGreeter(menu);

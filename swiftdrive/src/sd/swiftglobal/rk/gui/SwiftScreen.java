@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import sd.swiftglobal.rk.Settings;
+import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 
 /* This file is part of Swift Drive				 *
@@ -15,8 +16,9 @@ public class SwiftScreen extends JFrame implements Settings, SwiftContainer {
 	private JPanel current;
 	private SwiftPanel panel;
 	private SwiftNetTool tool;
+	private SwiftNetContainer container;
 	
-	public SwiftScreen(String title, SwiftNetTool tool) {
+	public SwiftScreen(String title, SwiftNetContainer c, SwiftNetTool tool) {
 		setSize(GUI_FRAME_BORDER, GUI_FRAME_HEIGHT);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,7 +41,19 @@ public class SwiftScreen extends JFrame implements Settings, SwiftContainer {
 		current.setVisible(true);
 		current.repaint();
 	}
-	
+
+	public void setNetContainer(SwiftNetContainer cont) {
+		this.container = cont;
+	}
+
+	public SwiftNetContainer getNetContainer() {
+		return container;
+	}
+
+	public void setNetTool(SwiftNetTool tool) {
+		this.tool = tool;
+	}
+
 	public SwiftNetTool getNetTool() {
 		return tool;
 	}

@@ -10,7 +10,6 @@ import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.gui.SwiftLogin;
 import sd.swiftglobal.rk.gui.SwiftScreen;
-import sd.swiftglobal.rk.type.Data;
 import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.ServerCommand;
 import sd.swiftglobal.rk.type.SwiftFile;
@@ -37,7 +36,7 @@ public class SystemTest implements SwiftNetContainer, Settings {
 
 	public SystemTest() {
 		Client cli = null;
-		SwiftScreen screen = new SwiftScreen("SwiftScreen", cli);
+		SwiftScreen screen = new SwiftScreen("SwiftScreen", this, cli);
 		screen.setPanel(new SwiftLogin(screen, null));
 	}
 

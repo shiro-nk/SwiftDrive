@@ -36,7 +36,7 @@ public class SwiftClient implements SwiftNetContainer, Settings {
 		}
 		//TODO END TESTING
 		
-		screen = new SwiftScreen("Server", client);
+		screen = new SwiftScreen("Server", this, client);
 		SwiftLogin login = new SwiftLogin(screen, this);
 		screen.setPanel(login);
 		
