@@ -90,7 +90,7 @@ public class Ping implements Settings, Runnable, Closeable {
 									dis.readInt();
 									echo("Ping: Response");
 									term.cancel();
-									
+									locked = false;							
 									synchronized(lock) { lock.notifyAll(); }
 								}
 								catch(IOException ix) {
@@ -141,8 +141,8 @@ public class Ping implements Settings, Runnable, Closeable {
 	}
 	
 	public void standby() {
-		echo("Waiting for locks to release");
 		if(locked) {
+			echo("Waiting for locks to release");
 			synchronized(lock) {
 				try {
 					lock.wait();

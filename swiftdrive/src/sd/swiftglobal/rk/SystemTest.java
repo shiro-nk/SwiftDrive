@@ -29,10 +29,25 @@ import sd.swiftserver.rk.net.Server;
  */
 public class SystemTest implements SwiftNetContainer, Settings {
 	public static void main(String[] args) {
-		new SystemTest(0);
+		new SystemTest(true);
 	}
 	
 	private boolean scanning = true;
+	private Server server;
+
+	public SystemTest(boolean nill) {
+		try {
+			server = new Server();
+		}
+		catch(DisconnectException dx) {
+			dx.printStackTrace();
+		}
+
+		Scanner scan = new Scanner(System.in);
+		scan.nextLine();
+		server.close();
+		scan.close();
+	}
 
 	public SystemTest() {
 		Client cli = null;
