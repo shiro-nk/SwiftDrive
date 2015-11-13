@@ -113,7 +113,7 @@ public class SwiftLogin extends JPanel implements Settings, SwiftPanel, ActionLi
 	
 		if(src == passfield || src == submit) {
 			try {
-				Client cli = new Client("localhost", 3141, clientHandler);
+				Client cli = new Client("192.168.5.94", 3141, clientHandler);
 				Thread.sleep(500);
 				screen.setNetTool(cli);
 				clientHandler.setClient(cli);

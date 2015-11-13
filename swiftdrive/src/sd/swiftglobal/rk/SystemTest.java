@@ -38,6 +38,7 @@ public class SystemTest implements SwiftNetContainer, Settings {
 	public SystemTest(boolean nill) {
 		try {
 			server = new Server();
+			server.setUserlist(new UserHandler());
 		}
 		catch(DisconnectException dx) {
 			dx.printStackTrace();
