@@ -18,8 +18,8 @@ public class Console extends JFrame {
 					  size_y = 300,
 					  border = 2;
 	
-	
-	public Console() {
+	public Console(String str) {
+		super(str);
 		setLayout(null);
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

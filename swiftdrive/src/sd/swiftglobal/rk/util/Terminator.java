@@ -45,7 +45,6 @@ public class Terminator implements Settings {
 	
 	public void terminate() {
 		if(running) {
-			System.out.println("exTerminate");
 			tool.kill();
 			terminated = true;
 		}

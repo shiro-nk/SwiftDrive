@@ -16,6 +16,7 @@ import sd.swiftglobal.rk.type.Data;
 import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.type.users.User;
+import sd.swiftglobal.rk.util.Console;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
@@ -271,7 +272,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 
 	/** Close and remove the index of the connection from the parent **/
 	public void kill() {
-		System.out.println("Server close");
+		echo("Connection killed");
 		close();
 		server.dereference(this);
 	}
@@ -327,22 +328,11 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		}
 	}
 	
+	Console con = new Console("Connection " + getID());
 	@Deprecated
 	public void echo(Object str) {
-		try {
-			if(output == null) output = new SwiftFile(LC_PATH + "con" + getID(), false);
-			output.reset();
-			if(str.toString().equals("") || str == null) output.add(" ");
-			else output.add(str.toString() + "\n");
-			output.toData();
-			output.append();
-		}
-		catch(IOException ix) {
-			ix.printStackTrace();
-		}
-		catch(FileException fx) {
-			fx.printStackTrace();
-		}
+		con.setTitle("Connection " + getID());
+		con.append(str.toString());
 	}
 
 	@Deprecated

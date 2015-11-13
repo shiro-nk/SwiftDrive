@@ -8,8 +8,6 @@ import java.io.IOException;
 import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.Meta.Typedef;
 import sd.swiftglobal.rk.Settings;
-import sd.swiftglobal.rk.expt.FileException;
-import sd.swiftglobal.rk.type.SwiftFile;
 
 /* This file is part of Swift Drive				   *
  * Copyright (C) 2015 Ryan Kerr                    *
@@ -35,8 +33,6 @@ public class Ping implements Settings, Runnable, Closeable {
 	
 	private Lock lock = new Lock(),
 				 ping = new Lock();
-
-	private SwiftFile output;
 
 	/**
 	 * Initialize the ping tool
@@ -170,21 +166,11 @@ public class Ping implements Settings, Runnable, Closeable {
 		tool.kill();
 	}
 
+	Console con = new Console("Ping");
+	
 	@Deprecated
 	public void echo(Object str) {
-		try {
-			if(output == null) output = new SwiftFile(LC_PATH + "ping", false);
-			output.reset();
-			output.add(str.toString() + "\n");
-			output.toData();
-			output.append();
-		}
-		catch(IOException ix) {
-			ix.printStackTrace();
-		}
-		catch(FileException fx) {
-			fx.printStackTrace();
-		}
+		con.append(str.toString());
 	}
 
 	@Deprecated
