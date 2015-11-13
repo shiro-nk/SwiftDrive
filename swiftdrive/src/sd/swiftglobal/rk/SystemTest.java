@@ -51,7 +51,7 @@ public class SystemTest implements SwiftNetContainer, Settings {
 
 	public SystemTest() {
 		Client cli = null;
-		SwiftScreen screen = new SwiftScreen("SwiftScreen", this, cli);
+		SwiftScreen screen = new SwiftScreen("SwiftScreen", this);
 		screen.setPanel(new SwiftLogin(screen, null));
 	}
 
