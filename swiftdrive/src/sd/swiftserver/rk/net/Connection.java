@@ -48,9 +48,8 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	private Data swap_data = null;
 
 	private Terminator term;
-	
-	private SwiftFile output;
-	
+	private User user;
+
 	/**
 	 * Creates DataInput and DataOutput streams for communication
 	 * @param server Parent server (required for termination)
@@ -122,7 +121,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		}
 		catch(IOException ix) {
 			kill();
-			ix.printStackTrace();
 		}
 	}
 	
@@ -149,6 +147,17 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		for(String s : data.getArray()) dos.writeUTF(s);
 	}
 	
+	/**
+	 * Reads a String from a socket, converts it into a path and command. <br>
+	 * Once split, the switch statement matches the command with the funciton<br>
+	 * required to be carried out. <br><br>
+	 * The commands identifiers are set in the CMD_* section of the settings class. <br>
+	 * The commands are straightforward: read will store file data from the <b>path</b> into the swap <br>
+	 * variable. Write does the opposite, taking the swap variable and storing it at <b>path</b>. <br>
+	 * The send command is similar to write except rather than writing to a file, <br>
+	 * the swap variable is written to the socket for the client to read.
+	 * @throws IOException if the command could not be read from the socket
+	 */
 	public void command() throws IOException {
 		String commandLine = readUTF();
 		String[] split = commandLine.split(":");
@@ -158,12 +167,12 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		boolean append = false,
 				send   = true;
 
-		if(split[0] != null)		
+		if(path != null)	
 			try {
-				if(!split[0].equals("")) echo(split[0]);
+				path = LC_PATH + path;
 				switch(command) {
 					case CMD_READ_FILE:
-						swap = new SwiftFile(split[0], true);
+						swap = new SwiftFile(path, true);
 						break;
 					case CMD_SEND_FILE:
 						send = false;
@@ -178,7 +187,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 
 
 					case CMD_READ_DATA:
-						swap_data = new SwiftFile(split[0], true);
+						swap_data = new SwiftFile(path, true);
 						break;
 					case CMD_SEND_DATA:
 						send = false;
@@ -205,8 +214,11 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 						break;
 			}
 		}
-		catch(IOException | FileException exc) {
-			exc.printStackTrace();
+		catch(FileException fx) {
+			//TODO prevent connection death as a result of bad files
+			dos.writeInt(SIG_FAIL);
+		}
+		catch(IOException ix) {
 			kill();
 		}
 		
@@ -218,12 +230,18 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		int    size = readInt();
 		byte[] pass = readByteArray(size);
 		boolean rtn = false;
-		User user = server.getUserlist().getUser(username); 
+		user = server.getUserlist().getUser(username); 
 		rtn = user != null ? Arrays.equals(user.getPassword(), pass) ? true : false : false;	
 		dos.writeBoolean(rtn);
 		loggedin = rtn;
-		if(!rtn) kill();
-		//if(rtn) dos.writeInt(CLIENT_ID);
+		
+		if(rtn) {
+			dos.writeUTF(user.toString());
+			dos.writeUTF(LC_DIV);
+		}
+		else {
+			kill();
+		}
 	}
 
 	private void writeInt(int i) {
@@ -231,7 +249,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 			dos.writeInt(i);
 		}
 		catch(IOException ix) {
-			ix.printStackTrace();
 			kill();
 		}
 	}
@@ -266,13 +283,12 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		return socket.getPort();
 	}
 
-	public int getUserID() {
-		return 0;
+	public User getUser() {
+		return user;
 	}
 
 	/** Close and remove the index of the connection from the parent **/
 	public void kill() {
-		echo("Connection killed");
 		close();
 		server.dereference(this);
 	}

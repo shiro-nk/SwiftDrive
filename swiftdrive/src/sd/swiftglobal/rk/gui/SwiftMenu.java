@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import sd.swiftglobal.rk.Settings;
+import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 
 /* This file is part of Swift Drive				 *
  * Copyright (C) 2015 Ryan Kerr					 *
@@ -44,6 +45,10 @@ public class SwiftMenu extends JPanel implements Settings, SwiftContainer, Swift
 
 	public void setParent(SwiftContainer parent) {
 		this.parent = parent;
+	}
+	
+	public SwiftNetContainer getNetContainer() {
+		return parent.getNetContainer();
 	}
 
 	public SwiftContainer getSwiftParent() {

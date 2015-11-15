@@ -21,6 +21,7 @@ import sd.swiftglobal.rk.type.Data;
 import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.ServerCommand;
 import sd.swiftglobal.rk.type.SwiftFile;
+import sd.swiftglobal.rk.type.users.User;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.Ping;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
@@ -46,6 +47,8 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	private Terminator term;
 	private int connectionID = 0;
 	private boolean unlocked = false;
+	private User user;
+	public static String SV_DIV;
 
 	/**
 	 * Establishes a connecting and I/O sockets with the server
@@ -240,6 +243,11 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			try {
 				for(byte p : password) dos.writeByte(p);
 				rtn = dis.readBoolean();
+
+				if(rtn) {
+					user = new User(readUTF());
+					SV_DIV = readUTF();
+				}
 			} 
 			catch(IOException ix) {
 				kill();
@@ -263,6 +271,10 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	@Override
 	public int getID() {
 		return connectionID;
+	}
+
+	public User getUser() {
+		return user;
 	}
 	
 	@Override @LeaveBlank
