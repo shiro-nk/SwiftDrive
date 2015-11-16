@@ -65,7 +65,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			dis = new DataInputStream(server.getInputStream());
 			dos = new DataOutputStream(server.getOutputStream());
 			ping = new Ping(dis, dos, this);
-			new Thread(ping).start();
+			//new Thread(ping).start();
 			term = new Terminator(this);
 		}
 		catch(IOException ix) {
@@ -238,7 +238,6 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	public boolean login(String username, byte[] password) throws DisconnectException {
 		if(!unlocked) {
 			boolean rtn = false;
-			ping.pause();
 			writeInt(DAT_LGIN);
 			writeUTF(username);
 			writeInt(password.length);
@@ -248,9 +247,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 				if(rtn) {
 					user = new User(readUTF());
 					SV_DIV = readUTF();
-				}
-				else {
-					kill();
+					new Thread(ping).start();
 				}
 			} 
 			catch(IOException ix) {
@@ -258,10 +255,8 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 				throw new DisconnectException(EXC_NETIO, ix);
 			}
 			unlocked = rtn;
-			ping.activate();
 			return rtn;
 		}
-		System.out.println("Already unlocked");
 		return true;
 	}
 	

@@ -232,7 +232,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		boolean rtn = false;
 		user = server.getUserlist().getUser(username); 
 		rtn = user != null ? Arrays.equals(user.getPassword(), pass) ? true : false : false;	
-		System.out.println("RTN: " + rtn);
 		dos.writeBoolean(rtn);
 		loggedin = rtn;
 		
