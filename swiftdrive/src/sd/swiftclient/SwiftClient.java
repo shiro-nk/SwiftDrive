@@ -1,10 +1,11 @@
 package sd.swiftclient;
 
+import sd.swiftclient.rk.gui.SwiftLogin;
 import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.Settings;
-import sd.swiftclient.rk.gui.SwiftLogin;
 import sd.swiftglobal.rk.gui.SwiftScreen;
 import sd.swiftglobal.rk.type.users.User;
+import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 
@@ -12,7 +13,7 @@ import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
  * Copyright (C) Ryan Kerr 2015					 *
  * Please refer to <http://www.gnu.org/licenses> */
 
-public class SwiftClient implements SwiftNetContainer, Settings {
+public class SwiftClient implements Logging, SwiftNetContainer, Settings {
 	public static void main(String[] args) {
 		new SwiftClient();
 	}
@@ -21,8 +22,11 @@ public class SwiftClient implements SwiftNetContainer, Settings {
 	private Client client;
 
 	public SwiftClient() {
+		echo("Starting SwiftClient", LOG_TRI);
 		screen = new SwiftScreen("Swift Drive", this);
+		echo("Initializing Login Screen", LOG_PRI);
 		SwiftLogin login = new SwiftLogin(screen, this);
+		echo("Showing Login Screen", LOG_PRI);
 		screen.setPanel(login);
 	}
 	
@@ -52,5 +56,9 @@ public class SwiftClient implements SwiftNetContainer, Settings {
 
 	public void dereference(SwiftNetTool tool) {
 
+	}
+
+	public void echo(Object o, int level) {
+		print("[CliGUI] " + o.toString() + "\n", level);
 	}
 }

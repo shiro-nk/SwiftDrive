@@ -20,7 +20,7 @@ import sd.swiftglobal.rk.Settings;
  *
  * @author Ryan Kerr
  */
-public class Ping implements Settings, Runnable, Closeable {
+public class Ping implements Settings, Logging, Runnable, Closeable {
 	private boolean online = false,
 					active = false,
 					locked = false;
@@ -53,40 +53,41 @@ public class Ping implements Settings, Runnable, Closeable {
 	 * This thread only pings every DEF_BEAT seconds while active.
 	 * Once the ping timer is offline, it cannot be reactivated.
 	 */
-	int x = 0; int y = 0;
+	int pingno = 0;
 	public void run() {
+		echo("Initialized", LOG_PRI);
 		while(online) {
-			echo("Ping has started");
 			synchronized(ping) {
 				if(!active) {
 					try {
-						echo("Ping: Waiting");
+						echo("Standing by", LOG_PRI);
 						ping.wait();
-						echo("Ping: Unlocked");
+						echo("Released", LOG_PRI);
 					}
 					catch(InterruptedException ix) {
 						
 					}
 				}
 			}
-			echo("Ping: " + active);
 			while(active) {
-				echo("Ping: " + ++x);
 				sleep = new Thread(new Runnable() {
 					public void run() {
 						try {
+							echo("Starting sleep", LOG_PRI);
 							Thread.sleep(DEF_PING * 1000);
-							echo("xasdf");
+							echo("Ready to send", LOG_PRI);
 							if(active && tool.isUnlocked()) {
 								try {
 									locked = true;
-									echo("Ping: Ping");
+									echo("Sending ping to server", LOG_SEC);
 									dos.writeInt(DAT_PING);
 									term.run();
+									echo("Listening for response", LOG_PRI);
 									dis.readInt();
-									echo("Ping: Response");
+									echo("Response received", LOG_SEC);
 									term.cancel();
-									locked = false;							
+									locked = false;
+									echo("Unlocking io lock", LOG_PRI);
 									synchronized(lock) { lock.notifyAll(); }
 								}
 								catch(IOException ix) {
@@ -95,52 +96,52 @@ public class Ping implements Settings, Runnable, Closeable {
 							}
 						}
 						catch(InterruptedException ix) {
+							echo("Interrupted");
 							active = false;
 							synchronized(lock) { lock.notifyAll(); }
-							echo("Ping: Interrupted");
 						}
 					}
 				});
 				sleep.start();
 				try {
 					sleep.join();
-					echo("Ping joined");
 				} 
 				catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				echo("Ping hit end");
 			}
 		}
-		echo(y);
-		if(y== 5) System.exit(128904);
 	}
 	
 	/** Temporarily disable the ping heart beat **/
 	public void deactivate() {
-		echo("Deactivated");
+		echo("Requesting ping to standby", LOG_PRI);
 		active = false;
+		echo("Attempting to interrupt sleep", LOG_PRI);
 		if(sleep != null) sleep.interrupt();
+		echo("Deactivation request completed", LOG_PRI);
 	}
 	
 	/** Re-enables the ping **/
 	public void activate() {
+		echo("Requesting ping to wake up", LOG_PRI);
 		try {
 			Thread.sleep(500);
 		}
 		catch(InterruptedException ix) {
 			
 		}
-		echo("Activated");
 		active = true;
+		echo("Attempting to wake from standby", LOG_PRI);
 		synchronized(ping) { ping.notifyAll(); }
+		echo("Activation request complete", LOG_PRI);
 	}
 	
 	public void standby() {
 		if(locked) {
-			echo("Waiting for locks to release");
 			synchronized(lock) {
 				try {
+					echo("IO Standing By", LOG_PRI);
 					lock.wait();
 				}
 				catch(InterruptedException ix) {
@@ -148,6 +149,7 @@ public class Ping implements Settings, Runnable, Closeable {
 				}
 			}
 		}
+		echo("IO Ready", LOG_PRI);
 	}
 	
 	public void pause() {
@@ -156,28 +158,22 @@ public class Ping implements Settings, Runnable, Closeable {
 	}
 	
 	public void stop() {
+		echo("Stopping", LOG_SEC);
 		deactivate();
 		online = false;
 	}
 	
 	public void close() {
+		echo("Killing client", LOG_SEC);
 		active = false;
 		online = false;
 		tool.kill();
 	}
 
-	Console con = new Console("Ping");
-	
-	@Deprecated
 	public void echo(Object str) {
-		con.append(str.toString());
+		System.out.println("[Ping] " + str.toString());
 	}
 
-	@Deprecated
-	public void echo(Object str, int level) {
-		echo(str);
-	}
-	
 	@Typedef("Lock")
 	private class Lock {}
 }

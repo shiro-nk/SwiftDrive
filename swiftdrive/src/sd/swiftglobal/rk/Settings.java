@@ -90,6 +90,6 @@ public interface Settings {
 							DEF_TIME = 50,
 							DEF_PING = 25,
 							DEF_DDOS = 500,
-							DEF_LOGL = Logging.LOG_TRI;
+							DEF_LOGL = Logging.LOG_PRI;
 	
 }

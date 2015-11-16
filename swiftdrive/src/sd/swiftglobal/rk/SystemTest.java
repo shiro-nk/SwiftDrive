@@ -8,7 +8,7 @@ import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.expt.CommandException;
 import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.expt.FileException;
-import sd.swiftglobal.rk.gui.SwiftLogin;
+import sd.swiftclient.rk.gui.SwiftLogin;
 import sd.swiftglobal.rk.gui.SwiftScreen;
 import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.ServerCommand;
