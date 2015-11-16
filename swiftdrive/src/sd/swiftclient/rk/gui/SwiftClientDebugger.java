@@ -1,4 +1,4 @@
-package sd.swiftglobal.rk.gui;
+package sd.swiftclient.rk.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.SwiftException;
+import sd.swiftglobal.rk.gui.SwiftContainer;
+import sd.swiftglobal.rk.gui.SwiftPanel;
 import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.ServerCommand;
 

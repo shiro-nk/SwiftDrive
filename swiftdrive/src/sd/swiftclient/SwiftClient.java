@@ -2,7 +2,7 @@ package sd.swiftclient;
 
 import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.Settings;
-import sd.swiftglobal.rk.gui.SwiftLogin;
+import sd.swiftclient.rk.gui.SwiftLogin;
 import sd.swiftglobal.rk.gui.SwiftScreen;
 import sd.swiftglobal.rk.type.users.User;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
@@ -19,10 +19,9 @@ public class SwiftClient implements SwiftNetContainer, Settings {
 
 	private SwiftScreen screen;
 	private Client client;
-	private User user;
 
 	public SwiftClient() {
-		screen = new SwiftScreen("Server", this);
+		screen = new SwiftScreen("Swift Drive", this);
 		SwiftLogin login = new SwiftLogin(screen, this);
 		screen.setPanel(login);
 	}
@@ -41,6 +40,10 @@ public class SwiftClient implements SwiftNetContainer, Settings {
 
 	public SwiftNetTool getTool() {
 		return client;	
+	}
+
+	public User getUser() {
+		return client != null ? client.getUser() : null;
 	}
 
 	public void kill() {

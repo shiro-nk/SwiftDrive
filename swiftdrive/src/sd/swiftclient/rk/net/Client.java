@@ -4,6 +4,7 @@ import java.io.Closeable;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 
 import sd.swiftglobal.rk.Meta.DirectKiller;
@@ -59,7 +60,8 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	public Client(String hostname, int port, SwiftNetContainer parent) throws DisconnectException {
 		try {
 			this.parent = parent;
-			server = new Socket(hostname, port);
+			server = new Socket();
+			server.connect(new InetSocketAddress(hostname, port), 2500);
 			dis = new DataInputStream(server.getInputStream());
 			dos = new DataOutputStream(server.getOutputStream());
 			ping = new Ping(dis, dos, this);
@@ -243,10 +245,12 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			try {
 				for(byte p : password) dos.writeByte(p);
 				rtn = dis.readBoolean();
-
 				if(rtn) {
 					user = new User(readUTF());
 					SV_DIV = readUTF();
+				}
+				else {
+					kill();
 				}
 			} 
 			catch(IOException ix) {
@@ -257,6 +261,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			ping.activate();
 			return rtn;
 		}
+		System.out.println("Already unlocked");
 		return true;
 	}
 	

@@ -1,4 +1,4 @@
-package sd.swiftglobal.rk.gui;
+package sd.swiftclient.rk.gui;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -7,18 +7,20 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import sd.swiftglobal.rk.Settings;
+import sd.swiftglobal.rk.gui.SwiftContainer;
+import sd.swiftglobal.rk.gui.SwiftPanel;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 
 /* This file is part of Swift Drive				 *
  * Copyright (C) 2015 Ryan Kerr					 *
  * Please refer to <http://www.gnu.org/licenses> */
 
-public class SwiftMenu extends JPanel implements Settings, SwiftContainer, SwiftPanel, ActionListener {
+public class SwiftClientMenu extends JPanel implements Settings, SwiftContainer, SwiftPanel, ActionListener {
 	private static final long serialVersionUID = 1l;
 	private SwiftContainer parent;
 	private JPanel current;
 
-	public SwiftMenu(SwiftContainer parent) {
+	public SwiftClientMenu(SwiftContainer parent) {
 		this.parent = parent;
 		setSize(250, 500);
 		setLocation(0, 0);

@@ -1,5 +1,6 @@
 package sd.swiftglobal.rk.gui;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -60,6 +61,10 @@ public class SwiftScreen extends JFrame implements Settings, SwiftContainer {
 
 	public SwiftContainer getSwiftParent() {
 		return this;
+	}
+	
+	public void focus(JComponent component) {
+		component.requestFocus();
 	}
 
 	public void close() {
