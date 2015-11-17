@@ -4,16 +4,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
+import sd.swiftclient.rk.gui.SwiftLogin;
 import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.expt.CommandException;
 import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.expt.FileException;
-import sd.swiftclient.rk.gui.SwiftLogin;
 import sd.swiftglobal.rk.gui.SwiftScreen;
 import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.ServerCommand;
 import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.type.users.UserHandler;
+import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 import sd.swiftserver.rk.net.Server;
@@ -27,7 +28,7 @@ import sd.swiftserver.rk.net.Server;
  *
  * @author Ryan Kerr
  */
-public class SystemTest implements SwiftNetContainer, Settings {
+public class SystemTest implements Logging, SwiftNetContainer, Settings {
 	public static void main(String[] args) {
 		new SystemTest(true);
 	}
@@ -109,6 +110,11 @@ public class SystemTest implements SwiftNetContainer, Settings {
 	public void kill() {
 
 	}
+
+	public void echo(Object o, int level) {
+		print("[SysTst] " + o.toString() + "\n", level); 
+	}
+
 	public void dereference(SwiftNetTool t) {
 		scanning = false;
 		System.out.println("Client close");

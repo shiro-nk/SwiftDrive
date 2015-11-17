@@ -55,14 +55,14 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 	 */
 	int pingno = 0;
 	public void run() {
-		echo("Initialized", LOG_PRI);
+		echo("Initialized", LOG_LOW);
 		while(online) {
 			synchronized(ping) {
 				if(!active) {
 					try {
-						echo("Standing by", LOG_PRI);
+						echo("Standing by", LOG_LOW);
 						ping.wait();
-						echo("Released", LOG_PRI);
+						echo("Released", LOG_LOW);
 					}
 					catch(InterruptedException ix) {
 						
@@ -73,21 +73,22 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 				sleep = new Thread(new Runnable() {
 					public void run() {
 						try {
-							echo("Starting sleep", LOG_PRI);
+							echo("Starting sleep", LOG_LOW);
 							Thread.sleep(DEF_PING * 1000);
-							echo("Ready to send", LOG_PRI);
+							echo("Ready to send", LOG_LOW);
 							if(active && tool.isUnlocked()) {
 								try {
 									locked = true;
 									echo("Sending ping to server", LOG_SEC);
 									dos.writeInt(DAT_PING);
 									term.run();
-									echo("Listening for response", LOG_PRI);
+									echo("Listening for response", LOG_LOW);
 									dis.readInt();
+									print("... done", LOG_LOW);
 									echo("Response received", LOG_SEC);
 									term.cancel();
 									locked = false;
-									echo("Unlocking io lock", LOG_PRI);
+									echo("Unlocking io lock", LOG_LOW);
 									synchronized(lock) { lock.notifyAll(); }
 								}
 								catch(IOException ix) {
@@ -115,16 +116,16 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 	
 	/** Temporarily disable the ping heart beat **/
 	public void deactivate() {
-		echo("Requesting ping to standby", LOG_PRI);
+		echo("Requesting ping to standby", LOG_LOW);
 		active = false;
-		echo("Attempting to interrupt sleep", LOG_PRI);
+		echo("Attempting to interrupt sleep", LOG_LOW);
 		if(sleep != null) sleep.interrupt();
-		echo("Deactivation request completed", LOG_PRI);
+		echo("Deactivation request completed", LOG_LOW);
 	}
 	
 	/** Re-enables the ping **/
 	public void activate() {
-		echo("Requesting ping to wake up", LOG_PRI);
+		echo("Requesting ping to wake up", LOG_LOW);
 		try {
 			Thread.sleep(500);
 		}
@@ -132,16 +133,16 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 			
 		}
 		active = true;
-		echo("Attempting to wake from standby", LOG_PRI);
+		echo("Attempting to wake from standby", LOG_LOW);
 		synchronized(ping) { ping.notifyAll(); }
-		echo("Activation request complete", LOG_PRI);
+		echo("Activation request complete", LOG_LOW);
 	}
 	
 	public void standby() {
 		if(locked) {
 			synchronized(lock) {
 				try {
-					echo("IO Standing By", LOG_PRI);
+					echo("IO Standing By", LOG_LOW);
 					lock.wait();
 				}
 				catch(InterruptedException ix) {
@@ -149,7 +150,7 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 				}
 			}
 		}
-		echo("IO Ready", LOG_PRI);
+		echo("IO Ready", LOG_LOW);
 	}
 	
 	public void pause() {

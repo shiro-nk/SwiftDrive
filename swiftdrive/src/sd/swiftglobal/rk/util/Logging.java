@@ -20,10 +20,11 @@ import sd.swiftglobal.rk.Settings;
 public interface Logging {
 	/** Log (LOG) Level definitions **/
 	public static final int LOG_FRC = 0, // Display All
-							LOG_TRI = 1, // User level logging
-							LOG_SEC = 2, // Partial Debug level logging
-							LOG_PRI = 3, // Full Debug level logging
-							LOG_OFF = 4, // No Logging
+							LOG_OFF = 1, // No Logging
+							LOG_PRI = 2, // User level logging
+							LOG_SEC = 3, // Partial debug level logging
+							LOG_TRI = 4, // Debug level logging
+							LOG_LOW = 5, // Verbose debug level logging
 							LOG_LVL = Settings.DEF_LOGL;
 	
 	public static final String LOG_DIR = Settings.LC_PATH + "log";

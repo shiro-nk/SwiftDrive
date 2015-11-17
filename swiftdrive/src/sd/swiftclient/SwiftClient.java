@@ -22,11 +22,11 @@ public class SwiftClient implements Logging, SwiftNetContainer, Settings {
 	private Client client;
 
 	public SwiftClient() {
-		echo("Starting SwiftClient", LOG_TRI);
+		echo("Starting SwiftClient", LOG_PRI);
 		screen = new SwiftScreen("Swift Drive", this);
-		echo("Initializing Login Screen", LOG_PRI);
+		echo("Initializing Login Screen", LOG_TRI);
 		SwiftLogin login = new SwiftLogin(screen, this);
-		echo("Showing Login Screen", LOG_PRI);
+		echo("Showing Login Screen", LOG_TRI);
 		screen.setPanel(login);
 	}
 	

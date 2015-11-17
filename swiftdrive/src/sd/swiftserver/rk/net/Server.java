@@ -24,7 +24,8 @@ import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 public class Server implements SwiftNetContainer, Runnable, Settings, Logging, Closeable {
 	private ArrayList<Connection> clients = new ArrayList<Connection>();
 	private final ServerSocket server;
-	private boolean   accepting = false;
+	private boolean   accepting = false,
+					  closed    = false;
 	private final int PORT;
 	private UserHandler userlist;
 
@@ -34,12 +35,15 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 	 * @throws DisconnectException if the port is already in use
 	 */
 	public Server(int port) throws DisconnectException {
+		echo("Initializing server on port " + port, LOG_PRI);
 		PORT = port;
 		try {
 			server = new ServerSocket(port);
 			new Thread(this).start();
+			echo("Server ready", LOG_PRI);
 		}
 		catch(IOException ix) {
+			echo("Failed to initialize server", LOG_PRI);
 			throw new DisconnectException(EXC_CONN, ix);
 		}
 	}
@@ -58,22 +62,28 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 	 */
 	public void run() {
 		accepting = true;
-		echo("Server intialized on port " + PORT, LOG_PRI);
-		while(accepting) {
+		closed = false;
+		while(accepting && !closed) {
 			try {
+				echo("Listening for client connections", LOG_PRI);
 				Connection cli = new Connection(this, server.accept(), clients.size());
+				echo(cli.getIP() + ":" + cli.getPort() + " has connected (" + cli.getID() + ")" , LOG_PRI);
 				new Thread(cli).start();
+				echo("Connection thread initialized", LOG_SEC);
 				clients.add(cli);
-				echo("Client " + cli.getIP() + ":" + cli.getPort() + " has connected w/" + cli.getID() , LOG_PRI);
-				if(DEF_DDOS < clients.size()) accepting = false;
+				if(DEF_DDOS < clients.size()) {
+					echo("Warning: The client array size is above threshold. Request will not be accepted.", LOG_PRI);
+					accepting = false;
+				}
 			}
 			catch(IOException ix) {
-				error("Error during client connect attempt: " + ix.getMessage(), LOG_PRI);
+				echo("Error during client connect attempt: " + ix.getMessage(), LOG_PRI);
 			}
 		}
 	}
 
 	public void cleanStack() {
+		echo("Removing all null reference from client array", LOG_SEC);
 		ArrayList<Connection> swap = new ArrayList<Connection>();
 		for(Connection c : clients.toArray(new Connection[clients.size()])) {
 			if(c != null) swap.add(c);
@@ -85,6 +95,13 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 			current[i].setID(i);
 			clients.add(current[i]);
 		}
+
+		if(accepting == false && clients.size() < DEF_DDOS) {
+			echo("Warning: Client array now below danger threshold, connections are now available", LOG_PRI);
+			accepting = true;
+			new Thread(this).start();
+		}
+		echo("Null removal complete");
 	}
 
 	public UserHandler getUserlist() {
@@ -108,17 +125,23 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		return null;
 	}
 
+	public void echo(Object o, int level) {
+		print("[Server] " + o.toString() + "\n", level);
+	}
+
 	/**
 	 * Destroy client
 	 * @param client Client to destroy
 	 */
 	public void dereference(SwiftNetTool client) {
+		echo("Dereferencing a connection from the client array", LOG_SEC);
 		int id = client.getID();
 		if(0 <= id && id < clients.size()) {
 			clients.set(id, null);
 		}
-		System.out.println("Stack size: " + clients.size());
+		echo("Stack size: " + clients.size(), LOG_SEC);
 		cleanStack();
+		echo("Dereference complete", LOG_SEC);
 	}
 	
 	/** Force close **/
@@ -126,6 +149,7 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		try {
 			server.close();
 			accepting = false;
+			closed = true;
 		}
 		catch(IOException ix) {
 		

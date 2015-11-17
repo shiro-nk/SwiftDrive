@@ -60,20 +60,20 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	 */
 	public Client(String hostname, int port, SwiftNetContainer parent) throws DisconnectException {
 		try {
-			echo("Starting client", LOG_TRI);
+			echo("Starting client", LOG_PRI);
 			this.parent = parent;
 			server = new Socket();
 			server.connect(new InetSocketAddress(hostname, port), 2500);
-			echo("Connected to " + hostname + ":" + port, LOG_PRI);
+			echo("Connected to " + hostname + ":" + port, LOG_TRI);
 			dis = new DataInputStream(server.getInputStream());
 			dos = new DataOutputStream(server.getOutputStream());
 			ping = new Ping(dis, dos, this);
 			//new Thread(ping).start();
 			term = new Terminator(this);
-			echo("Client ready", LOG_TRI);
+			echo("Client ready", LOG_PRI);
 		}
 		catch(IOException ix) {
-			echo("Error connecting to server", LOG_TRI);
+			echo("Error connecting to server", LOG_PRI);
 			kill();
 			throw new DisconnectException(EXC_CONN);
 		}
@@ -88,7 +88,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			sendData(outbound);
 			int signal = scmd(scmd);
 			ping.activate();
-			echo("File command request completed with signal " + signal, LOG_SEC);
+			echo("Data command request completed with signal " + signal, LOG_SEC);
 			if(signal != SIG_READY) throw new CommandException(signal);
 		}
 	}
@@ -102,9 +102,11 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			if(signal == SIG_READY) {
 				inbound = getData(inbound);
 				ping.activate();
+				echo("Data download request completed with signal " + signal, LOG_SEC);
 				return inbound;
 			} 
 			else {
+				echo("Request could not be completed: " + SwiftException.getErr(signal));
 				ping.activate();
 				throw new CommandException(signal);
 			}
@@ -177,13 +179,16 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	@IndirectTimeout @RequiresPingHandler
 	private int scmd(ServerCommand scmd) throws DisconnectException, CommandException {
 		if(unlocked) {
-			echo("Data command request started", LOG_SEC); 
+			echo("Sending command", LOG_TRI);
 			if(scmd.toString() != null) {
 				writeInt(DAT_SCMD);
 				writeUTF(scmd.toString());
-				return readInt();
+				int rtn = readInt();
+				echo("Command returned with signal " + rtn, LOG_TRI);
+				return rtn;
 			}
 			else {
+				echo("Command could not be completed due to a malformed command", LOG_TRI);
 				return EXC_BCMD;
 			}
 		}
@@ -193,18 +198,22 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	@IndirectTimeout @RequiresPingHandler
 	private <Type extends Data> void sendData(Type outbound) throws DisconnectException {
 		if(unlocked) {
+			echo("Data upload started", LOG_TRI);
 			writeInt(DAT_DATA);
 			writeInt(outbound.getSize());
 			for(String s : outbound.getArray()) writeUTF(s);
+			echo("Data upload complete", LOG_TRI);
 		}
 	}
 	
 	@IndirectTimeout @RequiresPingHandler
 	private Data getData(@Pointer Data inbound) throws DisconnectException {
 		if(unlocked) {
+			echo("Data download started", LOG_TRI);
 			inbound.reset();
 			int size = readInt();
 			for(int i = 0; i < size; i++) inbound.add(readUTF());
+			echo("Data download complete", LOG_TRI);
 			return inbound;
 		}
 		return new Generic();
@@ -213,13 +222,12 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	@RequiresPingHandler @DirectKiller
 	private void writeInt(int x) throws DisconnectException {
 		try {
-			echo("Writing integer to socket", LOG_PRI);
-			term.run();
+			echo("Writing integer to socket", LOG_LOW);
 			dos.writeInt(x);
-			term.cancel();
-			print("... done", LOG_PRI);
+			print("... done", LOG_LOW);
 		}
 		catch(IOException ix) {
+			print("... failed", LOG_LOW);
 			kill();
 			throw new DisconnectException(EXC_WRITE, ix);
 		}
@@ -228,12 +236,15 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	@DirectTimeout @RequiresPingHandler @DirectKiller
 	private int readInt() throws DisconnectException {
 		try {
+			echo("Reading integer from socket", LOG_LOW);
 			term.run();
 			int rtn = dis.readInt();
 			term.cancel();
+			print("... done", LOG_LOW);
 			return rtn;
 		}
 		catch(IOException ix) {
+			print("... failed", LOG_LOW);
 			kill();
 			throw new DisconnectException(EXC_WRITE, ix);
 		}
@@ -242,11 +253,12 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	@RequiresPingHandler @DirectKiller
 	private void writeUTF(String s) throws DisconnectException {
 		try {
-			term.run();
+			echo("Writing string to socket", LOG_LOW);
 			dos.writeUTF(s);
-			term.cancel();
+			print("... done", LOG_LOW);
 		}
 		catch(IOException ix) {
+			print("... failed", LOG_LOW);
 			kill();
 			throw new DisconnectException(EXC_WRITE, ix);
 		}
@@ -255,12 +267,15 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	@DirectTimeout @RequiresPingHandler @DirectKiller
 	private String readUTF() throws DisconnectException {
 		try {
+			echo("Reading string from a socket", LOG_LOW);
 			term.run();
 			String rtn = dis.readUTF();
 			term.cancel();
+			print("... done", LOG_LOW);
 			return rtn;
 		}
 		catch(IOException ix) {
+			print("... failed", LOG_LOW);
 			kill();
 			throw new DisconnectException(EXC_READ, ix);
 		}
@@ -273,7 +288,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	@PingHandler @DirectKiller
 	public boolean login(String username, byte[] password) throws DisconnectException {
 		if(!unlocked) {
-			echo("Logging in to the server as " + username, LOG_TRI);
+			echo("Logging in to the server as " + username, LOG_PRI);
 			boolean rtn = false;
 			echo("Sending user information", LOG_SEC);
 			writeInt(DAT_LGIN);
@@ -285,15 +300,15 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 				rtn = dis.readBoolean();
 				term.cancel();
 				if(rtn) {
-					echo("Login approved", LOG_TRI);
+					echo("Login approved", LOG_PRI);
 					echo("Receiving full user information", LOG_SEC);
 					user = new User(readUTF());
 					SV_DIV = readUTF();
-					echo("Initializing ping", LOG_PRI);
+					echo("Initializing ping", LOG_TRI);
 					new Thread(ping).start();
 				}
 				else {
-					echo("Login revoked", LOG_TRI);
+					echo("Login revoked", LOG_PRI);
 					kill();
 				}
 			} 
@@ -302,7 +317,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 				throw new DisconnectException(EXC_NETIO, ix);
 			}
 			unlocked = rtn;
-			echo("Login complete", LOG_TRI);
+			echo("Login complete", LOG_PRI);
 			return rtn;
 		}
 		return true;
@@ -364,7 +379,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			if(server != null) server.close();
 		}
 		catch(IOException ix) {
-			error("Error closing sockets", LOG_FRC);
+			error("Error closing client sockets", LOG_FRC);
 		}
 	}
 }
