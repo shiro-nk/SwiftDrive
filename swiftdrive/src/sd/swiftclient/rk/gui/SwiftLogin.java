@@ -182,9 +182,9 @@ public class SwiftLogin extends JPanel implements Settings, SwiftPanel, ActionLi
 				Client cli = new Client(hostname, port, clientHandler);
 				Thread.sleep(500);
 				if(cli.login(userfield.getText(), passfield.getPassword())) {
-					next();
 					screen.setNetTool(cli);
 					clientHandler.setClient(cli);
+					next();
 				}
 				else {
 					inform("Incorrect username or password");

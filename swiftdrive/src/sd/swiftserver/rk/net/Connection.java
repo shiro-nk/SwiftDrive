@@ -115,7 +115,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 							swap_data = new Generic();
 							int size = readInt();
 							for(int i = 0; i < size; i++) swap_data.add(readUTF());
-							for(String s : swap_data.getArray()) echo(s, LOG_FRC);
+							for(String s : swap_data.getArray()) echo("Received: " + s, LOG_SEC);
 							echo("Download complete", LOG_SEC);
 							break;
 					}
@@ -190,7 +190,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 							echo("File transfer complete", LOG_SEC);
 						}
 						else {
-							echo("File tranfser failed", LOG_SEC);
+							echo("File tranfFailed", LOG_SEC);
 							writeInt(SIG_FAIL);
 						}
 						break;
@@ -209,7 +209,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 							echo("Stage 1 data transfer complete", LOG_SEC);
 						}
 						else {
-							echo("Data transfer failed");
+							echo("Data transFailed");
 							writeInt(SIG_FAIL);
 						}
 						break;
@@ -271,7 +271,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		try {
 			echo("Writing integer to socket", LOG_LOW);
 			dos.writeInt(i);
-			print("... done", LOG_LOW);
+			echo("Done", LOG_LOW);
 		}
 		catch(IOException ix) {
 			kill();
@@ -326,10 +326,11 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 			term.run();
 			String rtn = dis.readUTF();
 			term.cancel();
-			print("... done", LOG_LOW);
+			echo("Done", LOG_LOW);
 			return rtn;
 		}
 		catch(SocketException | EOFException exc) {
+			echo("Failed", LOG_LOW);
 			throw new IOException("Fatal error: Connection Lost");
 		}
 	}
@@ -341,10 +342,11 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 			term.run();
 			int rtn = dis.readInt();
 			term.cancel();
-			print("... done", LOG_LOW);
+			echo("Done", LOG_LOW);
 			return rtn;
 		}
 		catch(SocketException | EOFException exc) {
+			echo("Failed", LOG_LOW);
 			throw new IOException("Fatal error: Connection Lost");
 		}
 	}
@@ -358,7 +360,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 			rtn[i] = dis.readByte();
 			term.cancel();
 		}
-		print("... done", LOG_LOW);
+		echo("Done", LOG_LOW);
 		return rtn;
 	}
 	

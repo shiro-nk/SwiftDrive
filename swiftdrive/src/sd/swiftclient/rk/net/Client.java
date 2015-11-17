@@ -224,10 +224,10 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		try {
 			echo("Writing integer to socket", LOG_LOW);
 			dos.writeInt(x);
-			print("... done", LOG_LOW);
+			echo("Done", LOG_LOW);
 		}
 		catch(IOException ix) {
-			print("... failed", LOG_LOW);
+			echo("Failed", LOG_LOW);
 			kill();
 			throw new DisconnectException(EXC_WRITE, ix);
 		}
@@ -240,11 +240,11 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			term.run();
 			int rtn = dis.readInt();
 			term.cancel();
-			print("... done", LOG_LOW);
+			echo("Done", LOG_LOW);
 			return rtn;
 		}
 		catch(IOException ix) {
-			print("... failed", LOG_LOW);
+			echo("Failed", LOG_LOW);
 			kill();
 			throw new DisconnectException(EXC_WRITE, ix);
 		}
@@ -255,10 +255,10 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		try {
 			echo("Writing string to socket", LOG_LOW);
 			dos.writeUTF(s);
-			print("... done", LOG_LOW);
+			echo("Done", LOG_LOW);
 		}
 		catch(IOException ix) {
-			print("... failed", LOG_LOW);
+			echo("Failed", LOG_LOW);
 			kill();
 			throw new DisconnectException(EXC_WRITE, ix);
 		}
@@ -271,11 +271,11 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			term.run();
 			String rtn = dis.readUTF();
 			term.cancel();
-			print("... done", LOG_LOW);
+			echo("Done", LOG_LOW);
 			return rtn;
 		}
 		catch(IOException ix) {
-			print("... failed", LOG_LOW);
+			echo("Failed", LOG_LOW);
 			kill();
 			throw new DisconnectException(EXC_READ, ix);
 		}

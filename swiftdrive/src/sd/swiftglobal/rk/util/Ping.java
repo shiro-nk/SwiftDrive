@@ -79,13 +79,13 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 							if(active && tool.isUnlocked()) {
 								try {
 									locked = true;
-									echo("Sending ping to server", LOG_SEC);
+									echo("Sending ping to server", LOG_TRI);
 									dos.writeInt(DAT_PING);
 									term.run();
 									echo("Listening for response", LOG_LOW);
 									dis.readInt();
-									print("... done", LOG_LOW);
-									echo("Response received", LOG_SEC);
+									echo("Done", LOG_LOW);
+									echo("Response received", LOG_TRI);
 									term.cancel();
 									locked = false;
 									echo("Unlocking io lock", LOG_LOW);
@@ -97,7 +97,7 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 							}
 						}
 						catch(InterruptedException ix) {
-							echo("Interrupted");
+							echo("Interrupted", LOG_TRI);
 							active = false;
 							synchronized(lock) { lock.notifyAll(); }
 						}
@@ -159,20 +159,20 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 	}
 	
 	public void stop() {
-		echo("Stopping", LOG_SEC);
+		echo("Stopping", LOG_TRI);
 		deactivate();
 		online = false;
 	}
 	
 	public void close() {
-		echo("Killing client", LOG_SEC);
+		echo("Killing client", LOG_TRI);
 		active = false;
 		online = false;
 		tool.kill();
 	}
 
-	public void echo(Object str) {
-		System.out.println("[Ping] " + str.toString());
+	public void echo(Object str, int level) {
+		print("[Ping] " + str.toString() + "\n", level);
 	}
 
 	@Typedef("Lock")

@@ -12,11 +12,41 @@ public interface Meta {
 	 * Modification Notice: The following method or line has been <br>
 	 * modified by the specified author.
 	 */
+	@Deprecated
 	public @interface Modified {
 		public String name = "Ryan Kerr",
 					  date = "";
 	}
 	
+	/* The @name methods below are to be used in replacement <br>
+	 * of the @Modified() tag. These tags should be used in instances <br>
+	 * where the code written does not belong to the author of the class.
+	 * <br><br>
+	 * For example, if Isaiah writes a method in Mohan's GUI class, <br>
+	 * he will tag his method with @Isaiah to mark that he wrote that method.
+	 */
+
+	/**
+	 * The following code is written by Ryan Kerr.
+	 */
+	public @interface Ryan {
+
+	}
+
+	/**
+	 * The following code is written by Mohan Pan
+	 */
+	public @interface Mohan {
+		
+	}
+
+	/**
+	 * The following code is written by Isaiah Power
+	 */
+	public @interface Isaiah {
+
+	}
+
 	/**
 	 * This method should only be called by a method that suspends <br>
 	 * the active ping utility. 
