@@ -375,7 +375,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	@Override
 	public void close() {
 		try {
-			if(ping != null) ping.stop();
+			//if(ping != null) ping.stop();
 			if(dis != null) dis.close();
 			if(dos != null) dos.close();
 			if(server != null) server.close();

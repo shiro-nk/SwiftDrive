@@ -3,6 +3,7 @@ package sd.swiftclient;
 import sd.swiftclient.rk.gui.SwiftLogin;
 import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.Settings;
+import sd.swiftglobal.rk.gui.SwiftGreeter;
 import sd.swiftglobal.rk.gui.SwiftScreen;
 import sd.swiftglobal.rk.type.users.User;
 import sd.swiftglobal.rk.util.Logging;
@@ -53,9 +54,9 @@ public class SwiftClient implements Logging, SwiftNetContainer, Settings {
 	public void kill() {
 
 	}
-
+	
 	public void dereference(SwiftNetTool tool) {
-
+		screen.setPanel(new SwiftGreeter(screen));
 	}
 
 	public void echo(Object o, int level) {

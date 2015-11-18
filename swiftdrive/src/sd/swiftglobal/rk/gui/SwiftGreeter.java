@@ -20,11 +20,11 @@ public class SwiftGreeter extends JPanel implements SwiftPanel, ActionListener {
 		setSize(750, 500);
 		setLayout(null);
 		
-		String username = "server";
-		if(parent.getNetContainer().hasTool()) 
-			username = parent.getNetContainer().getTool().getUser().getUsername();
+		//String username = "server";
+		//if(parent.getNetContainer().hasTool()) 
+		//	username = parent.getNetContainer().getTool().getUser().getUsername();
 
-		JLabel label = new JLabel("Welcome, " + username + "!");
+		JLabel label = new JLabel("Sorry! The client has disconnected!");
 		label.setSize(250, 100);
 		label.setLocation(100, 50);
 		add(label);
