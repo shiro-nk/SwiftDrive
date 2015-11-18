@@ -29,7 +29,7 @@ public class SwiftGreeter extends JPanel implements SwiftPanel, ActionListener {
 		label.setLocation(100, 50);
 		add(label);
 
-		JButton button = new JButton("Debug");
+		JButton button = new JButton("Exit");
 		button.setSize(100, 50);
 		button.setLocation(250, 150);
 		button.addActionListener(this);
@@ -49,6 +49,6 @@ public class SwiftGreeter extends JPanel implements SwiftPanel, ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent act) {
-	
+		System.exit(1000);	
 	}
 }
