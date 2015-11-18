@@ -25,9 +25,22 @@ public class UserHandler implements Settings {
 		}
 	}
 
-	public void addUser(User user) {
-		userlist.add(user);
-		writeUser();
+	public boolean addUser(User user) {
+		boolean rtn = true;
+		for(User u : userlist.toArray(new User[userlist.size()])) {
+			if(u.getUsername().equals(user.getUsername())) rtn = false;
+		}
+			
+		if(rtn) {
+			userlist.add(user);
+			writeUser();
+		}
+
+		return rtn;
+	}
+
+	public void removeUser(User user) {
+		removeUser(user.getID());
 	}
 
 	public void removeUser(int id) {
@@ -54,8 +67,12 @@ public class UserHandler implements Settings {
 			userlist.clear();
 			source.fromData();
 			String[] ulist = source.getArray();
-			
-			for(String s : ulist) userlist.add(new User(s));
+			User[]   list  = new User[ulist.length];
+			for(int i = 0; i < list.length; i++) {
+				list[i] = new User(ulist[i]);
+				list[i].setID(i);
+			}
+			for(User u : list) userlist.add(u);
 		}
 		catch(FileException fx) {
 		

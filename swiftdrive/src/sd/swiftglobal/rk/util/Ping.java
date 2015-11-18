@@ -83,9 +83,13 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 									dos.writeInt(DAT_PING);
 									term.run();
 									echo("Listening for response", LOG_LOW);
-									dis.readInt();
+									int signal = dis.readInt();
 									echo("Done", LOG_LOW);
 									echo("Response received", LOG_TRI);
+									if(signal == SIG_FAIL) {
+										echo("Close signal received!", LOG_TRI);
+										tool.kill();
+									}
 									term.cancel();
 									locked = false;
 									echo("Unlocking io lock", LOG_LOW);
@@ -172,7 +176,7 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 	}
 
 	public void echo(Object str, int level) {
-		print("[Ping] " + str.toString() + "\n", level);
+		print("[ Ping   ] " + str.toString() + "\n", level);
 	}
 
 	@Typedef("Lock")

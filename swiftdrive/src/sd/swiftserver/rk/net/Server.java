@@ -38,6 +38,7 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		echo("Initializing server on port " + port, LOG_PRI);
 		PORT = port;
 		try {
+			userlist = new UserHandler();
 			server = new ServerSocket(port);
 			new Thread(this).start();
 			echo("Server ready", LOG_PRI);
@@ -126,7 +127,7 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 	}
 
 	public void echo(Object o, int level) {
-		print("[Server] " + o.toString() + "\n", level);
+		print("[ Server ] " + o.toString() + "\n", level);
 	}
 
 	/**

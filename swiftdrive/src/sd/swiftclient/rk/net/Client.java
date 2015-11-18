@@ -202,6 +202,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			writeInt(DAT_DATA);
 			writeInt(outbound.getSize());
 			for(String s : outbound.getArray()) writeUTF(s);
+			for(String s : outbound.getArray()) echo("Sent: " + s, LOG_SEC);
 			echo("Data upload complete", LOG_TRI);
 		}
 	}
@@ -213,6 +214,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			inbound.reset();
 			int size = readInt();
 			for(int i = 0; i < size; i++) inbound.add(readUTF());
+			for(String s : inbound.getArray()) echo("Received: " + s);
 			echo("Data download complete", LOG_TRI);
 			return inbound;
 		}
@@ -367,7 +369,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	}
 
 	public void echo(Object o, int level) {
-		print("[Client] " + o.toString() + "\n", level);
+		print("[ Client ] " + o.toString() + "\n", level);
 	}
 
 	@Override

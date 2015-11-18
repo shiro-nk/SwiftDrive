@@ -57,10 +57,10 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	 * @throws IOException If getting Input/Output streams fail
 	 */
 	public Connection(Server server, Socket socket, int id) throws IOException {
-		echo("Initializing connection " + id, LOG_PRI);
+		CLIENT_ID = id;
+		echo("Initializing connection", LOG_PRI);
 		this.server = server;
 		this.socket = socket;
-		CLIENT_ID   = id;
 		dis = new DataInputStream(socket.getInputStream());
 		dos = new DataOutputStream(socket.getOutputStream());
 		online = true;
@@ -146,10 +146,11 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	 * @throws IOException If something fails while writing to the socket
 	 */
 	public <Type extends Data> void sendData(Type data) throws IOException {
-		echo("Starting data transfer to client", LOG_SEC);
+		echo("Starting data transfer to client", LOG_TRI);
 		dos.writeInt(data.getSize());
 		for(String s : data.getArray()) dos.writeUTF(s);
-		echo("Data transfer complete", LOG_SEC);
+		for(String s : data.getArray()) echo("Sent: " + s, LOG_SEC);
+		echo("Data transfer complete", LOG_TRI);
 	}
 	
 	/**
@@ -217,18 +218,18 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 					case CMD_APPND_FILE:
 						append = true;
 					case CMD_WRITE_FILE:
-						echo((append ? "Appending" : "Writing") + " file to disk", LOG_SEC);
+						echo((append ? "Appending" : "Writing") + " file to " + path, LOG_SEC);
 						swap.write(new File(path).toPath(), append);
 						break;
 					case CMD_APPND_DATA:
 						append = true;
 					case CMD_WRITE_DATA:
-						echo((append ? "Appending" : "Writing") + " data to disk", LOG_SEC);
+						echo((append ? "Appending" : "Writing") + " data to " + path, LOG_SEC);
 						SwiftFile temp = new SwiftFile(0);
 						temp.convert(swap_data);
 						temp.write(new File(path).toPath(), append);
 						break;
-			}
+				}
 		}
 		catch(FileException fx) {
 			//TODO prevent connection death as a result of bad files
@@ -380,6 +381,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	
 	@Deprecated
 	public void echo(Object str, int level) {
-		print("[Con" + getID() + "] " + str.toString() + "\n", level);
+		print("[ Runner ] [" + getID() + "] " + str.toString() + "\n", level);
 	}
 }

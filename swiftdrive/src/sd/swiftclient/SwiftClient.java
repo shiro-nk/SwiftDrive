@@ -59,6 +59,6 @@ public class SwiftClient implements Logging, SwiftNetContainer, Settings {
 	}
 
 	public void echo(Object o, int level) {
-		print("[CliGUI] " + o.toString() + "\n", level);
+		print("[ Client ] " + o.toString() + "\n", level);
 	}
 }
