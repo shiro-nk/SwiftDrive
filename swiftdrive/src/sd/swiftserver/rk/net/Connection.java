@@ -34,7 +34,8 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	private final Server server;
 	private final Socket socket;
 	
-	private int CLIENT_ID;
+	private int CLIENT_ID,
+				kill;
 	
 	private DataInputStream  dis = null;
 	private DataOutputStream dos = null;
@@ -91,7 +92,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 					switch(type) {
 						case DAT_NULL:
 							echo("Received the connection kill signal", LOG_PRI);
-							kill();
+							kill(EXC_SAFE);
 							break;
 
 						case DAT_PING:
@@ -115,7 +116,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 							swap_data = new Generic();
 							int size = readInt();
 							for(int i = 0; i < size; i++) swap_data.add(readUTF());
-							for(String s : swap_data.getArray()) echo("Received: " + s, LOG_SEC);
+							for(String s : swap_data.getArray()) echo("Received: " + s, LOG_PRI);
 							echo("Download complete", LOG_SEC);
 							break;
 					}
@@ -123,7 +124,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 			}
 		}
 		catch(IOException ix) {
-			kill();
+			kill(EXC_CONN);
 		}
 	}
 	
@@ -149,7 +150,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		echo("Starting data transfer to client", LOG_TRI);
 		dos.writeInt(data.getSize());
 		for(String s : data.getArray()) dos.writeUTF(s);
-		for(String s : data.getArray()) echo("Sent: " + s, LOG_SEC);
+		for(String s : data.getArray()) echo("Sent: " + s, LOG_PRI);
 		echo("Data transfer complete", LOG_TRI);
 	}
 	
@@ -238,7 +239,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 			send = false;
 		}
 		catch(IOException ix) {
-			kill();
+			kill(EXC_CONN);
 		}
 		
 		if(send) dos.writeInt(status);
@@ -263,7 +264,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		}
 		else {
 			echo("Login request denied. Connection will now close", LOG_PRI);
-			kill();
+			kill(EXC_LOGIN);
 		}
 		echo("Login request completed with status " + rtn, LOG_PRI);
 	}
@@ -275,7 +276,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 			echo("Done", LOG_LOW);
 		}
 		catch(IOException ix) {
-			kill();
+			kill(EXC_NWRITE);
 		}
 	}
 	
@@ -312,12 +313,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 
 	public User getUser() {
 		return user;
-	}
-
-	/** Close and remove the index of the connection from the parent **/
-	public void kill() {
-		close();
-		server.dereference(this);
 	}
 	
 	private String readUTF() throws IOException {
@@ -365,6 +360,17 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		return rtn;
 	}
 	
+	public int getErrID() {
+		return kill;
+	}
+
+	/** Close and remove the index of the connection from the parent **/
+	public void kill(int err) {
+		close();
+		kill = err;
+		getParent().dereference(this);
+	}
+
 	/** Allows for try-with-resources **/
 	public void close() {
 		try {

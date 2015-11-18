@@ -7,6 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import sd.swiftglobal.rk.gui.SwiftGUI.SwiftContainer;
+import sd.swiftglobal.rk.gui.SwiftGUI.SwiftPanel;
+
 /* This file is part of Swift Drive				 *
  * Copyright (C) 2015 Ryan Kerr					 *
  * Please refer to <http://www.gnu.org/licenses> */
@@ -16,7 +19,7 @@ public class SwiftGreeter extends JPanel implements SwiftPanel, ActionListener {
 	private SwiftContainer parent;
 
 	public SwiftGreeter(SwiftContainer parent) {
-		setParent(parent);
+		setParentContainer(parent);
 		setSize(750, 500);
 		setLayout(null);
 		
@@ -40,11 +43,11 @@ public class SwiftGreeter extends JPanel implements SwiftPanel, ActionListener {
 		return this;
 	}
 
-	public void setParent(SwiftContainer parent) {
+	public void setParentContainer(SwiftContainer parent) {
 		this.parent = parent;
 	}
 
-	public SwiftContainer getSwiftParent() {
+	public SwiftContainer getParentContainer() {
 		return parent;
 	}
 

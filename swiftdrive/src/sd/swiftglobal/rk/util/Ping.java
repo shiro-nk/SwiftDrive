@@ -88,7 +88,7 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 									echo("Response received", LOG_TRI);
 									if(signal == SIG_FAIL) {
 										echo("Close signal received!", LOG_TRI);
-										tool.kill();
+										tool.kill(EXC_SAFE);
 									}
 									term.cancel();
 									locked = false;
@@ -173,7 +173,7 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 		stop();
 		active = false;
 		online = false;
-		tool.kill();
+		tool.kill(EXC_CONN);
 	}
 
 	public void echo(Object str, int level) {

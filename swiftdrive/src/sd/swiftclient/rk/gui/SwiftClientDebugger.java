@@ -20,8 +20,8 @@ import sd.swiftglobal.rk.expt.CommandException;
 import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.expt.SwiftException;
-import sd.swiftglobal.rk.gui.SwiftContainer;
-import sd.swiftglobal.rk.gui.SwiftPanel;
+import sd.swiftglobal.rk.gui.SwiftGUI.SwiftContainer;
+import sd.swiftglobal.rk.gui.SwiftGUI.SwiftPanel;
 import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.ServerCommand;
 import sd.swiftglobal.rk.type.SwiftFile;
@@ -111,11 +111,11 @@ public class SwiftClientDebugger extends JPanel implements SwiftPanel, Settings,
 		return this;
 	}
 
-	public void setParent(SwiftContainer parent) {
+	public void setParentContainer(SwiftContainer parent) {
 		this.parent = parent;
 	}
 
-	public SwiftContainer getSwiftParent() {
+	public SwiftContainer getParentContainer() {
 		return parent;
 	}
 		
@@ -140,11 +140,11 @@ public class SwiftClientDebugger extends JPanel implements SwiftPanel, Settings,
 						return panel;
 					}
 
-					public void setParent(SwiftContainer parent) {
+					public void setParentContainer(SwiftContainer parent) {
 					
 					}
 
-					public SwiftContainer getSwiftParent() {
+					public SwiftContainer getParentContainer() {
 						return null;
 					}
 				});
@@ -169,6 +169,7 @@ public class SwiftClientDebugger extends JPanel implements SwiftPanel, Settings,
 				catch(IOException | DisconnectException | CommandException x) {
 					System.err.println("[ Debug  ] A non-fatal error occured when sending the file");
 					System.out.println("[ Debug  ] Failed in non-essential debug class");
+					x.printStackTrace();
 					System.exit(100);
 				}
 				catch(FileException fx) {

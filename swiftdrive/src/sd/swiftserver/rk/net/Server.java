@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 
+import sd.swiftglobal.rk.Meta.LeaveBlank;
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.type.users.UserHandler;
@@ -124,6 +125,11 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 
 	public SwiftNetTool getTool() {
 		return null;
+	}
+
+	@LeaveBlank
+	public void setTool(SwiftNetTool t) {
+
 	}
 
 	public void echo(Object o, int level) {

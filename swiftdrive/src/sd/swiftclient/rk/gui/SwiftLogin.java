@@ -17,9 +17,9 @@ import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.Meta.LeaveBlank;
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
-import sd.swiftglobal.rk.gui.SwiftContainer;
 import sd.swiftglobal.rk.gui.SwiftGreeter;
-import sd.swiftglobal.rk.gui.SwiftPanel;
+import sd.swiftglobal.rk.gui.SwiftGUI.SwiftContainer;
+import sd.swiftglobal.rk.gui.SwiftGUI.SwiftPanel;
 import sd.swiftglobal.rk.gui.SwiftScreen;
 
 /* This file is part of Swift Drive				 *
@@ -164,11 +164,11 @@ public class SwiftLogin extends JPanel implements Settings, SwiftPanel, ActionLi
 	}
 
 	@LeaveBlank
-	public void setParent(SwiftContainer parent) {
+	public void setParentContainer(SwiftContainer parent) {
 	
 	}
 
-	public SwiftContainer getSwiftParent() {
+	public SwiftContainer getParentContainer() {
 		return screen;
 	}
 
@@ -182,8 +182,7 @@ public class SwiftLogin extends JPanel implements Settings, SwiftPanel, ActionLi
 				Client cli = new Client(hostname, port, clientHandler);
 				Thread.sleep(500);
 				if(cli.login(userfield.getText(), passfield.getPassword())) {
-					screen.setNetTool(cli);
-					clientHandler.setClient(cli);
+					screen.getMaster().getNetContainer().setTool(cli);
 					next();
 				}
 				else {

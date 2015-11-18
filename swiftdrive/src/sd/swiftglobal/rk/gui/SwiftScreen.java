@@ -5,8 +5,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import sd.swiftglobal.rk.Settings;
-import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
-import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
+import sd.swiftglobal.rk.gui.SwiftGUI.SwiftContainer;
+import sd.swiftglobal.rk.gui.SwiftGUI.SwiftPanel;
+import sd.swiftglobal.rk.gui.SwiftGUI.SwiftMaster;
 
 /* This file is part of Swift Drive				 *
  * Copyright (C) 2015 Ryan Kerr					 *
@@ -16,10 +17,10 @@ public class SwiftScreen extends JFrame implements Settings, SwiftContainer {
 	public static final long serialVersionUID = 1l;
 	private JPanel current;
 	private SwiftPanel panel;
-	private SwiftNetTool tool;
-	private SwiftNetContainer container;
+	private SwiftMaster master;
 
-	public SwiftScreen(String title, SwiftNetContainer c) {
+	public SwiftScreen(String title, SwiftMaster m) {
+		master = m;
 		setSize(GUI_FRAME_BORDER, GUI_FRAME_HEIGHT);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,24 +44,16 @@ public class SwiftScreen extends JFrame implements Settings, SwiftContainer {
 		current.repaint();
 	}
 
-	public void setNetContainer(SwiftNetContainer cont) {
-		this.container = cont;
-	}
-
-	public SwiftNetContainer getNetContainer() {
-		return container;
-	}
-
-	public void setNetTool(SwiftNetTool tool) {
-		this.tool = tool;
-	}
-
-	public SwiftNetTool getNetTool() {
-		return tool;
-	}
-
-	public SwiftContainer getSwiftParent() {
+	public SwiftContainer getParentContainer() {
 		return this;
+	}
+	
+	public SwiftPanel getCurrentPanel() {
+		return panel;
+	}
+
+	public SwiftMaster getMaster() {
+		return master;
 	}
 	
 	public void focus(JComponent component) {

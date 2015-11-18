@@ -1,5 +1,6 @@
 package sd.swiftglobal.rk.util;
 
+import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.type.users.User;
 
 /* This file is part of Swift Drive				   *
@@ -15,7 +16,7 @@ import sd.swiftglobal.rk.type.users.User;
  *
  * @author Ryan Kerr
  */
-public class SwiftNet {
+public class SwiftNet implements Settings {
 	
 	/**
 	 * Any classes that control network interaction (ServerConnection, Client)
@@ -30,8 +31,14 @@ public class SwiftNet {
 		public void setParent(SwiftNetContainer c);
 		public SwiftNetContainer getParent();
 		public User getUser();
-		public default void kill() {
+		public int getErrID();
+		
+		public default void kill(int errid) {
 			getParent().dereference(this);
+		}
+
+		public default void kill() {
+			kill(EXC_SAFE);
 		}
 	}
 	
@@ -51,5 +58,6 @@ public class SwiftNet {
 		}
 		public boolean hasTool();
 		public SwiftNetTool getTool();
+		public void setTool(SwiftNetTool t);
 	}
 }

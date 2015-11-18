@@ -51,6 +51,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	private boolean unlocked = false;
 	private User user;
 	public static String SV_DIV;
+	public int kill;
 
 	/**
 	 * Establishes a connecting and I/O sockets with the server
@@ -74,7 +75,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 		catch(IOException ix) {
 			echo("Error connecting to server", LOG_PRI);
-			kill();
+			kill(EXC_CONN);
 			throw new DisconnectException(EXC_CONN);
 		}
 	}
@@ -230,7 +231,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 		catch(IOException ix) {
 			echo("Failed", LOG_LOW);
-			kill();
+			kill(EXC_NWRITE);
 			throw new DisconnectException(EXC_WRITE, ix);
 		}
 	}
@@ -247,7 +248,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 		catch(IOException ix) {
 			echo("Failed", LOG_LOW);
-			kill();
+			kill(EXC_NREAD);
 			throw new DisconnectException(EXC_WRITE, ix);
 		}
 	}
@@ -261,7 +262,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 		catch(IOException ix) {
 			echo("Failed", LOG_LOW);
-			kill();
+			kill(EXC_NWRITE);
 			throw new DisconnectException(EXC_WRITE, ix);
 		}
 	}
@@ -278,7 +279,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 		catch(IOException ix) {
 			echo("Failed", LOG_LOW);
-			kill();
+			kill(EXC_NREAD);
 			throw new DisconnectException(EXC_READ, ix);
 		}
 	}
@@ -311,11 +312,11 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 				}
 				else {
 					echo("Login revoked", LOG_PRI);
-					kill();
+					kill(EXC_LOGIN);
 				}
 			} 
 			catch(IOException ix) {
-				kill();
+				kill(EXC_CONN);
 				throw new DisconnectException(EXC_NETIO, ix);
 			}
 			unlocked = rtn;
@@ -332,7 +333,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		writeInt(DAT_NULL);
 		ping.activate();
 		echo("Disconnection request complete, terminating", LOG_SEC);
-		kill();
+		kill(EXC_SAFE);
 	}
 	
 	@Override
@@ -355,9 +356,13 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	}
 	
 	@Override
-	public void kill() {
+	public void kill(int err) {
 		close();
 		parent.dereference(this);
+	}
+
+	public int getErrID() {
+		return kill;
 	}
 
 //	public ChatClient getChat() {

@@ -61,7 +61,10 @@ public interface Settings {
 							EXC_NWRITE = 10,
 							EXC_NETIO  = 11,
 							EXC_TYPEMM = 12,
-							EXC_LOCK   = 13;
+							EXC_LOCK   = 13,
+							EXC_SAFE   = 14,
+							EXC_TERM   = 15,
+							EXC_LOGIN  = 16;
 
 	public static final int GUI_FRAME_HEIGHT = 450,
 							GUI_FRAME_WIDTH  = 800,

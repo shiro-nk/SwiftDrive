@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import sd.swiftglobal.rk.Settings;
-import sd.swiftglobal.rk.gui.SwiftContainer;
-import sd.swiftglobal.rk.gui.SwiftPanel;
-import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
+import sd.swiftglobal.rk.gui.SwiftGUI.SwiftContainer;
+import sd.swiftglobal.rk.gui.SwiftGUI.SwiftMaster;
+import sd.swiftglobal.rk.gui.SwiftGUI.SwiftPanel;
 
 /* This file is part of Swift Drive				 *
  * Copyright (C) 2015 Ryan Kerr					 *
@@ -19,6 +19,7 @@ public class SwiftClientMenu extends JPanel implements Settings, SwiftContainer,
 	private static final long serialVersionUID = 1l;
 	private SwiftContainer parent;
 	private JPanel current;
+	private SwiftPanel active;
 
 	public SwiftClientMenu(SwiftContainer parent) {
 		this.parent = parent;
@@ -38,6 +39,10 @@ public class SwiftClientMenu extends JPanel implements Settings, SwiftContainer,
 		return output;
 	}
 
+	public SwiftPanel getCurrentPanel() {
+		return active;
+	}
+
 	public void setPanel(SwiftPanel panel) {
 		if(current != null) current.setVisible(false);
 		current = panel.getPanel();
@@ -45,19 +50,19 @@ public class SwiftClientMenu extends JPanel implements Settings, SwiftContainer,
 		current.setVisible(true);
 	}
 
-	public void setParent(SwiftContainer parent) {
+	public void setParentContainer(SwiftContainer parent) {
 		this.parent = parent;
 	}
 	
-	public SwiftNetContainer getNetContainer() {
-		return parent.getNetContainer();
-	}
-
-	public SwiftContainer getSwiftParent() {
+	public SwiftContainer getParentContainer() {
 		return parent;
 	}
 
+	public SwiftMaster getMaster() {
+		return parent.getMaster();
+	}
+
 	public void actionPerformed(ActionEvent e) {
-		
+
 	}
 }
