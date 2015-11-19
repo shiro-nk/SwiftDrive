@@ -5,13 +5,14 @@ import java.util.ArrayList;
 
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.FileException;
+import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftFront;
 
 /* This file is part of Swift Drive                * 
  * Copyright (C) 2015 Ryan Kerr                    *
  * Please refer to <http://www.gnu.org/licenses/>. */
 
-public class UserHandler implements Settings {
+public class UserHandler implements Settings, Logging {
 	private ArrayList<User> userlist = new ArrayList<User>();
 	private SwiftFront source;
 
@@ -71,6 +72,7 @@ public class UserHandler implements Settings {
 			for(int i = 0; i < list.length; i++) {
 				list[i] = new User(ulist[i]);
 				list[i].setID(i);
+				echo("Read: " + list[i].toString(), LOG_TRI);
 			}
 			for(User u : list) userlist.add(u);
 		}
@@ -90,5 +92,9 @@ public class UserHandler implements Settings {
 		catch(FileException fx) {
 			fx.printStackTrace();
 		}
+	}
+
+	public void echo(Object o, int level) {
+		print("[ Users  ] " + o.toString() + "\n", level);
 	}
 }

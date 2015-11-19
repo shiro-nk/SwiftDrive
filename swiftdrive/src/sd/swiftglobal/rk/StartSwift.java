@@ -57,7 +57,8 @@ public class StartSwift implements Settings, Logging {
 
 	public static void createDirectory() {
 		File file = new File(LC_PATH);
-		if(file.exists() && file.isDirectory()) {
+		if(!file.exists() && !file.isDirectory()) {
+			System.out.println("[ Start  ] Creating " + LC_PATH);
 			file.mkdir();
 			try {
 				new File(LC_PATH + "users").createNewFile();

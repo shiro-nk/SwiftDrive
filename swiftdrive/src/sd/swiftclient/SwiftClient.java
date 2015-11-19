@@ -83,7 +83,7 @@ public class SwiftClient implements Logging, SwiftNetContainer, Settings, SwiftM
 	
 	public void dereference(SwiftNetTool tool) {
 		int err = tool.getErrID();
-		if(err == EXC_NWRITE || err == EXC_NREAD || err == EXC_CONN) {
+		if(err == EXC_NWRITE || err == EXC_NREAD || err == EXC_TERM || err == EXC_CONN) {
 			screen.setPanel(new SwiftGreeter(screen));
 		}
 		else if(err == EXC_SAFE) System.exit(5);

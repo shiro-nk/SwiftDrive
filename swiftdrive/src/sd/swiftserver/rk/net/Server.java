@@ -2,6 +2,7 @@ package sd.swiftserver.rk.net;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 
@@ -42,7 +43,7 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 			userlist = new UserHandler();
 			server = new ServerSocket(port);
 			new Thread(this).start();
-			echo("Server ready", LOG_PRI);
+			echo("Initialized on " + InetAddress.getLocalHost().toString() + ":" + port, LOG_PRI);
 		}
 		catch(IOException ix) {
 			echo("Failed to initialize server", LOG_PRI);
