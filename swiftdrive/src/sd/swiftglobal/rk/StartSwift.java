@@ -1,5 +1,7 @@
 package sd.swiftglobal.rk;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 import sd.swiftclient.SwiftClient;
@@ -11,11 +13,13 @@ import sd.swiftserver.rk.net.Server;
  * Copyright (c) 2015 Ryan Kerr					  *
  * Please refer to <http://www.gnu.org/licenses/> */
 
-public class StartSwift implements Logging {
+public class StartSwift implements Settings, Logging {
 	public static void main(String[] args) {
 		System.out.println("\n");
 		System.out.println("[ Start  ] Welcome to Swift Drive!");
 		StartSwift start = new StartSwift();
+		System.out.println();
+		createDirectory();
 		if(0 < args.length && args[0].equals("server") && 2 == args.length) {
 			int port = Integer.parseInt(args[1].replaceAll("[^0-9]", ""));
 			start.startServer(port);
@@ -27,7 +31,6 @@ public class StartSwift implements Logging {
 			System.out.println("[ Usage  ] java -jar swiftdrive.jar <server> <port>");
 			System.out.println("[ Usage  ] Leave <server> and <port> blank for client mode");
 		}
-		System.out.println("[ Start  ] Exiting\n\n");
 	}
 
 	public StartSwift() {
@@ -50,6 +53,19 @@ public class StartSwift implements Logging {
 
 	public void startClient() {
 		new SwiftClient();
+	}
+
+	public static void createDirectory() {
+		File file = new File(LC_PATH);
+		if(file.exists() && file.isDirectory()) {
+			file.mkdir();
+			try {
+				new File(LC_PATH + "users").createNewFile();
+			}
+			catch(IOException ix) {
+			
+			}
+		}
 	}
 
 	public void echo(Object o, int level) {
