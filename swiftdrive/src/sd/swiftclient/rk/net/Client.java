@@ -357,6 +357,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	
 	@Override
 	public void kill(int err) {
+		kill = err;
 		close();
 		parent.dereference(this);
 	}

@@ -63,6 +63,7 @@ public class UserHandler implements Settings, Logging {
 	}
 	
 	private void readUsers() {
+		echo("Attempting to read from " + LC_PATH + "users", LOG_TRI);
 		try {
 			source.read();
 			userlist.clear();
@@ -77,7 +78,7 @@ public class UserHandler implements Settings, Logging {
 			for(User u : list) userlist.add(u);
 		}
 		catch(FileException fx) {
-		
+			fx.printStackTrace();	
 		}
 	}
 
