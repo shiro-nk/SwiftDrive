@@ -101,5 +101,5 @@ public interface Settings {
 							DEF_TIME = 30,
 							DEF_PING = 15,
 							DEF_DDOS = 500,
-							DEF_LOGL = Logging.LOG_PRI;	
+							DEF_LOGL = Logging.LOG_LOW;	
 }

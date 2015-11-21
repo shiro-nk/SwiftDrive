@@ -249,7 +249,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		}
 		
 		if(send) dos.writeInt(status);
-		echo("Command request completed with status " + status, LOG_PRI);
+		echo("Command request completed (" + status + ")", LOG_SEC);
 	}
 
 	private void login() throws IOException {
@@ -272,7 +272,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 			echo("Login request denied. Connection will now close", LOG_PRI);
 			kill(EXC_LOGIN);
 		}
-		echo("Login request completed with status " + rtn, LOG_PRI);
+		echo("Login request completed (" + rtn + ")", LOG_PRI);
 	}
 
 	private void writeInt(int i) {
