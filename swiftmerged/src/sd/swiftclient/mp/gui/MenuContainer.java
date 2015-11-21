@@ -137,7 +137,7 @@ public class MenuContainer extends JPanel implements Settings, SwiftPanel, Swift
 
 	private JLabel getBackgroundLabel() {
         try {
-            return new JLabel(new ImageIcon(ImageIO.read(new File("6.jpg"))));
+            return new JLabel(new ImageIcon(ImageIO.read(new File("res/6.jpg"))));
         }
         catch(IOException ix) {
             return new JLabel("Failed to load background image.");

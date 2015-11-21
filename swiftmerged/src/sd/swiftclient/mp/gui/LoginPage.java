@@ -133,7 +133,7 @@ public class LoginPage extends JPanel implements Logging, Settings, SwiftPanel, 
 
 	private JLabel getTitlebarLabel() {
 		try {
-			return new JLabel(new ImageIcon(ImageIO.read(new File("Title_Bar_Swift_Drive.png"))));
+			return new JLabel(new ImageIcon(ImageIO.read(new File("res/Title_Bar_Swift_Drive.png"))));
 		}
 		catch(IOException ix) {
 			return new JLabel("Failed to load background image.");
@@ -142,7 +142,7 @@ public class LoginPage extends JPanel implements Logging, Settings, SwiftPanel, 
 	
 	private JLabel getBackgroundLabel() {
 		try {
-			return new JLabel(new ImageIcon(ImageIO.read(new File("login_page.png"))));
+			return new JLabel(new ImageIcon(ImageIO.read(new File("res/login_page.png"))));
 		}
 		catch(IOException ix) {
 			return new JLabel("Failed to load background image.");

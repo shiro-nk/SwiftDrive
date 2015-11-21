@@ -32,7 +32,7 @@ public class FilePanel extends JPanel implements SwiftPanel, ActionListener {
 
 	private JLabel loadBackground() {
         try {
-            return new JLabel(new ImageIcon(ImageIO.read(new File("48.jpg"))));
+            return new JLabel(new ImageIcon(ImageIO.read(new File("res/48.jpg"))));
         }
         catch(IOException ix) {
             return new JLabel("Failed to load background image.");

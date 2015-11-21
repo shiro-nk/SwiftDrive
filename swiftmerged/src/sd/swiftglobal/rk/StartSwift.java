@@ -34,7 +34,7 @@ public class StartSwift implements Settings, Logging {
 	}
 
 	public StartSwift() {
-		echo("Swift Drive is licensed under the GNU GPLv3", LOG_PRI);
+		echo("Swift Drive is licensed under GNU GPLv3", LOG_PRI);
 		echo("Copyright (c) 2015 Ryan Kerr, Mohan Pan, Isaiah Power", LOG_PRI);
 		echo("Please refer to LICENSE and README for more information", LOG_PRI);
 	}
