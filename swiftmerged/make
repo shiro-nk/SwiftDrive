@@ -1,0 +1,2 @@
+javac -d bin -sourcepath src src/sd/swiftglobal/rk/StartSwift.java
+cp res/* bin
