@@ -17,9 +17,16 @@ public class UserHandler implements Settings, Logging {
 	private SwiftFront source;
 
 	public UserHandler() {
+		File path = new File(LC_PATH + "users");
 		try {
-			source = new SwiftFront(new File(LC_PATH + "users"), false);
-			readUsers();
+			if(path.exists() && path.isFile()) {
+				source = new SwiftFront(path, false);
+				readUsers();
+			}
+			else if(!path.exists()) {
+				source = new SwiftFront(path, false);
+				addUser(new User("default", "username", "password", 0));
+			}
 		}
 		catch(FileException fx) {
 			fx.printStackTrace();

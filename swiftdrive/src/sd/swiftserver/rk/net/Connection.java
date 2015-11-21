@@ -64,8 +64,15 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		this.socket = socket;
 		dis = new DataInputStream(socket.getInputStream());
 		dos = new DataOutputStream(socket.getOutputStream());
-		online = true;
-		echo("Connection " + id + " is ready", LOG_PRI);
+		if(version()) {
+			online = true;
+			echo("Connection " + id + " is ready", LOG_PRI);
+		}
+		else {
+			echo("Client incompatible! Closing", LOG_PRI);
+			kill(EXC_VER);
+			throw new IOException("Versions incompatible");
+		}
 	}
 	
 	/**
@@ -79,7 +86,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	public void run() {
 		try {
 			while(online) {
-				echo("Waiting for the client", LOG_PRI);
 				echo("Listening for a type identifier", LOG_SEC);
 				int type = readInt();
 				echo("Type " + type + " received", LOG_SEC);
@@ -101,7 +107,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 							break;
 					
 						case DAT_FILE:
-							echo("Downloading a file from the client", LOG_PRI);
+							echo("Downloading a file from the client", LOG_SEC);
 							swap = new SwiftFile(dis);
 							swap.resetPos();
 							echo("File download complete", LOG_SEC);
@@ -112,7 +118,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 							break;
 
 						case DAT_DATA:
-							echo("Downloading data from the client and storing in swap storage", LOG_PRI);
+							echo("Downloading data from the client and storing in swap", LOG_SEC);
 							swap_data = new Generic();
 							int size = readInt();
 							for(int i = 0; i < size; i++) swap_data.add(readUTF());
@@ -166,7 +172,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	 * @throws IOException if the command could not be read from the socket
 	 */
 	public void command() throws IOException {
-		echo("Processing command request", LOG_PRI);
+		echo("Processing command request", LOG_SEC);
 		String commandLine = readUTF();
 		String[] split = commandLine.split(":");
 		String path = split[0];
@@ -211,7 +217,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 							echo("Stage 1 data transfer complete", LOG_SEC);
 						}
 						else {
-							echo("Data transFailed");
+							echo("Data transfer failed");
 							writeInt(SIG_FAIL);
 						}
 						break;
@@ -357,6 +363,17 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 			term.cancel();
 		}
 		echo("Done", LOG_LOW);
+		return rtn;
+	}
+
+	private boolean version() throws IOException {
+		Terminator term = new Terminator(this);
+		term.run();
+		double version = dis.readDouble();
+		term.cancel();
+		boolean rtn = version == VERSION;
+		dos.writeBoolean(rtn);
+		if(!rtn) dos.writeDouble(VERSION);
 		return rtn;
 	}
 	

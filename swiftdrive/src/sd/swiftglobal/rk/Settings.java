@@ -21,6 +21,12 @@ import sd.swiftglobal.rk.util.Logging;
  * @author Ryan Kerr
  */
 public interface Settings {
+	public static final double VERSION = 00.10;
+
+	public static final int VER_VER = 0,
+		   					VER_REL = 10,
+							VER_MIN = 2;
+	
 	/** Data (DAT) type headers for transfer **/
 	public static final int DAT_NULL = 0,
 							DAT_INIT = 1,
@@ -64,7 +70,9 @@ public interface Settings {
 							EXC_LOCK   = 13,
 							EXC_SAFE   = 14,
 							EXC_TERM   = 15,
-							EXC_LOGIN  = 16;
+							EXC_LOGIN  = 16,
+							EXC_INIT   = 17,
+							EXC_VER	   = 18;
 
 	public static final int GUI_FRAME_HEIGHT = 450,
 							GUI_FRAME_WIDTH  = 800,
@@ -90,8 +98,8 @@ public interface Settings {
 	
 	/** Preset Defaults / Definitions (DEF) **/
 	public static final int DEF_PORT = 3141,
-							DEF_TIME = 50,
-							DEF_PING = 25,
+							DEF_TIME = 30,
+							DEF_PING = 15,
 							DEF_DDOS = 500,
-							DEF_LOGL = Logging.LOG_TRI;	
+							DEF_LOGL = Logging.LOG_PRI;	
 }

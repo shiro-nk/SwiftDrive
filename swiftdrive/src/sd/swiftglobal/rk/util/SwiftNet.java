@@ -56,8 +56,5 @@ public class SwiftNet implements Settings {
 		public default void terminate(SwiftNetTool t) {
 			t.kill();
 		}
-		public boolean hasTool();
-		public SwiftNetTool getTool();
-		public void setTool(SwiftNetTool t);
 	}
 }

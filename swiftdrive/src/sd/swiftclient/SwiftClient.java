@@ -64,15 +64,6 @@ public class SwiftClient implements Logging, SwiftNetContainer, Settings, SwiftM
 		container = c;
 	}
 
-	public SwiftNetTool getTool() {
-		return client;	
-	}
-
-	@LeaveBlank
-	public void setTool(SwiftNetTool t) {
-		if(t instanceof Client) setClient((Client) t);
-	}
-
 	public User getUser() {
 		return client != null ? client.getUser() : null;
 	}
@@ -83,7 +74,6 @@ public class SwiftClient implements Logging, SwiftNetContainer, Settings, SwiftM
 	
 	public void dereference(SwiftNetTool tool) {
 		int err = tool.getErrID();
-		System.out.println(err);
 		echo("Dereference", LOG_PRI);
 		if(err == EXC_NWRITE || err == EXC_NREAD || err == EXC_TERM || err == EXC_CONN) {
 			screen.setPanel(new SwiftGreeter(screen));

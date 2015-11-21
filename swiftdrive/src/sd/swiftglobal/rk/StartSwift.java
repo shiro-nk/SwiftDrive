@@ -1,7 +1,6 @@
 package sd.swiftglobal.rk;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 
 import sd.swiftclient.SwiftClient;
@@ -17,6 +16,7 @@ public class StartSwift implements Settings, Logging {
 	public static void main(String[] args) {
 		System.out.println("\n");
 		System.out.println("[ Start  ] Welcome to Swift Drive!");
+		System.out.println("[ Start  ] Version " + VER_VER + " Release " + VER_REL + " Patch " + VER_MIN);
 		StartSwift start = new StartSwift();
 		System.out.println();
 		createDirectory();
@@ -60,12 +60,6 @@ public class StartSwift implements Settings, Logging {
 		if(!file.exists() && !file.isDirectory()) {
 			System.out.println("[ Start  ] Creating " + LC_PATH);
 			file.mkdir();
-			try {
-				new File(LC_PATH + "users").createNewFile();
-			}
-			catch(IOException ix) {
-			
-			}
 		}
 	}
 

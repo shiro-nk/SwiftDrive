@@ -71,12 +71,13 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			ping = new Ping(dis, dos, this);
 			//new Thread(ping).start();
 			term = new Terminator(this);
+			version();
 			echo("Client ready", LOG_PRI);
 		}
 		catch(IOException ix) {
 			echo("Error connecting to server", LOG_PRI);
-			kill(EXC_CONN);
-			throw new DisconnectException(EXC_CONN);
+			kill(EXC_INIT);
+			throw new DisconnectException(EXC_CONN, ix);
 		}
 	}
 	
@@ -326,6 +327,23 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		return true;
 	}
 	
+	private boolean version() throws IOException, DisconnectException {
+		dos.writeDouble(VERSION);
+		Terminator term = new Terminator(this);
+		term.run();
+		boolean rtn = dis.readBoolean();
+		term.cancel();
+		if(!rtn) {
+			term.run();
+			double version = dis.readDouble();
+			term.cancel();
+			echo("Server and client are incompatible!", LOG_PRI);
+			echo((VERSION < version ? "Upgrade" : "Downgrade") + " client to connect", LOG_PRI);
+			throw new DisconnectException(EXC_VER);
+		}
+		return rtn;
+	}
+
 	@PingHandler @DirectKiller
 	public void disconnect() throws DisconnectException {
 		echo("Requesting disconnection", LOG_SEC);
