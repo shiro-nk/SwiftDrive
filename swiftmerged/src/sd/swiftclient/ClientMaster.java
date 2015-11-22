@@ -5,6 +5,7 @@ import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftContainer;
 import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftMaster;
 import sd.swiftglobal.mp.gui.Screen;
+import sd.swiftglobal.rk.gui.SplashScreen;
 import sd.swiftglobal.rk.Meta.LeaveBlank;
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.util.Logging;
@@ -17,10 +18,14 @@ public class ClientMaster implements Settings, Logging, SwiftMaster, SwiftNetCon
 	private Screen screen;
 
 	public ClientMaster() {
+		SplashScreen splash = new SplashScreen();
 		echo("Starting swift client", LOG_PRI);
 		screen = new Screen(this);
 		echo("Displaying login screen", LOG_TRI);
 		screen.setPanel(new LoginPage(screen, this));
+		splash.pause();
+		splash.close();
+		screen.activate();
 	}
 	
 	@LeaveBlank

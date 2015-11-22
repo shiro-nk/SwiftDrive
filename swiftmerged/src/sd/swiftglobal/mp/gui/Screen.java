@@ -19,7 +19,7 @@ public class Screen extends JFrame implements SwiftContainer {
 
 	public Screen(SwiftMaster m) {
 		ImageIcon icon = null;
-		try { icon = GraphicalInterface.getIcon("res/icon_bigger_60_tran.png"); }
+		try { icon = GraphicalInterface.getIcon("res/icon.png"); }
 		catch(IOException ix) {}
 
 		setTitle("--- SWIFT DRIVE ---");
@@ -43,6 +43,9 @@ public class Screen extends JFrame implements SwiftContainer {
 		active.repaint();
 		active.setVisible(true);
 		add(active);
+	}
+	
+	public void activate() {
 		setVisible(true);
 	}
 

@@ -25,7 +25,7 @@ public interface Settings {
 
 	public static final int VER_VER = 0,
 		   					VER_REL = 10,
-							VER_MIN = 6,
+							VER_MIN = 7,
 							VER_GUI = 0;
 	
 	/** Data (DAT) type headers for transfer **/

@@ -4,6 +4,7 @@ import sd.swiftclient.rk.gui.SwiftLogin;
 import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.Meta.LeaveBlank;
 import sd.swiftglobal.rk.Settings;
+import sd.swiftglobal.rk.gui.SplashScreen;
 import sd.swiftglobal.rk.gui.SwiftGUI.SwiftContainer;
 import sd.swiftglobal.rk.gui.SwiftGUI.SwiftMaster;
 import sd.swiftglobal.rk.gui.SwiftGreeter;
@@ -27,12 +28,16 @@ public class SwiftClient implements Logging, SwiftNetContainer, Settings, SwiftM
 	private SwiftContainer container;
 
 	public SwiftClient() {
+		SplashScreen splash = new SplashScreen();
 		echo("Starting SwiftClient", LOG_PRI);
 		screen = new SwiftScreen("Swift Drive", this);
 		echo("Initializing Login Screen", LOG_TRI);
 		SwiftLogin login = new SwiftLogin(screen, this);
 		echo("Showing Login Screen", LOG_TRI);
 		screen.setPanel(login);
+		splash.pause();
+		splash.close();
+		screen.activate();
 	}
 	
 	public void setClient(Client cli) {

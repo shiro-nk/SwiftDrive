@@ -1,8 +1,9 @@
 pushd /data/swiftspace/swiftdrive/
 	rm -r bin/*
-	javac -d bin -sourcepath src src/sd/swiftglobal/rk/StartSwift.java
+	cp -r res bin
+	javac -d bin -sourcepath src:res src/sd/swiftglobal/rk/StartSwift.java
 	pushd /data/swiftspace/swiftdrive/bin
-		jar cfm swiftdrive.jar ../manifest.mf sd
+		jar cfm swiftdrive.jar ../manifest.mf sd res
 		mv swiftdrive.jar ..
 	popd
 popd
