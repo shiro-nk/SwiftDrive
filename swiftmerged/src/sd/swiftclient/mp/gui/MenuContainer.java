@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -21,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import sd.swiftglobal.mp.gui.GraphicalInterface;
 import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftContainer;
 import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftMaster;
 import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftPanel;
@@ -128,20 +127,11 @@ public class MenuContainer extends JPanel implements Settings, SwiftPanel, Swift
 		unhide.addActionListener(this);
 		add(unhide);
         
-        background = getBackgroundLabel();
+        background = GraphicalInterface.load("res/6.jpg");
 		background.setBounds(0, 0, 250, 530);
         add(background);
 
 		setVisible(true);
-	}
-
-	private JLabel getBackgroundLabel() {
-        try {
-            return new JLabel(new ImageIcon(ImageIO.read(new File("res/6.jpg"))));
-        }
-        catch(IOException ix) {
-            return new JLabel("Failed to load background image.");
-        }
 	}
 
 	public void setMaster(SwiftMaster m) {

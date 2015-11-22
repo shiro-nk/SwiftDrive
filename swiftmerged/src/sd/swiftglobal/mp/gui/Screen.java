@@ -1,5 +1,7 @@
 package sd.swiftglobal.mp.gui;
 
+import java.io.IOException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,8 +18,10 @@ public class Screen extends JFrame implements SwiftContainer {
 	private JPanel active;
 
 	public Screen(SwiftMaster m) {
-		ImageIcon icon = new ImageIcon("icon_bigger_60_tran.png");
-		
+		ImageIcon icon = null;
+		try { icon = GraphicalInterface.getIcon("res/icon_bigger_60_tran.png"); }
+		catch(IOException ix) {}
+
 		setTitle("--- SWIFT DRIVE ---");
 		setSize(1000, 530);
 		setResizable(false);

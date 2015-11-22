@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import sd.swiftclient.ClientMaster;
 import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.mp.gui.FilePanel;
+import sd.swiftglobal.mp.gui.GraphicalInterface;
 import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftContainer;
 import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftPanel;
 import sd.swiftglobal.rk.Meta.Ryan;
@@ -78,11 +79,11 @@ public class LoginPage extends JPanel implements Logging, Settings, SwiftPanel, 
 		passfield.setBorder(null);
 		add(passfield);
 		
-        titlebar = getTitlebarLabel();
+        titlebar = GraphicalInterface.load("res/Title_Bar_Swift_Drive.png");
         titlebar.setBounds(400, 70, 600, 100);
         add(titlebar);
         
-        background = getBackgroundLabel();
+        background = GraphicalInterface.load("res/login_page.png");
         background.setBounds(0, 0, 1000, 530);
         add(background);
 		
