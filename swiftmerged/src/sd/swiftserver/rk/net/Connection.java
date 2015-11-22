@@ -103,7 +103,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 
 						case DAT_PING:
 							echo("Pong", LOG_LOW);
-							dos.writeInt(closing ? SIG_FAIL : SIG_READY);
+							dos.writeInt(server.closing() ? SIG_FAIL : SIG_READY);
 							break;
 					
 						case DAT_FILE:
@@ -124,6 +124,9 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 							for(int i = 0; i < size; i++) swap_data.add(readUTF());
 							for(String s : swap_data.getArray()) echo("Received: " + s, LOG_PRI);
 							echo("Download complete", LOG_SEC);
+							break;
+
+						case DAT_DIRC:
 							break;
 					}
 				}
@@ -198,7 +201,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 							echo("File transfer complete", LOG_SEC);
 						}
 						else {
-							echo("File tranfFailed", LOG_SEC);
+							echo("File tranfer failed", LOG_SEC);
 							writeInt(SIG_FAIL);
 						}
 						break;

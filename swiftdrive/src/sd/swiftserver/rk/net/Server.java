@@ -65,8 +65,8 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 	 */
 	public void run() {
 		accepting = true;
-		closed = false;
 		while(accepting && !closed) {
+			echo("Closed: " + closed + " Accepting: " + accepting, LOG_PRI);
 			try {
 				echo("Listening for client connections", LOG_PRI);
 				Connection cli = new Connection(this, server.accept(), clients.size());
@@ -99,7 +99,7 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 			clients.add(current[i]);
 		}
 
-		if(accepting == false && clients.size() < DEF_DDOS) {
+		if(accepting == false && clients.size() < DEF_DDOS && !closed) {
 			echo("Warning: Client array now below danger threshold, connections are now available", LOG_PRI);
 			accepting = true;
 			new Thread(this).start();
@@ -151,13 +151,18 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		cleanStack();
 		echo("Dereference complete", LOG_SEC);
 	}
+
+	public boolean closing() {
+		return closed;
+	}
 	
 	/** Force close **/
 	public void close() {
 		try {
-			server.close();
+			echo("Closing");
 			accepting = false;
 			closed = true;
+			server.close();
 		}
 		catch(IOException ix) {
 		

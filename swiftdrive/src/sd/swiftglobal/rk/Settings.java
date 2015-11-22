@@ -21,11 +21,11 @@ import sd.swiftglobal.rk.util.Logging;
  * @author Ryan Kerr
  */
 public interface Settings {
-	public static final double VERSION = 00.10;
+	public static final double VERSION = 00.11;
 
 	public static final int VER_VER = 0,
-		   					VER_REL = 10,
-							VER_MIN = 7,
+		   					VER_REL = 11,
+							VER_MIN = 0,
 							VER_GUI = 0;
 	
 	/** Data (DAT) type headers for transfer **/
@@ -37,7 +37,8 @@ public interface Settings {
 							DAT_SCMD = 5,
 							DAT_LGIN = 6,
 							DAT_LGCF = 7,
-							DAT_RQST = 8;
+							DAT_RQST = 8,
+							DAT_DIRC = 9;
 
 	/** Local (LC) Environment Variables **/
 	public static final String LC_DIV  = System.getProperty("file.separator"),
