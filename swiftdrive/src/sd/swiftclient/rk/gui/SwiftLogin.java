@@ -18,8 +18,8 @@ import sd.swiftglobal.rk.Meta.LeaveBlank;
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.gui.SwiftGreeter;
-import sd.swiftglobal.rk.gui.SwiftGUI.SwiftContainer;
-import sd.swiftglobal.rk.gui.SwiftGUI.SwiftPanel;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftContainer;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftPanel;
 import sd.swiftglobal.rk.gui.SwiftScreen;
 
 /* This file is part of Swift Drive				 *

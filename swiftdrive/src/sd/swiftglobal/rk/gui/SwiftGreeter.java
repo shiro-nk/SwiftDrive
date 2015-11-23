@@ -7,8 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import sd.swiftglobal.rk.gui.SwiftGUI.SwiftContainer;
-import sd.swiftglobal.rk.gui.SwiftGUI.SwiftPanel;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftContainer;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftPanel;
 
 /* This file is part of Swift Drive				 *
  * Copyright (C) 2015 Ryan Kerr					 *

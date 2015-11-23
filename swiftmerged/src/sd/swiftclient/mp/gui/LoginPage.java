@@ -4,11 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -19,12 +15,12 @@ import javax.swing.JTextField;
 import sd.swiftclient.ClientMaster;
 import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.mp.gui.FilePanel;
-import sd.swiftglobal.mp.gui.GraphicalInterface;
-import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftContainer;
-import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftPanel;
 import sd.swiftglobal.rk.Meta.Ryan;
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
+import sd.swiftglobal.rk.gui.GraphicalInterface;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftContainer;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftPanel;
 import sd.swiftglobal.rk.util.Logging;
 
 public class LoginPage extends JPanel implements Logging, Settings, SwiftPanel, ActionListener {
@@ -131,25 +127,6 @@ public class LoginPage extends JPanel implements Logging, Settings, SwiftPanel, 
 	
 		setVisible(true);
 	}
-
-	private JLabel getTitlebarLabel() {
-		try {
-			return new JLabel(new ImageIcon(ImageIO.read(new File("res/Title_Bar_Swift_Drive.png"))));
-		}
-		catch(IOException ix) {
-			return new JLabel("Failed to load background image.");
-		}
-	}
-	
-	private JLabel getBackgroundLabel() {
-		try {
-			return new JLabel(new ImageIcon(ImageIO.read(new File("res/login_page.png"))));
-		}
-		catch(IOException ix) {
-			return new JLabel("Failed to load background image.");
-		}
-	}
-	
 	
 	public void setParentContainer(SwiftContainer c) {
 		parent = c;

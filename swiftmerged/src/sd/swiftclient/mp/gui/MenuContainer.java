@@ -19,10 +19,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import sd.swiftglobal.mp.gui.GraphicalInterface;
-import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftContainer;
-import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftMaster;
-import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftPanel;
+import sd.swiftglobal.rk.gui.GraphicalInterface;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftContainer;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftMaster;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftPanel;
 import sd.swiftglobal.rk.Meta.Isaiah;
 import sd.swiftglobal.rk.Settings;
 

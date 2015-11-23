@@ -6,9 +6,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftContainer;
-import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftMaster;
-import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftPanel;
+import sd.swiftglobal.rk.gui.GraphicalInterface;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftContainer;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftMaster;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftPanel;
 
 public class Screen extends JFrame implements SwiftContainer {
 	private static final long serialVersionUID = 1l;
@@ -18,6 +19,7 @@ public class Screen extends JFrame implements SwiftContainer {
 	private JPanel active;
 
 	public Screen(SwiftMaster m) {
+		setMaster(m);
 		ImageIcon icon = null;
 		try { icon = GraphicalInterface.getIcon("res/icon.png"); }
 		catch(IOException ix) {}

@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import sd.swiftglobal.mp.gui.GraphicalInterface;
-import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftContainer;
-import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftPanel;
+import sd.swiftglobal.rk.gui.GraphicalInterface;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftContainer;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftPanel;
 
 public class FilePanel extends JPanel implements SwiftPanel, ActionListener {
 	public static final long serialVersionUID = 1l;

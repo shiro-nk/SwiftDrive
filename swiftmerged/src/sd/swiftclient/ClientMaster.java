@@ -2,8 +2,8 @@ package sd.swiftclient;
 
 import sd.swiftclient.mp.gui.LoginPage;
 import sd.swiftclient.rk.net.Client;
-import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftContainer;
-import sd.swiftglobal.mp.gui.GraphicalInterface.SwiftMaster;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftContainer;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftMaster;
 import sd.swiftglobal.mp.gui.Screen;
 import sd.swiftglobal.rk.gui.SplashScreen;
 import sd.swiftglobal.rk.Meta.LeaveBlank;

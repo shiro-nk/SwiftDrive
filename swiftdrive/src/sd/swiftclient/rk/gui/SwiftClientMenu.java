@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import sd.swiftglobal.rk.Settings;
-import sd.swiftglobal.rk.gui.SwiftGUI.SwiftContainer;
-import sd.swiftglobal.rk.gui.SwiftGUI.SwiftMaster;
-import sd.swiftglobal.rk.gui.SwiftGUI.SwiftPanel;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftContainer;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftMaster;
+import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftPanel;
 
 /* This file is part of Swift Drive				 *
  * Copyright (C) 2015 Ryan Kerr					 *
@@ -20,9 +20,11 @@ public class SwiftClientMenu extends JPanel implements Settings, SwiftContainer,
 	private SwiftContainer parent;
 	private JPanel current;
 	private SwiftPanel active;
+	private SwiftMaster master;
 
 	public SwiftClientMenu(SwiftContainer parent) {
 		this.parent = parent;
+		setMaster(parent.getMaster());
 		setSize(250, 500);
 		setLocation(0, 0);
 		setLayout(null);
@@ -59,7 +61,11 @@ public class SwiftClientMenu extends JPanel implements Settings, SwiftContainer,
 	}
 
 	public SwiftMaster getMaster() {
-		return parent.getMaster();
+		return master;
+	}
+
+	public void setMaster(SwiftMaster m) {
+		master = m;
 	}
 
 	public void actionPerformed(ActionEvent e) {
