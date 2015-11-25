@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <items>
+      <VBox alignment="TOP_CENTER" minWidth="100.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+         <children>
+            <Label text="SwiftDrive">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label text="Welcome, &lt;username&gt;" />
+            <Separator prefWidth="200.0" />
+            <VBox alignment="TOP_CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Task View" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="File View" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Option A" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Option B" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Help" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Log out" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Quit" />
+               </children>
+               <padding>
+                  <Insets left="50.0" right="50.0" />
+               </padding>
+            </VBox>
+         </children>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+      </VBox>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <right>
+            <ImageView fitHeight="400.0" fitWidth="500.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="BOTTOM_CENTER">
+               <image>
+                  <Image url="@res/background_icon.png" />
+               </image>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </ImageView>
+         </right>
+      </BorderPane>
+   </items>
+   <padding>
+      <Insets right="-1.0" />
+   </padding>
+</SplitPane>
