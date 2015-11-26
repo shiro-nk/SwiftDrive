@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of Swift Drive -->
+<!-- Copyright (c) 2015 Ryan Kerr     -->
+<!-- November 24, 2015 -->
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="500.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_RIGHT">
+         <image>
+            <Image url="@res/background_icon.png" />
+         </image>
+      </ImageView>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="300.0" spacing="20.0">
+         <children>
+            <Label text="Login">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Label>
+            <TextField promptText="Username" />
+            <PasswordField promptText="Password" />
+            <HBox spacing="25.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Settings" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Submit" HBox.hgrow="ALWAYS" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets right="-1.0" />
+   </padding>
+</StackPane>
