@@ -59,6 +59,11 @@ public class SwiftFront extends SwiftFile implements Settings, Logging, Closeabl
 		super();
 		setFile(p, read);
 	}
+
+	public SwiftFront(File f) {
+		super();
+		setFile(f);
+	}
 	
 	public void write(Path path, boolean append) throws FileException {
 		try					  { super.write(path, append); }

@@ -1,26 +1,27 @@
 package sd.swiftglobal.rk.type.users;
 
+import sd.swiftglobal.rk.type.handler.HandleType;
+
 /* This file is part of Swift Drive                * 
  * Copyright (C) 2015 Ryan Kerr                    *
  * Please refer to <http://www.gnu.org/licenses/>. */
 
-public class User {
+public class User implements HandleType {
 	private String rawdata,
 				   realname,
 		   		   username,
-		   		   password;
+		   		   password = "password";
 
 	private int userid;
 
-	public User(String real, String user, String pass, int id) {
+	public User(String real, String user, String pass) {
 		realname = real;
 		username = user;
 		password = pass;
-		userid   = id;
 	}
 	
-	public User(String real, String username, int id) {
-		this(real, username, "", id);
+	public User(String real, String username) {
+		this(real, username, "");
 	}
 
 	public User(String rawdata) {
@@ -73,5 +74,16 @@ public class User {
 
 	public String toString() {
 		return userid + ";" + realname + ";" + username + ";" + password;
+	}
+
+	@Override
+	public String getName() {
+		return getUsername();
+	}
+
+	@Override
+	public void setInfo(int id, String data) {
+		setID(id);
+		rawdata = data;
 	}
 }

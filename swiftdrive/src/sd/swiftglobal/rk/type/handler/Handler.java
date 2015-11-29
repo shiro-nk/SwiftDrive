@@ -1,11 +1,9 @@
 package sd.swiftglobal.rk.type.handler;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.FileException;
-import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.util.SwiftFront;
 
 /* This file is part of Swift Drive                * 
@@ -14,21 +12,33 @@ import sd.swiftglobal.rk.util.SwiftFront;
 
 public abstract class Handler<Type extends HandleType> implements Settings {
 	private ArrayList<Type> list = new ArrayList<Type>();
-	private SwiftFront source;
+	protected SwiftFront source;
 
-	public abstract int getIndex(String reference);
-	public abstract boolean add(Type type) throws FileException;
-	public abstract void remove(Type type) throws FileException;
-	public abstract void read();
+	protected abstract void convert(String[] data);
+	protected abstract Type[] getArray();
 
-	public Handler(String path) {
-		try {
-			source = new SwiftFront(new File(LC_PATH + path), false);
-			read();
+	public boolean add(Type type) throws FileException {
+		boolean rtn = true;
+		for(Type t : list) {
+			if(type.getName().equals(t.getName())) {
+				rtn = false;
+				break;
+			}
 		}
-		catch(FileException fx) {
-			fx.printStackTrace();
+		
+		if(rtn) {
+			list.add(type);
+			resetIndex();
+			write();
 		}
+		return rtn;
+	}
+
+	public int getIndex(String name) {
+		for(int i = 0; i < list.size(); i++) {
+			if(name.equals(list.get(i).getName())) return i;
+		}
+		return -1;
 	}
 
 	public void remove(int id) throws FileException {
@@ -36,8 +46,16 @@ public abstract class Handler<Type extends HandleType> implements Settings {
 		write();
 	}
 
-	public SwiftFile getSource() {
+	public void remove(Type t) throws FileException {
+		remove(getIndex(t.getName()));
+	}
+
+	public SwiftFront getSource() {
 		return source;
+	}
+
+	public void setSource(SwiftFront file) {
+		source = file;
 	}
 
 	public Type get(String reference) {
@@ -48,8 +66,31 @@ public abstract class Handler<Type extends HandleType> implements Settings {
 
 	public void write() throws FileException {
 		source.reset();
-		for(Type t : list) source.add(t.toString());
+		for(Type t : list) source.add(t.toString() + "\n");
+		resetIndex();
 		source.toData();
-		source.write();
+		if(0 < source.getArray().length) source.write();
+		else source.getFile().delete();
+	}
+
+	protected ArrayList<Type> getList() {
+		return list;
+	}
+
+	protected void setList(Type[] array) {
+		list.clear();
+		for(Type t : array) list.add(t);
+	}
+
+	protected void resetIndex() {
+		for(int i = 0; i < list.size(); i++) list.get(i).setID(i);
+	}
+
+	public void read() throws FileException {
+		if(source.exists()) {
+			source.read();
+			source.fromData();
+		}
+		if(source.getArray().length != 0) convert(source.getArray());
 	}
 }

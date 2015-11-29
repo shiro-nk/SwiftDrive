@@ -365,4 +365,9 @@ public class SwiftFile extends Data implements Settings, Logging {
 	public boolean getFileFlag() {
 		return fset;
 	}
+
+	public boolean exists() {
+		if(fset) return file.exists();
+		else return false;
+	}
 }
