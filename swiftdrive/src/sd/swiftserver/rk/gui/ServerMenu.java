@@ -30,7 +30,8 @@ public class ServerMenu implements Initializable {
 	@FXML private Button help_btn;
 	@FXML private Button quit_btn;
 
-	@FXML private Label ip_lbl;
+	@FXML private Label host_lbl;
+	@FXML private Label addr_lbl;
 	@FXML private Label port_lbl;
 
 	@FXML private ImageView back_img;
@@ -44,11 +45,18 @@ public class ServerMenu implements Initializable {
 
 	public void showInfo() {
 		try {
-			ip_lbl.setText(InetAddress.getLocalHost().toString());
+			String[] info = InetAddress.getLocalHost().getHostAddress().toString().split("/");
+			
+			if(info.length == 2) {
+				host_lbl.setText(info[0]);
+				addr_lbl.setText(info[1]);
+			}
 		}
 		catch(IOException ix) {
-			ip_lbl.setText("127.0.0.1");
+			host_lbl.setText("Localhost");
+			addr_lbl.setText("127.0.0.1");
 		}
+
 		back_img.setVisible(false);
 		info_pnl.setVisible(true);
 	}

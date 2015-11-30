@@ -12,6 +12,7 @@ public class TypeTesting {
 			UserHandler userhandler = new UserHandler();
 			userhandler.add(new User("Xel", "data"));
 			userhandler.remove(new User("Xel", "data"));
+			userhandler.add(new User("example", "Mohan"));
 			TaskHandler tx = new TaskHandler(userhandler);
 			Task t = new Task("excel", userhandler);
 			tx.add(t);

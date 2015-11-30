@@ -37,7 +37,6 @@ public class SwiftServer extends Application implements Settings {
 
 	private Parent root;
 	private Scene scene;
-	private ServerMenu menu;
 	private Server server;
 
 	@Override

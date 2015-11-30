@@ -21,7 +21,7 @@ public class User implements HandleType {
 	}
 	
 	public User(String real, String username) {
-		this(real, username, "");
+		this(real, username, "password");
 	}
 
 	public User(String rawdata) {

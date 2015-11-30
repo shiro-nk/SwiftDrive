@@ -41,7 +41,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	private DataOutputStream dos = null;
 	
 	private boolean online   = false,
-					closing  = false,
 					loggedin = false;
 
 	private SwiftFile swap = null;
@@ -128,6 +127,10 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 
 						case DAT_DIRC:
 							break;
+
+						case DAT_VERS:
+							echo("Returning version info");
+
 					}
 				}
 			}

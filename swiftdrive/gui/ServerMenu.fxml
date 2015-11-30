@@ -8,7 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swiftserver.rk.gui.ServerMenu">
+<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swiftserver.rk.gui.ServerMenu">
    <items>
       <VBox alignment="CENTER" minWidth="100.0" spacing="20.0" SplitPane.resizableWithParent="false">
          <children>
@@ -25,7 +25,7 @@
             <Separator prefWidth="200.0" />
             <VBox alignment="TOP_CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="info_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showInfo" text="Info" />
+                  <Button fx:id="info_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showInfo" text="Welcome" />
                   <Button fx:id="ctrl_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Control" />
                   <Button fx:id="task_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Tasks" />
                   <Button fx:id="file_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Files" />
@@ -44,36 +44,65 @@
       </VBox>
       <StackPane prefHeight="150.0" prefWidth="200.0">
          <children>
-            <ImageView fx:id="back_img" fitHeight="400.0" fitWidth="500.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_RIGHT">
+            <ImageView fx:id="back_img" disable="true" fitHeight="400.0" fitWidth="500.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_RIGHT">
                <image>
                   <Image url="@../../../../../../../../data/swiftspace/concept/rk/gui/res/background_icon.png" />
                </image>
             </ImageView>
-            <BorderPane fx:id="info_pnl" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <BorderPane fx:id="info_pnl" prefHeight="200.0" prefWidth="200.0">
                <top>
-                  <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+                  <HBox fillHeight="false" spacing="50.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label text="IP:">
-                           <font>
-                              <Font name="System Bold" size="40.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="ip_lbl" text="127.0.0.1">
-                           <font>
-                              <Font size="40.0" />
-                           </font>
-                        </Label>
-                        <Label text="/">
-                           <font>
-                              <Font name="System Bold" size="40.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="port_lbl" text="3141">
-                           <font>
-                              <Font size="40.0" />
-                           </font>
-                        </Label>
+                        <VBox>
+                           <children>
+                              <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                                 <children>
+                                    <Label text="Host:">
+                                       <font>
+                                          <Font name="Monospaced Bold" size="25.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="host_lbl" text="Localhost">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                                 <children>
+                                    <Label text="Addr:">
+                                       <font>
+                                          <Font name="Monospaced Bold" size="25.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="addr_lbl" text="127.0.0.1">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Label text="Port:">
+                                       <font>
+                                          <Font name="Monospaced Bold" size="25.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="port_lbl" text="3141">
+                                       <font>
+                                          <Font name="Monospaced Regular" size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
                      </children>
+                     <padding>
+                        <Insets left="25.0" right="25.0" top="25.0" />
+                     </padding>
                   </HBox>
                </top>
             </BorderPane>
