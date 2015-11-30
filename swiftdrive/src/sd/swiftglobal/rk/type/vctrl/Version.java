@@ -37,10 +37,10 @@ public class Version implements HandleType, Settings {
 	private void reloadPath() {
 		file = new File(LC_VERS + getName());
 		if(file.exists() && file.isDirectory()) {
-			String[] users = file.listFiles();
-			for(int i = 0; i < users.length; i++) {
-				if(!users[i].equals("master")) ;;
-			}
+			//String[] users = file.listFiles();
+			//for(int i = 0; i < users.length; i++) {
+			//	if(!users[i].equals("master")) ;;
+			//}
 		}
 	}
 

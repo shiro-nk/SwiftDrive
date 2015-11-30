@@ -1,3 +1,0 @@
-pushd /data/swiftspace/swiftdrive/bin
-	java sd.swiftserver.SwiftServer
-popd

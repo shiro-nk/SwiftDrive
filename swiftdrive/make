@@ -3,7 +3,8 @@ pushd /data/swiftspace/swiftdrive/
 	cp -r res bin
 	cp -r gui bin
 	#javac -d bin -sourcepath src:res:gui src/sd/swiftglobal/rk/SwiftStart.java
-	javac -d bin -sourcepath src:res:gui src/*
+	find -name "*.java" > sources
+	javac -d bin -sourcepath src:res:gui @sources
 	pushd /data/swiftspace/swiftdrive/bin
 		jar cfm swiftdrive.jar ../manifest.mf sd res
 		mv swiftdrive.jar ..
