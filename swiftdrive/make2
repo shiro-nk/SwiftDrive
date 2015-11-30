@@ -1,7 +1,8 @@
 pushd /data/swiftspace/swiftdrive/
 	rm -r bin/*
 	cp -r res bin
-	javac -d bin -sourcepath src:res src/sd/swiftglobal/rk/TypeTesting.java
+	cp -r gui bin
+	javac -d bin -sourcepath src:res src/sd/swiftserver/SwiftServer.java
 	pushd /data/swiftspace/swiftdrive/bin
 		jar cfm swiftdrive.jar ../manifest.mf sd res
 		mv swiftdrive.jar ..

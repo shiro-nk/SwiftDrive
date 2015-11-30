@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import sd.swiftglobal.rk.Meta.LeaveBlank;
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
+import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.type.users.UserHandler;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
@@ -48,6 +49,10 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		catch(IOException ix) {
 			echo("Failed to initialize server", LOG_PRI);
 			throw new DisconnectException(EXC_CONN, ix);
+		}
+		catch(FileException fx) {
+			echo("Failed to initialize server", LOG_PRI);
+			throw new DisconnectException(EXC_WRITE);
 		}
 	}
 	

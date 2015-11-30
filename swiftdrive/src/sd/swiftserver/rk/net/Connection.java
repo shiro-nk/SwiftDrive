@@ -261,7 +261,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		int    size = readInt();
 		byte[] pass = readByteArray(size);
 		boolean rtn = false;
-		user = server.getUserlist().getUser(username); 
+		user = server.getUserlist().get(username); 
 		rtn = user != null ? Arrays.equals(user.getPassword(), pass) ? true : false : false;	
 		dos.writeBoolean(rtn);
 		loggedin = rtn;

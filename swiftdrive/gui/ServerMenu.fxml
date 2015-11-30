@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import sd.swiftserver.rk.gui.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swiftserver.rk.gui.ServerMenu">
+   <items>
+      <VBox alignment="CENTER" minWidth="100.0" spacing="20.0" SplitPane.resizableWithParent="false">
+         <children>
+            <VBox alignment="CENTER" spacing="5.0">
+               <children>
+                  <Label text="SwiftDrive">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Label text="Version 0.11r5" />
+               </children>
+            </VBox>
+            <Separator prefWidth="200.0" />
+            <VBox alignment="TOP_CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button fx:id="info_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showInfo" text="Info" />
+                  <Button fx:id="ctrl_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Control" />
+                  <Button fx:id="task_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Tasks" />
+                  <Button fx:id="file_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Files" />
+                  <Button fx:id="user_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Users" />
+                  <Button fx:id="help_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Help" />
+                  <Button fx:id="quit_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Quit" />
+               </children>
+               <padding>
+                  <Insets left="50.0" right="50.0" />
+               </padding>
+            </VBox>
+         </children>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+      </VBox>
+      <StackPane prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="back_img" fitHeight="400.0" fitWidth="500.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_RIGHT">
+               <image>
+                  <Image url="@../../../../../../../../data/swiftspace/concept/rk/gui/res/background_icon.png" />
+               </image>
+            </ImageView>
+            <BorderPane fx:id="info_pnl" prefHeight="200.0" prefWidth="200.0" visible="false">
+               <top>
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label text="IP:">
+                           <font>
+                              <Font name="System Bold" size="40.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="ip_lbl" text="127.0.0.1">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Label>
+                        <Label text="/">
+                           <font>
+                              <Font name="System Bold" size="40.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="port_lbl" text="3141">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </top>
+            </BorderPane>
+         </children>
+      </StackPane>
+   </items>
+   <padding>
+      <Insets right="-1.0" />
+   </padding>
+</SplitPane>
