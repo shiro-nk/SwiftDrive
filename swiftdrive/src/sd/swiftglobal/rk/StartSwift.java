@@ -16,7 +16,7 @@ public class StartSwift implements Settings, Logging {
 	public static void main(String[] args) {
 		System.out.println("\n");
 		System.out.println("[ Start  ] Welcome to Swift Drive!");
-		System.out.println("[ Start  ] Version " + VER_VER + " Release " + VER_REL + " Patch " + VER_MIN);
+		System.out.println("[ Start  ] Version " + VER_MAJOR + " Release " + VER_MINOR + " Patch " + VER_PATCH);
 		StartSwift start = new StartSwift();
 		System.out.println();
 		createDirectory();

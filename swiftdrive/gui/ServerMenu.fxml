@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import sd.swiftserver.rk.gui.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
@@ -8,9 +9,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swiftserver.rk.gui.ServerMenu">
+<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swiftserver.rk.gui.ServerMenu">
    <items>
-      <VBox alignment="CENTER" minWidth="100.0" spacing="20.0" SplitPane.resizableWithParent="false">
+      <VBox alignment="CENTER" maxWidth="250.0" minWidth="200.0" spacing="20.0" SplitPane.resizableWithParent="false">
          <children>
             <VBox alignment="CENTER" spacing="5.0">
                <children>
@@ -19,19 +20,19 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <Label text="Version 0.11r5" />
+                  <Label fx:id="vers_lbl" text="Version 0.11r10" />
                </children>
             </VBox>
             <Separator prefWidth="200.0" />
             <VBox alignment="TOP_CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="info_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showInfo" text="Welcome" />
-                  <Button fx:id="ctrl_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Control" />
+                  <Button fx:id="info_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showOpen" text="Welcome" />
+                  <Button fx:id="ctrl_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showInfo" text="Control" />
                   <Button fx:id="task_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Tasks" />
                   <Button fx:id="file_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Files" />
                   <Button fx:id="user_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Users" />
                   <Button fx:id="help_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Help" />
-                  <Button fx:id="quit_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Quit" />
+                  <Button fx:id="quit_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#quit" text="Quit" />
                </children>
                <padding>
                   <Insets left="50.0" right="50.0" />
@@ -42,38 +43,78 @@
             <Insets top="20.0" />
          </padding>
       </VBox>
-      <StackPane prefHeight="150.0" prefWidth="200.0">
+      <StackPane prefHeight="450.0" prefWidth="304.0">
          <children>
             <ImageView fx:id="back_img" disable="true" fitHeight="400.0" fitWidth="500.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_RIGHT">
                <image>
-                  <Image url="@../../../../../../../../data/swiftspace/concept/rk/gui/res/background_icon.png" />
+                  <Image url="@../res/background_icon.png" />
                </image>
             </ImageView>
-            <BorderPane fx:id="info_pnl" prefHeight="200.0" prefWidth="200.0">
-               <top>
-                  <HBox fillHeight="false" spacing="50.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="help_pnl" prefHeight="200.0" prefWidth="100.0" visible="false">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Help page" />
+               </children></VBox>
+            <VBox fx:id="open_pnl" alignment="CENTER_LEFT" fillWidth="false">
+               <children>
+                  <Label text="Welcome">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="45.0" />
+                     </font>
+                  </Label>
+                  <TextFlow>
                      <children>
-                        <VBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Swift Drive server!" />
+                     </children>
+                  </TextFlow>
+               </children>
+               <StackPane.margin>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+               </StackPane.margin>
+            </VBox>
+            <VBox fx:id="ctrl_pnl" alignment="CENTER_LEFT" fillWidth="false" spacing="40.0" visible="false">
+               <children>
+                  <VBox>
+                     <children>
+                        <HBox fillHeight="false" spacing="10.0">
                            <children>
-                              <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                              <Separator orientation="VERTICAL" prefHeight="200.0" />
+                              <VBox spacing="10.0">
                                  <children>
-                                    <Label text="Host:">
+                                    <Label text="Hostname:">
                                        <font>
                                           <Font name="Monospaced Bold" size="25.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="host_lbl" text="Localhost">
+                                    <Label text="Address:">
                                        <font>
-                                          <Font size="25.0" />
+                                          <Font name="Monospaced Bold" size="25.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Port:">
+                                       <font>
+                                          <Font name="Monospaced Bold" size="25.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="State:">
+                                       <font>
+                                          <Font name="Monospaced Bold" size="25.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Connected:">
+                                       <font>
+                                          <Font name="Monospaced Bold" size="25.0" />
                                        </font>
                                     </Label>
                                  </children>
-                              </HBox>
-                              <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                              </VBox>
+                              <VBox spacing="10.0">
                                  <children>
-                                    <Label text="Addr:">
+                                    <Label fx:id="host_lbl" text="Localhost">
                                        <font>
-                                          <Font name="Monospaced Bold" size="25.0" />
+                                          <Font size="25.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="addr_lbl" text="127.0.0.1">
@@ -81,31 +122,62 @@
                                           <Font size="25.0" />
                                        </font>
                                     </Label>
-                                 </children>
-                              </HBox>
-                              <HBox spacing="10.0">
-                                 <children>
-                                    <Label text="Port:">
-                                       <font>
-                                          <Font name="Monospaced Bold" size="25.0" />
-                                       </font>
-                                    </Label>
                                     <Label fx:id="port_lbl" text="3141">
                                        <font>
-                                          <Font name="Monospaced Regular" size="25.0" />
+                                          <Font size="25.0" />
                                        </font>
                                     </Label>
+                                    <Label fx:id="stat_lbl" text="Active" textFill="LIME">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="conn_lbl" text="0">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <HBox fillHeight="false" spacing="10.0">
+                     <children>
+                        <Separator orientation="VERTICAL" prefHeight="60.0" />
+                        <VBox spacing="10.0">
+                           <children>
+                              <HBox alignment="CENTER" fillHeight="false" spacing="20.0">
+                                 <children>
+                                    <Label text="Port">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField promptText="3141" />
+                                    <Button mnemonicParsing="false" text="Apply" />
+                                 </children>
+                              </HBox>
+                              <HBox fillHeight="false" spacing="20.0" VBox.vgrow="NEVER">
+                                 <children>
+                                    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Start" HBox.hgrow="ALWAYS" />
+                                    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Stop" />
+                                    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Halt" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
                      </children>
-                     <padding>
-                        <Insets left="25.0" right="25.0" top="25.0" />
-                     </padding>
                   </HBox>
-               </top>
-            </BorderPane>
+               </children>
+               <StackPane.margin>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </StackPane.margin>
+            </VBox>
          </children>
       </StackPane>
    </items>

@@ -23,10 +23,9 @@ import sd.swiftglobal.rk.util.Logging;
 public interface Settings {
 	public static final double VERSION = 00.11;
 
-	public static final int VER_VER = 0,
-		   					VER_REL = 11,
-							VER_MIN = 10,
-							VER_GUI = 0;
+	public static final int VER_MAJOR = 0,
+		   					VER_MINOR = 11,
+							VER_PATCH = 10;
 	
 	/** Data (DAT) type headers for transfer **/
 	public static final int DAT_NULL = 0,
