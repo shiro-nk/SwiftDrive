@@ -14,8 +14,9 @@ public abstract class Handler<Type extends HandleType> implements Settings {
 	private ArrayList<Type> list = new ArrayList<Type>();
 	protected SwiftFront source;
 
-	protected abstract void convert(String[] data);
-	protected abstract Type[] getArray();
+	public abstract void reload() throws FileException;
+	public abstract void convert(String[] data) throws FileException;
+	public abstract Type[] getArray();
 
 	public boolean add(Type type) throws FileException {
 		boolean rtn = true;

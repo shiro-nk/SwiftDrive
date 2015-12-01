@@ -78,8 +78,7 @@ public class Version implements HandleType, Settings {
 
 	@Override
 	public String getName() {
-		String d = ".";
-		return major + d + minor + d + patch;
+		return major + "." + minor + "r" + patch;
 	}
 
 	@Override

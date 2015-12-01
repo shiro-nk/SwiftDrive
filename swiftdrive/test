@@ -1,0 +1,3 @@
+pushd /data/swiftspace/swiftdrive/bin
+	java sd/swiftglobal/rk/TypeTesting
+popd

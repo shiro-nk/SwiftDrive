@@ -169,7 +169,7 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 	}
 	
 	public void close() {
-		echo("Killing client", LOG_TRI);
+		echo("Killing interface", LOG_TRI);
 		stop();
 		active = false;
 		online = false;

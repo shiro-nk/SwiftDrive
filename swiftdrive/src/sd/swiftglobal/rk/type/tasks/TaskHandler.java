@@ -30,10 +30,10 @@ public class TaskHandler extends Handler<Task> implements Settings, Logging {
 	}
 
 	@Override
-	protected void convert(String[] data) {
+	public void convert(String[] data) throws FileException {
 		ArrayList<Task> list = getList();
 		list.clear();
-
+		System.out.println("Creating data from stl");
 		for(int i = 0; i < data.length; i++) {
 			Task task = new Task(i, data[i], userlist);
 			list.add(task);
@@ -50,6 +50,12 @@ public class TaskHandler extends Handler<Task> implements Settings, Logging {
 		if(0 <= id && id < getList().size()) {
 			getList().get(id).getSource().getFile().delete();
 			getList().remove(id);
+			write();
 		}
+	}
+
+	@Override
+	public void reload() throws FileException {
+		if(getSource().exists() && getSource().getFile().isFile()) read();
 	}
 }

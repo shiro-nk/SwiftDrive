@@ -32,7 +32,7 @@ public class UserHandler extends Handler<User> implements Settings, Logging {
 	}
 
 	@Override
-	protected void convert(String[] data) {
+	public void convert(String[] data) {
 		ArrayList<User> list = getList();
 		list.clear();
 		
@@ -46,5 +46,10 @@ public class UserHandler extends Handler<User> implements Settings, Logging {
 	@Override
 	public User[] getArray() {
 		return getList().toArray(new User[getList().size()]);
+	}
+
+	@Override
+	public void reload() throws FileException {
+		if(getSource().exists() && getSource().getFile().isFile()) read();
 	}
 }

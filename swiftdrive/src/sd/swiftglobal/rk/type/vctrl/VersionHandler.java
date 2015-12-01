@@ -26,7 +26,7 @@ public class VersionHandler extends Handler<Version> implements Settings {
 	}
 
 	@Override
-	protected void convert(String[] data) {
+	public void convert(String[] data) {
 		ArrayList<Version> list = getList();
 		list.clear();
 
@@ -38,7 +38,12 @@ public class VersionHandler extends Handler<Version> implements Settings {
 	}
 
 	@Override
-	protected Version[] getArray() {
+	public Version[] getArray() {
 		return getList().toArray(new Version[getList().size()]);
+	}
+
+	@Override
+	public void reload() throws FileException {
+		if(getSource().exists() && getSource().getFile().isFile()) read();
 	}
 }

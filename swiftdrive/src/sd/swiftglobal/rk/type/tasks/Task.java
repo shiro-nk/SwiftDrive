@@ -26,18 +26,18 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 	private User user;
 	private UserHandler userlist;
 
-	public Task(int id, String rawdata, UserHandler userlist) {
+	public Task(int id, String rawdata, UserHandler userlist) throws FileException {
 		this.userlist = userlist;
 		this.id = id;
 		this.rawdata = rawdata;
 		toData();
+		reload();
 	}
 
 	public Task(String name, UserHandler userlist) throws FileException {
 		this.userlist = userlist;
 		this.name = name;
-		reloadPath();
-		read();
+		reload();
 	}
 
 	public Task(String name, String desc, String lead, UserHandler userlist) throws FileException {
@@ -46,8 +46,7 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 		this.lead = lead;
 		this.user = findUser();
 		this.userlist = userlist;
-		reloadPath();
-		read();
+		reload();
 	}
 
 	public Task(String name, String desc, User user, SubTask[] subtasks, UserHandler userlist) throws FileException {
@@ -57,17 +56,18 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 		this.lead = user.getUsername();
 		this.userlist = userlist;
 		setList(subtasks);
-		reloadPath();
+		reload();
 	}
 
-	protected void convert(String[] data) {
+	@Override
+	public void convert(String[] data) throws FileException {
 		ArrayList<SubTask> list = getList();
 		list.clear();
 		
 		for(int i = 0; i < data.length; i++) {
 			SubTask subtask = new SubTask(data[i]);
 			subtask.setInfo(i, data[i]);
-			list.add(subtask);
+			add(subtask);
 		}
 	}
 
@@ -157,5 +157,11 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 		}
 
 		return average / task;
+	}
+
+	@Override
+	public void reload() throws FileException {
+		reloadPath();
+		if(path.exists() && path.isFile()) read();
 	}
 }
