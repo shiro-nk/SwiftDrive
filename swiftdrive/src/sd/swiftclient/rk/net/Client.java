@@ -345,13 +345,18 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	}
 
 	@PingHandler @DirectKiller
+	public void disconnect(int x) throws DisconnectException {
+		disconnect();
+		kill(EXC_SAFE);
+	}
+
 	public void disconnect() throws DisconnectException {
 		echo("Requesting disconnection", LOG_SEC);
 		ping.pause();
+		term.run();
 		writeInt(DAT_NULL);
-		ping.activate();
-		echo("Disconnection request complete, terminating", LOG_SEC);
-		kill(EXC_SAFE);
+		term.cancel();
+		echo("Disconnect request complete");
 	}
 	
 	@Override
@@ -399,7 +404,8 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	@Override
 	public void close() {
 		try {
-			//if(ping != null) ping.stop();
+			echo("Closing");
+			if(ping != null) ping.stop();
 			if(dis != null) dis.close();
 			if(dos != null) dos.close();
 			if(server != null) server.close();

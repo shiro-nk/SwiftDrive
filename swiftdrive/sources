@@ -19,7 +19,6 @@
 ./src/sd/swiftglobal/rk/util/Terminator.java
 ./src/sd/swiftglobal/rk/util/SwiftFront.java
 ./src/sd/swiftglobal/rk/util/Ping.java
-./src/sd/swiftglobal/rk/TypeTesting.java
 ./src/sd/swiftglobal/rk/type/ServerCommand.java
 ./src/sd/swiftglobal/rk/type/users/UserHandler.java
 ./src/sd/swiftglobal/rk/type/users/User.java
@@ -33,6 +32,7 @@
 ./src/sd/swiftglobal/rk/type/tasks/Task.java
 ./src/sd/swiftglobal/rk/type/tasks/SubTask.java
 ./src/sd/swiftglobal/rk/type/tasks/TaskHandler.java
+./src/sd/swiftglobal/rk/SwiftTest.java
 ./src/sd/swiftglobal/rk/expt/SwiftException.java
 ./src/sd/swiftglobal/rk/expt/CommandException.java
 ./src/sd/swiftglobal/rk/expt/FileException.java

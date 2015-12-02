@@ -166,6 +166,11 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 		echo("Stopping", LOG_TRI);
 		deactivate();
 		online = false;
+
+		echo("HALT");
+		synchronized(ping) {
+			ping.notifyAll();
+		}
 	}
 	
 	public void close() {
