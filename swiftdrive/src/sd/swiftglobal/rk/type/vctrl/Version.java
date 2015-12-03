@@ -20,7 +20,7 @@ public class Version implements HandleType, Settings {
 				   changes;
 
 	private File file;
-	private User[] userlist;
+	private String[] files;
 
 	public Version(String info) {
 		rawdata = info;
@@ -35,17 +35,8 @@ public class Version implements HandleType, Settings {
 	}
 
 	private void reloadPath() {
-		file = new File(LC_VERS + getName());
-		if(file.exists() && file.isDirectory()) {
-			//String[] users = file.listFiles();
-			//for(int i = 0; i < users.length; i++) {
-			//	if(!users[i].equals("master")) ;;
-			//}
-		}
-	}
-
-	private void appendUsers() {
-
+		file = new File(LC_VERS + toString());
+		files = file.list();
 	}
 
 	@Override
@@ -92,5 +83,9 @@ public class Version implements HandleType, Settings {
 
 	public String getChanges() {
 		return changes;
+	}
+
+	public File[] getMaster() {
+		return new File(toString() + LC_DIV + "master").listFiles();
 	}
 }

@@ -48,7 +48,8 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	private SwiftNetContainer parent;
 	private Terminator term;
 	private int connectionID = 0;
-	private boolean unlocked = false;
+	private boolean unlocked = false,
+					online = false;
 	private User user;
 	public static String SV_DIV;
 	public int kill;
@@ -329,7 +330,6 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	
 	private boolean version() throws IOException, DisconnectException {
 		dos.writeDouble(VERSION);
-		Terminator term = new Terminator(this);
 		term.run();
 		boolean rtn = dis.readBoolean();
 		term.cancel();
@@ -346,17 +346,21 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 
 	@PingHandler @DirectKiller
 	public void disconnect(int x) throws DisconnectException {
-		disconnect();
-		kill(EXC_SAFE);
+		if(online) {
+			disconnect();
+			kill(EXC_SAFE);
+		}
 	}
 
 	public void disconnect() throws DisconnectException {
-		echo("Requesting disconnection", LOG_SEC);
-		ping.pause();
-		term.run();
-		writeInt(DAT_NULL);
-		term.cancel();
-		echo("Disconnect request complete");
+		if(online) {
+			echo("Requesting disconnection", LOG_SEC);
+			ping.pause();
+			term.run();
+			writeInt(DAT_NULL);
+			term.cancel();
+			echo("Disconnect request complete");
+		}
 	}
 	
 	@Override
@@ -405,6 +409,8 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	public void close() {
 		try {
 			echo("Closing");
+			online = false;
+			if(term != null) term.destroy();
 			if(ping != null) ping.stop();
 			if(dis != null) dis.close();
 			if(dos != null) dos.close();

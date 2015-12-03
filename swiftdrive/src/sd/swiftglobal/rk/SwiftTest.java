@@ -40,7 +40,7 @@ public class SwiftTest implements Settings, Logging, SwiftNetContainer {
 			int port = Integer.parseInt(args[1].replaceAll("[^0-9]", ""));
 			test.startServer(port);
 		}
-		if(0 < args.length && args[0].equals("client") && 3 == args.length) {
+		else if(0 < args.length && args[0].equals("client") && 3 == args.length) {
 			int port = Integer.parseInt(args[2].replaceAll("[^0-9]", ""));
 			test.startClient(args[1], port);
 		}
@@ -60,6 +60,7 @@ public class SwiftTest implements Settings, Logging, SwiftNetContainer {
 		echo("Please refer to LICENSE and README for more information", LOG_PRI);
 	}
 
+	private boolean active = true;
 	public void startServer(int port) {
 		try(Server server = new Server(port)) {	
 			TaskHandler th = new TaskHandler(server.getUserlist());
@@ -67,7 +68,7 @@ public class SwiftTest implements Settings, Logging, SwiftNetContainer {
 			Scanner scan = new Scanner(System.in);
 			String input = "";
 			
-			while(!(input = scan.nextLine()).equals("stop")) {
+			while(!(input = scan.nextLine()).equals("stop") && active) {
 				if(input.equals("print")) {
 					for(Task t : th.getArray()) {
 						echo(" * " + t);
@@ -121,7 +122,7 @@ public class SwiftTest implements Settings, Logging, SwiftNetContainer {
 			}
 
 			String input = "";
-			while(!(input = scan.nextLine()).equals("stop")) {
+			while(!(input = scan.nextLine()).equals("stop") && active) {
 				if(input.equals("get")) {
 					SwiftFile file = client.sfcmd(
 						new ServerCommand(CMD_READ_FILE, "task/index")
@@ -152,7 +153,7 @@ public class SwiftTest implements Settings, Logging, SwiftNetContainer {
 				}
 
 				if(input.equals("deltask")) {
-					th.add(new Task(0, "A;A;A", u));
+					th.remove(new Task(0, "A;A;A", u));
 				}
 
 				if(input.equals("set")) {
@@ -163,11 +164,12 @@ public class SwiftTest implements Settings, Logging, SwiftNetContainer {
 
 			client.disconnect();
 			scan.close();
+			System.out.println("topbottom");
 		}
 		catch(SwiftException | IOException sfx) {
 			echo("The client disconnected unexpectedly: " + sfx.getMessage(), LOG_PRI);
 		}
-
+		System.out.println("bottom");
 	}
 
 	public static void createDirectory() {
@@ -184,6 +186,7 @@ public class SwiftTest implements Settings, Logging, SwiftNetContainer {
 
 	@Override
 	public void dereference(SwiftNetTool t) {
-			
+		echo("Dereferencing");
+		active = false;
 	}
 }

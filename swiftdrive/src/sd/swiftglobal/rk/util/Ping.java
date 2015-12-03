@@ -90,10 +90,16 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 										echo("Close signal received!", LOG_TRI);
 										tool.kill(EXC_SAFE);
 									}
-									term.cancel();
-									locked = false;
-									echo("Unlocking io lock", LOG_LOW);
-									synchronized(lock) { lock.notifyAll(); }
+									else {
+										term.cancel();
+										locked = false;
+										echo("Unlocking io lock", LOG_LOW);
+										synchronized(lock) { lock.notifyAll(); }
+									}
+//									term.cancel();
+//									locked = false;
+//									echo("Unlocking io lock", LOG_LOW);
+//									synchronized(lock) { lock.notifyAll(); }
 								}
 								catch(IOException ix) {
 									if(term == null || !term.terminated()) close();
