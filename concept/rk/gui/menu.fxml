@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <items>
       <VBox alignment="TOP_CENTER" minWidth="100.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
          <children>
@@ -37,18 +37,25 @@
             <Insets top="20.0" />
          </padding>
       </VBox>
-      <BorderPane prefHeight="200.0" prefWidth="200.0">
-         <right>
-            <ImageView fitHeight="400.0" fitWidth="500.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="BOTTOM_CENTER">
+      <StackPane prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="400.0" fitWidth="500.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_RIGHT">
                <image>
                   <Image url="@res/background_icon.png" />
                </image>
-               <BorderPane.margin>
-                  <Insets />
-               </BorderPane.margin>
             </ImageView>
-         </right>
-      </BorderPane>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <HBox visible="false">
+                     <children>
+                        <Label text="Label" />
+                        <ProgressBar prefWidth="200.0" progress="0.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
    </items>
    <padding>
       <Insets right="-1.0" />

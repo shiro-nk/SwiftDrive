@@ -35,7 +35,9 @@ import sd.swiftglobal.rk.util.Terminator;
  * Please refer to <http://www.gnu.org/licenses/>. */
 
 /**
- * Client side of the data transfer network.
+ * Client:
+ * The client object provides an interface for connecting and interacting
+ * with a computer running the server class.
  *
  * @author Ryan Kerr
  */
@@ -55,7 +57,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	public int kill;
 
 	/**
-	 * Establishes a connecting and I/O sockets with the server
+	 * Establishes a connection and I/O sockets with the server program
 	 * @param hostname Host to connect to
 	 * @param port Host port
 	 * @throws DisconnectException If something fails while connecting
@@ -81,8 +83,20 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			throw new DisconnectException(EXC_CONN, ix);
 		}
 	}
-	
-	@PingHandler @IndirectTimeout
+
+	/**
+	 * <b>Data Upload:</b><br>
+	 * Sends data to the server and then sends a command so that the
+	 * server acts on that data type in some way. <br><br>
+	 *
+	 * This will not execute until the login() method is successfully executed
+	 *
+	 * @param scmd Command for the server to execute on <b>outbound</b>
+	 * @param outbound Data to be sent to the server
+	 * @throws DisconnectException For unexpected disconnections
+	 * @throws CommandException For malformed commands (no command specified) or impossible requests
+	 */
+	@PingHandler @IndirectTimeout @Deprecated
 	public <Type extends Data> void scmd(ServerCommand scmd, Type outbound) throws DisconnectException, CommandException {
 		if(unlocked) {
 			echo("Data command request started", LOG_SEC);
@@ -96,8 +110,22 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 	
-	@PingHandler @IndirectTimeout
-	public Data scmd(ServerCommand scmd, Data inbound, int Type) throws DisconnectException, CommandException {
+	/**
+	 * <b>Data Download:</b><br>
+	 * Sends a command to the server (usually a read command) and downloads
+	 * the data that was read on the server. <br><br>
+	 *
+	 * This method will return a blank generic type until the login method
+	 * was not successfully called prior to running this method.
+	 *
+	 * @param scmd Command for the server to execute
+	 * @param inbound Data downloaded from the server
+	 * @param type null
+	 * @throws DisconnectException For unexpected disconnections
+	 * @throws CommandException For malformed commands (no command specified) or impossible requests
+	 */
+	@PingHandler @IndirectTimeout @Deprecated
+	public Data scmd(ServerCommand scmd, Data inbound, int type) throws DisconnectException, CommandException {
 		if(unlocked) {
 			echo("Data download request started", LOG_SEC);
 			ping.pause();
@@ -117,6 +145,20 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		return new Generic();
 	}
 	
+	/**
+	 * <b>File Upload:</b><br>
+	 * Sends a file to the server and then follows the upload with a
+	 * command (usually to save the data sent on the server) <br><br>
+	 *
+	 * This method will not run without a successful login attempt
+	 *
+	 * @param scmd Command for the server to execute (usually a write command)
+	 * @param sf The SwiftFile to send to save on the server
+	 * @throws DisconnectException For unexpected disconnections
+	 * @throws FileException If the file could not be read from the disk
+	 * @throws CommandException For malformed/blank commands or impossible requests
+	 */
+	@PingHandler @IndirectTimeout
 	public void sfcmd(ServerCommand scmd, SwiftFile sf) throws DisconnectException, FileException, CommandException {
 		if(unlocked) {
 			echo("File command request started", LOG_SEC);
@@ -135,6 +177,18 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 	
+	/**
+	 * <b>File Download:</b><br>
+	 * Sends a command to the server to read a file and then downloads
+	 * that file from the server <br><br>
+	 *
+	 * Method will not run without a successful login attempt
+	 *
+	 * @param scmd Command specifying the file to read from the server
+	 * @throws DisconnectException In the event that the server disconnected
+	 * @throws CommandException If the command could not be completed or was malformed
+	 * @throws FileException If the file could not be kept locally
+	 */
 	@PingHandler @IndirectTimeout
 	public SwiftFile sfcmd(ServerCommand scmd) throws DisconnectException, FileException, CommandException {
 		if(unlocked) {
@@ -153,6 +207,14 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		return new SwiftFile(0);
 	}
 
+	/**
+	 *	<b>File Download:</b><br>
+	 *	Requests to download whatever file is present in the server swap variable.
+	 *
+	 *	@return The file downloaded from the server
+	 *	@throws CommandException For malformed or incomplete commands
+	 *	@throws DisconnectException In the event that the server disconnects
+	 */
 	@PingHandler @IndirectTimeout
 	public SwiftFile sfcmd() throws CommandException, DisconnectException {
 		if(unlocked) {
@@ -179,6 +241,16 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		return new SwiftFile(0);
 	}
 
+	/**
+	 *	<b>Command Requests and Responses:</b><br>
+	 *	Sends a command to the server and waits for the response signal. <br>
+	 *	Signals may include COMPLETE, FAILED, or BAD_COMMAND
+	 *
+	 *	@return The signal received from the command. Returns BAD_COMMAND if blank and EXC_LOCK if not logged in.
+	 *	@param scmd Command to execute on server
+	 *	@throws DisconnectException In the event of an unexpected disconnection
+	 *	@throws CommandException For malformed (blank) commands (this ignores signals)
+	 */
 	@IndirectTimeout @RequiresPingHandler
 	private int scmd(ServerCommand scmd) throws DisconnectException, CommandException {
 		if(unlocked) {
@@ -198,6 +270,15 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		return EXC_LOCK;
 	}	
 	
+	/**
+	 * <b>Send Data:</b><br>
+	 * Sends data to the server to be stored in memory. <br><br>
+	 *
+	 * This method will not execute unless the client is logged in.
+	 *
+	 * @param outbound Data to be sent to the server
+	 * @throws DisconnectException In the event of a broken connection
+	 */
 	@IndirectTimeout @RequiresPingHandler
 	private <Type extends Data> void sendData(Type outbound) throws DisconnectException {
 		if(unlocked) {
@@ -210,6 +291,17 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 	
+	/**
+	 * <b>Receive Data:</b><br>
+	 * Receives whatever data is stored in the server memory. <br><br>
+	 *
+	 * This method will not execute unless the client is logged in
+	 *
+	 * @param inbound The data type used as a template to save the data in.
+	 * @return The value passed to the method with the new data <br>
+	 * 		   If the client is not logged in, the parameter will be returned
+	 * @throws DisconnectException in the event of a disconnection
+	 */
 	@IndirectTimeout @RequiresPingHandler
 	private Data getData(@Pointer Data inbound) throws DisconnectException {
 		if(unlocked) {
@@ -221,9 +313,16 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			echo("Data download complete", LOG_TRI);
 			return inbound;
 		}
-		return new Generic();
+		return inbound;
 	}
 
+	/**
+	 * <b>Write int:</b><br>
+	 * Writes an int to the socket (used for data type identifiers)
+	 *
+	 * @param x Integer to send to the server
+	 * @throws DisconnectException if the connection times out
+	 */
 	@RequiresPingHandler @DirectKiller
 	private void writeInt(int x) throws DisconnectException {
 		try {
@@ -238,6 +337,13 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 	
+	/**
+	 * <b>Read int:</b><br>
+	 * Reads an int from the socket (used for signal handling)
+	 *
+	 * @return Integer from server
+	 * @throws DisconnectException if the connection times out
+	 */
 	@DirectTimeout @RequiresPingHandler @DirectKiller
 	private int readInt() throws DisconnectException {
 		try {
@@ -255,6 +361,12 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 	
+	/**
+	 * <b>Write String:</b><br>
+	 * Writes an string to the server
+	 *
+	 *
+	 */
 	@RequiresPingHandler @DirectKiller
 	private void writeUTF(String s) throws DisconnectException {
 		try {

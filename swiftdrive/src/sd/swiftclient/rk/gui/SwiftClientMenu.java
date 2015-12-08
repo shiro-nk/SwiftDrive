@@ -15,6 +15,7 @@ import sd.swiftglobal.rk.gui.GraphicalInterface.SwiftPanel;
  * Copyright (C) 2015 Ryan Kerr					 *
  * Please refer to <http://www.gnu.org/licenses> */
 
+@Deprecated
 public class SwiftClientMenu extends JPanel implements Settings, SwiftContainer, SwiftPanel, ActionListener {
 	private static final long serialVersionUID = 1l;
 	private SwiftContainer parent;

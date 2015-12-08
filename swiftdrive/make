@@ -1,12 +1,33 @@
-pushd /data/swiftspace/swiftdrive/
+#!/bin/bash
+
+# Copyright (c) 2015 Ryan Kerr
+# This file is licensed under the GNU Public License (v3)
+
+# A makeshift make file that compiles the source code and then
+# outputs a runnable jar file in the project root folder
+
+PROJECT_PATH="/data/swiftspace/swiftdrive"
+
+pushd $PROJECT_PATH
+
+	# Create fresh copy with resources
 	rm -r bin/*
 	cp -r res bin
 	cp -r gui bin
-	#javac -d bin -sourcepath src:res:gui src/sd/swiftglobal/rk/SwiftStart.java
+
+	# Create a list of all source folders
 	find -name "*.java" > sources
-	javac -d bin -sourcepath src:res:gui @sources
-	pushd /data/swiftspace/swiftdrive/bin
+
+	# Compile all source files
+	javac -Xlint:deprecation -d bin -sourcepath src:res:gui @sources
+
+	# Export as jar file
+	pushd $PROJECT_PATH/bin
 		jar cfm swiftdrive.jar ../manifest.mf sd res
 		mv swiftdrive.jar ..
 	popd
+
+	# Clean
+	rm sources
+
 popd

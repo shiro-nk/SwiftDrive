@@ -30,6 +30,7 @@ import sd.swiftglobal.rk.type.SwiftFile;
  * Copyright (C) 2015 Ryan Kerr					  *
  * Please refer to <http://www.gnu.org/licenses/> */
 
+@Deprecated
 public class SwiftClientDebugger extends JPanel implements SwiftPanel, Settings, ActionListener {
 	public static final long serialVersionUID = 1l;
 	private SwiftContainer parent;

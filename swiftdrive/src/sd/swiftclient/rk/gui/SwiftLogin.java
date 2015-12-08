@@ -26,6 +26,7 @@ import sd.swiftglobal.rk.gui.SwiftScreen;
  * Copyright (C) 2015 Ryan Kerr					 *
  * Please refer to <http://www.gnu.org/licenses> */
 
+@Deprecated
 public class SwiftLogin extends JPanel implements Settings, SwiftPanel, ActionListener {
 	public static final long serialVersionUID = 1l;
 	private SwiftScreen screen;

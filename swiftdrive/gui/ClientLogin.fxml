@@ -12,7 +12,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane depthTest="DISABLE" maxHeight="500.0" maxWidth="1000.0" minHeight="450.0" minWidth="600.0" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane depthTest="DISABLE" maxHeight="500.0" maxWidth="1000.0" minHeight="450.0" minWidth="600.0" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swift">
    <center>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="300.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
@@ -21,8 +21,8 @@
                   <Font size="50.0" />
                </font>
             </Label>
-            <TextField promptText="Username" />
-            <PasswordField promptText="Password" />
+            <TextField fx:id="user_fld" promptText="Username" />
+            <PasswordField fx:id="pass_fld" promptText="Password" />
             <StackPane>
                <children>
                   <HBox fillHeight="false" spacing="25.0" visible="false">
@@ -33,14 +33,14 @@
                   </HBox>
                   <HBox spacing="10.0">
                      <children>
-                        <TextField prefWidth="172.0" promptText="Hostname" />
-                        <TextField prefWidth="80.0" promptText="Port" />
-                        <Button mnemonicParsing="false" prefWidth="80.0" text="Go!" />
+                        <TextField fx:id="host_fld" prefWidth="172.0" promptText="Hostname" />
+                        <TextField fx:id="port_fld" prefWidth="80.0" promptText="Port" />
+                        <Button mnemonicParsing="false" onAction="#connect" prefWidth="80.0" text="Go!" />
                      </children>
                   </HBox>
                </children>
             </StackPane>
-            <Label text="Label" textFill="RED">
+            <Label fx:id="err_lbl" textFill="RED">
                <padding>
                   <Insets top="-15.0" />
                </padding>

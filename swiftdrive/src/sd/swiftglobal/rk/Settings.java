@@ -21,8 +21,10 @@ import sd.swiftglobal.rk.util.Logging;
  * @author Ryan Kerr
  */
 public interface Settings {
+	/** The version number as a double (Major.Minor) */
 	public static final double VERSION = 00.11;
 
+	/** Version (VER) numbers for the project */
 	public static final int VER_MAJOR = 0,
 		   					VER_MINOR = 11,
 							VER_PATCH = 10;
@@ -50,8 +52,8 @@ public interface Settings {
 	/** The default charset **/
 	public static final Charset CHARSET = StandardCharsets.UTF_8;
 
-	/** States (STA) that the server is in **/
 	@Deprecated
+	/** States (STA) that the server is in **/
 	public static final int STA_LISTENING  = 1,
 							STA_PROCESSING = 2,
 							STA_RESPONDING = 3,
@@ -78,12 +80,15 @@ public interface Settings {
 							EXC_INIT   = 17,
 							EXC_VER	   = 18;
 
+	@Deprecated
+	/** Graphical interface (GUI) window size constants */
 	public static final int GUI_FRAME_HEIGHT = 450,
 							GUI_FRAME_WIDTH  = 800,
 		   					GUI_FRAME_BORDER = GUI_FRAME_WIDTH + 2,
 							GUI_PANEL_HEIGHT = 450,
 							GUI_PANEL_WIDTH  = GUI_FRAME_WIDTH - 250;
 
+	/** Commands (CMD) for data/file transfer between client and server*/
 	public static final int CMD_READ_FILE  = 1,
 							CMD_READ_DATA  = 2,
 							CMD_WRITE_FILE = 3,

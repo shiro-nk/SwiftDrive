@@ -9,7 +9,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swiftserver.rk.gui.ServerMenu">
+<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swiftserver.rk.gui.ServerMenu">
    <items>
       <VBox alignment="CENTER" maxWidth="250.0" minWidth="200.0" spacing="20.0" SplitPane.resizableWithParent="false">
          <children>
@@ -54,7 +54,7 @@
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Help page" />
                </children></VBox>
-            <VBox fx:id="open_pnl" alignment="CENTER_LEFT" fillWidth="false">
+            <VBox fx:id="open_pnl" alignment="CENTER_LEFT" fillWidth="false" visible="false">
                <children>
                   <Label text="Welcome">
                      <VBox.margin>
@@ -74,7 +74,7 @@
                   <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                </StackPane.margin>
             </VBox>
-            <VBox fx:id="ctrl_pnl" alignment="CENTER_LEFT" fillWidth="false" spacing="40.0" visible="false">
+            <VBox fx:id="ctrl_pnl" alignment="CENTER_LEFT" fillWidth="false" onMouseMoved="#refreshInfo" spacing="40.0">
                <children>
                   <VBox>
                      <children>
@@ -158,17 +158,18 @@
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Label>
-                                    <TextField promptText="3141" />
-                                    <Button mnemonicParsing="false" text="Apply" />
+                                    <TextField fx:id="port_fld" promptText="3141" />
+                                    <Button fx:id="srvapply_btn" mnemonicParsing="false" onAction="#setPort" text="Apply" />
                                  </children>
                               </HBox>
                               <HBox fillHeight="false" spacing="20.0" VBox.vgrow="NEVER">
                                  <children>
-                                    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Start" HBox.hgrow="ALWAYS" />
-                                    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Stop" />
-                                    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Halt" />
+                                    <Button fx:id="srvstart_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#startServer" text="Start" HBox.hgrow="ALWAYS" />
+                                    <Button fx:id="srvstop_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#stopServer" text="Stop" />
+                                    <Button fx:id="srvhalt_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#haltServer" text="Halt" />
                                  </children>
                               </HBox>
+                              <Label fx:id="error_lbl" textFill="RED" />
                            </children>
                         </VBox>
                      </children>

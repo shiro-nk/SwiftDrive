@@ -160,6 +160,19 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 	public boolean closing() {
 		return closed;
 	}
+
+	public boolean dead() {
+		return clients.size() <= 0 ? true : false;
+	}
+
+	public void destroy() {
+		close();
+		for(int i = 0; i < clients.size(); i++) {
+			clients.get(i).close();
+			clients.set(i, null);
+		}
+		cleanStack();
+	}
 	
 	/** Force close **/
 	public void close() {
