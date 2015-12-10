@@ -3,7 +3,6 @@ package sd.swiftglobal.rk;
 import java.io.File;
 import java.util.Scanner;
 
-import sd.swiftclient.SwiftClient;
 import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftserver.rk.net.Server;
@@ -52,7 +51,7 @@ public class StartSwift implements Settings, Logging {
 	}
 
 	public void startClient() {
-		new SwiftClient();
+
 	}
 
 	public static void createDirectory() {

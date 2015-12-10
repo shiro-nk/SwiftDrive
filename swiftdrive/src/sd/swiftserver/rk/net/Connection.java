@@ -26,7 +26,8 @@ import sd.swiftglobal.rk.util.Terminator;
  * Please refer to <http://www.gnu.org/licenses/>. */
 
 /**
- * The connection manages incoming information from clients
+ * <b>Connection</b><br>
+ * Controls data I/O between the server computer and the client.
  *
  * @author Ryan Kerr
  */
@@ -50,7 +51,14 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	private User user;
 
 	/**
-	 * Creates DataInput and DataOutput streams for communication
+	 * <b>Initialize Connection:</b><br>
+	 * Once a connection is established by the server, the server will
+	 * initialize the connection class. This opens the I/O streams
+	 * required for the transfer of data over the network socket.
+	 * In order to verify that the server and client are compatible,
+	 * version() is called. If version() is false, the connection is
+	 * terminated immediately.
+	 *
 	 * @param server Parent server (required for termination)
 	 * @param socket Socket to client
 	 * @param id Connection number
@@ -75,11 +83,11 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	}
 	
 	/**
-	 * <b>Server listening system</b><br>
+	 * <b>Receiver:</b><br>
 	 * Starts by listening for an integer that specifies the inbound data type <br>
 	 * then acts according to the type (for example, listen for an integer that <br>
-	 * specifies file size) <br>
-	 * <br>
+	 * specifies file size) <br><br>
+	 *
 	 * This method will stop running if the connection is closed (online = false)
 	 */
 	public void run() {
@@ -154,7 +162,9 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 //	}
 	
 	/**
-	 * Send data over socket
+	 * <b>Send Data:</b><br>
+	 * Writes the given data to socket.
+	 *
 	 * @param data Data to send (Generic due to the Type.getTypeID requirement)
 	 * @throws IOException If something fails while writing to the socket
 	 */
@@ -167,6 +177,8 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	}
 	
 	/**
+	 * <b>Command Execution:</b><br>
+	 *
 	 * Reads a String from a socket, converts it into a path and command. <br>
 	 * Once split, the switch statement matches the command with the funciton<br>
 	 * required to be carried out. <br><br>
@@ -175,6 +187,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	 * variable. Write does the opposite, taking the swap variable and storing it at <b>path</b>. <br>
 	 * The send command is similar to write except rather than writing to a file, <br>
 	 * the swap variable is written to the socket for the client to read.
+	 *
 	 * @throws IOException if the command could not be read from the socket
 	 */
 	public void command() throws IOException {
@@ -258,6 +271,18 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		echo("Command request completed (" + status + ")", LOG_SEC);
 	}
 
+	/**
+	 * <b>Login:</b><br>
+	 * The login method reads the username then the password. The server
+	 * then searches for a matching username in the local <b>UserHandler</b>.
+	 * If no match is found, the login fails immediately and the client is
+	 * notified. If a match is found, the password is compared to the
+	 * local user password. If the password matches, all methods using
+	 * net I/O are unlocked and the client is notified. Otherwise, the
+	 * connection is terminated after notifying the client of the failure.
+	 *
+	 * @throws IOException when the connection is broken.
+	 */
 	private void login() throws IOException {
 		echo("Processing login request", LOG_PRI);
 		String username = readUTF();
@@ -373,6 +398,15 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		return rtn;
 	}
 
+	/**
+	 * <b>Version Verification:</b><br>
+	 * Ensures the server and the client are of compatible versions.
+	 * This is to prevent communication errors arising from different
+	 * protocols being used.
+	 *
+	 * @return True if compatible; otherwise false
+	 * @throws IOException if connection is lost
+	 */
 	private boolean version() throws IOException {
 		Terminator term = new Terminator(this);
 		term.run();
@@ -384,11 +418,13 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		return rtn;
 	}
 	
+	/** @return Error code **/
 	public int getErrID() {
 		return kill;
 	}
 
 	/** Close and remove the index of the connection from the parent **/
+	@Override
 	public void kill(int err) {
 		close();
 		kill = err;
@@ -396,6 +432,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	}
 
 	/** Allows for try-with-resources **/
+	@Override
 	public void close() {
 		try {
 			if(dis    != null) dis.close();
@@ -409,7 +446,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		}
 	}
 	
-	@Deprecated
+	@Override
 	public void echo(Object str, int level) {
 		print("[ Runner ] [" + getID() + "] " + str.toString() + "\n", level);
 	}

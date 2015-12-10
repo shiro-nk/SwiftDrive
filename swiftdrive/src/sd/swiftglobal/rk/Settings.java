@@ -80,14 +80,6 @@ public interface Settings {
 							EXC_INIT   = 17,
 							EXC_VER	   = 18;
 
-	@Deprecated
-	/** Graphical interface (GUI) window size constants */
-	public static final int GUI_FRAME_HEIGHT = 450,
-							GUI_FRAME_WIDTH  = 800,
-		   					GUI_FRAME_BORDER = GUI_FRAME_WIDTH + 2,
-							GUI_PANEL_HEIGHT = 450,
-							GUI_PANEL_WIDTH  = GUI_FRAME_WIDTH - 250;
-
 	/** Commands (CMD) for data/file transfer between client and server*/
 	public static final int CMD_READ_FILE  = 1,
 							CMD_READ_DATA  = 2,

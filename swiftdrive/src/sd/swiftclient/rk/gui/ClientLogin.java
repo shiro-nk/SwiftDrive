@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import sd.swiftclient.SwiftClient;
 import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.expt.DisconnectException;
 
@@ -35,7 +34,7 @@ public class ClientLogin implements Initializable {
 				   pass = pass_fld.getText(),
 				   port = port_fld.getText();
 
-			client = new Client(host, 3141, new SwiftClient());
+			client = new Client(host, 3141, null);
 		}
 		catch(DisconnectException dx) {
 

@@ -440,6 +440,16 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		return true;
 	}
 	
+	/**
+	 * <b>Version Verification:</b><br>
+	 * Ensures the server and the client are of compatible versions.
+	 * This is to prevent communication errors arising from different
+	 * protocols being used.
+	 *
+	 * @return True if compatible; otherwise false
+	 * @throws IOException if connection is lost
+	 * @throws DisconnectException if the versions are incompatible
+	 */
 	private boolean version() throws IOException, DisconnectException {
 		dos.writeDouble(VERSION);
 		term.run();
