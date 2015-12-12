@@ -1,7 +1,6 @@
 package sd.swiftserver;
 
 import java.io.File;
-import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,9 +9,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import sd.swiftglobal.rk.Settings;
-import sd.swiftglobal.rk.expt.DisconnectException;
-import sd.swiftglobal.rk.gui.SplashScreen;
-import sd.swiftserver.rk.net.Server;
 
 public class SwiftServer extends Application implements Settings {
 	public static void main(String[] args) {
@@ -37,7 +33,6 @@ public class SwiftServer extends Application implements Settings {
 
 	private Parent root;
 	private Scene scene;
-	private Server server;
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -49,10 +44,8 @@ public class SwiftServer extends Application implements Settings {
 		stage.setMinHeight(450);
 		stage.setMaxWidth(1000);
 		stage.setMaxHeight(600);
+		stage.setResizable(false);
 		stage.show();
 	}
 
-	public void startServer(int port) throws DisconnectException {
-		server = new Server(port);
-	}
 }

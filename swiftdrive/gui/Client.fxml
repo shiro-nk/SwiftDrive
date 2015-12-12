@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is part of Swift Drive -->
+<!-- Copyright (c) 2015 Ryan Kerr     -->
+<!-- November 24, 2015 -->
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swiftclient.rk.gui.ClientInterface">
+   <children>
+      <SplitPane fx:id="menu_pnl" dividerPositions="0.25" prefHeight="200.0" prefWidth="200.0" visible="false">
+         <items>
+            <VBox alignment="CENTER" maxWidth="250.0" minWidth="200.0" spacing="20.0">
+               <children>
+                  <VBox alignment="CENTER" spacing="5.0">
+                     <children>
+                        <Label text="SwiftDrive">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="vers_lbl" text="Version 0.11r10" />
+                     </children>
+                  </VBox>
+                  <Separator prefWidth="200.0" />
+                  <VBox alignment="TOP_CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="info_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Welcome" />
+                        <Button fx:id="task_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Tasks" />
+                        <Button fx:id="file_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Files" />
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Nothing" />
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Help" />
+                        <Button fx:id="lgot_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logout" text="Logout" />
+                        <Button fx:id="quit_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#quit" text="Quit" />
+                     </children>
+                     <padding>
+                        <Insets left="50.0" right="50.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </VBox>
+            <StackPane prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <VBox fx:id="open_pnl" alignment="CENTER_LEFT" fillWidth="false" visible="false">
+                     <children>
+                        <Label text="Welcome">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="45.0" />
+                           </font>
+                        </Label>
+                        <TextFlow>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Swift Drive client!" />
+                           </children>
+                        </TextFlow>
+                     </children>
+                     <padding>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                     </padding>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Separator prefWidth="200.0" />
+                        <Label text="Task View">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </StackPane>
+         </items>
+      </SplitPane>
+      <VBox fx:id="lgin_pnl" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="300.0" spacing="20.0" StackPane.alignment="CENTER_LEFT">
+         <children>
+            <Label text="Login">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Label>
+            <TextField fx:id="user_fld" promptText="Username" />
+            <PasswordField fx:id="pass_fld" promptText="Password" />
+            <StackPane>
+               <children>
+                  <HBox spacing="10.0">
+                     <children>
+                        <TextField fx:id="host_fld" prefWidth="172.0" promptText="Hostname" />
+                        <TextField fx:id="port_fld" prefWidth="80.0" promptText="Port" />
+                        <Button fx:id="conn_btn" mnemonicParsing="false" onAction="#login" prefWidth="80.0" text="Go!" />
+                     </children>
+                  </HBox>
+               </children>
+            </StackPane>
+            <Label fx:id="lgin_lbl" textFill="RED">
+               <padding>
+                  <Insets top="-15.0" />
+               </padding>
+            </Label>
+         </children>
+         <StackPane.margin>
+            <Insets left="100.0" />
+         </StackPane.margin>
+      </VBox>
+      <ImageView fx:id="back_img" fitHeight="400.0" fitWidth="500.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_RIGHT">
+         <image>
+            <Image url="@/res/background_icon.png" />
+         </image>
+      </ImageView>
+   </children>
+</StackPane>

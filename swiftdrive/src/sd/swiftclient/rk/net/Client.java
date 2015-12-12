@@ -75,6 +75,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			//new Thread(ping).start();
 			term = new Terminator(this);
 			version();
+			online = true;
 			echo("Client ready", LOG_PRI);
 		}
 		catch(IOException ix) {
@@ -468,6 +469,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 
 	@PingHandler @DirectKiller
 	public void disconnect(int x) throws DisconnectException {
+		System.out.println("On: " + online);
 		if(online) {
 			disconnect();
 			kill(EXC_SAFE);

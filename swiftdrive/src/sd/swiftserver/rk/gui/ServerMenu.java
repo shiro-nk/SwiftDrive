@@ -141,7 +141,7 @@ public class ServerMenu implements Initializable, Settings {
 
 		port_fld.setPromptText(port + "");
 		port_fld.setText("");
-		showInfo();
+		refreshInfo();
 	}
 
 	public void startServer() {
@@ -149,7 +149,7 @@ public class ServerMenu implements Initializable, Settings {
 			try {
 				server = new Server(port);
 				error_lbl.setText("");
-				showInfo();
+				refreshInfo();
 			}
 			catch(DisconnectException dx) {
 				error_lbl.setText("Failed to start server: " + dx.getMessage());
@@ -162,12 +162,12 @@ public class ServerMenu implements Initializable, Settings {
 	
 	public void stopServer() {
 		if(server != null) server.close();
-		showInfo();
+		refreshInfo();
 	}
 
 	public void haltServer() {
 		server.destroy();
-		showInfo();
+		refreshInfo();
 	}
 
 	public void quit() {

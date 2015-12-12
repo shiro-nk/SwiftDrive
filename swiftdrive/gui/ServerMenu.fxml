@@ -54,26 +54,6 @@
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Help page" />
                </children></VBox>
-            <VBox fx:id="open_pnl" alignment="CENTER_LEFT" fillWidth="false" visible="false">
-               <children>
-                  <Label text="Welcome">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <font>
-                        <Font name="System Bold" size="45.0" />
-                     </font>
-                  </Label>
-                  <TextFlow>
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Swift Drive server!" />
-                     </children>
-                  </TextFlow>
-               </children>
-               <StackPane.margin>
-                  <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-               </StackPane.margin>
-            </VBox>
             <VBox fx:id="ctrl_pnl" alignment="CENTER_LEFT" fillWidth="false" onMouseMoved="#refreshInfo" spacing="40.0">
                <children>
                   <VBox>
@@ -177,6 +157,26 @@
                </children>
                <StackPane.margin>
                   <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </StackPane.margin>
+            </VBox>
+            <VBox fx:id="open_pnl" alignment="CENTER_LEFT" fillWidth="false" visible="false">
+               <children>
+                  <Label text="Welcome">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="45.0" />
+                     </font>
+                  </Label>
+                  <TextFlow>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Swift Drive server!" />
+                     </children>
+                  </TextFlow>
+               </children>
+               <StackPane.margin>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                </StackPane.margin>
             </VBox>
          </children>
