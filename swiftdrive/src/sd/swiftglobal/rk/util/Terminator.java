@@ -43,6 +43,7 @@ public class Terminator implements Logging, Settings {
 					terminate();
 				}
 			});
+			sleep.setName("Terminator");
 			sleep.start();
 			thread = false;
 		}

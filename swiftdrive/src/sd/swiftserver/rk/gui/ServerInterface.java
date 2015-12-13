@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -22,7 +25,7 @@ import sd.swiftserver.rk.net.Server;
  * Copyright (c) 2015 Ryan Kerr				   *
  * Please refer to <http://gnu.org/licenses/>  */
 
-public class ServerMenu implements Initializable, Settings {
+public class ServerInterface implements Initializable, Settings {
 
 	private Server server;
 	private int port = DEF_PORT;
@@ -59,6 +62,22 @@ public class ServerMenu implements Initializable, Settings {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		vers_lbl.setText("Version " + VER_MAJOR + "." + VER_MINOR + "r" + VER_PATCH);
+
+		Timer timer = new Timer();
+
+		timer.scheduleAtFixedRate(new TimerTask() {
+			public void run() {
+				Platform.runLater(new Runnable() {
+					public void run() {
+						refresh();
+					}
+				});
+			}
+		}, 0, 1000);
+	}
+
+	public void refresh() {
+		if(ctrl_pnl.isVisible()) refreshInfo();
 	}
 
 	public void hideAll() {
@@ -93,15 +112,18 @@ public class ServerMenu implements Initializable, Settings {
 			stat_lbl.setText("Offline");
 			stat_lbl.setTextFill(Color.web("#FF0000"));
 			active = false;
+			conn_lbl.setText("0");
 		}
 		else if(server.closing()) {
 			stat_lbl.setText("Closing");
 			stat_lbl.setTextFill(Color.web("#FF8040"));
 			active = true;
+			conn_lbl.setText(server.getNumConnections() + "");
 		}
 		else {
 			stat_lbl.setText("Active");
 			stat_lbl.setTextFill(Color.web("#00FF00"));
+			conn_lbl.setText(server.getNumConnections() + "");
 			active = true;
 		}
 		

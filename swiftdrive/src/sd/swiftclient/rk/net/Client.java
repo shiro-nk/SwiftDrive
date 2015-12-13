@@ -472,7 +472,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		System.out.println("On: " + online);
 		if(online) {
 			disconnect();
-			kill(EXC_SAFE);
+			kill(EXC_LOGOUT);
 		}
 	}
 

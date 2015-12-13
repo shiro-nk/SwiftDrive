@@ -36,7 +36,7 @@ public class SwiftServer extends Application implements Settings {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		root = FXMLLoader.load(getClass().getResource("/gui/ServerMenu.fxml"));
+		root = FXMLLoader.load(getClass().getResource("/gui/Server.fxml"));
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Swift Server");

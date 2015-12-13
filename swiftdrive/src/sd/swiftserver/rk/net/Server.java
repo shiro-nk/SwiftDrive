@@ -31,6 +31,7 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 					  closed    = false;
 	private final int PORT;
 	private UserHandler userlist;
+	private Thread thread;
 
 	/**
 	 * Initialize the server and the listening thread on the given port
@@ -43,7 +44,9 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		try {
 			userlist = new UserHandler();
 			server = new ServerSocket(port);
-			new Thread(this).start();
+			thread = new Thread(this);
+			thread.setName("Server");
+			thread.start();
 			echo("Initialized on " + InetAddress.getLocalHost().toString() + ":" + port, LOG_PRI);
 		}
 		catch(IOException ix) {
@@ -76,7 +79,9 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 				echo("Listening for client connections", LOG_PRI);
 				Connection cli = new Connection(this, server.accept(), clients.size());
 				echo(cli.getIP() + ":" + cli.getPort() + " has connected (" + cli.getID() + ")" , LOG_PRI);
-				new Thread(cli).start();
+				Thread cthread = new Thread(cli);
+				cthread.setName("Client-" + cli.getID());
+				cthread.start();
 				echo("Connection thread initialized", LOG_SEC);
 				clients.add(cli);
 				if(DEF_DDOS < clients.size()) {
@@ -163,6 +168,10 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 
 	public boolean dead() {
 		return clients.size() <= 0 ? true : false;
+	}
+
+	public int getNumConnections() {
+		return clients.size();
 	}
 
 	public void destroy() {

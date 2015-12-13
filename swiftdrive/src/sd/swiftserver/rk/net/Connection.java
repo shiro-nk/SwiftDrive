@@ -71,6 +71,8 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		this.socket = socket;
 		dis = new DataInputStream(socket.getInputStream());
 		dos = new DataOutputStream(socket.getOutputStream());
+		term = new Terminator(this);
+
 		if(version()) {
 			online = true;
 			echo("Connection " + id + " is ready", LOG_PRI);
@@ -356,7 +358,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	private String readUTF() throws IOException {
 		try {
 			echo("Reading string from socket", LOG_LOW);
-			term = new Terminator(this);
 			term.run();
 			String rtn = dis.readUTF();
 			term.cancel();
@@ -372,7 +373,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	private int readInt() throws IOException {
 		try {
 			echo("Reading integer from socket", LOG_LOW);
-			term = new Terminator(this);
 			term.run();
 			int rtn = dis.readInt();
 			term.cancel();
@@ -389,7 +389,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		echo("Reading byte array from socket", LOG_LOW);
 		byte[] rtn = new byte[size];
 		for(int i = 0; i < size; i++) {
-			term = new Terminator(this);
 			term.run();
 			rtn[i] = dis.readByte();
 			term.cancel();
@@ -408,7 +407,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	 * @throws IOException if connection is lost
 	 */
 	private boolean version() throws IOException {
-		Terminator term = new Terminator(this);
 		term.run();
 		double version = dis.readDouble();
 		term.cancel();
@@ -438,7 +436,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 			if(dis    != null) dis.close();
 			if(dos    != null) dos.close();
 			if(socket != null) socket.close();
-			if(term   != null) term.cancel();
+			if(term   != null) term.destroy();
 			online = false;
 		}
 		catch(IOException ix) {

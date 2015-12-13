@@ -3,6 +3,7 @@ package sd.swiftclient.rk.gui;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -102,8 +103,19 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 			client.close();
 		}
 
+		hideMenu();
+		TaskController tskctrl = new TaskController();
+		lgin_pnl.getChildren().add(tskctrl);
+	}
+
+	public void hideMenu() {
 		lgin_pnl.setVisible(true);
 		menu_pnl.setVisible(false);
+	}
+
+	public void showMenu() {
+		lgin_pnl.setVisible(false);
+		menu_pnl.setVisible(true);
 	}
 
 	public void quit() {
@@ -120,12 +132,25 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	@Override
 	public void dereference(SwiftNetTool t) {
 		switch(t.getErrID()) {
-			case EXC_SAFE:
 			case EXC_INIT:	
+			case EXC_LOGOUT:
 				break;
 			case EXC_CONN:
 			case EXC_NWRITE:
 			case EXC_NREAD:
+				Platform.runLater(new Runnable() {
+					public void run() {
+						lgin_lbl.setText("Lost connection with the sever");
+						hideMenu();
+					}
+				});
+			case EXC_SAFE:
+				Platform.runLater(new Runnable() {
+					public void run() {
+						lgin_lbl.setText("Server Shutdown, Goodbye!");
+						hideMenu();
+					}
+				});
 		}
 	}
 }

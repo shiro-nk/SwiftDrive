@@ -77,8 +77,9 @@ public interface Settings {
 							EXC_SAFE   = 14,
 							EXC_TERM   = 15,
 							EXC_LOGIN  = 16,
-							EXC_INIT   = 17,
-							EXC_VER	   = 18;
+							EXC_LOGOUT = 17,
+							EXC_INIT   = 18,
+							EXC_VER	   = 19;
 
 	/** Commands (CMD) for data/file transfer between client and server*/
 	public static final int CMD_READ_FILE  = 1,
