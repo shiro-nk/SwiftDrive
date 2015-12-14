@@ -15,11 +15,9 @@ import sd.swiftglobal.rk.util.SwiftFront;
  * Please refer to <http://gnu.org/licenses/> */
 
 public class TaskHandler extends Handler<Task> implements Settings, Logging {
-	private UserHandler userlist;
 
-	public TaskHandler(UserHandler userlist) throws FileException {
+	public TaskHandler() throws FileException {
 		File path = new File(LC_TASK + "index");
-		this.userlist = userlist;
 		if(path.exists() && path.isFile()) {
 			setSource(new SwiftFront(path));
 			read();
@@ -34,7 +32,7 @@ public class TaskHandler extends Handler<Task> implements Settings, Logging {
 		ArrayList<Task> list = getList();
 		list.clear();
 		for(int i = 0; i < data.length; i++) {
-			Task task = new Task(i, data[i], userlist);
+			Task task = new Task(i, data[i]);
 			list.add(task);
 		}
 	}

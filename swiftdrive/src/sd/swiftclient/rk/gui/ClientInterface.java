@@ -17,6 +17,9 @@ import javafx.scene.layout.VBox;
 import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
+import sd.swiftglobal.rk.expt.FileException;
+import sd.swiftglobal.rk.type.tasks.Task;
+import sd.swiftglobal.rk.type.tasks.TaskHandler;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 
@@ -42,6 +45,10 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	@FXML private Button conn_btn;
 	@FXML private Label lgin_lbl;
 	@FXML private VBox lgin_pnl;
+
+	// Task Elements
+	@FXML private VBox task_pnl;
+	@FXML private VBox list_pnl;
 
 	public void initialize(URL a, ResourceBundle b) {
 		lgin_pnl.setVisible(true);
@@ -104,8 +111,6 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		}
 
 		hideMenu();
-		TaskController tskctrl = new TaskController();
-		lgin_pnl.getChildren().add(tskctrl);
 	}
 
 	public void hideMenu() {
@@ -116,6 +121,23 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	public void showMenu() {
 		lgin_pnl.setVisible(false);
 		menu_pnl.setVisible(true);
+	}
+
+	public void showList() {
+		TaskHandler tasks = null;
+
+		try {
+			tasks = new TaskHandler();
+		}
+		catch(FileException fx) {
+
+		}
+
+		for(Task t : tasks.getArray()) {
+			TaskController tskctrl = new TaskController();
+			tskctrl.setTask(t);
+			list_pnl.getChildren().add(tskctrl);
+		}
 	}
 
 	public void quit() {

@@ -5,13 +5,13 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import sd.swiftclient.rk.net.Client;
+import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.expt.SwiftException;
 import sd.swiftglobal.rk.type.ServerCommand;
 import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.type.tasks.SubTask;
 import sd.swiftglobal.rk.type.tasks.Task;
 import sd.swiftglobal.rk.type.tasks.TaskHandler;
-import sd.swiftglobal.rk.type.users.UserHandler;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
@@ -63,7 +63,7 @@ public class SwiftTest implements Settings, Logging, SwiftNetContainer {
 	private boolean active = true;
 	public void startServer(int port) {
 		try(Server server = new Server(port)) {	
-			TaskHandler th = new TaskHandler(server.getUserlist());
+			TaskHandler th = new TaskHandler();
 			echo("Server started. Type \"stop\" to stop the server", LOG_PRI);
 			Scanner scan = new Scanner(System.in);
 			String input = "";
@@ -96,12 +96,10 @@ public class SwiftTest implements Settings, Logging, SwiftNetContainer {
 	}
 
 	public void startClient(String hostname, int port) {
-		UserHandler u = null;
 		TaskHandler th = null;
 
 		try {
-			u  = new UserHandler();
-			th = new TaskHandler(u);
+			th = new TaskHandler();
 		}
 		catch(SwiftException s) {
 
@@ -149,15 +147,22 @@ public class SwiftTest implements Settings, Logging, SwiftNetContainer {
 				}
 
 				if(input.equals("addtask")) {
-					th.add(new Task(0, "A;A;A", u));
+					th.add(new Task(0, "A;A"));
 				}
 
 				if(input.equals("deltask")) {
-					th.remove(new Task(0, "A;A;A", u));
+					th.remove(new Task(0, "A;A"));
 				}
 
 				if(input.equals("set")) {
-					SwiftFile file = new SwiftFile(LC_PATH + "task/index", true);
+					SwiftFile file;
+					try {
+						file = new SwiftFile(LC_PATH + "task/index", true);
+					}
+					catch(FileException fx) {
+						file = new SwiftFile(LC_PATH + "task/index", false);
+					}
+					echo("task");
 					client.sfcmd(new ServerCommand(CMD_WRITE_FILE, "task/index"), file);
 				}
 			}
