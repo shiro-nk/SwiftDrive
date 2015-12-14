@@ -25,7 +25,8 @@ import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 
 public class ClientInterface implements Settings, Initializable, SwiftNetContainer {
 	
-	private Client client;
+	private Client client = null;
+	private TaskHandler tasks = null;
 
 	// Global Elements
 	@FXML private ImageView back_img;
@@ -101,13 +102,13 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 
 	public void logout() {
 		try {
-			System.out.println("DIs");
+			System.out.println("Logging out");
 			if(client != null) client.disconnect(0);
 		}
 		catch(DisconnectException dx) {
-			System.out.println("STA");
+			System.out.println("Logging out failed, forcing error");
 			dx.printStackTrace();
-			client.close();
+			client.kill(EXC_CONN);
 		}
 
 		hideMenu();
@@ -124,20 +125,25 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	}
 
 	public void showList() {
-		TaskHandler tasks = null;
-
 		try {
 			tasks = new TaskHandler();
+			list_pnl.getChildren().clear();
 		}
 		catch(FileException fx) {
 
 		}
-
-		for(Task t : tasks.getArray()) {
-			TaskController tskctrl = new TaskController();
-			tskctrl.setTask(t);
-			list_pnl.getChildren().add(tskctrl);
+		
+		if(tasks != null) {
+			for(Task t : tasks.getArray()) {
+				TaskController tskctrl = new TaskController();
+				tskctrl.setTask(t);
+				list_pnl.getChildren().add(tskctrl);
+			}
 		}
+	}
+
+	public void showTask(Task t) {
+
 	}
 
 	public void quit() {
@@ -153,9 +159,11 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 
 	@Override
 	public void dereference(SwiftNetTool t) {
+		System.out.println("Dereference : SAFE");
 		switch(t.getErrID()) {
 			case EXC_INIT:	
 			case EXC_LOGOUT:
+				System.out.println("Safe");
 				break;
 			case EXC_CONN:
 			case EXC_NWRITE:

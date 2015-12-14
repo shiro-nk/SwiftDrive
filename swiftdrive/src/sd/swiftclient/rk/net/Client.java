@@ -481,7 +481,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			echo("Requesting disconnection", LOG_SEC);
 			ping.pause();
 			term.run();
-			writeInt(DAT_NULL);
+			writeInt(DAT_NULL); echo("Kill signal");
 			term.cancel();
 			echo("Disconnect request complete");
 		}

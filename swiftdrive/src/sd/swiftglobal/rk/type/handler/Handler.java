@@ -28,6 +28,7 @@ public abstract class Handler<Type extends HandleType> implements Settings {
 		}
 		
 		if(rtn) {
+			System.out.println(type);
 			list.add(type);
 			resetIndex();
 			write();

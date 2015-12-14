@@ -19,13 +19,9 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 	private String rawdata = "";
 	private String name,
 				   desc;
-//				   lead;
 	private int id;
-//	private User user;
-//	private UserHandler userlist;
 
 	public Task(int id, String rawdata) throws FileException {
-//		this.userlist = userlist;
 		this.id = id;
 		this.rawdata = rawdata;
 		toData();
@@ -33,7 +29,6 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 	}
 
 	public Task(String name) throws FileException {
-//		this.userlist = userlist;
 		this.name = name;
 		reload();
 	}
@@ -41,18 +36,12 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 	public Task(String name, String desc) throws FileException {
 		this.name = name;
 		this.desc = desc;
-//		this.lead = lead;
-//		this.user = findUser();
-//		this.userlist = userlist;
 		reload();
 	}
 
 	public Task(String name, String desc, SubTask[] subtasks) throws FileException {
 		this.name = name;
 		this.desc = desc;
-//		this.user = user;
-//		this.lead = user.getUsername();
-//		this.userlist = userlist;
 		setList(subtasks);
 		reload();
 	}
@@ -73,10 +62,6 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 		return getList().toArray(new SubTask[getList().size()]);
 	}
 
-/*	private User findUser() {
-		return userlist.get(lead);
-	}
-*/
 	private void reloadPath() {
 		path = new File(LC_TASK + (!name.equals("") && name != null ? name : "temp") + ".stl");
 		setSource(new SwiftFront(path));
@@ -107,8 +92,6 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 		if(split.length == 2) {
 			name = split[0];
 			desc = split[1];
-//			lead = split[2];
-//			user = findUser();
 			reloadPath();
 		}
 	}
@@ -116,7 +99,7 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 	@Override
 	public String toString() {
 		String d = ";";
-		rawdata = name + d + desc;// + d + lead;
+		rawdata = name + d + desc; // + d + lead;
 		return rawdata;
 	}
 
@@ -135,15 +118,7 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 		return desc;
 	}
 
-/*	public void setLead(User lead) {
-		user = lead;
-	}
-
-	public User getLead() {
-		return user;
-	}
-*/
-	public int getPercent() {
+	public double getPercent() {
 		int average = 0,
 			task = 0;
 
@@ -153,8 +128,8 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 				task++;
 			}
 		}
-
-		return average / (task != 0 ? task : 1);
+		
+		return (double) average / (task != 0 ? task : 1);
 	}
 
 	@Override
