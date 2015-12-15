@@ -125,6 +125,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 
 	public void showList() {
 		try {
+			downloadTasks();
 			tasks = new TaskHandler();
 			list_pnl.getChildren().clear();
 		}
@@ -148,7 +149,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 
 	public void expandTask(Task t) {
 		FullTaskController ftc = new FullTaskController();
-		ftc.setTask(t);
+		ftc.setTask(t, this);
 
 		misc_pnl.getChildren().clear();
 		misc_pnl.getChildren().add(ftc);
@@ -176,26 +177,39 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		hideMenu();
 	}
 
+	public void downloadTasks() {
+		try {
+			SwiftFile file = client.sfcmd(new ServerCommand(CMD_READ_FILE, "task/index"));
+			file.setFile(new File(LC_TASK + "index"), false);
+			file.write();
+		}
+		catch(SwiftException | IOException x) {
+			x.printStackTrace();
+		}
+	}
+
 	public void updateTask(Task t) {	
 		try {
-			SwiftFile file = new SwiftFile(LC_TASK + t.getName(), true);
+			SwiftFile file = new SwiftFile(LC_TASK + t.getName() + ".stl", true);
 			client.sfcmd(new ServerCommand(CMD_WRITE_FILE, "task/" + t.getName() + ".stl"), file); 
 		}
 		catch(SwiftException | IOException x) {
-
+			x.printStackTrace();
 		}
 	}
 
 	public void refreshTasks() {
 		try {
 			for(Task t : tasks.getArray()) {
+				System.out.println(t);
 				SwiftFile file = client.sfcmd(new ServerCommand(CMD_READ_FILE, "task/" + t.getName() + ".stl"));
 				file.setFile(new File(LC_TASK + t.getName() + ".stl"), false);
 				file.write();
+				updateTask(t);
 			}
 		}
 		catch(SwiftException | IOException x) {
-
+			x.printStackTrace();
 		}
 	}
 

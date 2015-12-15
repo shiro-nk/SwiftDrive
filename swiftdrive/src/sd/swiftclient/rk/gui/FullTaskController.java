@@ -57,11 +57,11 @@ public class FullTaskController extends VBox {
 		return task;
 	}
 
-	public void refresh() {
+	public void refresh(boolean update) {
 		name_lbl.setText(task.getName());
 		prog_bar.setProgress(task.getPercent());
 		desc_fld.setText(task.getDesc());
 
-		parent.updateTask(task);
+		if(!update) parent.updateTask(task);
 	}
 }
