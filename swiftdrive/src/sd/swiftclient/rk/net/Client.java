@@ -327,7 +327,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	@RequiresPingHandler @DirectKiller
 	private void writeInt(int x) throws DisconnectException {
 		try {
-			echo("Writing integer to socket", LOG_LOW);
+			echo("Writing integer (" + x + ") to socket", LOG_LOW);
 			dos.writeInt(x);
 			echo("Done", LOG_LOW);
 		}
@@ -364,9 +364,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	
 	/**
 	 * <b>Write String:</b><br>
-	 * Writes an string to the server
-	 *
-	 *
+	 * Writes a string to the server
 	 */
 	@RequiresPingHandler @DirectKiller
 	private void writeUTF(String s) throws DisconnectException {
@@ -403,6 +401,16 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		return login(u, new String(p).getBytes());
 	}
 
+	/**
+	 * <b>Client Login: </b><br>
+	 * Sends the given username and password to the server and waits
+	 * for the response. If the response is true, the client will
+	 * download information about the user, otherwise, the client
+	 * will be killed.
+	 *
+	 * @throws DisconnectException if the connection is broken
+	 * @return Login status
+	 */
 	@PingHandler @DirectKiller
 	public boolean login(String username, byte[] password) throws DisconnectException {
 		if(!unlocked) {

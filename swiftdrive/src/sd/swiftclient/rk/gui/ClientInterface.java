@@ -1,5 +1,7 @@
 package sd.swiftclient.rk.gui;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -12,12 +14,16 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import sd.swiftclient.rk.net.Client;
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.expt.FileException;
+import sd.swiftglobal.rk.expt.SwiftException;
+import sd.swiftglobal.rk.type.ServerCommand;
+import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.type.tasks.Task;
 import sd.swiftglobal.rk.type.tasks.TaskHandler;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
@@ -50,6 +56,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	// Task Elements
 	@FXML private VBox task_pnl;
 	@FXML private VBox list_pnl;
+	@FXML private Pane misc_pnl;
 
 	public void initialize(URL a, ResourceBundle b) {
 		lgin_pnl.setVisible(true);
@@ -100,18 +107,10 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		}
 	}
 
-	public void logout() {
-		try {
-			System.out.println("Logging out");
-			if(client != null) client.disconnect(0);
-		}
-		catch(DisconnectException dx) {
-			System.out.println("Logging out failed, forcing error");
-			dx.printStackTrace();
-			client.kill(EXC_CONN);
-		}
-
-		hideMenu();
+	public void hideAll() {
+		task_pnl.setVisible(false);
+		list_pnl.setVisible(false);
+		misc_pnl.setVisible(false);
 	}
 
 	public void hideMenu() {
@@ -137,13 +136,67 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 			for(Task t : tasks.getArray()) {
 				TaskController tskctrl = new TaskController();
 				tskctrl.setTask(t);
+				tskctrl.setParent(this);
 				list_pnl.getChildren().add(tskctrl);
 			}
 		}
+
+		hideAll();
+		list_pnl.setVisible(true);
+		task_pnl.setVisible(true);
 	}
 
-	public void showTask(Task t) {
+	public void expandTask(Task t) {
+		FullTaskController ftc = new FullTaskController();
+		ftc.setTask(t);
 
+		misc_pnl.getChildren().clear();
+		misc_pnl.getChildren().add(ftc);
+
+		list_pnl.setVisible(false);
+		misc_pnl.setVisible(true);
+		task_pnl.setVisible(true);
+	}
+
+	public void reset() {
+
+	}
+
+	public void logout() {
+		try {
+			System.out.println("Logging out");
+			if(client != null) client.disconnect(0);
+		}
+		catch(DisconnectException dx) {
+			System.out.println("Logging out failed, forcing error");
+			dx.printStackTrace();
+			client.kill(EXC_CONN);
+		}
+
+		hideMenu();
+	}
+
+	public void updateTask(Task t) {	
+		try {
+			SwiftFile file = new SwiftFile(LC_TASK + t.getName(), true);
+			client.sfcmd(new ServerCommand(CMD_WRITE_FILE, "task/" + t.getName() + ".stl"), file); 
+		}
+		catch(SwiftException | IOException x) {
+
+		}
+	}
+
+	public void refreshTasks() {
+		try {
+			for(Task t : tasks.getArray()) {
+				SwiftFile file = client.sfcmd(new ServerCommand(CMD_READ_FILE, "task/" + t.getName() + ".stl"));
+				file.setFile(new File(LC_TASK + t.getName() + ".stl"), false);
+				file.write();
+			}
+		}
+		catch(SwiftException | IOException x) {
+
+		}
 	}
 
 	public void quit() {
@@ -163,7 +216,6 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		switch(t.getErrID()) {
 			case EXC_INIT:	
 			case EXC_LOGOUT:
-				System.out.println("Safe");
 				break;
 			case EXC_CONN:
 			case EXC_NWRITE:

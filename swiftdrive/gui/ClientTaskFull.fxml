@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="590.0" prefHeight="393.0" prefWidth="590.0" spacing="10.0" type="VBox" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER_LEFT" spacing="20.0">
+         <children>
+            <Label fx:id="name_lbl" maxWidth="1.7976931348623157E308" minWidth="150.0" text="Task Name" />
+            <ProgressBar fx:id="prog_bar" maxWidth="1.7976931348623157E308" minWidth="300.0" progress="0.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="open_btn" contentDisplay="TOP" mnemonicParsing="false" text="V" textAlignment="JUSTIFY">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+      <Separator prefWidth="200.0" />
+      <TextFlow>
+         <children>
+            <Text fx:id="desc_fld" strokeType="OUTSIDE" strokeWidth="0.0" text="Flow" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </TextFlow>
+      <ScrollPane hbarPolicy="NEVER" maxWidth="1.7976931348623157E308" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+         <content>
+            <Accordion fx:id="fold_acd" maxHeight="1.7976931348623157E308" />
+         </content>
+      </ScrollPane>
+   </children>
+</fx:root>

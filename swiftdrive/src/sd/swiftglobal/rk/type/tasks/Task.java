@@ -110,11 +110,11 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 		toData();
 	}
 
-	public void setDescription(String desc) {
+	public void setDesc(String desc) {
 		this.desc = desc;
 	}
 
-	public String getDescription() {
+	public String getDesc() {
 		return desc;
 	}
 

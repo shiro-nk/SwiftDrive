@@ -6,11 +6,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root alignment="CENTER_LEFT" spacing="20.0" type="HBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minWidth="590.0" spacing="20.0" type="HBox" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="name_lbl" maxWidth="1.7976931348623157E308" minWidth="150.0" text="Task Name" />
-      <ProgressBar fx:id="prog_bar" maxWidth="1.7976931348623157E308" minWidth="300.0" progress="0.0" />
-      <Button fx:id="open_btn" mnemonicParsing="false" text="V" textAlignment="JUSTIFY">
+      <ProgressBar fx:id="prog_bar" maxWidth="1.7976931348623157E308" minWidth="300.0" nodeOrientation="LEFT_TO_RIGHT" progress="0.0" HBox.hgrow="ALWAYS" />
+      <Button mnemonicParsing="false" onAction="#expand" text="V" textAlignment="JUSTIFY">
          <font>
             <Font size="10.0" />
          </font>

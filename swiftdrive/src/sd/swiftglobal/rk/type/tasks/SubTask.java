@@ -79,6 +79,22 @@ public class SubTask implements HandleType {
 		status = s;
 	}
 
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String d) {
+		desc = d;
+	}
+
+	public String getLead() {
+		return lead;
+	}
+
+	public void setLead(String l) {
+		lead = l;
+	}
+
 	public int getStatus() {
 		return status;
 	}
@@ -98,5 +114,4 @@ public class SubTask implements HandleType {
 	public String getFinishDate() {
 		return finishdate;
 	}
-
 }
