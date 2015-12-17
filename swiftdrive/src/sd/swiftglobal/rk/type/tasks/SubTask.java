@@ -114,4 +114,12 @@ public class SubTask implements HandleType {
 	public String getFinishDate() {
 		return finishdate;
 	}
+
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setPriority(int p) {
+		priority = p;
+	}
 }

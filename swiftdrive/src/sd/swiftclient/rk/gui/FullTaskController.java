@@ -18,6 +18,9 @@ public class FullTaskController extends VBox {
 
 	private Task task;
 	private ClientInterface parent;
+
+	private SubTaskController[] subtasks;
+
 	@FXML private Label name_lbl;
 	@FXML private ProgressBar prog_bar;
 	@FXML private Button open_btn;
@@ -40,15 +43,27 @@ public class FullTaskController extends VBox {
 	public void setTask(Task t) {
 		task = t;
 		fold_acd.getPanes().clear();
+		subtasks = new SubTaskController[t.getArray().length];
 
+		int c = 0;
 		for(SubTask s : t.getArray()) {
-			SubTaskController stc = new SubTaskController();
-			stc.setSubtask(s, this);
-			fold_acd.getPanes().add(stc);
+			subtasks[c] = new SubTaskController();
+			subtasks[c].setSubtask(s, this);
+			fold_acd.getPanes().add(subtasks[c++]);
 		}
 
 		reload();
 		refresh(false, null);
+	}
+
+	public void updateTask(Task t) {
+		task = t;
+		
+		if(t.getArray().length == subtasks.length) {
+			for(int i = 0; i < subtasks.length; i++) {
+				subtasks[i].updateSubtask(t.getArray()[i]);
+			}
+		}
 	}
 
 	public Task getTask() {

@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.paint.Color;
 
-import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.type.tasks.SubTask;
 
 public class SubTaskController extends TitledPane {
@@ -46,6 +45,12 @@ public class SubTaskController extends TitledPane {
 		refresh(false);
 	}
 
+	public void updateSubtask(SubTask s) {
+		subtask = s;
+		setText(subtask.getName());
+		refresh(false);
+	}
+
 	public void ignore() {
 		if(ignore.isSelected())	subtask.setStatus(SubTask.TASK_CANCELLED);
 		else subtask.setStatus(SubTask.TASK_PENDING);
@@ -61,9 +66,12 @@ public class SubTaskController extends TitledPane {
 	public void refresh(boolean update) {
 		parent.refresh(update, subtask);
 
-		desc_lbl.setText(subtask.getDesc());
+		desc_lbl.setText(" " + subtask.getDesc());
 		lead_lbl.setText(subtask.getLead());
 		stat_lbl.setText(subtask.getStatus() + "");
+		prio_lbl.setText(subtask.getPriority() + "");
+		start_lbl.setText(subtask.getStartDate());
+		finish_lbl.setText(subtask.getFinishDate());
 
 		switch(subtask.getStatus()) {
 			case 0:

@@ -54,7 +54,10 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	@FXML private Button task_btn;
 	@FXML private Button file_btn;
 	@FXML private Button lgot_btn;
-	
+
+	// Welcome
+	@FXML private VBox open_pnl;
+
 	// Login Elements
 	@FXML private TextField user_fld;
 	@FXML private TextField host_fld;
@@ -70,6 +73,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	@FXML private Pane misc_pnl;
 
 	public void initialize(URL a, ResourceBundle b) {
+		hideAll();
 		lgin_pnl.setVisible(true);
 		menu_pnl.setVisible(false);
 		
@@ -93,6 +97,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 						if(client.login(user_fld.getText(), pass_fld.getText().getBytes())) {
 							lgin_pnl.setVisible(false);
 							menu_pnl.setVisible(true);
+							open_pnl.setVisible(true);
 
 							user_fld.clear();
 							pass_fld.clear();
@@ -133,6 +138,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		list_pnl.setVisible(false);
 		misc_pnl.setVisible(false);
 		fullctrl.setVisible(false);
+		open_pnl.setVisible(false);
 	}
 
 	public void hideMenu() {
@@ -196,7 +202,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 
 	public void downloadTask(Task t) {
 		System.out.println(client.pullTask(t));
-		//t.setList(client.pullTask(t));
+		t.setList(client.pullTask(t));
 	}
 
 	public void uploadSubtask(Task t, SubTask s) {	
@@ -258,7 +264,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 
 				Platform.runLater(new Runnable() {
 					public void run() {
-						if(fullctrl.isVisible()) fullctrl.setTask(t);
+						if(fullctrl.isVisible()) fullctrl.updateTask(t);
 					}
 				});
 			}
@@ -266,6 +272,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	}
 
 	public void refreshTasks() {
+		task_btn.disarm();
 		new Thread(new Runnable() {
 			public void run() {
 				if(locked) {
@@ -298,6 +305,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 				});
 			}
 		}).start();
+		task_btn.arm();
 	}
 	
 	public Client getClient() {
