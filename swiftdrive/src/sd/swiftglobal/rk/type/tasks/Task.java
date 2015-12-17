@@ -92,8 +92,13 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 		if(split.length == 2) {
 			name = split[0];
 			desc = split[1];
-			reloadPath();
 		}
+		else {
+			name = "temp";
+			desc = "null";
+		}
+
+		reloadPath();
 	}
 
 	@Override

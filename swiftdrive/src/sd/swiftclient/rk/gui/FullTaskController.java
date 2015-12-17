@@ -37,8 +37,7 @@ public class FullTaskController extends VBox {
 		}
 	}
 
-	public void setTask(Task t, ClientInterface c) {
-		parent = c;
+	public void setTask(Task t) {
 		task = t;
 		fold_acd.getPanes().clear();
 
@@ -47,21 +46,39 @@ public class FullTaskController extends VBox {
 			stc.setSubtask(s, this);
 			fold_acd.getPanes().add(stc);
 		}
-	}
 
-	public void collapse() {
-
+		reload();
+		refresh(false, null);
 	}
 
 	public Task getTask() {
 		return task;
 	}
 
-	public void refresh(boolean update) {
-		name_lbl.setText(task.getName());
-		prog_bar.setProgress(task.getPercent());
-		desc_fld.setText(task.getDesc());
+	public void setClientInterface(ClientInterface c) {
+		parent = c;
+	}
 
-		if(!update) parent.updateTask(task);
+	public ClientInterface getClientInterface() {
+		return parent;
+	}
+
+	public void collapse() {
+
+	}
+
+	public void refresh(boolean update, SubTask subtask) {
+		if(update) {
+			parent.uploadSubtask(task, subtask);
+			parent.updateTask(task);
+		}
+
+		prog_bar.setProgress(task.getPercent());
+	}
+
+	public void reload() {
+		prog_bar.setProgress(task.getPercent());
+		name_lbl.setText(task.getName());
+		desc_fld.setText(task.getDesc());
 	}
 }

@@ -15,6 +15,8 @@ import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.type.Data;
 import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.SwiftFile;
+import sd.swiftglobal.rk.type.tasks.SubTask;
+import sd.swiftglobal.rk.type.tasks.Task;
 import sd.swiftglobal.rk.type.users.User;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
@@ -141,6 +143,102 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 						case DAT_VERS:
 							echo("Returning version info");
 
+						case DAT_STSK:
+							System.out.println("Reading information");
+							String atskname = readUTF(),
+								   stskname = readUTF();
+							System.out.println(atskname + ":" + stskname);
+
+							Task atask = server.getTasklist().get(atskname);
+
+							if(atask != null) {
+								System.out.println("Writing signal");
+								writeInt(SIG_READY);
+								System.out.println("Signal sent");
+								SubTask subtask = atask.get(stskname);
+								
+								System.out.println("");
+								if(subtask != null)	{
+									writeInt(SIG_READY);
+									subtask.setStatus(readInt());
+								}
+								else writeInt(SIG_FAIL);
+								System.out.println("Get status: " + subtask.getStatus());
+							}
+							else {
+								writeInt(SIG_FAIL);
+							}
+
+							try {
+								atask.write();
+							}
+							catch(FileException fx) {
+
+							}
+							break;
+						
+						case DAT_DSBT:
+							String btskname = readUTF(),
+								   sbtkname = readUTF();
+
+							Task btask = server.getTasklist().get(btskname);
+
+							if(btask != null) {
+								SubTask subtask = btask.get(sbtkname);
+							
+								if(subtask != null)	{
+									writeInt(SIG_READY);
+									term.run();
+									dos.writeUTF(subtask.toString());
+									term.cancel();
+								}
+								else {
+									writeInt(SIG_FAIL);
+								}
+							}
+							else {
+								writeInt(SIG_FAIL);
+							}
+
+							try {
+								btask.write();
+							}
+							catch(FileException fx) {
+
+							}
+							break;
+	
+						case DAT_DTSK:
+							System.out.println("Get task name");
+							String ctskname = readUTF();
+							Task ctask = server.getTasklist().get(ctskname);
+	
+							System.out.println("Send signal");
+							if(ctask != null) {
+								System.out.println("passed");
+								writeInt(SIG_READY);
+								SubTask[] csubtasks = ctask.getArray();
+								System.out.println("Subtask request length: " + csubtasks.length);
+								writeInt(csubtasks.length);
+	
+								for(SubTask s : csubtasks) {
+									term.run();
+									System.out.println("write string");
+									dos.writeUTF(s.toString());
+									term.cancel();
+								}
+							}
+							else {
+								writeInt(SIG_FAIL);
+							}
+
+							try {
+								ctask.write();
+							}
+							catch(FileException fx) {
+
+							}
+							break;
 					}
 				}
 			}
@@ -257,6 +355,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 						temp.convert(swap_data);
 						temp.write(new File(path).toPath(), append);
 						break;
+
 				}
 		}
 		catch(FileException fx) {

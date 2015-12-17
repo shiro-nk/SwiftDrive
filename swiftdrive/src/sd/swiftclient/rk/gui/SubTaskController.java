@@ -43,22 +43,24 @@ public class SubTaskController extends TitledPane {
 		parent = c;
 		subtask = s;
 		setText(subtask.getName());
-		refresh(true);
+		refresh(false);
 	}
 
 	public void ignore() {
 		if(ignore.isSelected())	subtask.setStatus(SubTask.TASK_CANCELLED);
 		else subtask.setStatus(SubTask.TASK_PENDING);
-		refresh(false);
+		refresh(true);
 	}
 
 	public void complete() {
 		if(complete.isSelected()) subtask.setStatus(SubTask.TASK_COMPLETE);
 		else subtask.setStatus(SubTask.TASK_PENDING);
-		refresh(false);
+		refresh(true);
 	}
 
-	public void refresh(boolean firstRun) {
+	public void refresh(boolean update) {
+		parent.refresh(update, subtask);
+
 		desc_lbl.setText(subtask.getDesc());
 		lead_lbl.setText(subtask.getLead());
 		stat_lbl.setText(subtask.getStatus() + "");
@@ -92,16 +94,5 @@ public class SubTaskController extends TitledPane {
 				stat_lbl.setText("Dropped");
 				break;
 		}
-		
-		if(!firstRun) {
-			try {
-				parent.getTask().write();
-			}
-			catch(FileException fx) {
-	
-			}
-		}
-
-		parent.refresh(firstRun);
 	}
 }

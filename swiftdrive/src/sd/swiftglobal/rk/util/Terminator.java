@@ -15,6 +15,8 @@ public class Terminator implements Logging, Settings {
 					run = true,
 					thread = false;
 	private Thread sleep = null;
+
+	int runx = 0;
 	
 	public Terminator(SwiftNetTool tool, int timeout) {
 		this.tool = tool;
@@ -27,14 +29,19 @@ public class Terminator implements Logging, Settings {
 	}
 	
 	public void run() {
+	}
+
+	public void xrun() {
+		cancel();
 		if(run && !thread) {
+			runx++;
 			thread = true;
 			terminated = false;
 			running = true;
 			sleep = new Thread(new Runnable() {
 				public void run() {
 					try {
-						echo("Terminator started");
+						echo("Terminator started" + runx);
 						Thread.sleep(timeout * 1000);
 					}
 					catch(InterruptedException ix) {
@@ -51,7 +58,7 @@ public class Terminator implements Logging, Settings {
 	
 	public void terminate() {
 		if(running && !terminated) {
-			echo("Timed out");
+			echo("Timed out" + runx);
 			tool.kill(EXC_TERM);
 			terminated = true;
 		}
@@ -62,7 +69,11 @@ public class Terminator implements Logging, Settings {
 	}
 	
 	public void cancel() {
-		echo("Cancelling countdown");
+
+	}
+
+	public void cancelx() {
+		echo("Cancelling countdown" + runx);
 		if(sleep != null) sleep.interrupt();
 	}
 

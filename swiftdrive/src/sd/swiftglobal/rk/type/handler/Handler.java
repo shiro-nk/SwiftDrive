@@ -75,12 +75,14 @@ public abstract class Handler<Type extends HandleType> implements Settings {
 		else source.getFile().delete();
 	}
 
-	protected ArrayList<Type> getList() {
+	public ArrayList<Type> getList() {
 		return list;
 	}
 
-	protected void setList(Type[] array) {
+	public void setList(Type[] array) {
 		list.clear();
+		System.out.println(array);
+		for(Type t : array) System.out.println(t);
 		for(Type t : array) list.add(t);
 	}
 

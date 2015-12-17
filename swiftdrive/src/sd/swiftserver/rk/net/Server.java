@@ -10,6 +10,7 @@ import sd.swiftglobal.rk.Meta.LeaveBlank;
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
 import sd.swiftglobal.rk.expt.FileException;
+import sd.swiftglobal.rk.type.tasks.TaskHandler;
 import sd.swiftglobal.rk.type.users.UserHandler;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
@@ -31,6 +32,7 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 					  closed    = false;
 	private final int PORT;
 	private UserHandler userlist;
+	private TaskHandler tasklist;
 	private Thread thread;
 
 	/**
@@ -43,6 +45,7 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		PORT = port;
 		try {
 			userlist = new UserHandler();
+			tasklist = new TaskHandler();
 			server = new ServerSocket(port);
 			thread = new Thread(this);
 			thread.setName("Server");
@@ -123,6 +126,14 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 
 	public void setUserlist(UserHandler list) {
 		userlist = list;
+	}
+
+	public TaskHandler getTasklist() {
+		return tasklist;
+	}
+
+	public void setTasklist(TaskHandler list) {
+		tasklist = list;
 	}
 
 	/** @return Port number **/

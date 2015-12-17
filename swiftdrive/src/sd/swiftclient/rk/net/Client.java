@@ -23,6 +23,8 @@ import sd.swiftglobal.rk.type.Data;
 import sd.swiftglobal.rk.type.Generic;
 import sd.swiftglobal.rk.type.ServerCommand;
 import sd.swiftglobal.rk.type.SwiftFile;
+import sd.swiftglobal.rk.type.tasks.SubTask;
+import sd.swiftglobal.rk.type.tasks.Task;
 import sd.swiftglobal.rk.type.users.User;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.Ping;
@@ -379,7 +381,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			throw new DisconnectException(EXC_WRITE, ix);
 		}
 	}
-	
+
 	@DirectTimeout @RequiresPingHandler @DirectKiller
 	private String readUTF() throws DisconnectException {
 		try {
@@ -393,8 +395,106 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		catch(IOException ix) {
 			echo("Failed", LOG_LOW);
 			kill(EXC_NREAD);
+			ix.printStackTrace();
+			System.out.println(ix.getMessage());
+			System.exit(2);
 			throw new DisconnectException(EXC_READ, ix);
 		}
+	}
+	
+	public int pushSubtask(Task t, SubTask s) {
+		ping.pause();
+		try {
+			System.out.println("Write Data Type: " + DAT_STSK);
+			writeInt(DAT_STSK);
+			System.out.println("Write Task Name");
+			writeUTF(t.getName());
+			System.out.println("Write SubTask Name");
+			writeUTF(s.getName());
+			
+				
+			int signal = SIG_FAIL;
+			if(readInt() == SIG_READY) {
+				System.out.println("Read signal");
+				signal = readInt();
+				System.out.println("Signal: " + signal);
+				System.out.println("Write status: " + s.getStatus());
+				if(signal == SIG_READY) writeInt(s.getStatus());
+			}
+			System.out.println("Done");
+			ping.activate();
+			return signal;
+		}
+		catch(DisconnectException dx) {
+			kill(EXC_CONN);
+			return 0;
+		}
+	}
+
+	public String pullSubtask(Task t, SubTask s) {
+		ping.pause();
+		try {
+			System.out.println("Write Data Type: " + DAT_DSBT);
+			writeInt(DAT_DSBT);
+			System.out.println("Write Task Name");
+			writeUTF(t.getName());
+			System.out.println("Write SubTask Name");
+			writeUTF(s.getName());
+
+			System.out.println("Read Signal: ");
+			if(readInt() == SIG_READY && readInt() == SIG_READY) {
+				System.out.println("Read subtask");
+				String rtn = readUTF();
+				System.out.println("Subtask: " + rtn);
+				ping.activate();
+				System.out.println("Done");
+				return rtn;
+			}
+			else {
+				System.out.println("Done");
+				return "";
+			}
+		}
+		catch(DisconnectException dx) {
+			kill(EXC_CONN);
+			return "";
+		}
+	}
+
+	public SubTask[] pullTask(Task t) {
+		ping.pause();
+		try {
+			System.out.println("Write Data Type: " + DAT_DTSK);
+			writeInt(DAT_DTSK);
+			System.out.println("Write Task Name: ");
+			writeUTF(t.getName());
+		
+			System.out.println("Read signal");
+			if(readInt() == SIG_READY) {
+				System.out.println("Signal Passed");
+				System.out.println("Array Size-x ");
+				int length = readInt();
+				System.out.println("Array Size: " + length);
+				SubTask[] subtasks = new SubTask[length];
+
+				if(length != 0) {
+					for(int i = 0; i < length; i++) {
+						System.out.println("Reading subtask (" + i + "/" + length + ")");
+						subtasks[i] = new SubTask(readUTF());
+						echo(" * " + subtasks[i].toString());
+					}
+					ping.activate();
+					return subtasks;
+				}
+				ping.activate();
+			}
+			System.out.println("Done");
+		}
+		catch(DisconnectException dx) {
+			kill(EXC_CONN);
+		}
+		echo("Warning: returning null for tasklist");
+		return null;
 	}
 	
 	public boolean login(String u, char[] p) throws DisconnectException {
