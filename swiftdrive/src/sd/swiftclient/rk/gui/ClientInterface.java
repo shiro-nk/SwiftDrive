@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -43,7 +44,9 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	private ClientInterface This = this;
 
 	private Object lock = new Object();
-	private boolean locked = false;
+	private boolean locked = false,
+					upload_stask = false,
+					reload_task = false;
 
 	// Global Elements
 	@FXML private ImageView back_img;
@@ -111,6 +114,17 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 							catch(FileException fx) {
 
 							}
+
+							timer = new Timer();
+							timer.scheduleAtFixedRate(new TimerTask() {
+								public void run() {
+									if((fullctrl != null && fullctrl.isVisible()) ||
+									   (task_pnl != null && task_pnl.isVisible()) && !locked) {
+										System.out.println("Timer GO");
+										refreshTasks();
+									}
+								}
+							}, 0, 5000);
 						}
 						else {
 							lgin_lbl.setText("Invalid username or password");
@@ -146,6 +160,11 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		menu_pnl.setVisible(false);
 	}
 
+	public void showOpen() {
+		hideAll();
+		open_pnl.setVisible(true);
+	}
+
 	public void showMenu() {
 		lgin_pnl.setVisible(false);
 		menu_pnl.setVisible(true);
@@ -171,12 +190,18 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		fullctrl.setVisible(true);
 	}
 
-	public void reset() {
-
-	}
-
 	public void logout() {
 		try {
+			if(locked) {
+				synchronized(lock) {
+					try {
+						lock.wait();
+					}
+					catch(InterruptedException ix) {
+					
+					}
+				}
+			}
 			System.out.println("Logging out");
 			if(client != null) client.disconnect(0);
 		}
@@ -186,6 +211,10 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 			client.kill(EXC_CONN);
 		}
 
+		list_pnl.getChildren().clear();
+
+		hideAll();
+		showOpen();
 		hideMenu();
 	}
 
@@ -211,14 +240,16 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 				if(locked) {
 					synchronized(lock) {
 						try {
-							System.out.println("Waiting");
+							System.out.println("Waiting: Upload SubTask");
 							lock.wait();
+							System.out.println("GO: Upload SubTask");
 						}
 						catch(InterruptedException ix) {
 
 						}
 					}
 				}
+				upload_stask = true;
 				client.pushSubtask(t, s);
 			}
 		});
@@ -229,24 +260,26 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		catch(InterruptedException ix) {
 
 		}
+		upload_stask = false;
 	}
 
 	public void updateTask(Task t) {
 		new Thread(new Runnable() {
 			public void run() {
-				System.out.println("Update Task Waiting");
-				if(locked) {
-					synchronized(lock) {
-						try {
-							System.out.println("Waiting");
-							lock.wait();
-						}
-						catch(InterruptedException ix) {
-
+				while(upload_stask) {
+					if(locked) {
+						synchronized(lock) {
+							try {
+								System.out.println("Waiting: UpdateTask");
+								lock.wait();
+								System.out.println("GO: UpdateTask");
+							}
+							catch(InterruptedException ix) {
+	
+							}
 						}
 					}
 				}
-				System.out.println("Update Task GO!");
 				locked = true;
 
 				SubTask[] subtasks = client.pullTask(t);
@@ -272,40 +305,45 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	}
 
 	public void refreshTasks() {
-		task_btn.disarm();
-		new Thread(new Runnable() {
-			public void run() {
-				if(locked) {
-					synchronized(lock) {
-						try {
-							System.out.println("waiting");
-							lock.wait();
-						}
-						catch(InterruptedException ix) {
-
+		if(!reload_task) {
+			reload_task = true;
+			task_btn.disarm();
+			new Thread(new Runnable() {
+				public void run() {
+					if(locked) {
+						synchronized(lock) {
+							try {
+								System.out.println("waiting: reload task");
+								lock.wait();
+								System.out.println("Reload Task GO");
+							}
+							catch(InterruptedException ix) {
+	
+							}
 						}
 					}
-				}
 
-				for(Task t : tasks.getArray()) updateTask(t);
+					for(Task t : tasks.getArray()) updateTask(t);
 		
-				synchronized(lock) { lock.notifyAll(); }
-				locked = false;
+					synchronized(lock) { lock.notifyAll(); }
+					locked = false;
 
-				Platform.runLater(new Runnable() {
-					public void run() {
-						list_pnl.getChildren().clear();
-						for(Task t : tasks.getArray()) {
-							TaskController tskctrl = new TaskController();
-							tskctrl.setTask(t);
-							tskctrl.setParent(This);
-							list_pnl.getChildren().add(tskctrl);
+					Platform.runLater(new Runnable() {
+						public void run() {
+							list_pnl.getChildren().clear();
+							for(Task t : tasks.getArray()) {
+								TaskController tskctrl = new TaskController();
+								tskctrl.setTask(t);
+								tskctrl.setParent(This);
+								list_pnl.getChildren().add(tskctrl);
+							}
 						}
-					}
-				});
-			}
-		}).start();
-		task_btn.arm();
+					});
+				}
+			}).start();
+			task_btn.arm();
+			reload_task = false;
+		}
 	}
 	
 	public Client getClient() {

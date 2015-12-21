@@ -23,8 +23,8 @@ pushd $PROJECT_PATH
 
 	# Export as jar file
 	pushd $PROJECT_PATH/bin
-		jar cfm swiftdrive.jar ../manifest.mf sd res
-		mv swiftdrive.jar ..
+		jar cfm swiftdrive.jar ../jar/manifest.mf sd res
+		mv swiftdrive.jar ../jar
 	popd
 
 	# Clean
