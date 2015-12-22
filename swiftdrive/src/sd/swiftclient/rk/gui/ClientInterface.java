@@ -29,6 +29,8 @@ import sd.swiftglobal.rk.type.SwiftFile;
 import sd.swiftglobal.rk.type.tasks.SubTask;
 import sd.swiftglobal.rk.type.tasks.Task;
 import sd.swiftglobal.rk.type.tasks.TaskHandler;
+import sd.swiftglobal.rk.type.users.User;
+import sd.swiftglobal.rk.type.users.UserHandler;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 
@@ -40,13 +42,15 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	private Timer timer;
 	private Client client = null;
 	private TaskHandler tasks = null;
+	private UserHandler users = null;
 	private FullTaskController fullctrl = new FullTaskController(); 
 	private ClientInterface This = this;
 
 	private Object lock = new Object();
 	private boolean locked = false,
 					upload_stask = false,
-					reload_task = false;
+					reload_task = false,
+					update_task = false;
 
 	// Global Elements
 	@FXML private ImageView back_img;
@@ -108,6 +112,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 							port_fld.clear();
 
 							downloadTasks();
+							downloadUsers();
 							try {
 								tasks = new TaskHandler();
 							}
@@ -118,13 +123,13 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 							timer = new Timer();
 							timer.scheduleAtFixedRate(new TimerTask() {
 								public void run() {
-									if((fullctrl != null && fullctrl.isVisible()) ||
-									   (task_pnl != null && task_pnl.isVisible()) && !locked) {
+									if(((fullctrl != null && fullctrl.isVisible()) ||
+									    (task_pnl != null && task_pnl.isVisible())) && (!locked && !upload_stask && !reload_task)) {
 										System.out.println("Timer GO");
 										refreshTasks();
 									}
 								}
-							}, 0, 5000);
+							}, 15000, 15000);
 						}
 						else {
 							lgin_lbl.setText("Invalid username or password");
@@ -225,12 +230,29 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 			file.write();
 		}
 		catch(SwiftException | IOException x) {
-			x.printStackTrace();
+			terminate(client);
 		}
 	}
 
+	public void downloadUsers() {
+		try {
+			SwiftFile file = client.sfcmd(new ServerCommand(CMD_READ_FILE, "users_public"));
+			file.setFile(new File(LC_PATH + "users"), false);
+			file.write();
+
+			users = new UserHandler();
+		}
+		catch(SwiftException | IOException x) {
+			x.printStackTrace();
+			terminate(client);
+		}
+
+		if(users != null)
+		for(User u : users.getArray()) System.out.println(u);
+		else System.out.println("fail");
+	}
+
 	public void downloadTask(Task t) {
-		System.out.println(client.pullTask(t));
 		t.setList(client.pullTask(t));
 	}
 
@@ -251,6 +273,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 				}
 				upload_stask = true;
 				client.pushSubtask(t, s);
+				System.out.println("Upload SubTask Completed");
 			}
 		});
 		upload.start();
@@ -264,7 +287,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	}
 
 	public void updateTask(Task t) {
-		new Thread(new Runnable() {
+		Thread update = new Thread(new Runnable() {
 			public void run() {
 				while(upload_stask) {
 					if(locked) {
@@ -280,28 +303,31 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 						}
 					}
 				}
+				update_task = true;
 				locked = true;
 
 				SubTask[] subtasks = client.pullTask(t);
-
-				if(subtasks != null) {
-					for(SubTask s : subtasks) {
-						System.out.println(s);
-					}
-
-					t.setList(client.pullTask(t));
-				}
+				if(subtasks != null) t.setList(subtasks);
 
 				synchronized(lock) { lock.notifyAll(); }
 				locked = false;
-
+				update_task = false;
 				Platform.runLater(new Runnable() {
 					public void run() {
 						if(fullctrl.isVisible()) fullctrl.updateTask(t);
 					}
 				});
+				System.out.println("UpdateTask completed");
 			}
-		}).start();
+		});
+		update.start();
+
+		try {
+			update.join();
+		}
+		catch(InterruptedException ix) {
+
+		}
 	}
 
 	public void refreshTasks() {
@@ -310,20 +336,27 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 			task_btn.disarm();
 			new Thread(new Runnable() {
 				public void run() {
-					if(locked) {
-						synchronized(lock) {
-							try {
-								System.out.println("waiting: reload task");
-								lock.wait();
-								System.out.println("Reload Task GO");
-							}
-							catch(InterruptedException ix) {
-	
+					while(update_task || upload_stask) {
+						if(locked) {
+							synchronized(lock) {
+								try {
+									System.out.println("waiting: reload task");
+									lock.wait();
+									System.out.println("Reload Task GO");
+								}
+								catch(InterruptedException ix) {
+		
+								}
 							}
 						}
 					}
 
-					for(Task t : tasks.getArray()) updateTask(t);
+					for(Task t : tasks.getArray()) {
+						System.out.println("UPDATE: " + t);
+						try { Thread.sleep(1000); }
+						catch(InterruptedException ix) {}
+						updateTask(t);
+					}
 		
 					synchronized(lock) { lock.notifyAll(); }
 					locked = false;
@@ -337,17 +370,22 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 								tskctrl.setParent(This);
 								list_pnl.getChildren().add(tskctrl);
 							}
+							task_btn.arm();
 						}
 					});
+					System.out.println("Reload done");
+					reload_task = false;
 				}
 			}).start();
-			task_btn.arm();
-			reload_task = false;
 		}
 	}
 	
 	public Client getClient() {
 		return client;
+	}
+
+	public UserHandler getUserlist() {
+		return users;
 	}
 
 	public void quit() {
@@ -363,7 +401,6 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 
 	@Override
 	public void dereference(SwiftNetTool t) {
-		System.out.println("Dereference : SAFE");
 		switch(t.getErrID()) {
 			case EXC_INIT:	
 			case EXC_LOGOUT:
@@ -377,6 +414,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 						hideMenu();
 					}
 				});
+				break;
 			case EXC_SAFE:
 				Platform.runLater(new Runnable() {
 					public void run() {
@@ -384,6 +422,15 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 						hideMenu();
 					}
 				});
+				break;
+			case EXC_VER:
+				Platform.runLater(new Runnable() {
+					public void run() {
+						lgin_lbl.setText("Client-Server version don't match");
+						hideMenu();
+					}
+				});
+				break;	
 		}
 		
 		if(timer != null) timer.cancel();

@@ -10,6 +10,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.paint.Color;
 
 import sd.swiftglobal.rk.type.tasks.SubTask;
+import sd.swiftglobal.rk.type.users.User;
 
 public class SubTaskController extends TitledPane {
 
@@ -101,6 +102,16 @@ public class SubTaskController extends TitledPane {
 				stat_lbl.setTextFill(Color.web("#FF0000"));
 				stat_lbl.setText("Dropped");
 				break;
+		}
+
+		String name = subtask.getLead();
+		User subtaskuser = parent.getClientInterface().getUserlist().getByName(name);
+		User clientuser = parent.getClientInterface().getClient().getUser();
+		
+		System.out.println("Comparing:: SubTask > " + subtaskuser + ", Client > " + clientuser);
+		if(subtaskuser != null && clientuser != null && !subtaskuser.getName().equals(clientuser.getName())) {
+			complete.setDisable(true);
+			ignore.setDisable(true);
 		}
 	}
 }

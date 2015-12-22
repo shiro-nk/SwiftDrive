@@ -22,7 +22,7 @@ import sd.swiftglobal.rk.util.Logging;
  */
 public interface Settings {
 	/** The version number as a double (Major.Minor) */
-	public static final double VERSION = 00.11;
+	public static final double VERSION = 01.04;
 
 	/** Version (VER) numbers for the project */
 	public static final int VER_MAJOR = 1,
@@ -106,7 +106,7 @@ public interface Settings {
 	/** Preset Defaults / Definitions (DEF) **/
 	public static final int DEF_PORT = 3141,
 							DEF_TIME = 30,
-							DEF_PING = 15,
+							DEF_PING = 2,
 							DEF_DDOS = 500,
-							DEF_LOGL = Logging.LOG_LOW;	
+							DEF_LOGL = Logging.LOG_OFF;	
 }

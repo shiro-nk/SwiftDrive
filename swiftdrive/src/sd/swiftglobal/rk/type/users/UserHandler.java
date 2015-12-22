@@ -25,6 +25,24 @@ public class UserHandler extends Handler<User> implements Settings, Logging {
 			setSource(new SwiftFront(path, false));
 			add(new User("default", "username", "password"));
 		}
+
+		try(SwiftFront file = new SwiftFront(new File(LC_PATH + "users_public"))) {
+			for(User u : getArray()) file.add(u.getRealname() + ";" + u.getUsername() + "\n");
+			file.toData();
+			file.write();
+		}
+		catch(FileException fx) {
+			fx.printStackTrace();
+		}
+	}
+
+	public User getByName(String realname) {
+		int index = -1;
+		User[] ar = getArray();
+		for(int i = 0; i < ar.length; i++) {
+			if(ar[i].getRealname().equals(realname)) index = i;
+		}
+		return 0 <= index ? ar[index] : null;
 	}
 
 	public void echo(Object o, int level) {

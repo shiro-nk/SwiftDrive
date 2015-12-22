@@ -38,7 +38,7 @@ public class SwiftNet implements Settings {
 		}
 
 		public default void kill() {
-			kill(EXC_SAFE);
+			kill(EXC_UNKN);
 		}
 	}
 	

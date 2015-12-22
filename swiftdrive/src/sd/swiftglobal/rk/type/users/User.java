@@ -70,6 +70,12 @@ public class User implements HandleType {
 			username = split[2];
 			password = split[3];
 		}
+		else if(split.length == 2) {
+			realname = split[0];
+			username = split[1];
+			password = "";
+			userid   = 0;
+		}
 	}
 
 	public String toString() {

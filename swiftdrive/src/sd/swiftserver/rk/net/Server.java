@@ -187,8 +187,9 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 
 	public void destroy() {
 		close();
+		
 		for(int i = 0; i < clients.size(); i++) {
-			clients.get(i).close();
+			if(clients.get(i) != null) clients.get(i).close();
 			clients.set(i, null);
 		}
 		cleanStack();

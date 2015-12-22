@@ -188,7 +188,7 @@ public class ServerInterface implements Initializable, Settings {
 	}
 
 	public void haltServer() {
-		server.destroy();
+		if(server != null) server.destroy();
 		refreshInfo();
 	}
 
