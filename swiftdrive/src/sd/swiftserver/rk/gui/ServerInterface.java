@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -30,6 +31,8 @@ public class ServerInterface implements Initializable, Settings {
 	private Server server;
 	private int port = DEF_PORT;
 	private boolean active = false;
+
+	@FXML private StackPane stack_pnl;
 
 	@FXML private Button info_btn;
 	@FXML private Button ctrl_btn;
@@ -59,9 +62,16 @@ public class ServerInterface implements Initializable, Settings {
 
 	@FXML private TextField port_fld;
 
+	private TaskList tasklist;
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		vers_lbl.setText("Version " + VER_MAJOR + "." + VER_MINOR + "r" + VER_PATCH);
+		
+		tasklist = new TaskList();
+		tasklist.setVisible(false);
+		tasklist.setParent(this);
+		stack_pnl.getChildren().add(tasklist);
 
 		Timer timer = new Timer();
 
@@ -74,6 +84,8 @@ public class ServerInterface implements Initializable, Settings {
 				});
 			}
 		}, 0, 1000);
+
+		showOpen();
 	}
 
 	public void refresh() {
@@ -85,6 +97,8 @@ public class ServerInterface implements Initializable, Settings {
 		ctrl_pnl.setVisible(false);
 		open_pnl.setVisible(false);
 		help_pnl.setVisible(false);
+
+		tasklist.setVisible(false);
 	}
 
 	public void showInfo() {
@@ -105,6 +119,13 @@ public class ServerInterface implements Initializable, Settings {
 			host_lbl.setText("Localhost");
 			addr_lbl.setText("127.0.0.1");
 		}
+	}
+
+	public void showTasks() {
+		hideAll();
+
+		tasklist.reloadTasks();
+		tasklist.setVisible(true);
 	}
 
 	public void refreshInfo() {
@@ -190,6 +211,10 @@ public class ServerInterface implements Initializable, Settings {
 	public void haltServer() {
 		if(server != null) server.destroy();
 		refreshInfo();
+	}
+
+	public TaskList getTaskList() {
+		return tasklist;
 	}
 
 	public void quit() {

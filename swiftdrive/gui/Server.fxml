@@ -9,7 +9,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swiftserver.rk.gui.ServerInterface">
+<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swiftserver.rk.gui.ServerInterface">
    <items>
       <VBox alignment="CENTER" maxWidth="250.0" minWidth="200.0" spacing="20.0" SplitPane.resizableWithParent="false">
          <children>
@@ -28,7 +28,7 @@
                <children>
                   <Button fx:id="info_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showOpen" text="Welcome" />
                   <Button fx:id="ctrl_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showInfo" text="Control" />
-                  <Button fx:id="task_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Tasks" />
+                  <Button fx:id="task_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showTasks" text="Tasks" />
                   <Button fx:id="file_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Files" />
                   <Button fx:id="user_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Users" />
                   <Button fx:id="help_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Help" />
@@ -43,7 +43,7 @@
             <Insets top="20.0" />
          </padding>
       </VBox>
-      <StackPane prefHeight="450.0" prefWidth="304.0">
+      <StackPane fx:id="stack_pnl" prefHeight="450.0" prefWidth="304.0">
          <children>
             <ImageView fx:id="back_img" disable="true" fitHeight="400.0" fitWidth="500.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_RIGHT">
                <image>

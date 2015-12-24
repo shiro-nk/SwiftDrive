@@ -1,4 +1,4 @@
-package sd.swiftclient.rk.gui;
+package sd.swiftserver.rk.gui;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import sd.swiftglobal.rk.type.tasks.Task;
 public class TaskController extends HBox {
 
 	private Task task;
-	private ClientInterface parent;
+	private ServerInterface parent;
 
 	@FXML private Label name_lbl;
 	@FXML private ProgressBar prog_bar;
@@ -31,17 +31,17 @@ public class TaskController extends HBox {
 		}
 	}
 
-	public void setParent(ClientInterface cli) {
-		parent = cli;
+	public void expand() {
+		parent.getTaskList().expandTask(task);
+	}
+
+	public void setParent(ServerInterface srv) {
+		parent = srv;
 	}
 
 	public void setTask(Task t) {
 		task = t;
 		name_lbl.setText(task.getName());
 		prog_bar.setProgress(task.getPercent());
-	}
-
-	public void expand() {
-		parent.expandTask(task);
 	}
 }
