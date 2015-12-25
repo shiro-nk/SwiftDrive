@@ -1,6 +1,7 @@
 package sd.swiftserver.rk.gui;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,12 +11,19 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
+import sd.swiftglobal.rk.Settings;
+import sd.swiftglobal.rk.expt.FileException;
+import sd.swiftglobal.rk.type.tasks.SubTask;
 import sd.swiftglobal.rk.type.tasks.Task;
 
-public class FullTaskController extends VBox {
+/* This file is part of Swift Drive *
+ * Copyright (c) 2015 Ryan Kerr     */
+
+public class FullTaskController extends VBox implements Settings {
 
 	private Task task;
 	private ServerInterface parent;
+	private SubTaskController[] sctrl;
 
 	@FXML private Accordion fold_acd;
 
@@ -44,31 +52,73 @@ public class FullTaskController extends VBox {
 	}
 
 	public void createSubtask() {
+		if(!stsk_fld.getText().trim().equals("") && task.get(stsk_fld.getText()) == null) {
+			try {
+				task.add(new SubTask(stsk_fld.getText().trim(), "", "", DATE_FORM.format(LocalDate.now()), DATE_FORM.format(LocalDate.now()), 0, 1));
+				refresh();
+			}
+			catch(FileException fx) {
 
+			}
+			stsk_fld.setText("");
+		}
 	}
 
 	public void save() {
+		try {
+			SubTask[] subtasks = new SubTask[sctrl.length];
 
+			int i = 0; for(SubTaskController s : sctrl) subtasks[i++] = s.getSubtask();
+			task.setList(subtasks);
+			task.write();
+		}
+		catch(FileException fx) {
+			fx.printStackTrace();
+		}
+
+		refresh();
 	}
 
 	public void setTask(Task t) {
 		task = t;
-		name_fld.setText(t.getName());
-		desc_fld.setText(t.getDesc());
-		prog_bar.setProgress(t.getPercent());
+		refresh();
+	}
 
-		fold_acd.getChildren().clear();
-
-		for(SubTask s : task.getArray()) {
-		
+	public void deleteSubtask(SubTask s) {
+		try {
+			task.remove(s);
+			refresh();
+		}
+		catch(FileException fx) {
+			
 		}
 	}
 
-	public void updateTask(Task t) {
+	public void delete() {
+		parent.getTasklist().deleteTask(task);
+	}
 
+	public void refresh() {
+		name_fld.setText(task.getName());
+		desc_fld.setText(task.getDesc());
+		prog_bar.setProgress(task.getPercent());
+		fold_acd.getPanes().clear();
+		sctrl = new SubTaskController[task.getArray().length];
+
+		int i = 0;
+		for(SubTask s : task.getArray()) {
+			sctrl[i] = new SubTaskController();
+			sctrl[i].setFullController(this);
+			sctrl[i].setSubtask(s);
+			fold_acd.getPanes().add(sctrl[i++]);
+		}
 	}
 
 	public void setParent(ServerInterface srv) {
 		parent = srv;
+	}
+
+	public ServerInterface getServerInterface() {
+		return parent;
 	}
 }

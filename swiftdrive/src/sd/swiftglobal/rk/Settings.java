@@ -2,6 +2,7 @@ package sd.swiftglobal.rk;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.time.format.DateTimeFormatter;
 
 import sd.swiftglobal.rk.util.Logging;
 
@@ -54,6 +55,8 @@ public interface Settings {
 
 	/** The default charset **/
 	public static final Charset CHARSET = StandardCharsets.UTF_8;
+
+	public static final DateTimeFormatter DATE_FORM = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	@Deprecated
 	/** States (STA) that the server is in **/

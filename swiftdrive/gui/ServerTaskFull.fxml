@@ -11,8 +11,13 @@
       <HBox alignment="CENTER_LEFT" spacing="20.0">
          <children>
             <TextField fx:id="name_fld" promptText="Task Name" />
-            <ProgressBar fx:id="prog_bar" maxWidth="1.7976931348623157E308" minWidth="300.0" progress="0.0" HBox.hgrow="ALWAYS" />
-            <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#save" prefHeight="21.0" prefWidth="128.0" text="Save Changes" textAlignment="JUSTIFY">
+            <ProgressBar fx:id="prog_bar" maxWidth="1.7976931348623157E308" minWidth="250.0" progress="0.0" HBox.hgrow="ALWAYS" />
+            <Button maxWidth="1.7976931348623157E308" minWidth="50.0" mnemonicParsing="false" onAction="#delete" prefWidth="125.0" text="Delete">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Button contentDisplay="TOP" minWidth="100.0" mnemonicParsing="false" onAction="#save" prefHeight="21.0" prefWidth="150.0" text="Save Changes" textAlignment="JUSTIFY">
                <font>
                   <Font size="10.0" />
                </font>

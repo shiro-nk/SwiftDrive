@@ -20,6 +20,8 @@ import javafx.scene.paint.Color;
 
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
+import sd.swiftglobal.rk.expt.FileException;
+import sd.swiftglobal.rk.type.users.UserHandler;
 import sd.swiftserver.rk.net.Server;
 
 /* This file is part of Swift Drive 		   *
@@ -63,6 +65,7 @@ public class ServerInterface implements Initializable, Settings {
 	@FXML private TextField port_fld;
 
 	private TaskList tasklist;
+	private UserHandler userlist;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -84,6 +87,13 @@ public class ServerInterface implements Initializable, Settings {
 				});
 			}
 		}, 0, 1000);
+
+		try {
+			userlist = new UserHandler();
+		}
+		catch(FileException fx) {
+
+		}
 
 		showOpen();
 	}
@@ -191,6 +201,7 @@ public class ServerInterface implements Initializable, Settings {
 		if(!active) {
 			try {
 				server = new Server(port);
+				userlist = server.getUserlist();
 				error_lbl.setText("");
 				refreshInfo();
 			}
@@ -213,7 +224,15 @@ public class ServerInterface implements Initializable, Settings {
 		refreshInfo();
 	}
 
-	public TaskList getTaskList() {
+	public Server getServer() {
+		return server;
+	}
+
+	public UserHandler getUserlist() {
+		return userlist;
+	}
+
+	public TaskList getTasklist() {
 		return tasklist;
 	}
 

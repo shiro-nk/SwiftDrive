@@ -10,6 +10,9 @@ import javafx.scene.layout.HBox;
 
 import sd.swiftglobal.rk.type.tasks.Task;
 
+/* This file is part of Swift Drive *
+ * Copyright (c) 2015 Ryan Kerr     */
+
 public class TaskController extends HBox {
 
 	private Task task;
@@ -32,7 +35,7 @@ public class TaskController extends HBox {
 	}
 
 	public void expand() {
-		parent.getTaskList().expandTask(task);
+		parent.getTasklist().expandTask(task);
 	}
 
 	public void setParent(ServerInterface srv) {

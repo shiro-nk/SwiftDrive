@@ -11,6 +11,9 @@ import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.type.tasks.Task;
 import sd.swiftglobal.rk.type.tasks.TaskHandler;
 
+/* This file is part of Swift Drive *
+ * Copyright (c) 2015 Ryan Kerr     */
+
 public class TaskList extends VBox {
 
 	private TaskHandler tasks;
@@ -45,7 +48,7 @@ public class TaskList extends VBox {
 	}
 
 	public void reloadTasks() {
-		System.out.println(tasks);
+		System.out.println("Task: " + tasks + "; Parent: " + parent);
 		if(tasks != null) {
 			list_pnl.getChildren().clear();
 
@@ -63,12 +66,23 @@ public class TaskList extends VBox {
 
 	public void expandTask(Task t) {
 		fullctrl = new FullTaskController();
-		fullctrl.setTask(t);
 		fullctrl.setParent(parent);
+		fullctrl.setTask(t);
 		misc_pnl.getChildren().clear();
 		misc_pnl.getChildren().add(fullctrl);
 		hideAll();
 		misc_pnl.setVisible(true);
+	}
+
+	public void deleteTask(Task t) {
+		try {
+			tasks.remove(t);
+		}
+		catch(FileException fx) {
+
+		}
+		
+		reloadTasks();
 	}
 
 	public void setParent(ServerInterface srv) {

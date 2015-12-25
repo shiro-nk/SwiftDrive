@@ -1,32 +1,36 @@
 package sd.swiftserver.rk.gui;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.TitledPane;
 
+import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.type.tasks.SubTask;
+import sd.swiftglobal.rk.type.users.User;
 
-public class SubTaskController extends VBox {
+/* This file is part of Swift Drive *
+ * Copyright (c) 2015 Ryan Kerr     */
 
-	private SubTask s;
+public class SubTaskController extends TitledPane implements Settings {
+
+	private SubTask subtask;
+	private FullTaskController parent;
+
 
 	@FXML private TextField desc_fld;
 
-	@FXML private ChoiceBox stat_sel;
-	@FXML private ChoiceBox lead_sel;
-	@FXML private ChoiceBox prio_sel;
+	@FXML private ChoiceBox<String> stat_sel;
+	@FXML private ChoiceBox<String> lead_sel;
+	@FXML private ChoiceBox<String> prio_sel;
 	
 	@FXML private DatePicker start_dsl;
 	@FXML private DatePicker finish_dsl;
-
-	@FXML private CheckBox completed;
-	@FXML private CheckBox ignore;
 
 	public SubTaskController() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ServerSubTask.fxml"));
@@ -35,13 +39,49 @@ public class SubTaskController extends VBox {
 
 		try {
 			loader.load();
+
+			stat_sel.getItems().addAll(new String[] {"Pending", "Completed", "Dropped"});
+		
 		}
 		catch(IOException ix) {
 
 		}
 	}
+	
+	public void delete() {
+		parent.deleteSubtask(subtask);
+	}
 
 	public void setSubtask(SubTask s) {
-		
+		subtask = s;
+
+		setText(s.getName());
+		desc_fld.setText(s.getDesc());
+		lead_sel.setValue(s.getLead());
+		stat_sel.setValue(s.getStatus() == 0 ? "Completed" : s.getStatus() == 1 ? "Pending" : "Dropped");
+		prio_sel.setValue(s.getPriority() + "");
+
+		start_dsl.setValue(LocalDate.parse(s.getStartDate(), DATE_FORM));
+		finish_dsl.setValue(LocalDate.parse(s.getFinishDate(), DATE_FORM));
+
+		lead_sel.getItems().clear();
+
+		for(User u : parent.getServerInterface().getUserlist().getArray()) {
+			lead_sel.getItems().addAll(u.getRealname());
+		}
+	}
+
+	public SubTask getSubtask() {
+		subtask.setDesc(desc_fld.getText());
+		subtask.setLead(lead_sel.getValue());
+		subtask.setStatus(stat_sel.getValue().equals("Completed") ? 0 : stat_sel.getValue().equals("Pending") ? 1 : 0);
+		subtask.setPriority(prio_sel.getValue().equals("High") ? 1 : 0);
+		subtask.setStartDate(DATE_FORM.format(start_dsl.getValue()));
+		subtask.setFinishDate(DATE_FORM.format(finish_dsl.getValue()));
+		return subtask;
+	}
+
+	public void setFullController(FullTaskController f) {
+		parent = f;
 	}
 }
