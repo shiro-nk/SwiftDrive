@@ -1,7 +1,0 @@
-rm -r bin/*
-cp -r res bin
-javac -d bin -sourcepath src src/sd/swiftglobal/rk/StartSwift.java
-pushd /data/swiftspace/swiftmerged/bin
-	jar cfm swiftdrive.jar ../manifest.mf sd res
-	mv swiftdrive.jar ..
-popd

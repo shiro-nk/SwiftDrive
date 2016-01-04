@@ -115,6 +115,20 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 		toData();
 	}
 
+	public void setName(String name) throws FileException {
+		if(getSource().getByteFlag()) {
+			System.out.println(getSource().getFile());
+			getSource().getFile().delete();
+			getSource().write();
+			this.name = name;
+			getSource().setFile(new File(LC_TASK + name + ".stl"), false);
+		}
+		else {
+			this.name = name;
+			reloadPath();
+		}
+	}
+
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}

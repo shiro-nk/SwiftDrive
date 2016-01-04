@@ -41,7 +41,7 @@ public class SubTaskController extends TitledPane implements Settings {
 			loader.load();
 
 			stat_sel.getItems().addAll(new String[] {"Pending", "Completed", "Dropped"});
-		
+			prio_sel.getItems().addAll(new String[] {"Low", "Normal", "High"});
 		}
 		catch(IOException ix) {
 
@@ -59,7 +59,7 @@ public class SubTaskController extends TitledPane implements Settings {
 		desc_fld.setText(s.getDesc());
 		lead_sel.setValue(s.getLead());
 		stat_sel.setValue(s.getStatus() == 0 ? "Completed" : s.getStatus() == 1 ? "Pending" : "Dropped");
-		prio_sel.setValue(s.getPriority() + "");
+		prio_sel.setValue(s.getPriority() == 1 ? "Low" : s.getPriority() == 0 ? "Normal" : "High");
 
 		start_dsl.setValue(LocalDate.parse(s.getStartDate(), DATE_FORM));
 		finish_dsl.setValue(LocalDate.parse(s.getFinishDate(), DATE_FORM));
@@ -75,7 +75,7 @@ public class SubTaskController extends TitledPane implements Settings {
 		subtask.setDesc(desc_fld.getText());
 		subtask.setLead(lead_sel.getValue());
 		subtask.setStatus(stat_sel.getValue().equals("Completed") ? 0 : stat_sel.getValue().equals("Pending") ? 1 : 0);
-		subtask.setPriority(prio_sel.getValue().equals("High") ? 1 : 0);
+		subtask.setPriority(prio_sel.getValue().equals("High") ? 2 : prio_sel.getValue().equals("Low") ? 1 : 0);
 		subtask.setStartDate(DATE_FORM.format(start_dsl.getValue()));
 		subtask.setFinishDate(DATE_FORM.format(finish_dsl.getValue()));
 		return subtask;

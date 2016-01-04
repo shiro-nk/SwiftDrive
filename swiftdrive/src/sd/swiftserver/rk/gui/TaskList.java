@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -23,6 +24,7 @@ public class TaskList extends VBox {
 	@FXML private Pane misc_pnl;
 	@FXML private VBox task_pnl;
 	@FXML private VBox list_pnl;
+	@FXML private Button ntsk_btn;
 
 	public TaskList() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/TaskList.fxml"));
@@ -45,10 +47,19 @@ public class TaskList extends VBox {
 	public void hideAll() {
 		misc_pnl.setVisible(false);
 		list_pnl.setVisible(false);
+		ntsk_btn.setVisible(false);
 	}
 
 	public void reloadTasks() {
 		System.out.println("Task: " + tasks + "; Parent: " + parent);
+
+		try {
+			tasks = new TaskHandler();
+		}
+		catch(FileException fx) {
+
+		}
+
 		if(tasks != null) {
 			list_pnl.getChildren().clear();
 
@@ -58,9 +69,28 @@ public class TaskList extends VBox {
 				tctrl.setParent(parent);
 				list_pnl.getChildren().add(tctrl);
 			}
+		}
+	}
 
-			hideAll();
-			list_pnl.setVisible(true);
+	public void showList() {
+		hideAll();
+		ntsk_btn.setVisible(true);
+		list_pnl.setVisible(true);
+	}
+
+	public void hideFullController() {
+		hideAll();
+		list_pnl.setVisible(true);
+		ntsk_btn.setVisible(true);
+	}
+	
+	public void createTask() {
+		try {
+			Task ntsk = new Task("New Task", "This is a new task");
+			if(tasks.add(ntsk)) expandTask(ntsk);
+		}
+		catch(FileException ix) {
+
 		}
 	}
 
@@ -83,6 +113,11 @@ public class TaskList extends VBox {
 		}
 		
 		reloadTasks();
+		showList();
+	}
+
+	public TaskHandler getTaskHandler() {
+		return tasks;
 	}
 
 	public void setParent(ServerInterface srv) {

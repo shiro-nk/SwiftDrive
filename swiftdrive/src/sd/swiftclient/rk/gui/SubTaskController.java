@@ -70,9 +70,12 @@ public class SubTaskController extends TitledPane {
 		desc_lbl.setText(" " + subtask.getDesc());
 		lead_lbl.setText(subtask.getLead());
 		stat_lbl.setText(subtask.getStatus() + "");
-		prio_lbl.setText(subtask.getPriority() + "");
 		start_lbl.setText(subtask.getStartDate());
 		finish_lbl.setText(subtask.getFinishDate());
+
+		int p = subtask.getPriority();
+		prio_lbl.setText(p==1?"Low":p==0?"Normal":"High");
+		prio_lbl.setTextFill(Color.web(p==1?"#FF0000":p==0?"#0000FF":"#00FF00"));
 
 		switch(subtask.getStatus()) {
 			case 0:

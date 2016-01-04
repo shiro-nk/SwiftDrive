@@ -27,8 +27,8 @@ public interface Settings {
 
 	/** Version (VER) numbers for the project */
 	public static final int VER_MAJOR = 1,
-		   					VER_MINOR = 4,
-							VER_PATCH = 0;
+		   					VER_MINOR = 6,
+							VER_PATCH = 2;
 	
 	/** Data (DAT) type headers for transfer **/
 	public static final int DAT_NULL = 0,

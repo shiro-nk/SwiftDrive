@@ -135,6 +135,7 @@ public class ServerInterface implements Initializable, Settings {
 		hideAll();
 
 		tasklist.reloadTasks();
+		tasklist.showList();
 		tasklist.setVisible(true);
 	}
 
@@ -201,6 +202,7 @@ public class ServerInterface implements Initializable, Settings {
 		if(!active) {
 			try {
 				server = new Server(port);
+				server.setTasklist(tasklist.getTaskHandler());
 				userlist = server.getUserlist();
 				error_lbl.setText("");
 				refreshInfo();

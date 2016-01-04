@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="590.0" prefHeight="393.0" prefWidth="590.0" spacing="10.0" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="590.0" prefHeight="393.0" prefWidth="590.0" spacing="10.0" type="VBox" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="20.0">
          <children>
@@ -38,17 +38,31 @@
             <Accordion fx:id="fold_acd" maxHeight="1.7976931348623157E308" />
          </content>
       </ScrollPane>
-      <HBox spacing="20.0">
+      <StackPane>
          <children>
-            <TextField fx:id="stsk_fld" promptText="New Subtask" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" onAction="#createSubtask" text="Create new subtask" />
+            <HBox fx:id="stsk_pnl" spacing="20.0">
+               <children>
+                  <TextField fx:id="stsk_fld" promptText="New Subtask" HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#createSubtask" text="Create new subtask" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="serr_pnl" spacing="20.0">
+               <children>
+                  <Label fx:id="serr_lbl" maxWidth="1.7976931348623157E308" text="Error" textFill="RED" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Button mnemonicParsing="false" onAction="#suppressWarning" text="Okay" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+               </padding>
+            </HBox>
          </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" />
-         </padding>
-      </HBox>
+      </StackPane>
    </children>
 </fx:root>
