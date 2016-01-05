@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="VBox" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox>
+         <children>
+            <Label text="Users">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <ScrollPane vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox fx:id="list_pnl" spacing="10.0" />
+         </content>
+      </ScrollPane>
+      <StackPane>
+         <children>
+            <HBox fx:id="uerr_pnl" visible="false">
+               <children>
+                  <Label maxWidth="1.7976931348623157E308" text="Error: Duplicate Screen Name or User Name" textFill="RED" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets top="4.0" />
+                     </padding>
+                  </Label>
+                  <Button mnemonicParsing="false" onAction="#suppressWarnings" text="Done" />
+               </children>
+            </HBox>
+            <HBox spacing="10.0">
+               <children>
+                  <TextField fx:id="name_fld" maxWidth="1.7976931348623157E308" promptText="Screen Name" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="user_fld" maxWidth="1.7976931348623157E308" promptText="Username" HBox.hgrow="ALWAYS" />
+                  <PasswordField fx:id="pass_fld" maxWidth="1.7976931348623157E308" promptText="Password" HBox.hgrow="ALWAYS" />
+                  <Button maxWidth="1.7976931348623157E308" minWidth="80.0" mnemonicParsing="false" onAction="#createUser" text="Add User" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </StackPane>
+   </children>
+</fx:root>
