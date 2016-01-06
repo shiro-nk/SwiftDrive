@@ -22,7 +22,6 @@ public class SubTaskController extends TitledPane implements Settings {
 	private SubTask subtask;
 	private FullTaskController parent;
 
-
 	@FXML private TextField desc_fld;
 
 	@FXML private ChoiceBox<String> stat_sel;
@@ -74,7 +73,7 @@ public class SubTaskController extends TitledPane implements Settings {
 	public SubTask getSubtask() {
 		subtask.setDesc(desc_fld.getText());
 		subtask.setLead(lead_sel.getValue());
-		subtask.setStatus(stat_sel.getValue().equals("Completed") ? 0 : stat_sel.getValue().equals("Pending") ? 1 : 0);
+		subtask.setStatus(stat_sel.getValue().equals("Completed") ? 0 : stat_sel.getValue().equals("Pending") ? 1 : 2);
 		subtask.setPriority(prio_sel.getValue().equals("High") ? 2 : prio_sel.getValue().equals("Low") ? 1 : 0);
 		subtask.setStartDate(DATE_FORM.format(start_dsl.getValue()));
 		subtask.setFinishDate(DATE_FORM.format(finish_dsl.getValue()));

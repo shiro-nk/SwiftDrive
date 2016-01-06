@@ -57,7 +57,7 @@ public class TaskList extends VBox {
 			tasks = new TaskHandler();
 		}
 		catch(FileException fx) {
-
+			fx.printStackTrace();
 		}
 
 		if(tasks != null) {

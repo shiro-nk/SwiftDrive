@@ -20,7 +20,6 @@ import javafx.scene.paint.Color;
 
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.DisconnectException;
-import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.type.users.UserHandler;
 import sd.swiftserver.rk.net.Server;
 
@@ -35,14 +34,6 @@ public class ServerInterface implements Initializable, Settings {
 	private boolean active = false;
 
 	@FXML private StackPane stack_pnl;
-
-	@FXML private Button info_btn;
-	@FXML private Button ctrl_btn;
-	@FXML private Button task_btn;
-	@FXML private Button file_btn;
-	@FXML private Button user_btn;
-	@FXML private Button help_btn;
-	@FXML private Button quit_btn;
 
 	@FXML private Button srvstop_btn;
 	@FXML private Button srvhalt_btn;
@@ -65,7 +56,7 @@ public class ServerInterface implements Initializable, Settings {
 	@FXML private TextField port_fld;
 
 	private TaskList tasklist;
-	private UserHandler userlist;
+	private UserList userlist;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -73,8 +64,13 @@ public class ServerInterface implements Initializable, Settings {
 		
 		tasklist = new TaskList();
 		tasklist.setVisible(false);
-		tasklist.setParent(this);
+		tasklist.setParent(this);	
 		stack_pnl.getChildren().add(tasklist);
+			
+		userlist = new UserList();
+		userlist.setParent(this);
+		userlist.setVisible(false);
+		stack_pnl.getChildren().add(userlist);
 
 		Timer timer = new Timer();
 
@@ -88,12 +84,6 @@ public class ServerInterface implements Initializable, Settings {
 			}
 		}, 0, 1000);
 
-		try {
-			userlist = new UserHandler();
-		}
-		catch(FileException fx) {
-
-		}
 
 		showOpen();
 	}
@@ -109,6 +99,7 @@ public class ServerInterface implements Initializable, Settings {
 		help_pnl.setVisible(false);
 
 		tasklist.setVisible(false);
+		userlist.setVisible(false);
 	}
 
 	public void showInfo() {
@@ -137,6 +128,13 @@ public class ServerInterface implements Initializable, Settings {
 		tasklist.reloadTasks();
 		tasklist.showList();
 		tasklist.setVisible(true);
+	}
+
+	public void showUsers() {
+		hideAll();
+
+		userlist.reload();
+		userlist.setVisible(true);
 	}
 
 	public void refreshInfo() {
@@ -203,7 +201,7 @@ public class ServerInterface implements Initializable, Settings {
 			try {
 				server = new Server(port);
 				server.setTasklist(tasklist.getTaskHandler());
-				userlist = server.getUserlist();
+				server.setUserlist(userlist.getUserHandler());
 				error_lbl.setText("");
 				refreshInfo();
 			}
@@ -231,7 +229,7 @@ public class ServerInterface implements Initializable, Settings {
 	}
 
 	public UserHandler getUserlist() {
-		return userlist;
+		return userlist.getUserHandler();
 	}
 
 	public TaskList getTasklist() {

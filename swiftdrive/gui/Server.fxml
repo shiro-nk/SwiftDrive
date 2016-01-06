@@ -9,7 +9,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swiftserver.rk.gui.ServerInterface">
+<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swiftserver.rk.gui.ServerInterface">
    <items>
       <VBox alignment="CENTER" maxWidth="250.0" minWidth="200.0" spacing="20.0" SplitPane.resizableWithParent="false">
          <children>
@@ -26,13 +26,13 @@
             <Separator prefWidth="200.0" />
             <VBox alignment="TOP_CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="info_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showOpen" text="Welcome" />
-                  <Button fx:id="ctrl_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showInfo" text="Control" />
-                  <Button fx:id="task_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showTasks" text="Tasks" />
-                  <Button fx:id="file_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Files" />
-                  <Button fx:id="user_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Users" />
-                  <Button fx:id="help_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Help" />
-                  <Button fx:id="quit_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#quit" text="Quit" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showOpen" text="Welcome" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showInfo" text="Control" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showTasks" text="Tasks" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Files" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showUsers" text="Users" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Help" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#quit" text="Quit" />
                </children>
                <padding>
                   <Insets left="50.0" right="50.0" />

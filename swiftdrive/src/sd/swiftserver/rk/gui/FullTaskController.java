@@ -85,7 +85,8 @@ public class FullTaskController extends VBox implements Settings {
 
 	public void save() {
 		try {
-			if(parent.getTasklist().getTaskHandler().get(name_fld.getText().trim()) != null) {
+			Task t = parent.getTasklist().getTaskHandler().get(name_fld.getText().trim());
+			if(t == null || t.getName().equals(task.getName())) {
 				if(name_fld.getText().replaceAll("[A-Za-z0-9]", "").trim().equals("")) {
 					SubTask[] subtasks = new SubTask[sctrl.length];
 

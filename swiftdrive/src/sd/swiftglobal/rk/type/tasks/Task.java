@@ -119,12 +119,16 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 		if(getSource().getByteFlag()) {
 			System.out.println(getSource().getFile());
 			getSource().getFile().delete();
-			getSource().write();
 			this.name = name;
 			getSource().setFile(new File(LC_TASK + name + ".stl"), false);
+			getSource().write();
+			System.out.println("\n\n\n" + this.name + "\n\n\n");
+			reloadPath();
+			System.out.println("\n\n\n" + this.name + "\n\n\n");
 		}
 		else {
 			this.name = name;
+			System.out.println("\n\n\n" + this.name + "\n\n\n");
 			reloadPath();
 		}
 	}
