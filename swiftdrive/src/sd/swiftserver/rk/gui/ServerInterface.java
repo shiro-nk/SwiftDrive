@@ -51,6 +51,7 @@ public class ServerInterface implements Initializable, Settings {
 	@FXML private ImageView back_img;
 	@FXML private VBox ctrl_pnl;
 	@FXML private VBox open_pnl;
+	@FXML private VBox srry_pnl;
 	@FXML private VBox help_pnl;
 
 	@FXML private TextField port_fld;
@@ -97,6 +98,7 @@ public class ServerInterface implements Initializable, Settings {
 		ctrl_pnl.setVisible(false);
 		open_pnl.setVisible(false);
 		help_pnl.setVisible(false);
+		srry_pnl.setVisible(false);
 
 		tasklist.setVisible(false);
 		userlist.setVisible(false);
@@ -123,18 +125,30 @@ public class ServerInterface implements Initializable, Settings {
 	}
 
 	public void showTasks() {
-		hideAll();
+		if((server != null && !active) || server == null) {
+			hideAll();
 
-		tasklist.reloadTasks();
-		tasklist.showList();
-		tasklist.setVisible(true);
+			tasklist.reloadTasks();
+			tasklist.showList();
+			tasklist.setVisible(true);
+		}
+		else {
+			hideAll();
+			srry_pnl.setVisible(true);
+		}
 	}
 
 	public void showUsers() {
-		hideAll();
+		if((server != null && !active) || server == null) {
+			hideAll();
 
-		userlist.reload();
-		userlist.setVisible(true);
+			userlist.reload();
+			userlist.setVisible(true);
+		}
+		else {
+			hideAll();
+			srry_pnl.setVisible(true);
+		}
 	}
 
 	public void refreshInfo() {
@@ -202,7 +216,7 @@ public class ServerInterface implements Initializable, Settings {
 				try {
 					server = new Server(port);
 					server.setTasklist(tasklist.getTaskHandler());
-						server.setUserlist(userlist.getUserHandler());
+					server.setUserlist(userlist.getUserHandler());
 					error_lbl.setText("");
 					refreshInfo();
 				}
