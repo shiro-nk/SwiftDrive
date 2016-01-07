@@ -59,11 +59,11 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	@FXML private Label vers_lbl;
 	@FXML private SplitPane menu_pnl;
 	@FXML private Button task_btn;
-	@FXML private Button file_btn;
-	@FXML private Button lgot_btn;
 
 	// Welcome
 	@FXML private VBox open_pnl;
+	@FXML private Label user_lbl;
+	@FXML private Label conn_lbl;
 
 	// Login Elements
 	@FXML private TextField user_fld;
@@ -78,6 +78,9 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	@FXML private VBox task_pnl;
 	@FXML private VBox list_pnl;
 	@FXML private Pane misc_pnl;
+
+	private String host;
+	private int port;
 
 	public void initialize(URL a, ResourceBundle b) {
 		hideAll();
@@ -102,9 +105,14 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 					try {
 						client = new Client(host_input, port_parse, this);
 						if(client.login(user_fld.getText(), pass_fld.getText().getBytes())) {
+							host = host_input;
+							port = port_parse;
+							
 							lgin_pnl.setVisible(false);
+							hideAll();
 							menu_pnl.setVisible(true);
-							open_pnl.setVisible(true);
+							list_pnl.getChildren().clear();
+							showOpen();
 
 							user_fld.clear();
 							pass_fld.clear();
@@ -112,7 +120,8 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 							port_fld.clear();
 
 							downloadTasks();
-							downloadUsers();
+							downloadUsers();	
+
 							try {
 								tasks = new TaskHandler();
 							}
@@ -167,6 +176,8 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 
 	public void showOpen() {
 		hideAll();
+		user_lbl.setText(client.getUser().getRealname() + "!");
+		conn_lbl.setText("Connected to " + host + ":" + port);
 		open_pnl.setVisible(true);
 	}
 

@@ -23,6 +23,7 @@ public class SwiftClient extends Application {
 		stage.setMinHeight(450);
 		stage.setMaxWidth(1000);
 		stage.setMaxHeight(600);
+		stage.setResizable(false);
 		stage.show();
 	}
 }

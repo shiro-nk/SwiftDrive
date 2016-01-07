@@ -198,15 +198,20 @@ public class ServerInterface implements Initializable, Settings {
 
 	public void startServer() {
 		if(!active) {
-			try {
-				server = new Server(port);
-				server.setTasklist(tasklist.getTaskHandler());
-				server.setUserlist(userlist.getUserHandler());
-				error_lbl.setText("");
-				refreshInfo();
+			if(0<tasklist.getTaskHandler().getArray().length) {
+				try {
+					server = new Server(port);
+					server.setTasklist(tasklist.getTaskHandler());
+						server.setUserlist(userlist.getUserHandler());
+					error_lbl.setText("");
+					refreshInfo();
+				}
+				catch(DisconnectException dx) {
+					error_lbl.setText("Failed to start server: ");
+				}
 			}
-			catch(DisconnectException dx) {
-				error_lbl.setText("Failed to start server: " + dx.getMessage());
+			else {
+				error_lbl.setText("You must have at least one task");
 			}
 		}
 		else {

@@ -5,7 +5,6 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
@@ -23,7 +22,6 @@ public class FullTaskController extends VBox {
 
 	@FXML private Label name_lbl;
 	@FXML private ProgressBar prog_bar;
-	@FXML private Button open_btn;
 	@FXML private Text desc_fld;
 	@FXML private Accordion fold_acd;
 
@@ -78,8 +76,8 @@ public class FullTaskController extends VBox {
 		return parent;
 	}
 
-	public void collapse() {
-
+	public void done() {
+		parent.showList();
 	}
 
 	public void refresh(boolean update, SubTask subtask) {

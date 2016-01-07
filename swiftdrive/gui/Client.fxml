@@ -64,19 +64,20 @@
                      </children>
                   </VBox>
                   <Separator prefWidth="200.0" />
-                  <VBox alignment="TOP_CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
+                  <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="20.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button fx:id="info_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Welcome" />
-                        <Button fx:id="task_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showList" text="Tasks" />
-                        <Button fx:id="file_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Files" />
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Nothing" />
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Help" />
-                        <Button fx:id="lgot_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logout" text="Logout" />
-                        <Button fx:id="quit_btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#quit" text="Quit" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showOpen" text="Welcome" VBox.vgrow="ALWAYS" />
+                        <Button fx:id="task_btn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showList" text="Tasks" VBox.vgrow="ALWAYS" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Help" VBox.vgrow="ALWAYS" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logout" text="Logout" VBox.vgrow="ALWAYS" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#quit" text="Quit" VBox.vgrow="ALWAYS" />
                      </children>
                      <padding>
                         <Insets left="50.0" right="50.0" />
                      </padding>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
                   </VBox>
                </children>
                <padding>
@@ -85,27 +86,34 @@
             </VBox>
             <StackPane prefHeight="150.0" prefWidth="200.0">
                <children>
-                  <VBox fx:id="open_pnl" alignment="CENTER_LEFT" fillWidth="false" visible="false">
+                  <VBox fx:id="open_pnl" alignment="CENTER_LEFT" fillWidth="false">
                      <children>
-                        <Label text="Welcome">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <font>
-                              <Font name="System Bold" size="45.0" />
-                           </font>
-                        </Label>
+                        <HBox>
+                           <children>
+                              <Label text="Welcome, ">
+                                 <font>
+                                    <Font name="System Bold" size="45.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="user_lbl" text="User!">
+                                 <font>
+                                    <Font name="System Bold" size="45.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
                         <TextFlow>
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Swift Drive client!" />
                            </children>
                         </TextFlow>
+                        <Label fx:id="conn_lbl" text="Connection info" />
                      </children>
                      <padding>
                         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                      </padding>
                   </VBox>
-                  <VBox fx:id="task_pnl" maxHeight="1.7976931348623157E308" spacing="10.0">
+                  <VBox fx:id="task_pnl" maxHeight="1.7976931348623157E308" spacing="10.0" visible="false">
                      <children>
                         <Label text="Task View">
                            <font>

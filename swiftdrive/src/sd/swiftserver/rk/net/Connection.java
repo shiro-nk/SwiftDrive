@@ -71,6 +71,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		echo("Initializing connection", LOG_PRI);
 		this.server = server;
 		this.socket = socket;
+		this.socket.setSoTimeout(DEF_TIME * 1000);
 		dis = new DataInputStream(socket.getInputStream());
 		dos = new DataOutputStream(socket.getOutputStream());
 		term = new Terminator(this);

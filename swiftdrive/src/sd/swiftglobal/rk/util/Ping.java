@@ -29,7 +29,6 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 	private	DataOutputStream dos;
 	private Client tool;
 	private Thread sleep;
-	private Terminator term;;
 	
 	private Lock lock = new Lock(),
 				 ping = new Lock();
@@ -50,7 +49,6 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 		this.dis = dis;
 		this.dos = dos;
 		this.tool = c;
-		term = new Terminator(tool);
 		online = true;
 		active = true;
 	}
@@ -104,7 +102,6 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 									locked = true;
 									echo("Sending ping to server", LOG_TRI);
 									dos.writeInt(DAT_PING);
-									term.run();
 									echo("Listening for response", LOG_LOW);
 									int signal = dis.readInt();
 									echo("Done", LOG_LOW);
@@ -114,14 +111,13 @@ public class Ping implements Settings, Logging, Runnable, Closeable {
 										tool.kill(EXC_SAFE);
 									}
 									else {
-										term.cancel();
 										locked = false;
 										echo("Unlocking io lock", LOG_LOW);
 										synchronized(lock) { lock.notifyAll(); }
 									}
 								}
 								catch(IOException ix) {
-									if(term == null || !term.terminated()) close();
+									close();
 								}
 							}
 						}

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import sd.swiftglobal.rk.Settings;
 import sd.swiftglobal.rk.expt.FileException;
 import sd.swiftglobal.rk.type.handler.Handler;
-import sd.swiftglobal.rk.type.users.UserHandler;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftFront;
 

@@ -62,21 +62,26 @@ public class FullTaskController extends VBox implements Settings {
 
 	public void createSubtask() {
 		if(!stsk_fld.getText().trim().equals("") && task.get(stsk_fld.getText()) == null) {
-			try {
-				String name = name_fld.getText(),
-					   desc = desc_fld.getText();
-
-				task.setName(name);
-				task.setDesc(desc_fld.getText());
-				task.add(new SubTask(stsk_fld.getText().trim(), "", "", DATE_FORM.format(LocalDate.now()), DATE_FORM.format(LocalDate.now()), 0, 1));
-				refresh();
-				name_fld.setText(name);
-				desc_fld.setText(desc);
+			if(stsk_fld.getText().replaceAll("[A-Za-z0-9]", "").trim().equals("")) {
+				try {
+					String name = name_fld.getText(),
+						   desc = desc_fld.getText();
+	
+					task.setName(name);
+					task.setDesc(desc_fld.getText());
+					task.add(new SubTask(stsk_fld.getText().trim(), "", "", DATE_FORM.format(LocalDate.now()), DATE_FORM.format(LocalDate.now()), 0, 1));
+					refresh();
+					name_fld.setText(name);
+					desc_fld.setText(desc);
+				}
+				catch(FileException fx) {
+					displayWarning("Failed to save file");
+				}
+				stsk_fld.setText("");
 			}
-			catch(FileException fx) {
-				displayWarning("Failed to save file");
+			else {
+				displayWarning("Name contains invalid characters (Valid: A-Z, a-z, 0-9)");
 			}
-			stsk_fld.setText("");
 		}
 		else {
 			displayWarning("Invalid name or subtask already exists. Please enter a valid name.");
@@ -90,11 +95,14 @@ public class FullTaskController extends VBox implements Settings {
 				if(name_fld.getText().replaceAll("[A-Za-z0-9]", "").trim().equals("")) {
 					SubTask[] subtasks = new SubTask[sctrl.length];
 
-					int i = 0; for(SubTaskController s : sctrl) subtasks[i++] = s.getSubtask();
-					task.setList(subtasks);
 					task.setDesc(desc_fld.getText());
 					task.setName(name_fld.getText().trim());
 					parent.getTasklist().getTaskHandler().write();
+					
+					int i = 0; for(SubTaskController s : sctrl) subtasks[i++] = s.getSubtask();
+					task.setList(subtasks);
+					task.write();
+
 					parent.getTasklist().reloadTasks();
 					if(parent.getServer() != null) parent.getServer().setTasklist(parent.getTasklist().getTaskHandler());
 					parent.getTasklist().showList();

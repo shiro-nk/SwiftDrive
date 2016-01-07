@@ -23,8 +23,10 @@ pushd $PROJECT_PATH
 
 	# Export as jar file
 	pushd $PROJECT_PATH/bin
-		jar cfm swiftdrive.jar ../jar/manifest.mf sd res
-		mv swiftdrive.jar ../jar
+		jar cfm swiftdrive-server.jar ../jar/manifest-server.mf sd res gui
+		jar cfm swiftdrive-client.jar ../jar/manifest-client.mf sd res gui
+		mv swiftdrive-server.jar ../jar
+		mv swiftdrive-client.jar ../jar
 	popd
 
 	# Clean

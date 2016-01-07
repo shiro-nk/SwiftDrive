@@ -8,6 +8,6 @@
 
 PROJECT_PATH="/data/swiftspace/swiftdrive"
 
-pushd $PROJECT_PATH/bin
-	java sd.swiftserver.SwiftServer "$@"
+pushd $PROJECT_PATH/jar
+	java -jar swiftdrive-server.jar "$@"
 popd

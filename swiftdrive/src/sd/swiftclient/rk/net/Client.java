@@ -69,6 +69,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			echo("Starting client", LOG_PRI);
 			this.parent = parent;
 			server = new Socket();
+			server.setSoTimeout(DEF_TIME * 1000);
 			server.connect(new InetSocketAddress(hostname, port), 2500);
 			echo("Connected to " + hostname + ":" + port, LOG_TRI);
 			dis = new DataInputStream(server.getInputStream());
@@ -597,10 +598,6 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		return kill;
 	}
 
-//	public ChatClient getChat() {
-//		return cclient;
-//	}
-	
 	public boolean isUnlocked() {
 		return unlocked;
 	}

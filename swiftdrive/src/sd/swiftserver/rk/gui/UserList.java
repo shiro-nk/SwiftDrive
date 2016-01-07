@@ -74,6 +74,9 @@ public class UserList extends VBox {
 		if(users.getByName(real) == null && users.get(user) == null) {
 			try {
 				users.add(new User(real, user, pass));
+				name_fld.setText("");
+				user_fld.setText("");
+				pass_fld.setText("");
 				reload();
 			}
 			catch(FileException fx) {
