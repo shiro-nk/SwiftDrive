@@ -92,12 +92,12 @@
                            <children>
                               <Label text="Welcome, ">
                                  <font>
-                                    <Font name="System Bold" size="45.0" />
+                                    <Font name="System Bold" size="40.0" />
                                  </font>
                               </Label>
                               <Label fx:id="user_lbl" text="User!">
                                  <font>
-                                    <Font name="System Bold" size="45.0" />
+                                    <Font name="System Bold" size="40.0" />
                                  </font>
                               </Label>
                            </children>
