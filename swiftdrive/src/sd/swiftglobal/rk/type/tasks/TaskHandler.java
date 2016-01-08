@@ -13,8 +13,20 @@ import sd.swiftglobal.rk.util.SwiftFront;
  * Copyright (c) 2015 Ryan Kerr				  *
  * Please refer to <http://gnu.org/licenses/> */
 
+/**
+ * <b>Task Handler:</b><br>
+ * Handler for the indexing of tasks (which index subtasks)
+ *
+ * @author Ryan Kerr
+ */
 public class TaskHandler extends Handler<Task> implements Settings, Logging {
 
+	/**
+	 * <b>Constructor:</b><br>
+	 * Sets source to LC_TASK/index and reads the index if it exists.
+	 *
+	 * @throws FileException in the event the file couldn't be read
+	 */
 	public TaskHandler() throws FileException {
 		File path = new File(LC_TASK + "index");
 		if(path.exists() && path.isFile()) {

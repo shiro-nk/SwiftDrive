@@ -30,7 +30,6 @@ import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.Ping;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
-import sd.swiftglobal.rk.util.Terminator;
 
 /* This file is part of Swift Drive				   *
  * Copyright (C) 2015 Ryan Kerr                    *
@@ -50,7 +49,6 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	private DataOutputStream dos;
 	private Ping ping;
 	private SwiftNetContainer parent;
-	private Terminator term;
 	private int connectionID = 0;
 	private boolean unlocked = false,
 					online = false;
@@ -76,7 +74,6 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			dos = new DataOutputStream(server.getOutputStream());
 			ping = new Ping(dis, dos, this);
 			//new Thread(ping).start();
-			term = new Terminator(this);
 			version();
 			online = true;
 			echo("Client ready", LOG_PRI);
@@ -352,9 +349,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	private int readInt() throws DisconnectException {
 		try {
 			echo("Reading integer from socket", LOG_LOW);
-			term.run();
 			int rtn = dis.readInt();
-			term.cancel();
 			echo("Done", LOG_LOW);
 			return rtn;
 		}
@@ -387,9 +382,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	private String readUTF() throws DisconnectException {
 		try {
 			echo("Reading string from a socket", LOG_LOW);
-			term.run();
 			String rtn = dis.readUTF();
-			term.cancel();
 			echo("Done", LOG_LOW);
 			return rtn;
 		}
@@ -496,9 +489,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 			writeInt(password.length);
 			try {
 				for(byte p : password) dos.writeByte(p);
-				term.run();
 				rtn = dis.readBoolean();
-				term.cancel();
 				if(rtn) {
 					echo("Login approved", LOG_PRI);
 					echo("Receiving full user information", LOG_SEC);
@@ -535,13 +526,9 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	 */
 	private boolean version() throws IOException, DisconnectException {
 		dos.writeDouble(VERSION);
-		term.run();
 		boolean rtn = dis.readBoolean();
-		term.cancel();
 		if(!rtn) {
-			term.run();
 			double version = dis.readDouble();
-			term.cancel();
 			echo("Server and client are incompatible!", LOG_PRI);
 			echo((VERSION < version ? "Upgrade" : "Downgrade") + " client to connect", LOG_PRI);
 			throw new DisconnectException(EXC_VER);
@@ -561,9 +548,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		if(online) {
 			echo("Requesting disconnection", LOG_SEC);
 			ping.pause();
-			term.run();
 			writeInt(DAT_NULL); echo("Kill signal");
-			term.cancel();
 			echo("Disconnect request complete");
 		}
 	}
@@ -611,7 +596,6 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		try {
 			echo("Closing");
 			online = false;
-			if(term != null) term.destroy();
 			if(ping != null) ping.stop();
 			if(dis != null) dis.close();
 			if(dos != null) dos.close();

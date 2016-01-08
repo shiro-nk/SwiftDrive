@@ -366,6 +366,7 @@ public class SwiftFile extends Data implements Settings, Logging {
 		return fset;
 	}
 
+	/** @return true if file exists on disk; otherwise false **/
 	public boolean exists() {
 		if(fset) return file.exists();
 		else return false;

@@ -7,6 +7,7 @@ import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
  * Copyright (C) 2015 Ryan Kerr                    *
  * Please refer to <http://www.gnu.org/licenses/>. */
 
+@Deprecated
 public class Terminator implements Logging, Settings {
 	private final SwiftNetTool tool;
 	private final int timeout;
@@ -28,9 +29,7 @@ public class Terminator implements Logging, Settings {
 		timeout = DEF_TIME;
 	}
 	
-	public void run() {}
-
-	public void xrun() {
+	public void run() {
 		cancel();
 		if(run && !thread) {
 			runx++;
@@ -67,9 +66,7 @@ public class Terminator implements Logging, Settings {
 		return terminated;
 	}
 
-	public void cancel() {}
-
-	public void xcancel() {
+	public void cancel() {
 		echo("Cancelling countdown" + runx);
 		if(sleep != null) sleep.interrupt();
 	}

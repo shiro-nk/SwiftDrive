@@ -14,6 +14,15 @@ import sd.swiftglobal.rk.util.SwiftFront;
  * Copyright (C) 2015 Ryan Kerr                    *
  * Please refer to <http://www.gnu.org/licenses/>. */
 
+/**
+ * <b>Task and SubTask Handler:</b><br>
+ * Handler compatible, subtask index. <br><br>
+ *
+ * <b>Note:</b> This class is both a Handler and HandleType to allow
+ * the indexing of various tasks which further index subtasks.
+ *
+ * @author Ryan Kerr
+ */
 public class Task extends Handler<SubTask> implements HandleType, Settings, Logging {
 	private File path;
 	private String rawdata = "";
@@ -46,6 +55,67 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 		reload();
 	}
 
+	/**
+	 * <b>Reload Path:</b><br>
+	 * Changes the source file based on the string identifier (task name).
+	 */
+	private void reloadPath() {
+		path = new File(LC_TASK + (!name.equals("") && name != null ? name : "temp") + ".stl");
+		setSource(new SwiftFront(path));
+	}
+
+	/**
+	 * <b>Set Name:</b><br>
+	 * Sets the name of the task. Since the file path is based on the
+	 * task name, the old source file is deleted and written to a new
+	 * source if the contents of the file are stored in memory. If
+	 * the file contents are non-existant, the source file is changed
+	 * with ease.
+	 *
+	 * <b>Warning:</b> This method does not check for name collissions.
+	 *
+	 * @param name New String Identifier/Task Name
+	 * @throws FileException if failed to delete or write the file
+	 */
+	public void setName(String name) throws FileException {
+		if(getSource().getByteFlag()) {
+			getSource().getFile().delete();
+			this.name = name;
+			getSource().setFile(new File(LC_TASK + name + ".stl"), false);
+			getSource().write();
+			reloadPath();
+		}
+		else {
+			this.name = name;
+			reloadPath();
+		}
+	}
+
+	/**
+	 *
+	 */
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public double getPercent() {
+		int average = 0,
+			task = 0;
+
+		for(SubTask s : getList()) { 
+			if(s.getStatus() != SubTask.TASK_CANCELLED) {
+				if(s.getStatus() == SubTask.TASK_COMPLETE) average++;
+				task++;
+			}
+		}
+		
+		return (double) average / (task != 0 ? task : 1);
+	}
+
 	@Override
 	public void convert(String[] data) throws FileException {
 		ArrayList<SubTask> list = getList();
@@ -58,15 +128,12 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 		}
 	}
 
+	@Override
 	public SubTask[] getArray() {
 		return getList().toArray(new SubTask[getList().size()]);
 	}
 
-	private void reloadPath() {
-		path = new File(LC_TASK + (!name.equals("") && name != null ? name : "temp") + ".stl");
-		setSource(new SwiftFront(path));
-	}
-	
+	@Override
 	public void echo(Object o, int level) {
 		print("[ Tasks  ] " + o.toString() + "\n", level);
 	}
@@ -113,46 +180,6 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 		setID(id);
 		rawdata = data;
 		toData();
-	}
-
-	public void setName(String name) throws FileException {
-		if(getSource().getByteFlag()) {
-			System.out.println(getSource().getFile());
-			getSource().getFile().delete();
-			this.name = name;
-			getSource().setFile(new File(LC_TASK + name + ".stl"), false);
-			getSource().write();
-			System.out.println("\n\n\n" + this.name + "\n\n\n");
-			reloadPath();
-			System.out.println("\n\n\n" + this.name + "\n\n\n");
-		}
-		else {
-			this.name = name;
-			System.out.println("\n\n\n" + this.name + "\n\n\n");
-			reloadPath();
-		}
-	}
-
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
-
-	public String getDesc() {
-		return desc;
-	}
-
-	public double getPercent() {
-		int average = 0,
-			task = 0;
-
-		for(SubTask s : getList()) { 
-			if(s.getStatus() != SubTask.TASK_CANCELLED) {
-				if(s.getStatus() == SubTask.TASK_COMPLETE) average++;
-				task++;
-			}
-		}
-		
-		return (double) average / (task != 0 ? task : 1);
 	}
 
 	@Override

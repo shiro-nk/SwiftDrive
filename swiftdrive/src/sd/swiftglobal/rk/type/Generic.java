@@ -6,6 +6,13 @@ import sd.swiftglobal.rk.Meta.Typedef;
  * Copyright (C) 2015 Ryan Kerr                    *
  * Please refer to <http://www.gnu.org/licenses/>. */
 
+/**
+ * <b>Generic String Array:</b><br>
+ * A Data Array of Strings with no special capabilities. <br>
+ * This class was implemented for testing purposes.
+ *
+ * @author Ryan Kerr
+ */
 @Typedef("Generic")
 public class Generic extends Data {
 

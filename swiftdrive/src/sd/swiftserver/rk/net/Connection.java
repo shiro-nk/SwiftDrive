@@ -21,7 +21,6 @@ import sd.swiftglobal.rk.type.users.User;
 import sd.swiftglobal.rk.util.Logging;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
-import sd.swiftglobal.rk.util.Terminator;
 
 /* This file is part of Swift Drive				   *
  * Copyright (C) 2015 Ryan Kerr                    *
@@ -49,7 +48,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	private SwiftFile swap = null;
 	private Data swap_data = null;
 
-	private Terminator term;
 	private User user;
 
 	/**
@@ -74,7 +72,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		this.socket.setSoTimeout(DEF_TIME * 1000);
 		dis = new DataInputStream(socket.getInputStream());
 		dos = new DataOutputStream(socket.getOutputStream());
-		term = new Terminator(this);
 
 		if(version()) {
 			online = true;
@@ -183,9 +180,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 							
 								if(subtask != null)	{
 									writeInt(SIG_READY);
-									term.run();
 									dos.writeUTF(subtask.toString());
-									term.cancel();
 								}
 								else {
 									writeInt(SIG_FAIL);
@@ -213,9 +208,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 								writeInt(csubtasks.length);
 	
 								for(SubTask s : csubtasks) {
-									term.run();
 									dos.writeUTF(s.toString());
-									term.cancel();
 								}
 							}
 							else {
@@ -448,9 +441,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	private String readUTF() throws IOException {
 		try {
 			echo("Reading string from socket", LOG_LOW);
-			term.run();
 			String rtn = dis.readUTF();
-			term.cancel();
 			echo("Done", LOG_LOW);
 			return rtn;
 		}
@@ -463,9 +454,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	private int readInt() throws IOException {
 		try {
 			echo("Reading integer from socket", LOG_LOW);
-			term.run();
 			int rtn = dis.readInt();
-			term.cancel();
 			echo("Done", LOG_LOW);
 			return rtn;
 		}
@@ -479,9 +468,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		echo("Reading byte array from socket", LOG_LOW);
 		byte[] rtn = new byte[size];
 		for(int i = 0; i < size; i++) {
-			term.run();
 			rtn[i] = dis.readByte();
-			term.cancel();
 		}
 		echo("Done", LOG_LOW);
 		return rtn;
@@ -497,9 +484,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 	 * @throws IOException if connection is lost
 	 */
 	private boolean version() throws IOException {
-		term.run();
 		double version = dis.readDouble();
-		term.cancel();
 		boolean rtn = version == VERSION;
 		dos.writeBoolean(rtn);
 		if(!rtn) dos.writeDouble(VERSION);
@@ -526,7 +511,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 			if(dis    != null) dis.close();
 			if(dos    != null) dos.close();
 			if(socket != null) socket.close();
-			if(term   != null) term.destroy();
 			online = false;
 		}
 		catch(IOException ix) {
