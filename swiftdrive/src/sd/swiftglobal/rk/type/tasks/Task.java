@@ -30,6 +30,14 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 				   desc;
 	private int id;
 
+	/**
+	 * <b>Constructor:</b><br>
+	 * Create a new task with its index and filedata.
+	 *
+	 * @param id Array index
+	 * @param rawdata Data read from file (or task.toString())
+	 * @throws FileException if failed to read data from file
+	 */
 	public Task(int id, String rawdata) throws FileException {
 		this.id = id;
 		this.rawdata = rawdata;
@@ -37,17 +45,43 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 		reload();
 	}
 
+	/**
+	 * <b>Constructor:</b>
+	 * Creates and attempts to load a task based on its name. <br>
+	 * 
+	 * @param name String Identifier/Task Name
+	 * @throws FileException if failed to read data from file
+	 */
 	public Task(String name) throws FileException {
 		this.name = name;
 		reload();
 	}
 
+	/**
+	 * <b>Constructor:</b><br>
+	 * Creates a new task with only a name and description. This
+	 * will attempt to load information from a file if it exists.
+	 *
+	 * @param name String Identifier / Task Name
+	 * @param desc Task Description
+	 * @throws FileException if failed to read data from file
+	 */
 	public Task(String name, String desc) throws FileException {
 		this.name = name;
 		this.desc = desc;
 		reload();
 	}
 
+	/**
+	 * <b>Constructor:</b><br>
+	 * Creates a new task using the given name, description, and
+	 * subtasks.
+	 *
+	 * @param name String Identifier / Task Name
+	 * @param desc Task Description
+	 * @param subtasks Array of subtasks to be stored in task file
+	 * @throws FileException is failed to read/write task file
+	 */
 	public Task(String name, String desc, SubTask[] subtasks) throws FileException {
 		this.name = name;
 		this.desc = desc;
@@ -92,16 +126,34 @@ public class Task extends Handler<SubTask> implements HandleType, Settings, Logg
 	}
 
 	/**
-	 *
+	 * <b>Set Task Description:</b><br>
+	 * Sets the description of the task
+	 * 
+	 * @param desc The new description
 	 */
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
 
+
+	/**
+	 * <b>Get Task Description:</b><br>
+	 * @return Task description
+	 */
 	public String getDesc() {
 		return desc;
 	}
 
+	/**
+	 * <b>Calculate %Complete:</b><br>
+	 * Goes through each subtask in it's index and takes it's status.
+	 * If the status is <i>Complete</i> 1 is added to the average and
+	 * number of tasks. If the status is <i>Pending</i> 1 is added to
+	 * the task, but not the average. If the status is <i>Cancelled</i>
+	 * the subtask is ignored.
+	 *
+	 * @return Percent complete (as a decimal)
+	 */
 	public double getPercent() {
 		int average = 0,
 			task = 0;

@@ -27,7 +27,7 @@ public class TaskList extends VBox {
 	@FXML private Button ntsk_btn;
 
 	public TaskList() {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/TaskList.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Server/TaskList.fxml"));
 		loader.setRoot(this);
 		loader.setController(this);
 

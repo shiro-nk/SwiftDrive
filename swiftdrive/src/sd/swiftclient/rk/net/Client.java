@@ -36,7 +36,7 @@ import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
  * Please refer to <http://www.gnu.org/licenses/>. */
 
 /**
- * Client:
+ * <b>Client:</b><br>
  * The client object provides an interface for connecting and interacting
  * with a computer running the server class.
  *
@@ -57,6 +57,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 	public int kill;
 
 	/**
+	 * <b>Client</b><br>
 	 * Establishes a connection and I/O sockets with the server program
 	 * @param hostname Host to connect to
 	 * @param port Host port
@@ -378,6 +379,13 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 
+	/**
+	 * <b>Read String from Socket</b><br>
+	 * Reads a string from the socket
+	 *
+	 * @return String read from socket
+	 * @throws DisconnectException if an error occurred while reading 
+	 */
 	@DirectTimeout @RequiresPingHandler @DirectKiller
 	private String readUTF() throws DisconnectException {
 		try {
@@ -393,6 +401,15 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 	
+	/**
+	 * <b>Upload SubTask:</b><br>
+	 * Uses a subtask located in the client memory and uploads it
+	 * to the server for storage.
+	 *
+	 * @param t Task that owns the subtask
+	 * @param s Subtask to be uploaded
+	 * @return Signal (success / fail / 0-exc)
+	 */
 	public int pushSubtask(Task t, SubTask s) {
 		ping.pause();
 		try {
@@ -414,6 +431,14 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 
+	/**
+	 * <b>Download SubTask</b><br>
+	 * Downloads a specific subtask from the server 
+	 *
+	 * @param t Task that owns the subtask
+	 * @param s SubTask to download (download by name)
+	 * @return File data of subtask
+	 */
 	public String pullSubtask(Task t, SubTask s) {
 		ping.pause();
 		try {
@@ -436,6 +461,13 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 
+	/**
+	 * <b>Download Task</b><br>
+	 * Downloads all subtasks in a task
+	 *
+	 * @param t Task to download
+	 * @return Subtask Array; null if a failure occurred
+	 */
 	public SubTask[] pullTask(Task t) {
 		ping.pause();
 		try {
@@ -460,10 +492,10 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		catch(DisconnectException dx) {
 			kill(EXC_CONN);
 		}
-		echo("Warning: returning null for tasklist");
 		return null;
 	}
 	
+	/** @see Login(String, byte[]) **/
 	public boolean login(String u, char[] p) throws DisconnectException {
 		return login(u, new String(p).getBytes());
 	}
@@ -544,6 +576,12 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		}
 	}
 
+	/**
+	 * <b>Disconnect from Server</b><br>
+	 * Disconnect client from server (nicely)
+	 *
+	 * @throws DisconnectException if failed to send disconnect signal
+	 */
 	public void disconnect() throws DisconnectException {
 		if(online) {
 			echo("Requesting disconnection", LOG_SEC);
@@ -558,6 +596,7 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		return connectionID;
 	}
 
+	@Override
 	public User getUser() {
 		return user;
 	}
@@ -579,14 +618,17 @@ public class Client implements SwiftNetTool, Settings, Logging, Closeable {
 		parent.dereference(this);
 	}
 
+	@Override
 	public int getErrID() {
 		return kill;
 	}
 
+	/** @return true if user has logged in successfully **/
 	public boolean isUnlocked() {
 		return unlocked;
 	}
 
+	@Override
 	public void echo(Object o, int level) {
 		print("[ Client ] " + o.toString() + "\n", level);
 	}

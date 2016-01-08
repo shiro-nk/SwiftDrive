@@ -33,7 +33,7 @@ public class UserList extends VBox {
 	@FXML private PasswordField pass_fld;
 
 	public UserList() {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/UserList.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Server/UserList.fxml"));
 		loader.setRoot(this);
 		loader.setController(this);
 

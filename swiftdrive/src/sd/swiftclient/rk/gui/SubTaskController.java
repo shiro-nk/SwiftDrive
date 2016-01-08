@@ -27,7 +27,7 @@ public class SubTaskController extends TitledPane {
 	@FXML private CheckBox complete;
 
 	public SubTaskController() {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ClientSubTask.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Client/SubTask.fxml"));
 		loader.setRoot(this);
 		loader.setController(this);
 

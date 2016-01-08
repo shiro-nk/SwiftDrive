@@ -37,6 +37,13 @@ import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 /* This file is part of swift drive *
  * Copyright (c) 2015 Ryan Kerr     */
 
+/**
+ * <b>Client Front End GUI Controller:</b><br>
+ * Provides the system with a working GUI front end. All Client menu
+ * functions, such as switching tabs, are located here
+ *
+ * @author Ryan Kerr
+ */
 public class ClientInterface implements Settings, Initializable, SwiftNetContainer {
 
 	private Timer timer;

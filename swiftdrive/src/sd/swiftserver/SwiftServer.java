@@ -3,13 +3,23 @@ package sd.swiftserver;
 import java.io.File;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import sd.swiftglobal.rk.Settings;
 
+/**
+ * <b>Start SwiftServer:</b><br>
+ * Starts the SwiftServer Application
+ *
+ * @author Ryan Kerr
+ */
 public class SwiftServer extends Application implements Settings {
 	public static void main(String[] args) {
 		println("\n");
@@ -36,7 +46,7 @@ public class SwiftServer extends Application implements Settings {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		root = FXMLLoader.load(getClass().getResource("/gui/Server.fxml"));
+		root = FXMLLoader.load(getClass().getResource("/gui/Server/Server.fxml"));
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Swift Server");
@@ -45,7 +55,15 @@ public class SwiftServer extends Application implements Settings {
 		stage.setMaxWidth(1000);
 		stage.setMaxHeight(600);
 		stage.setResizable(false);
+		stage.getIcons().add(new Image("/res/icon.png"));
 		stage.show();
-	}
 
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent we) {
+				Platform.exit();
+				System.exit(0);
+			}
+		});
+	}
 }

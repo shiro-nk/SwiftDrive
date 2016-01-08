@@ -43,7 +43,7 @@ public class FullTaskController extends VBox implements Settings {
 	@FXML private HBox serr_pnl;
 
 	public FullTaskController() {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ServerTaskFull.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Server/FullTask.fxml"));
 		loader.setRoot(this);
 		loader.setController(this);
 

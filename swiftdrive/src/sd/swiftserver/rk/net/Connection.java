@@ -392,6 +392,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		echo("Login request completed (" + rtn + ")", LOG_PRI);
 	}
 
+	/** Write integer to socket **/
 	private void writeInt(int i) {
 		try {
 			echo("Writing integer to socket", LOG_LOW);
@@ -403,41 +404,13 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		}
 	}
 	
-	/** @return False if connection is down **/
-	public boolean isOnline() {
-		return online;
-	}
-	
-	/* This is already set in the constructor */
-	public void setParent(SwiftNetContainer c) { /* null */ }
-	
-	/** @return The controlling server (allows calling terminate() externally) **/
-	public SwiftNetContainer getParent() {
-		return server;
-	}
-	
-	public void setID(int id) {
-		echo("Warning: Console id changed to " + id, LOG_PRI);
-		CLIENT_ID = id;
-	}
-
-	/** @return The array index given in the constructor **/
-	public int getID() {
-		return CLIENT_ID;
-	}
-
-	public String getIP() {
-		return socket.getInetAddress().toString();
-	}
-
-	public int getPort() {
-		return socket.getPort();
-	}
-
-	public User getUser() {
-		return user;
-	}
-	
+	/**
+	 * <b>Read String from Socket</b><br>
+	 * Reads a string from the socket
+	 *
+	 * @return String read from socket
+	 * @throws IOException if failed to read a string from socket
+	 */
 	private String readUTF() throws IOException {
 		try {
 			echo("Reading string from socket", LOG_LOW);
@@ -451,6 +424,13 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		}
 	}
 	
+	/**
+	 * <b>Read Integer from Socket</b><br>
+	 * Reads an integer from socket
+	 *
+	 * @return Integer read from socket
+	 * @throws IOException if failed to read int from socket
+	 */
 	private int readInt() throws IOException {
 		try {
 			echo("Reading integer from socket", LOG_LOW);
@@ -464,6 +444,14 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		}
 	}
 
+	/**
+	 * <b>Read Byte Array</b><br>
+	 * Reads an array of bytes from the socket.
+	 *
+	 * @param size Number of bytes to be read from the socket
+	 * @return Array of bytes
+	 * @throws IOException if there was an error while reading bytes
+	 */
 	private byte[] readByteArray(int size) throws IOException {
 		echo("Reading byte array from socket", LOG_LOW);
 		byte[] rtn = new byte[size];
@@ -490,13 +478,52 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		if(!rtn) dos.writeDouble(VERSION);
 		return rtn;
 	}
+
+	/** @return False if connection is down **/
+	public boolean isOnline() {
+		return online;
+	}
+	
+	/* This is already set in the constructor */
+	public void setParent(SwiftNetContainer c) { /* null */ }
+	
+	/** @return The controlling server (allows calling terminate() externally) **/
+	public SwiftNetContainer getParent() {
+		return server;
+	}
+	
+	/** @param id New index position **/
+	public void setID(int id) {
+		echo("Warning: Console id changed to " + id, LOG_PRI);
+		CLIENT_ID = id;
+	}
+
+	/** @return The array index given in the constructor **/
+	public int getID() {
+		return CLIENT_ID;
+	}
+
+	/** @return IP Address of Client **/
+	public String getIP() {
+		return socket.getInetAddress().toString();
+	}
+
+	/** @return Port used for connection **/
+	public int getPort() {
+		return socket.getPort();
+	}
+
+	/** @return User logged into server **/
+	public User getUser() {
+		return user;
+	}
+
 	
 	/** @return Error code **/
 	public int getErrID() {
 		return kill;
 	}
 
-	/** Close and remove the index of the connection from the parent **/
 	@Override
 	public void kill(int err) {
 		close();
@@ -504,7 +531,6 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 		getParent().dereference(this);
 	}
 
-	/** Allows for try-with-resources **/
 	@Override
 	public void close() {
 		try {

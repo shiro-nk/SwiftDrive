@@ -9,7 +9,10 @@ import sd.swiftglobal.rk.Settings;
  * Please refer to <http://www.gnu.org/licenses/>. */
 
 /**
- * 
+ * <b>Swift Drive Custom Exceptions:</b><br>
+ * Provides more specific error messages and the option to link an
+ * IOException to the exception.
+ *
  * @author Ryan Kerr
  */
 public class SwiftException extends Exception implements Settings {
@@ -17,16 +20,38 @@ public class SwiftException extends Exception implements Settings {
 
 	public final int ERRID;
 
+	/**
+	 * <b>Constructor</b><br>
+	 * Throw an exception with a specific error id (and message)
+	 *
+	 * @param errid Error ID (using <b>Settings</b> EXC_ identifiers)
+	 */
 	public SwiftException(int errid) {
 		super(getErr(errid));
 		ERRID = errid;
 	}
 	
+	/**
+	 * <b>Constructor:</b><br>
+	 * Throw an error triggered by an IOException with an added 
+	 * error id
+	 *
+	 * @param errid (EXC) Error Identification
+	 * @param ix The IOException that provides more information
+	 */
 	public SwiftException(int errid, IOException ix) {
 		super(getErr(errid) + ": " + ix.getMessage());
 		ERRID = errid;
 	}
 	
+	/**
+	 * <b>Get Corresponding Error Message:</b><br>
+	 * Get a human readable error message which corresponds to the
+	 * given (EXC) number
+	 *
+	 * @param errid Error ID
+	 * @return Error Message
+	 */
 	public static String getErr(int errid) {
 		switch(errid) {
 			default:
@@ -49,6 +74,10 @@ public class SwiftException extends Exception implements Settings {
 		}
 	}
 	
+	/**
+	 * <b>Get Error Code</b><br>
+	 * @return (EXC) error code
+	 */
 	public int getErrID() {
 		return ERRID;
 	}

@@ -21,8 +21,9 @@ import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
  * Please refer to <http://www.gnu.org/licenses/>. */
 
 /**
- * The server initializes the server socket and manages client connections. <br>
- *
+ * <b>Server:</b><br>
+ * The server initializes the server socket and manages client connections.
+ * 
  * @author Ryan Kerr
  */
 public class Server implements SwiftNetContainer, Runnable, Settings, Logging, Closeable {
@@ -36,6 +37,7 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 	private Thread thread;
 
 	/**
+	 * <b>Server:</b><br>
 	 * Initialize the server and the listening thread on the given port
 	 * @param port The port to accept connections on
 	 * @throws DisconnectException if the port is already in use
@@ -63,6 +65,7 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 	}
 	
 	/**
+	 * <b>Server</b><br>
 	 * Initialize the server and the listening thread on the default port
 	 * @throws DisconnectException if the port is already in use
 	 */
@@ -71,9 +74,11 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 	}
 	
 	/**
+	 * <b>Run</b><br>
 	 * Listens for and accepts client connections. <br>
 	 * Starts connection thread and indexes the connection in Client array
 	 */
+	@Override
 	public void run() {
 		accepting = true;
 		while(accepting && !closed) {
@@ -98,6 +103,12 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		}
 	}
 
+	/**
+	 * <b>Reset Array Indexes</b><br>
+	 * Go through the array to find any objects that have been set to
+	 * null. Remove those indexes, resize the array accordingly and
+	 * reset all the connection indexes to conform to the new array.
+	 */
 	public void cleanStack() {
 		echo("Removing all null reference from client array", LOG_SEC);
 		ArrayList<Connection> swap = new ArrayList<Connection>();
@@ -120,18 +131,34 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		echo("Null removal complete");
 	}
 
+	/**
+	 * <b>Get List of Allowed Users</b><br>
+	 * @return list of users capable of logging in
+	 */
 	public UserHandler getUserlist() {
 		return userlist;
 	}
 
+	/**
+	 * <b>Set List of Allowed Users</b><br>
+	 * @param list New index of users
+	 */
 	public void setUserlist(UserHandler list) {
 		userlist = list;
 	}
 
+	/**
+	 * <b>Get List of Project Tasks</b><br>
+	 * @return List of tasks on server
+	 */
 	public TaskHandler getTasklist() {
 		return tasklist;
 	}
 
+	/**
+	 * <b>Set Task List</b><br>
+	 * @param list List of tasks
+	 */
 	public void setTasklist(TaskHandler list) {
 		tasklist = list;
 	}
@@ -141,10 +168,12 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		return PORT;
 	}
 
+	@LeaveBlank
 	public boolean hasTool() {
 		return false;
 	}
 
+	@LeaveBlank
 	public SwiftNetTool getTool() {
 		return null;
 	}
@@ -154,14 +183,12 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 
 	}
 
+	@Override
 	public void echo(Object o, int level) {
 		print("[ Server ] " + o.toString() + "\n", level);
 	}
 
-	/**
-	 * Destroy client
-	 * @param client Client to destroy
-	 */
+	@Override
 	public void dereference(SwiftNetTool client) {
 		echo("Dereferencing a connection from the client array", LOG_SEC);
 		int id = client.getID();
@@ -173,18 +200,25 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		echo("Dereference complete", LOG_SEC);
 	}
 
+	/** @return True if trying to disconnect all clients **/
 	public boolean closing() {
 		return closed;
 	}
 
+	/** @return True if there are no clients **/
 	public boolean dead() {
 		return clients.size() <= 0 ? true : false;
 	}
 
+	/** @return Number of clients connected to server **/
 	public int getNumConnections() {
 		return clients.size();
 	}
 
+	/**
+	 * <b>Destroy</b><br>
+	 * Destroy all connections to the server nicely 
+	 */
 	public void destroy() {
 		close();
 		
@@ -195,7 +229,11 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		cleanStack();
 	}
 	
-	/** Force close **/
+	/**
+	 * <b>Close</b><br>
+	 * Destroy all connections to the server forcefully 
+	 */
+	@Override
 	public void close() {
 		try {
 			echo("Closing");

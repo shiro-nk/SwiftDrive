@@ -22,7 +22,7 @@ public class TaskController extends HBox {
 	@FXML private ProgressBar prog_bar;
 
 	public TaskController() {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Task.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Server/Task.fxml"));
 		loader.setRoot(this);
 		loader.setController(this);
 

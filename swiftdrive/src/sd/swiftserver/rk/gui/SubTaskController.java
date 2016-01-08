@@ -32,7 +32,7 @@ public class SubTaskController extends TitledPane implements Settings {
 	@FXML private DatePicker finish_dsl;
 
 	public SubTaskController() {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ServerSubTask.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Server/SubTask.fxml"));
 		loader.setRoot(this);
 		loader.setController(this);
 

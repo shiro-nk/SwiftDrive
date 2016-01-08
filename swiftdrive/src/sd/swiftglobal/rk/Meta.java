@@ -7,6 +7,13 @@ import java.lang.annotation.Target;
  * Copyright (C) 2015 Ryan Kerr                    *
  * Please refer to <http://www.gnu.org/licenses/>. */
 
+/**
+ * <b>Metadata Tags:</b><br>
+ * I wrote this class just to help me keep track of changes and 
+ * code functionality while writing the <b>Client</b> class
+ *
+ * @author Ryan Kerr
+ */
 public interface Meta {
 	/**
 	 * Modification Notice: The following method or line has been <br>

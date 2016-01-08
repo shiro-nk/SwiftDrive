@@ -13,8 +13,22 @@ import sd.swiftglobal.rk.util.SwiftFront;
  * Copyright (C) 2015 Ryan Kerr                    *
  * Please refer to <http://www.gnu.org/licenses/>. */
 
+/**
+ * <b>User Handler:</b><br>
+ * Index of users allowed to log into the server.
+ *
+ * @author Ryan Kerr
+ */
 public class UserHandler extends Handler<User> implements Settings, Logging {
 
+	/**
+	 * <b>Constructor:</b><br>
+	 * Loads the user index from LC_PATH/users if it exists. If the
+	 * file doesn't exist, it will create a new file with a default
+	 * user.
+	 *
+	 * @throws FileException if file couldn't be read or written
+	 */
 	public UserHandler() throws FileException {
 		File path = new File(LC_PATH + "users");
 		if(path.exists() && path.isFile()) {
@@ -36,6 +50,12 @@ public class UserHandler extends Handler<User> implements Settings, Logging {
 		}
 	}
 
+	/**
+	 * <b>Get User by Screen Name:</b><br>
+	 * Finds a user based on their screen name (secondary identifier)
+	 *
+	 * @return User with matching identifier; null if not found
+	 */
 	public User getByName(String realname) {
 		int index = -1;
 		User[] ar = getArray();
@@ -45,6 +65,7 @@ public class UserHandler extends Handler<User> implements Settings, Logging {
 		return 0 <= index ? ar[index] : null;
 	}
 
+	@Override
 	public void echo(Object o, int level) {
 		print("[ Users  ] " + o.toString() + "\n", level);
 	}

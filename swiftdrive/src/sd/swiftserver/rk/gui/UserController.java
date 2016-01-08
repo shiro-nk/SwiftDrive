@@ -22,7 +22,7 @@ public class UserController extends HBox {
 	@FXML private Button pass_btn;
 
 	public UserController() {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/User.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Server/User.fxml"));
 		loader.setRoot(this);
 		loader.setController(this);
 

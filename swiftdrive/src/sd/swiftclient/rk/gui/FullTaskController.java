@@ -26,7 +26,7 @@ public class FullTaskController extends VBox {
 	@FXML private Accordion fold_acd;
 
 	public FullTaskController() {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ClientTaskFull.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Client/FullTask.fxml"));
 		loader.setRoot(this);
 		loader.setController(this);
 
