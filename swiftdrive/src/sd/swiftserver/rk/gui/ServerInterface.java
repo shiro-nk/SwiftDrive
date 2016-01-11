@@ -27,6 +27,13 @@ import sd.swiftserver.rk.net.Server;
  * Copyright (c) 2015 Ryan Kerr				   *
  * Please refer to <http://gnu.org/licenses/>  */
 
+/**
+ * <b>Server FX Controller:</b><br>
+ * Provides an interface for manipulating the server and its information (tasks
+ * and users). 
+ *
+ * @author Ryan Kerr
+ */
 public class ServerInterface implements Initializable, Settings {
 
 	private Server server;
@@ -89,10 +96,24 @@ public class ServerInterface implements Initializable, Settings {
 		showOpen();
 	}
 
+	/**
+	 * <b>Reload Server Information:</b><br>
+	 * This method is called periodically in order to update information on
+	 * the screen. <br><br>
+	 * At the moment, this method will refresh the connection information as
+	 * long as the connection control panel is visible.
+	 */
 	public void refresh() {
 		if(ctrl_pnl.isVisible()) refreshInfo();
 	}
 
+	/**
+	 * <b>Hide All Panels:</b><br>
+	 * Hide all panels from screen, leaving a blank screen to the right of the
+	 * menu panel. This method is called whenever another panel from the stack
+	 * is about to be displayed or when the GUI is being reset to its default
+	 * state.
+	 */
 	public void hideAll() {
 		back_img.setOpacity(0.10);
 		ctrl_pnl.setVisible(false);
@@ -104,6 +125,18 @@ public class ServerInterface implements Initializable, Settings {
 		userlist.setVisible(false);
 	}
 
+	/**
+	 * <b>Show Connection Information:</b><br>
+	 * Finds and displays all the host information (hostname, address, and port)
+	 * on the control screen. If the host is not connected to the internet, the
+	 * control panel will display a deafult of "localhost" and 127.0.0.1 as the
+	 * hostname and address. <br><br>
+	 *
+	 * The reason address information is handled here rather than in the actual
+	 * refreshInfo() function is because getting the ip address takes longer on
+	 * some networks. Due to this variable timing, it can't be used in the
+	 * periodic refreshing of the screen as it might cause the GUI to lock up.
+	 */
 	public void showInfo() {
 		hideAll();
 		ctrl_pnl.setVisible(true);
@@ -124,6 +157,13 @@ public class ServerInterface implements Initializable, Settings {
 		}
 	}
 
+	/**
+	 * <b>Show Task Screen:</b><br>
+	 * If the server is not active, this method will reload the tasklist and
+	 * then display the resulting list to the screen. In the event that the
+	 * server is running, the error screen will appear to prevent any changes
+	 * to the content while clients are accessing.
+	 */
 	public void showTasks() {
 		if((server != null && !active) || server == null) {
 			hideAll();
@@ -138,6 +178,14 @@ public class ServerInterface implements Initializable, Settings {
 		}
 	}
 
+	/**
+	 * <b>Show User Screen:</b><br>
+	 * This method will reload the userlist and then display the list to the
+	 * screen as long as the server is offline. If the server is active, the
+	 * error screen will appear to prevent the admin from making changes.
+	 * Changes made while clients are still accessing it will cause some
+	 * glitches either on the client or server and data will be lost.
+	 */
 	public void showUsers() {
 		if((server != null && !active) || server == null) {
 			hideAll();
@@ -151,6 +199,13 @@ public class ServerInterface implements Initializable, Settings {
 		}
 	}
 
+	/**
+	 * <b>Refresh Information:</b><br>
+	 * This method takes the server status and stylizes it for output on the
+	 * screen. Hostname and address information will not be updated here due to
+	 * the uncertain load times. The information displayed includes server
+	 * run status, number of connected clients, and port.
+	 */
 	public void refreshInfo() {
 		if(server == null || (server.dead() && server.closing())) {
 			stat_lbl.setText("Offline");
@@ -174,12 +229,24 @@ public class ServerInterface implements Initializable, Settings {
 		port_lbl.setText(port + "");
 	}
 
+	/**
+	 * <b>Show Welcome Message:</b><br>
+	 * Shows the welcome message screen
+	 */
 	public void showOpen() {
 		hideAll();
 		open_pnl.setVisible(true);
 		back_img.setVisible(true);
 	}
 
+	/**
+	 * <b>Set the Host Connection Port:</b><br>
+	 * This method takes information from the GUI to change the port to which
+	 * clients can connect to. The port input must meet the following criteria
+	 * (checked below): Not blank/null, must only contain numbers, and must
+	 * be between 101 and 65535 (inclusive). If the port does not meet one or
+	 * more of these criteria, the appropriate error message will be displayed
+	 */
 	public void setPort() {
 		String input = port_fld.getText(),
 			   blank = input.replaceAll("[0-9]", "");
@@ -210,6 +277,16 @@ public class ServerInterface implements Initializable, Settings {
 		refreshInfo();
 	}
 
+	/**
+	 * <b>Initialize Server:</b><br>
+	 * The following method will attempt initialize the method as long as it
+	 * meets the following criteria: the server isn't already online, and there
+	 * is at least 1 task configured in the task list. The reason for the task
+	 * list requiring at least 1 task is to ensure the admin doesn't forget to
+	 * configure the task, and to prevent the client from hanging while waiting
+	 * for a non-existent task (a problem that occurred with older versions of
+	 * SwiftDrive due to for loops starting at 0 inclusive)
+	 */
 	public void startServer() {
 		if(!active) {
 			if(0<tasklist.getTaskHandler().getArray().length) {
@@ -233,29 +310,59 @@ public class ServerInterface implements Initializable, Settings {
 		}
 	}
 	
+	/**
+	 * <b>Stop Server:</b><br>
+	 * Closes the server using the "nice" method. This method will call the
+	 * server's "nice" shutdown method which waits for all the clients to
+	 * disconnect before halting. For the alternative where the server responds
+	 * immediately, use haltServer().
+	 */
 	public void stopServer() {
 		if(server != null) server.close();
 		refreshInfo();
 	}
 
+	/**
+	 * <b>Halt Server:</b><br>
+	 * Stop the server immediately. This method will disregard all clients and
+	 * shutdown the server.
+	 */
 	public void haltServer() {
 		if(server != null) server.destroy();
 		refreshInfo();
 	}
 
+	/**
+	 * <b>Get Server:</b><br>
+	 * @return The server linked to this controller
+	 */
 	public Server getServer() {
 		return server;
 	}
 
+	/**
+	 * <b>Get User Handler:</b><br>
+	 * TODO: Retractor this method! (Handler and List are not the same)
+	 * @return The user handler used by the userlist controller
+	 */
 	public UserHandler getUserlist() {
 		return userlist.getUserHandler();
 	}
 
+	/**
+	 * <b>Get Task List Controller:</b><br>
+	 * @return The tasklist controller used by the main controller 
+	 */
 	public TaskList getTasklist() {
 		return tasklist;
 	}
 
+	/**
+	 * <b>Quit</b><br>
+	 * Wraps the System.exit(0) to a parameterless method for use with a
+	 * button
+	 */
 	public void quit() {
-		System.exit(1);
+		System.exit(0);
 	}
 }
