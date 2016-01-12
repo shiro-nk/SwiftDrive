@@ -66,6 +66,12 @@ public class ServerInterface implements Initializable, Settings {
 	private TaskList tasklist;
 	private UserList userlist;
 
+	/**
+	 * <b>Initialize:</b><br>
+	 * Loads all the required panel components before displaying the screen.
+	 * <br> This method also schedules the refresh() function to execute every
+	 * 1 second.
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		vers_lbl.setText("Version " + VER_MAJOR + "." + VER_MINOR + "r" + VER_PATCH);

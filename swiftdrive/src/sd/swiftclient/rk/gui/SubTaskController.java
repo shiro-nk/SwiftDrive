@@ -12,6 +12,13 @@ import javafx.scene.paint.Color;
 import sd.swiftglobal.rk.type.tasks.SubTask;
 import sd.swiftglobal.rk.type.users.User;
 
+/* This file is part of Swift Drive *
+ * Copyright (C) 2015 Ryan Kerr 	*/
+
+/**
+ * <b>Read + Partial Write Subtask Controller</b><br>
+ * Allows for the conditional manipulation of a subtask.
+ */
 public class SubTaskController extends TitledPane {
 
 	private SubTask subtask;
@@ -26,6 +33,10 @@ public class SubTaskController extends TitledPane {
 	@FXML private CheckBox ignore;
 	@FXML private CheckBox complete;
 
+	/**
+	 * <b>Constructor</b><br>
+	 * Create GUI controller from fxml file
+	 */
 	public SubTaskController() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Client/SubTask.fxml"));
 		loader.setRoot(this);
@@ -39,6 +50,13 @@ public class SubTaskController extends TitledPane {
 		}
 	}
 
+	/**
+	 * <b>Set Subtask</b><br>
+	 * Set subtask to be displayed along with its parent 
+	 *
+	 * @param s Subtask to be displayed
+	 * @param c Controller to which this subtask controller belongs to
+	 */
 	public void setSubtask(SubTask s, FullTaskController c) {
 		parent = c;
 		subtask = s;
@@ -46,24 +64,51 @@ public class SubTaskController extends TitledPane {
 		refresh(false);
 	}
 
+	/**
+	 * <b>Update Subtask Information</b><br>
+	 * @see setSubtask(SubTask, FullTaskController)
+	 * @param s Subtask to update
+	 */
 	public void updateSubtask(SubTask s) {
-		subtask = s;
-		setText(subtask.getName());
-		refresh(false);
+		setSubtask(s);
 	}
 
+	/**
+	 * <b>Set Status to Ignore</b><br>
+	 * Marks the given subtask as dropped / ignored if the checkbox isn't
+	 * selected. If the checkbox is selected, the status is marked as pending.
+	 */
 	public void ignore() {
 		if(ignore.isSelected())	subtask.setStatus(SubTask.TASK_CANCELLED);
 		else subtask.setStatus(SubTask.TASK_PENDING);
 		refresh(true);
 	}
 
+	/**
+	 * <b>Set Status to Complete</b><br>
+	 * Marks the given subtask as completed if the checkbox isn't selected. 
+	 * If the checkbox is selected, the status is marked as pending.
+	 */
 	public void complete() {
 		if(complete.isSelected()) subtask.setStatus(SubTask.TASK_COMPLETE);
 		else subtask.setStatus(SubTask.TASK_PENDING);
 		refresh(true);
 	}
 
+	/**
+	 * <b>Refresh Subtask Information</b><br>
+	 * This function displays all the information given by the subtask to the
+	 * screen. The checkboxes are enabled and disabled depending on the status
+	 * of the subtask. For example, if the status is COMPLETE, the checbox
+	 * "complete" will be checked and the "ignore" checkbox will be disabled
+	 * (and unchecked). <br>
+	 *
+	 * This function also disables both checkboxes in the event that the task
+	 * lead user is not the currently logged in user. Subtask statuses may
+	 * only be modified by the user who is in charge of that subtask
+	 *
+	 * @param update If true, synchronizes information with the server
+	 */
 	public void refresh(boolean update) {
 		parent.refresh(update, subtask);
 
@@ -111,7 +156,6 @@ public class SubTaskController extends TitledPane {
 		User subtaskuser = parent.getClientInterface().getUserlist().getByName(name);
 		User clientuser = parent.getClientInterface().getClient().getUser();
 		
-		System.out.println("Comparing:: SubTask > " + subtaskuser + ", Client > " + clientuser);
 		if(subtaskuser != null && clientuser != null && !subtaskuser.getName().equals(clientuser.getName())) {
 			complete.setDisable(true);
 			ignore.setDisable(true);

@@ -89,6 +89,10 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	private String host;
 	private int port;
 
+	/**
+	 * <b>Initialize</b><br>
+	 * Initialize the Client Interface
+	 */
 	public void initialize(URL a, ResourceBundle b) {
 		hideAll();
 		lgin_pnl.setVisible(true);
@@ -97,6 +101,22 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		fullctrl.setClientInterface(this);
 	}
 
+	/**
+	 * <b>Login</b><br>
+	 * Takes all the information from the login screen and checks to see the
+	 * given connection information is valid/meets the criteria (port only
+	 * contains numbers which reside between 101 and 65535 inclusive). If all
+	 * the information checks out, the username and password are sent to the
+	 * given address and port. <br><br>
+	 *
+	 * If the port is invalid, the error "invalid port" will be shown <br>
+	 * If the host destination could not be reached or a server was not present,
+	 * the error "Invalid connection settings" will be displayed <br>
+	 * If the username or password was rejected by the server, the error "invalid
+	 * username or password" will be displayed. <br>
+	 * Finally, if everything checks out, the GUI will reset itself, download
+	 * new information, and then display the welcome screen.
+	 */
 	public void login() {
 		String host_input = host_fld.getText(),
 			   port_input = port_fld.getText();
@@ -108,7 +128,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		if(!host_input.equals("")) {
 			if(!port_input.equals("") && port_filter.equals("")) {
 				int port_parse = Integer.parseInt(port_input);
-				if(100 <= port_parse && port_parse <= 65535) {
+				if(100 < port_parse && port_parse <= 65535) {
 					try {
 						client = new Client(host_input, port_parse, this);
 						if(client.login(user_fld.getText(), pass_fld.getText().getBytes())) {
@@ -141,7 +161,6 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 								public void run() {
 									if(((fullctrl != null && fullctrl.isVisible()) ||
 									    (task_pnl != null && task_pnl.isVisible())) && (!locked && !upload_stask && !reload_task)) {
-										System.out.println("Timer GO");
 										refreshTasks();
 									}
 								}
@@ -168,6 +187,10 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		}
 	}
 
+	/**
+	 * <b>Hide All Panels</b><br>
+	 * Hides all subpanels to allow for another panel to be displayed on screen
+	 */
 	public void hideAll() {
 		task_pnl.setVisible(false);
 		list_pnl.setVisible(false);
@@ -176,11 +199,21 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		open_pnl.setVisible(false);
 	}
 
+	/**
+	 * <b>Hide Menu / Show Login</b><br>
+	 * Hides the main panel and displays the login screen
+	 */
 	public void hideMenu() {
 		lgin_pnl.setVisible(true);
 		menu_pnl.setVisible(false);
 	}
 
+	/**
+	 * <b>Display Welcome Message</b><br>
+	 * Customizes the welcome screen to display the users realname, the address
+	 * and port they are connected. Once this is complete, the welcome screen
+	 * is displayed as a subpanel
+	 */
 	public void showOpen() {
 		hideAll();
 		user_lbl.setText(client.getUser().getRealname() + "!");
@@ -188,11 +221,19 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		open_pnl.setVisible(true);
 	}
 
+	/**
+	 * <b>Show Menu / Hide Login</b><br>
+	 * Hides the login panel and reveals the main/menu panel
+	 */
 	public void showMenu() {
 		lgin_pnl.setVisible(false);
 		menu_pnl.setVisible(true);
 	}
 
+	/**
+	 * <b>Show Task List</b><br>
+	 * Updates and displays the task list from the server.
+	 */
 	public void showList() {
 		refreshTasks();
 
@@ -201,6 +242,11 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		task_pnl.setVisible(true);
 	}
 
+	/**
+	 * <b>Expand / Open Task</b><br>
+	 * Replaces the list panel with a full, read-limited-write task panel with
+	 * full task and subtask information.
+	 */
 	public void expandTask(Task t) {
 		fullctrl.setTask(t);
 
@@ -213,6 +259,11 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		fullctrl.setVisible(true);
 	}
 
+	/**
+	 * <b>Logout</b><br>
+	 * Waits for any operations to complete, then informs the server of the
+	 * disconnection before returning to the login screen
+	 */
 	public void logout() {
 		try {
 			if(locked) {
@@ -225,14 +276,14 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 					}
 				}
 			}
-			System.out.println("Logging out");
 			if(client != null) client.disconnect(0);
 		}
 		catch(DisconnectException dx) {
-			System.out.println("Logging out failed, forcing error");
 			dx.printStackTrace();
 			client.kill(EXC_CONN);
 		}
+
+		timer.cancel();
 
 		list_pnl.getChildren().clear();
 
@@ -241,10 +292,16 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		hideMenu();
 	}
 
+	/**
+	 * <b>Download Task Index File</b><br>
+	 * Download the task index directly from the source. The index file is
+	 * written to the local hard drive and is loaded to be used as a reference
+	 * to download each task file.
+	 */
 	public void downloadTasks() {
 		try {
 			SwiftFile file = client.sfcmd(new ServerCommand(CMD_READ_FILE, "task/index"));
-			file.setFile(new File(LC_TASK + "index"), false);
+			file.setFile(new File(LC_TASK + "public_index"), false);
 			file.write();
 		}
 		catch(SwiftException | IOException x) {
@@ -252,13 +309,22 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		}
 	}
 
+	/**
+	 * <b>Download Public User Index File</b><br>
+	 * Downloads the public user index directly from the source. This index file
+	 * is written to the local file system as a reference. <br>
+	 *
+	 * <b>Note:</b> The difference between public and standard is public does 
+	 * not include the users' passwords
+	 */
 	public void downloadUsers() {
 		try {
 			SwiftFile file = client.sfcmd(new ServerCommand(CMD_READ_FILE, "users_public"));
-			file.setFile(new File(LC_PATH + "users"), false);
+			file.setFile(new File(LC_PATH + "users_public"), false);
 			file.write();
 
 			users = new UserHandler();
+			users.setSource(new SwiftFront(new File(LC_PATH + "users_public")));
 		}
 		catch(SwiftException | IOException x) {
 			x.printStackTrace();
@@ -270,19 +336,33 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		else System.out.println("fail");
 	}
 
+	/**
+	 * <b>Download Specific Task</b><br>
+	 * Requests to pull a task from the server's memory (not from the file
+	 * system). In this case, it is not the task itself being downloaded, but
+	 * rather, all of the task's subtasks that make up the task
+	 *
+	 * @param t Task to download from server
+	 */
 	public void downloadTask(Task t) {
 		t.setList(client.pullTask(t));
 	}
 
+	/**
+	 * <b>Upload Subtask</b><br>
+	 * Upload a subtask from client memory and push it into server memory for
+	 * use.
+	 *
+	 * @param t Task which owns the subtask. (This is required as a reference)
+	 * @param s Subtask to update
+	 */
 	public void uploadSubtask(Task t, SubTask s) {	
 		Thread upload = new Thread(new Runnable() {
 			public void run() {
 				if(locked) {
 					synchronized(lock) {
 						try {
-							System.out.println("Waiting: Upload SubTask");
 							lock.wait();
-							System.out.println("GO: Upload SubTask");
 						}
 						catch(InterruptedException ix) {
 
@@ -291,7 +371,6 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 				}
 				upload_stask = true;
 				client.pushSubtask(t, s);
-				System.out.println("Upload SubTask Completed");
 			}
 		});
 		upload.start();
@@ -304,6 +383,14 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		upload_stask = false;
 	}
 
+	/**
+	 * <b>Update Task</b><br>
+	 * Downloads (updates) information on the given task from the server. This
+	 * function differs from downloadTask by displaying the information on the
+	 * current full task controller
+	 *
+	 * @param t Task to download
+	 */
 	public void updateTask(Task t) {
 		Thread update = new Thread(new Runnable() {
 			public void run() {
@@ -311,9 +398,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 					if(locked) {
 						synchronized(lock) {
 							try {
-								System.out.println("Waiting: UpdateTask");
 								lock.wait();
-								System.out.println("GO: UpdateTask");
 							}
 							catch(InterruptedException ix) {
 	
@@ -335,7 +420,6 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 						if(fullctrl.isVisible()) fullctrl.updateTask(t);
 					}
 				});
-				System.out.println("UpdateTask completed");
 			}
 		});
 		update.start();
@@ -348,6 +432,10 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		}
 	}
 
+	/**
+	 * <b>Refresh All Task Information</b><br>
+	 * Repeats the download process for all tasks known to the client
+	 */
 	public void refreshTasks() {
 		if(!reload_task) {
 			reload_task = true;
@@ -358,9 +446,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 						if(locked) {
 							synchronized(lock) {
 								try {
-									System.out.println("waiting: reload task");
 									lock.wait();
-									System.out.println("Reload Task GO");
 								}
 								catch(InterruptedException ix) {
 		
@@ -370,7 +456,6 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 					}
 
 					for(Task t : tasks.getArray()) {
-						System.out.println("UPDATE: " + t);
 						try { Thread.sleep(1000); }
 						catch(InterruptedException ix) {}
 						updateTask(t);
@@ -398,14 +483,20 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		}
 	}
 	
+	/** @return The client used for socket I/O **/
 	public Client getClient() {
 		return client;
 	}
 
+	/** @return Index of users allowed on the server **/
 	public UserHandler getUserlist() {
 		return users;
 	}
 
+	/**
+	 * <b>Quit</b><br>
+	 * Disconnect from server
+	 */
 	public void quit() {
 		try {
 			client.disconnect(0);

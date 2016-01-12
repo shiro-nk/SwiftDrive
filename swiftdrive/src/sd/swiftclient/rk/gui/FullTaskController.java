@@ -13,6 +13,15 @@ import javafx.scene.text.Text;
 import sd.swiftglobal.rk.type.tasks.SubTask;
 import sd.swiftglobal.rk.type.tasks.Task;
 
+/* This file is part of Swift Drive *
+ * Copyright (C) 2015 Ryan Kerr		*/
+
+/**
+ * <b>Full Read-Only Task Controller</b><br>
+ * Provides a method of reading task and displaying subtask information
+ *
+ * @author Ryan Kerr
+ */
 public class FullTaskController extends VBox {
 
 	private Task task;
@@ -25,6 +34,10 @@ public class FullTaskController extends VBox {
 	@FXML private Text desc_fld;
 	@FXML private Accordion fold_acd;
 
+	/**
+	 * <b>Initialize</b><br>
+	 * Load fxml file into the controller
+	 */
 	public FullTaskController() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Client/FullTask.fxml"));
 		loader.setRoot(this);
@@ -38,6 +51,13 @@ public class FullTaskController extends VBox {
 		}
 	}
 
+	/**
+	 * <b>Set Task</b><br>
+	 * Set the task to be displayed by the controller to the given task.
+	 * This method will also load all the task's subtasks
+	 *
+	 * @param t Task to use
+	 */
 	public void setTask(Task t) {
 		task = t;
 		fold_acd.getPanes().clear();
@@ -54,6 +74,13 @@ public class FullTaskController extends VBox {
 		refresh(false, null);
 	}
 
+	/**
+	 * <b>Update Task Information:</b><br>
+	 * Update all the subtask information without changing task information and
+	 * reloading subtask information.
+	 *
+	 * @param t Task to use for update
+	 */
 	public void updateTask(Task t) {
 		task = t;
 		
@@ -64,22 +91,37 @@ public class FullTaskController extends VBox {
 		}
 	}
 
+	/** @return task on display **/
 	public Task getTask() {
 		return task;
 	}
 
+	/** @param c Set client interface to parent **/
 	public void setClientInterface(ClientInterface c) {
 		parent = c;
 	}
 
+	/** @return Client interface to which this controller belongs **/
 	public ClientInterface getClientInterface() {
 		return parent;
 	}
 
+	/** Return to menu **/
 	public void done() {
 		parent.showList();
 	}
 
+	/**
+	 * <b>Refresh Subtask</b><br>
+	 * Forward the request to the Client Interface for transfer with the server.
+	 * Also changes the progress bar status
+	 *
+	 * @param update Sends information to server if true; modifies progress otherwise.
+	 * 				 The reason update exists is to prevent the subtasks uploading and
+	 * 				 downloading redundantly while they are being created by the
+	 * 				 controller
+	 * @param subtask subtask to be sent to the server
+	 */
 	public void refresh(boolean update, SubTask subtask) {
 		if(update) {
 			parent.uploadSubtask(task, subtask);
@@ -89,6 +131,7 @@ public class FullTaskController extends VBox {
 		prog_bar.setProgress(task.getPercent());
 	}
 
+	/** Reload all information about the task (without updating subtasks) **/
 	public void reload() {
 		prog_bar.setProgress(task.getPercent());
 		name_lbl.setText(task.getName());

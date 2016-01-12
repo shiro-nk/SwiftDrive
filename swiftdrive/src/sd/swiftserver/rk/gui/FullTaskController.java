@@ -22,6 +22,15 @@ import sd.swiftglobal.rk.type.tasks.Task;
 /* This file is part of Swift Drive *
  * Copyright (c) 2015 Ryan Kerr     */
 
+/**
+ * <b>Full Read-Write Task Controller:</b><br>
+ * A controller similar to the Client's Full Read-Only Task Controller, however,
+ * it provides the ability to modify the information present in tasks and does
+ * not have the added requirement of having to reload the task and its subtasks
+ * every few seconds.
+ *
+ * @author Ryan Kerr
+ */
 public class FullTaskController extends VBox implements Settings {
 
 	private Task task;
@@ -42,6 +51,10 @@ public class FullTaskController extends VBox implements Settings {
 	@FXML private HBox stsk_pnl;
 	@FXML private HBox serr_pnl;
 
+	/**
+	 * <b>Constructor:</b><br>
+	 * Loads the FullTaskController.fxml file into an object
+	 */
 	public FullTaskController() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Server/FullTask.fxml"));
 		loader.setRoot(this);
@@ -56,10 +69,15 @@ public class FullTaskController extends VBox implements Settings {
 		}
 	}
 
-	public void hideAll() {
-
-	}
-
+	/**
+	 * <b>Create New Subtask:</b><br>
+	 * Create a new subtask with the name given in the stsk_fld (subtask field).
+	 * This method will create append a new subtask to the task and task GUI as
+	 * long as the subtask name given in stsk_fld only contains alphanumeric
+	 * characters. In the event that the subtask name is not valid, an error
+	 * message will be displayed at the bottom. In the event that the task file
+	 * could not be opened for reading or writing, a different error will appear.
+	 */
 	public void createSubtask() {
 		if(!stsk_fld.getText().trim().equals("") && task.get(stsk_fld.getText()) == null) {
 			if(stsk_fld.getText().replaceAll("[A-Za-z0-9]", "").trim().equals("")) {
@@ -88,6 +106,13 @@ public class FullTaskController extends VBox implements Settings {
 		}
 	}
 
+	/**
+	 * <b>Save Task:</b><br>
+	 * Saves the task the file. In the event that the task name (in name_fld) is
+	 * invalid (contains non alphanumeric characters or spaces) an error will be
+	 * displayed at the bottom of the screen. Similarity, if a task with that
+	 * name already exists, the error will be shown.
+	 */
 	public void save() {
 		try {
 			Task t = parent.getTasklist().getTaskHandler().get(name_fld.getText().trim());
@@ -122,11 +147,22 @@ public class FullTaskController extends VBox implements Settings {
 		refresh();
 	}
 
+	/**
+	 * <b>Set Task:</b><br>
+	 * Sets the task being shown to the given task.
+	 * 
+	 * @param t The task to be used
+	 */
 	public void setTask(Task t) {
 		task = t;
 		refresh();
 	}
 
+	/**
+	 * <b>Delete Subtask:</b><br>
+	 * Remove the specified subtask from the task list and reload the list.
+	 * In the event that the file could not be saved, an error will be displayed
+	 */
 	public void deleteSubtask(SubTask s) {
 		try {
 			task.remove(s);
@@ -137,10 +173,21 @@ public class FullTaskController extends VBox implements Settings {
 		}
 	}
 
+	/**
+	 * <b>Delete Task:</b><br>
+	 * Sends the delete request to the tasklist (tasklist controls the index of
+	 * tasks)
+	 */
 	public void delete() {
 		parent.getTasklist().deleteTask(task);
 	}
 
+	/**
+	 * <b>Refresh / Reload:</b><br>
+	 * Take all the task information and display it on the GUI. This method
+	 * dynamically loads all the subtasks to this component to allow for the
+	 * editing of the task's subtasks.
+	 */
 	public void refresh() {
 		name_fld.setText(task.getName());
 		desc_fld.setText(task.getDesc());
@@ -157,11 +204,24 @@ public class FullTaskController extends VBox implements Settings {
 		}
 	}
 
+	/**
+	 * <b>Suppress Messages:</b><br>
+	 * Suppress all warning/error messages from the screen and display show
+	 * the normal gui.
+	 */
 	public void suppressWarning() {
 		serr_pnl.setVisible(false);
 		stsk_pnl.setVisible(true);
 	}
 
+	/**
+	 * <b>Display Messages:</b><br>
+	 * Display the given message on screen in the place of the normal gui bar
+	 * at the bottom. This error message can be dismissed by pressing the
+	 * button located on the message bar.
+	 *
+	 * @param warning Warning/Error message to be displayed at the bottom
+	 */
 	public void displayWarning(String warning) {
 		serr_lbl.setTextFill(Color.web("#FF0000"));
 		serr_lbl.setText(warning);
@@ -169,10 +229,12 @@ public class FullTaskController extends VBox implements Settings {
 		stsk_pnl.setVisible(false);
 	}
 
+	/** @param srv ServerInterface with references to all other components **/
 	public void setParent(ServerInterface srv) {
 		parent = srv;
 	}
 
+	/** @return The controlling server interface **/
 	public ServerInterface getServerInterface() {
 		return parent;
 	}

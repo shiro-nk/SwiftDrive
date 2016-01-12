@@ -15,6 +15,13 @@ import sd.swiftglobal.rk.type.tasks.TaskHandler;
 /* This file is part of Swift Drive *
  * Copyright (c) 2015 Ryan Kerr     */
 
+/**
+ * <b>Task Menu:</b><br>
+ * Provides a list of available tasks, the ability to add or remove tasks, and
+ * a panel for <b>FullTaskControllers</b> to be displayed on
+ *
+ * @author Ryan Kerr
+ */
 public class TaskList extends VBox {
 
 	private TaskHandler tasks;
@@ -26,6 +33,10 @@ public class TaskList extends VBox {
 	@FXML private VBox list_pnl;
 	@FXML private Button ntsk_btn;
 
+	/**
+	 * <b>Constructor:</b><br>
+	 * Builds the GUI by loading the FXML file
+	 */
 	public TaskList() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Server/TaskList.fxml"));
 		loader.setRoot(this);
@@ -44,12 +55,22 @@ public class TaskList extends VBox {
 
 	}
 
+	/**
+	 * <b>Hide All Panels:</b><br>
+	 * Hides all the panels on screen
+	 */
 	public void hideAll() {
 		misc_pnl.setVisible(false);
 		list_pnl.setVisible(false);
 		ntsk_btn.setVisible(false);
 	}
 
+	/**
+	 * <b>Reload Tasks:</b><br>
+	 * Reload the task index from file, clear all the information already on
+	 * screen, and then dynamically load the <b>TaskController</b> for each
+	 * task found in the file.
+	 */
 	public void reloadTasks() {
 		System.out.println("Task: " + tasks + "; Parent: " + parent);
 
@@ -72,18 +93,30 @@ public class TaskList extends VBox {
 		}
 	}
 
+	/**
+	 * <b>Show Task List:</b><br>
+	 * Show the list of tasks on screen
+	 */
 	public void showList() {
 		hideAll();
 		ntsk_btn.setVisible(true);
 		list_pnl.setVisible(true);
 	}
 
+	/**
+	 * <b>Hide the full task controller:</b><br>
+	 * Hides the current FullTaskController and replaces it with the list view 
+	 */
 	public void hideFullController() {
-		hideAll();
-		list_pnl.setVisible(true);
-		ntsk_btn.setVisible(true);
+		showList();
+		fullctrl = null;
 	}
 	
+	/**
+	 * <b>Create New Task:</b><br>
+	 * Creates a new task (Name: "New Task", Description: "This is a new task")
+	 * and displays it in the task list.
+	 */
 	public void createTask() {
 		try {
 			Task ntsk = new Task("New Task", "This is a new task");
@@ -94,6 +127,11 @@ public class TaskList extends VBox {
 		}
 	}
 
+	/**
+	 * <b>Open / Expand Task:</b><br>
+	 * Create a new <b>FullTaskController</b> for the given task and display
+	 * the controller on screen using the blank panel.
+	 */
 	public void expandTask(Task t) {
 		fullctrl = new FullTaskController();
 		fullctrl.setParent(parent);
@@ -104,6 +142,10 @@ public class TaskList extends VBox {
 		misc_pnl.setVisible(true);
 	}
 
+	/**
+	 * <b>Delete Task:</b><br>
+	 * Remove the given task from the <b>TaskHandler</b>, reload, and display.
+	 */
 	public void deleteTask(Task t) {
 		try {
 			tasks.remove(t);
@@ -116,10 +158,12 @@ public class TaskList extends VBox {
 		showList();
 	}
 
+	/** @return The Task Index used in the controller **/
 	public TaskHandler getTaskHandler() {
 		return tasks;
 	}
 
+	/** @param srv with references to all other required components **/
 	public void setParent(ServerInterface srv) {
 		parent = srv;
 	}

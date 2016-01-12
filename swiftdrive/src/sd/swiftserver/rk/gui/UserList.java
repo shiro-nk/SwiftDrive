@@ -17,6 +17,12 @@ import sd.swiftglobal.rk.type.users.UserHandler;
 /* This file is part of Swift Drive *
  * Copyright (C) 2015 Ryan Kerr		*/
 
+/**
+ * <b>User List:</b><br>
+ * Provides the ability to view, add, and remove users using the GUI.
+ *
+ * @author Ryan Kerr
+ */
 public class UserList extends VBox {
 	
 	private UserHandler users;
@@ -32,6 +38,10 @@ public class UserList extends VBox {
 	@FXML private TextField user_fld;
 	@FXML private PasswordField pass_fld;
 
+	/**
+	 * <b>Constructor:</b>
+	 * Loads the fxml file into an object
+	 */
 	public UserList() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Server/UserList.fxml"));
 		loader.setRoot(this);
@@ -46,6 +56,12 @@ public class UserList extends VBox {
 		}
 	}
 
+	/**
+	 * <b>Reload Users:</b><br>
+	 * Reload the user index from file, clear all the information already on
+	 * screen, and then dynamically load the <b>UserController</b> for each
+	 * user found in the file.
+	 */
 	public void reload() {
 		list_pnl.getChildren().clear();
 
@@ -66,6 +82,12 @@ public class UserList extends VBox {
 		}
 	}
 
+	/**
+	 * <b>Create New User:</b><br>
+	 * Create a new user with the given information (screen name, user name, and
+	 * password) as long as it meets the following criteria: not blank/null and
+	 * does not share a screen/user name with another user.
+	 */
 	public void createUser() {
 		String real = name_fld.getText(),
 			   user = user_fld.getText(),
@@ -88,22 +110,34 @@ public class UserList extends VBox {
 		}
 	}
 
+	/**
+	 * <b>Display a Message:</b><br>
+	 * Display the given error/warning message on screen in the place of the
+	 * normal GUI
+	 */
 	public void displayWarning(String err) {
 		uerr_lbl.setText(err);
 		uerr_pnl.setVisible(true);
 		info_pnl.setVisible(false);
 	}
 
+	/**
+	 * <b>Hide Messages:</b><br>
+	 * Hide all error/warning messages from the screen and show the normal
+	 * GUI forms instead.
+	 */
 	public void suppressWarning() {
 		uerr_pnl.setVisible(false);
 		info_pnl.setVisible(true);
 	}
 
+	/** @param si Server interface with references to all required information **/
 	public void setParent(ServerInterface si) {
 		parent = si;
 		reload();
 	}
 
+	/** @return The <b>UserHandler</b> used to display the list **/
 	public UserHandler getUserHandler() {
 		return users;
 	}

@@ -17,6 +17,14 @@ import sd.swiftglobal.rk.type.users.User;
 /* This file is part of Swift Drive *
  * Copyright (c) 2015 Ryan Kerr     */
 
+/**
+ * <b>Read-Write Subtask Controller:</b><br>
+ * The controller which allows for the modification of subtasks within a task.
+ * This controller contains functions meant for the editing of subtasks rather
+ * than the repeated displaying of tasks.
+ * 
+ * @author Ryan Kerr
+ */
 public class SubTaskController extends TitledPane implements Settings {
 
 	private SubTask subtask;
@@ -31,6 +39,10 @@ public class SubTaskController extends TitledPane implements Settings {
 	@FXML private DatePicker start_dsl;
 	@FXML private DatePicker finish_dsl;
 
+	/**
+	 * <b>Constructor:</b><br>
+	 * Load subtask controller into an object
+	 */
 	public SubTaskController() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Server/SubTask.fxml"));
 		loader.setRoot(this);
@@ -47,10 +59,21 @@ public class SubTaskController extends TitledPane implements Settings {
 		}
 	}
 	
+	/**
+	 * <b>Delete Subtask:</b><br>
+	 * Send the delete request to the controlling task (which contains the
+	 * subtask index)
+	 */
 	public void delete() {
 		parent.deleteSubtask(subtask);
 	}
 
+	/**
+	 * <b>Set Subtask:</b><br>
+	 * Sets and displays the given subtask on screen.
+	 *
+	 * @param s Subtask to be displayed on screen 
+	 */
 	public void setSubtask(SubTask s) {
 		subtask = s;
 
@@ -70,6 +93,12 @@ public class SubTaskController extends TitledPane implements Settings {
 		}
 	}
 
+	/**
+	 * <b>Get Subtask:</b><br>
+	 * Creates a subtask out of all the information given in the GUI.
+	 *
+	 * @return The subtask created from th GUI
+	 */
 	public SubTask getSubtask() {
 		subtask.setDesc(desc_fld.getText());
 		subtask.setLead(lead_sel.getValue());
@@ -80,6 +109,7 @@ public class SubTaskController extends TitledPane implements Settings {
 		return subtask;
 	}
 
+	/** @param f The task controller which displays this subtask **/
 	public void setFullController(FullTaskController f) {
 		parent = f;
 	}
