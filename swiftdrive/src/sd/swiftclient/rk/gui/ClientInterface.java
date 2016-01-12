@@ -151,6 +151,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 
 							try {
 								tasks = new TaskHandler();
+								tasks.setSource(LC_TASK + "public_index");
 							}
 							catch(FileException fx) {
 
@@ -303,6 +304,9 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 			SwiftFile file = client.sfcmd(new ServerCommand(CMD_READ_FILE, "task/index"));
 			file.setFile(new File(LC_TASK + "public_index"), false);
 			file.write();
+
+			tasks = new TaskHandler();
+			tasks.setSource(LC_TASK + "public_index");
 		}
 		catch(SwiftException | IOException x) {
 			terminate(client);
