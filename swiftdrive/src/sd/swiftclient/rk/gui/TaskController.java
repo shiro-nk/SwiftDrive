@@ -36,6 +36,7 @@ public class TaskController extends HBox {
 		loader.setRoot(this);
 		loader.setController(this);
 
+		System.out.println("load");
 		try {
 			loader.load();
 		}

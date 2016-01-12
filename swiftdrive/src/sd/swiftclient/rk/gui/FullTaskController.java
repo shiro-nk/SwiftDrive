@@ -109,6 +109,7 @@ public class FullTaskController extends VBox {
 	/** Return to menu **/
 	public void done() {
 		parent.showList();
+		parent.refreshTasks();
 	}
 
 	/**
@@ -123,12 +124,14 @@ public class FullTaskController extends VBox {
 	 * @param subtask subtask to be sent to the server
 	 */
 	public void refresh(boolean update, SubTask subtask) {
+		//parent.setProgressVisible(true);
 		if(update) {
 			parent.uploadSubtask(task, subtask);
 			parent.updateTask(task);
 		}
-
+ 
 		prog_bar.setProgress(task.getPercent());
+		//parent.setProgressVisible(false);
 	}
 
 	/** Reload all information about the task (without updating subtasks) **/

@@ -70,7 +70,7 @@ public class SubTaskController extends TitledPane {
 	 * @param s Subtask to update
 	 */
 	public void updateSubtask(SubTask s) {
-		setSubtask(s);
+		setSubtask(s, parent);
 	}
 
 	/**
@@ -79,9 +79,11 @@ public class SubTaskController extends TitledPane {
 	 * selected. If the checkbox is selected, the status is marked as pending.
 	 */
 	public void ignore() {
+		parent.getClientInterface().setProgressVisible(true);
 		if(ignore.isSelected())	subtask.setStatus(SubTask.TASK_CANCELLED);
 		else subtask.setStatus(SubTask.TASK_PENDING);
 		refresh(true);
+		parent.getClientInterface().setProgressVisible(false);
 	}
 
 	/**
@@ -90,9 +92,11 @@ public class SubTaskController extends TitledPane {
 	 * If the checkbox is selected, the status is marked as pending.
 	 */
 	public void complete() {
+		parent.getClientInterface().setProgressVisible(true);
 		if(complete.isSelected()) subtask.setStatus(SubTask.TASK_COMPLETE);
 		else subtask.setStatus(SubTask.TASK_PENDING);
 		refresh(true);
+		parent.getClientInterface().setProgressVisible(false);
 	}
 
 	/**

@@ -13,9 +13,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -31,6 +33,7 @@ import sd.swiftglobal.rk.type.tasks.Task;
 import sd.swiftglobal.rk.type.tasks.TaskHandler;
 import sd.swiftglobal.rk.type.users.User;
 import sd.swiftglobal.rk.type.users.UserHandler;
+import sd.swiftglobal.rk.util.SwiftFront;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 
@@ -55,9 +58,11 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 
 	private Object lock = new Object();
 	private boolean locked = false,
+					logout = false,
 					upload_stask = false,
 					reload_task = false,
 					update_task = false;
+	private int cue;
 
 	// Global Elements
 	@FXML private ImageView back_img;
@@ -85,6 +90,8 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	@FXML private VBox task_pnl;
 	@FXML private VBox list_pnl;
 	@FXML private Pane misc_pnl;
+	@FXML private HBox prog_pnl;
+	@FXML private ProgressIndicator prog_bar;
 
 	private String host;
 	private int port;
@@ -97,6 +104,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		hideAll();
 		lgin_pnl.setVisible(true);
 		menu_pnl.setVisible(false);
+		prog_bar.setProgress(-5);
 		
 		fullctrl.setClientInterface(this);
 	}
@@ -135,6 +143,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 							host = host_input;
 							port = port_parse;
 							
+							logout = false;
 							lgin_pnl.setVisible(false);
 							hideAll();
 							menu_pnl.setVisible(true);
@@ -151,7 +160,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 
 							try {
 								tasks = new TaskHandler();
-								tasks.setSource(LC_TASK + "public_index");
+								tasks.setSource(new SwiftFront(new File(LC_TASK + "public_index")));
 							}
 							catch(FileException fx) {
 
@@ -160,12 +169,12 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 							timer = new Timer();
 							timer.scheduleAtFixedRate(new TimerTask() {
 								public void run() {
-									if(((fullctrl != null && fullctrl.isVisible()) ||
-									    (task_pnl != null && task_pnl.isVisible())) && (!locked && !upload_stask && !reload_task)) {
+									if(((fullctrl != null && !fullctrl.isVisible()) ||
+									    (task_pnl != null && task_pnl.isVisible())) && (!locked && !upload_stask && !reload_task && !logout)) {
 										refreshTasks();
 									}
 								}
-							}, 15000, 15000);
+							}, 10000, 10000);
 						}
 						else {
 							lgin_lbl.setText("Invalid username or password");
@@ -198,6 +207,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		misc_pnl.setVisible(false);
 		fullctrl.setVisible(false);
 		open_pnl.setVisible(false);
+		prog_pnl.setVisible(false);
 	}
 
 	/**
@@ -239,6 +249,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		refreshTasks();
 
 		hideAll();
+		fullctrl.setVisible(false);
 		list_pnl.setVisible(true);
 		task_pnl.setVisible(true);
 	}
@@ -266,15 +277,23 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	 * disconnection before returning to the login screen
 	 */
 	public void logout() {
+		logout = true;
 		try {
-			if(locked) {
-				synchronized(lock) {
-					try {
-						lock.wait();
+			while(upload_stask || reload_task || update_task) {
+				if(locked) {
+					synchronized(lock) {
+						try {
+							lock.wait();
+							Thread.sleep(1000);
+						}
+						catch(InterruptedException ix) {
+		
+						}
 					}
-					catch(InterruptedException ix) {
-					
-					}
+				}
+				else {
+					reload_task = false;
+					update_task = false;
 				}
 			}
 			if(client != null) client.disconnect(0);
@@ -306,7 +325,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 			file.write();
 
 			tasks = new TaskHandler();
-			tasks.setSource(LC_TASK + "public_index");
+			tasks.setSource(new SwiftFront(new File(LC_TASK + "public_index")));
 		}
 		catch(SwiftException | IOException x) {
 			terminate(client);
@@ -363,6 +382,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	public void uploadSubtask(Task t, SubTask s) {	
 		Thread upload = new Thread(new Runnable() {
 			public void run() {
+				cue++;
 				if(locked) {
 					synchronized(lock) {
 						try {
@@ -373,8 +393,12 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 						}
 					}
 				}
+				setProgressVisible(true);
 				upload_stask = true;
 				client.pushSubtask(t, s);
+				setProgressVisible(false);
+				
+				synchronized(lock) { lock.notifyAll(); cue--; }
 			}
 		});
 		upload.start();
@@ -396,43 +420,53 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	 * @param t Task to download
 	 */
 	public void updateTask(Task t) {
-		Thread update = new Thread(new Runnable() {
-			public void run() {
-				while(upload_stask) {
-					if(locked) {
-						synchronized(lock) {
-							try {
-								lock.wait();
-							}
-							catch(InterruptedException ix) {
-	
+		System.out.println("" + upload_stask + reload_task + update_task);
+		if(!logout) {
+			Thread update = new Thread(new Runnable() {
+				public void run() {
+					cue++;
+					while(upload_stask) {
+						if(locked) {
+							synchronized(lock) {
+								try {
+									lock.wait();
+									}
+								catch(InterruptedException ix) {
+		
+								}
 							}
 						}
 					}
+
+					setProgressVisible(true);
+
+					update_task = true;
+					locked = true;
+	
+					SubTask[] subtasks = client.pullTask(t);
+					if(subtasks != null) t.setList(subtasks);
+	
+					synchronized(lock) { lock.notifyAll(); cue--; }
+					locked = false;
+					update_task = false;
+					Platform.runLater(new Runnable() {
+						public void run() {
+							if(fullctrl.isVisible()) fullctrl.updateTask(t);
+						}
+					});
+					
+					setProgressVisible(false);
 				}
-				update_task = true;
-				locked = true;
+			});
+			update.start();
 
-				SubTask[] subtasks = client.pullTask(t);
-				if(subtasks != null) t.setList(subtasks);
-
-				synchronized(lock) { lock.notifyAll(); }
-				locked = false;
-				update_task = false;
-				Platform.runLater(new Runnable() {
-					public void run() {
-						if(fullctrl.isVisible()) fullctrl.updateTask(t);
-					}
-				});
+			try {
+				update.join();
 			}
-		});
-		update.start();
-
-		try {
-			update.join();
-		}
-		catch(InterruptedException ix) {
-
+			catch(InterruptedException ix) {
+	
+			}
+			System.out.println(update_task);
 		}
 	}
 
@@ -441,12 +475,18 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	 * Repeats the download process for all tasks known to the client
 	 */
 	public void refreshTasks() {
-		if(!reload_task) {
+		System.out.println("\n\n\n" + reload_task + "\n\n\n");
+		if(!reload_task && !logout) {
 			reload_task = true;
 			task_btn.disarm();
 			new Thread(new Runnable() {
 				public void run() {
-					while(update_task || upload_stask) {
+					cue++;
+					System.out.println(update_task);
+					System.out.println(upload_stask);
+					while(locked || update_task || upload_stask) {
+					System.out.println(update_task);
+					System.out.println(upload_stask);
 						if(locked) {
 							synchronized(lock) {
 								try {
@@ -458,18 +498,21 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 							}
 						}
 					}
-
+					
+					setProgressVisible(true);
 					for(Task t : tasks.getArray()) {
-						try { Thread.sleep(1000); }
+						try { Thread.sleep(500); }
 						catch(InterruptedException ix) {}
 						updateTask(t);
 					}
 		
-					synchronized(lock) { lock.notifyAll(); }
+					synchronized(lock) { lock.notifyAll(); cue--; }
+					System.out.println(locked + "FFSDF");
 					locked = false;
 
 					Platform.runLater(new Runnable() {
 						public void run() {
+							System.out.println("runlater");
 							list_pnl.getChildren().clear();
 							for(Task t : tasks.getArray()) {
 								TaskController tskctrl = new TaskController();
@@ -478,9 +521,11 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 								list_pnl.getChildren().add(tskctrl);
 							}
 							task_btn.arm();
+							System.out.println("xrunlater");
 						}
 					});
-					System.out.println("Reload done");
+					System.out.println("\n\n\t\t RELOAD DONE \n\n\t\t");
+					setProgressVisible(false);
 					reload_task = false;
 				}
 			}).start();
@@ -512,6 +557,10 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		System.exit(0);
 	}
 
+	public void setProgressVisible(boolean visibility) {
+		prog_pnl.setVisible(visibility);
+	}
+
 	@Override
 	public void dereference(SwiftNetTool t) {
 		switch(t.getErrID()) {
@@ -521,12 +570,14 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 			case EXC_CONN:
 			case EXC_NWRITE:
 			case EXC_NREAD:
-				Platform.runLater(new Runnable() {
-					public void run() {
-						lgin_lbl.setText("Lost connection with the sever");
-						hideMenu();
-					}
-				});
+				if(!lgin_pnl.isVisible()) {
+					Platform.runLater(new Runnable() {
+						public void run() {
+							lgin_lbl.setText("Lost connection with the sever");
+							hideMenu();
+						}
+					});
+				}
 				break;
 			case EXC_SAFE:
 				Platform.runLater(new Runnable() {

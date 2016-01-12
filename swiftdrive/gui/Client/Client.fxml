@@ -12,7 +12,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swiftclient.rk.gui.ClientInterface">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swiftclient.rk.gui.ClientInterface">
    <children>
       <VBox fx:id="lgin_pnl" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="300.0" spacing="20.0" visible="false" StackPane.alignment="CENTER_LEFT">
          <children>
@@ -86,58 +86,68 @@
             </VBox>
             <StackPane prefHeight="150.0" prefWidth="200.0">
                <children>
-                  <VBox fx:id="open_pnl" alignment="CENTER_LEFT" fillWidth="false">
+                  <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <HBox>
+                        <VBox fx:id="open_pnl" alignment="CENTER_LEFT" fillWidth="false">
                            <children>
-                              <Label text="Welcome, ">
-                                 <font>
-                                    <Font name="System Bold" size="40.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="user_lbl" text="User!">
-                                 <font>
-                                    <Font name="System Bold" size="40.0" />
-                                 </font>
-                              </Label>
+                              <HBox>
+                                 <children>
+                                    <Label text="Welcome, ">
+                                       <font>
+                                          <Font name="System Bold" size="40.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="user_lbl" text="User!">
+                                       <font>
+                                          <Font name="System Bold" size="40.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <TextFlow>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Swift Drive client!" />
+                                 </children>
+                              </TextFlow>
+                              <Label fx:id="conn_lbl" text="Connection info" />
                            </children>
-                        </HBox>
-                        <TextFlow>
+                           <padding>
+                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                           </padding>
+                        </VBox>
+                        <VBox fx:id="task_pnl" maxHeight="1.7976931348623157E308" spacing="10.0" visible="false">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Swift Drive client!" />
+                              <Label text="Task View">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <ScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                       <content>
+                                          <VBox fx:id="list_pnl" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0">
+                                             <padding>
+                                                <Insets top="10.0" />
+                                             </padding>
+                                          </VBox>
+                                       </content>
+                                    </ScrollPane>
+                                    <Pane fx:id="misc_pnl" />
+                                 </children>
+                              </StackPane>
                            </children>
-                        </TextFlow>
-                        <Label fx:id="conn_lbl" text="Connection info" />
+                        </VBox>
                      </children>
-                     <padding>
-                        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-                     </padding>
-                  </VBox>
-                  <VBox fx:id="task_pnl" maxHeight="1.7976931348623157E308" spacing="10.0" visible="false">
+                  </StackPane>
+                  <HBox fx:id="prog_pnl" alignment="CENTER_RIGHT" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" prefHeight="30.0" prefWidth="30.0" StackPane.alignment="BOTTOM_RIGHT">
                      <children>
-                        <Label text="Task View">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="10.0" top="15.0" />
-                           </VBox.margin>
-                        </Label>
-                        <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-                           <children>
-                              <ScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-                                 <content>
-                                    <VBox fx:id="list_pnl" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0">
-                                       <padding>
-                                          <Insets top="10.0" />
-                                       </padding></VBox>
-                                 </content>
-                              </ScrollPane>
-                              <Pane fx:id="misc_pnl" />
-                           </children>
-                        </StackPane>
+                        <ProgressIndicator fx:id="prog_bar" progress="0.0" />
                      </children>
-                  </VBox>
+                  </HBox>
                </children>
             </StackPane>
          </items>
