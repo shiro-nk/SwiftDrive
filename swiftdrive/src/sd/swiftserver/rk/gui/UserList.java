@@ -66,7 +66,7 @@ public class UserList extends VBox {
 		list_pnl.getChildren().clear();
 
 		try {
-			users = new UserHandler();
+			users = new UserHandler(false);
 			
 			for(User u : users.getArray()) {
 				UserController uctrl = new UserController();

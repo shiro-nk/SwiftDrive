@@ -44,7 +44,7 @@ public class TaskList extends VBox {
 
 		try {
 			loader.load();
-			tasks = new TaskHandler();
+			tasks = new TaskHandler(false);
 		}
 		catch(IOException ix) {
 			ix.printStackTrace();
@@ -75,7 +75,7 @@ public class TaskList extends VBox {
 		System.out.println("Task: " + tasks + "; Parent: " + parent);
 
 		try {
-			tasks = new TaskHandler();
+			tasks = new TaskHandler(false);
 		}
 		catch(FileException fx) {
 			fx.printStackTrace();

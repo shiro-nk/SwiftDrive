@@ -49,7 +49,7 @@ public interface Settings {
 	/** Local (LC) Environment Variables **/
 	public static final String LC_DIV  = System.getProperty("file.separator"),
 							   LC_USER = System.getProperty("user.home"),
-							   LC_PATH = LC_USER + LC_DIV + "swift" + LC_DIV,
+							   LC_PATH = LC_USER + LC_DIV + "swiftserver" + LC_DIV,
 							   LC_TASK = LC_PATH + "task" + LC_DIV,
 							   LC_VERS = LC_PATH + "vers" + LC_DIV;
 

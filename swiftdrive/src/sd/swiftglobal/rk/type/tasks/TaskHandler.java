@@ -27,8 +27,8 @@ public class TaskHandler extends Handler<Task> implements Settings, Logging {
 	 *
 	 * @throws FileException in the event the file couldn't be read
 	 */
-	public TaskHandler() throws FileException {
-		File path = new File(LC_TASK + "index");
+	public TaskHandler(boolean isClient) throws FileException {
+		File path = new File(LC_TASK + (isClient ? "public_" : "") + "index");
 		if(path.exists() && path.isFile()) {
 			setSource(new SwiftFront(path));
 			read();

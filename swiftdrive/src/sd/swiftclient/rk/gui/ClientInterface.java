@@ -33,7 +33,6 @@ import sd.swiftglobal.rk.type.tasks.Task;
 import sd.swiftglobal.rk.type.tasks.TaskHandler;
 import sd.swiftglobal.rk.type.users.User;
 import sd.swiftglobal.rk.type.users.UserHandler;
-import sd.swiftglobal.rk.util.SwiftFront;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer;
 import sd.swiftglobal.rk.util.SwiftNet.SwiftNetTool;
 
@@ -62,7 +61,6 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 					upload_stask = false,
 					reload_task = false,
 					update_task = false;
-	private int cue;
 
 	// Global Elements
 	@FXML private ImageView back_img;
@@ -159,8 +157,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 							downloadUsers();	
 
 							try {
-								tasks = new TaskHandler();
-								tasks.setSource(new SwiftFront(new File(LC_TASK + "public_index")));
+								tasks = new TaskHandler(true);
 							}
 							catch(FileException fx) {
 
@@ -324,8 +321,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 			file.setFile(new File(LC_TASK + "public_index"), false);
 			file.write();
 
-			tasks = new TaskHandler();
-			tasks.setSource(new SwiftFront(new File(LC_TASK + "public_index")));
+			tasks = new TaskHandler(true);
 		}
 		catch(SwiftException | IOException x) {
 			terminate(client);
@@ -346,8 +342,8 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 			file.setFile(new File(LC_PATH + "users_public"), false);
 			file.write();
 
-			users = new UserHandler();
-			users.setSource(new SwiftFront(new File(LC_PATH + "users_public")));
+			users = new UserHandler(true);
+//			users.setSource(new SwiftFront(new File(LC_PATH + "users_public")));
 		}
 		catch(SwiftException | IOException x) {
 			x.printStackTrace();
@@ -382,7 +378,6 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	public void uploadSubtask(Task t, SubTask s) {	
 		Thread upload = new Thread(new Runnable() {
 			public void run() {
-				cue++;
 				if(locked) {
 					synchronized(lock) {
 						try {
@@ -398,7 +393,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 				client.pushSubtask(t, s);
 				setProgressVisible(false);
 				
-				synchronized(lock) { lock.notifyAll(); cue--; }
+				synchronized(lock) { lock.notifyAll(); }
 			}
 		});
 		upload.start();
@@ -424,7 +419,6 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 		if(!logout) {
 			Thread update = new Thread(new Runnable() {
 				public void run() {
-					cue++;
 					while(upload_stask) {
 						if(locked) {
 							synchronized(lock) {
@@ -446,7 +440,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 					SubTask[] subtasks = client.pullTask(t);
 					if(subtasks != null) t.setList(subtasks);
 	
-					synchronized(lock) { lock.notifyAll(); cue--; }
+					synchronized(lock) { lock.notifyAll(); }
 					locked = false;
 					update_task = false;
 					Platform.runLater(new Runnable() {
@@ -481,7 +475,6 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 			task_btn.disarm();
 			new Thread(new Runnable() {
 				public void run() {
-					cue++;
 					System.out.println(update_task);
 					System.out.println(upload_stask);
 					while(locked || update_task || upload_stask) {
@@ -506,7 +499,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 						updateTask(t);
 					}
 		
-					synchronized(lock) { lock.notifyAll(); cue--; }
+					synchronized(lock) { lock.notifyAll(); }
 					System.out.println(locked + "FFSDF");
 					locked = false;
 

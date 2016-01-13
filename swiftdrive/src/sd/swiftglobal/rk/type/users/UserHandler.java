@@ -29,8 +29,8 @@ public class UserHandler extends Handler<User> implements Settings, Logging {
 	 *
 	 * @throws FileException if file couldn't be read or written
 	 */
-	public UserHandler() throws FileException {
-		File path = new File(LC_PATH + "users");
+	public UserHandler(boolean isClient) throws FileException {
+		File path = new File(LC_PATH + (isClient? "public_" : "") + "users");
 		if(path.exists() && path.isFile()) {
 			setSource(new SwiftFront(path, false));
 			read();
@@ -40,13 +40,15 @@ public class UserHandler extends Handler<User> implements Settings, Logging {
 			add(new User("default", "username", "password"));
 		}
 
-		try(SwiftFront file = new SwiftFront(new File(LC_PATH + "users_public"))) {
-			for(User u : getArray()) file.add(u.getRealname() + ";" + u.getUsername() + "\n");
-			file.toData();
-			file.write();
-		}
-		catch(FileException fx) {
-			fx.printStackTrace();
+		if(!isClient) {
+			try(SwiftFront file = new SwiftFront(new File(LC_PATH + "users_public"))) {
+				for(User u : getArray()) file.add(u.getRealname() + ";" + u.getUsername() + "\n");
+				file.toData();
+				file.write();
+			}
+			catch(FileException fx) {
+				fx.printStackTrace();
+			}
 		}
 	}
 

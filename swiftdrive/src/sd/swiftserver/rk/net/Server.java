@@ -46,8 +46,8 @@ public class Server implements SwiftNetContainer, Runnable, Settings, Logging, C
 		echo("Initializing server on port " + port, LOG_PRI);
 		PORT = port;
 		try {
-			userlist = new UserHandler();
-			tasklist = new TaskHandler();
+			userlist = new UserHandler(false);
+			tasklist = new TaskHandler(false);
 			server = new ServerSocket(port);
 			thread = new Thread(this);
 			thread.setName("Server");
