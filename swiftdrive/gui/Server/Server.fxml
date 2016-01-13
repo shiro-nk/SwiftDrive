@@ -9,7 +9,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swiftserver.rk.gui.ServerInterface">
+<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sd.swiftserver.rk.gui.ServerInterface">
    <items>
       <VBox alignment="CENTER" maxWidth="250.0" minWidth="200.0" spacing="20.0" SplitPane.resizableWithParent="false">
          <children>
@@ -30,7 +30,6 @@
                   <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showInfo" text="Control" VBox.vgrow="ALWAYS" />
                   <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showTasks" text="Tasks" VBox.vgrow="ALWAYS" />
                   <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showUsers" text="Users" VBox.vgrow="ALWAYS" />
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Help" VBox.vgrow="ALWAYS" />
                   <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#quit" text="Quit" VBox.vgrow="ALWAYS" />
                </children>
                <padding>
@@ -52,10 +51,6 @@
 				  <Image url="@/res/background_icon.png" />
                </image>
             </ImageView>
-            <VBox fx:id="help_pnl" prefHeight="200.0" prefWidth="100.0" visible="false">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Help page" />
-               </children></VBox>
             <VBox fx:id="ctrl_pnl" alignment="CENTER_LEFT" fillWidth="false" onMouseMoved="#refreshInfo" spacing="40.0" visible="false">
                <children>
                   <VBox>
@@ -67,27 +62,27 @@
                                  <children>
                                     <Label text="Hostname:">
                                        <font>
-                                          <Font name="Monospaced Bold" size="25.0" />
+                                          <Font name="System Bold" size="25.0" />
                                        </font>
                                     </Label>
                                     <Label text="Address:">
                                        <font>
-                                          <Font name="Monospaced Bold" size="25.0" />
+                                          <Font name="System Bold" size="25.0" />
                                        </font>
                                     </Label>
                                     <Label text="Port:">
                                        <font>
-                                          <Font name="Monospaced Bold" size="25.0" />
+                                          <Font name="System Bold" size="25.0" />
                                        </font>
                                     </Label>
                                     <Label text="State:">
                                        <font>
-                                          <Font name="Monospaced Bold" size="25.0" />
+                                          <Font name="System Bold" size="25.0" />
                                        </font>
                                     </Label>
                                     <Label text="Connected:">
                                        <font>
-                                          <Font name="Monospaced Bold" size="25.0" />
+                                          <Font name="System Bold" size="25.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -181,7 +176,7 @@
                   <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                </StackPane.margin>
             </VBox>
-            <VBox fx:id="srry_pnl" alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+            <VBox fx:id="srry_pnl" alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" visible="false">
                <children>
                   <Label text="Sorry!" textFill="RED">
                      <font>

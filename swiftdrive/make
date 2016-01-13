@@ -8,7 +8,7 @@
 
 PROJECT_PATH="/data/swiftspace/swiftdrive"
 
-pushd $PROJECT_PATH
+pushd $PROJECT_PATH &>/dev/null
 
 	# Create fresh copy with resources
 	rm -r bin/*
@@ -19,17 +19,17 @@ pushd $PROJECT_PATH
 	find -name "*.java" > sources
 
 	# Compile all source files
-	javac -Xlint:deprecation -d bin -sourcepath src:res:gui @sources
+	javac -Xlint -d bin -sourcepath src:res:gui @sources
 
 	# Export as jar file
-	pushd $PROJECT_PATH/bin
+	pushd $PROJECT_PATH/bin &>/dev/null
 		jar cfm swiftdrive-server.jar ../jar/manifest-server.mf sd res gui
 		jar cfm swiftdrive-client.jar ../jar/manifest-client.mf sd res gui
 		mv swiftdrive-server.jar ../jar
 		mv swiftdrive-client.jar ../jar
-	popd
+	popd &>/dev/null
 
 	# Clean
 	rm sources
 
-popd
+popd &>/dev/null

@@ -10,6 +10,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import sd.swiftglobal.rk.Settings;
+
 /* This file is part of Swift Drive *
  * Copyright (C) 2015 Ryan Kerr     */
 
@@ -19,9 +21,16 @@ import javafx.stage.WindowEvent;
  *
  * @author Ryan Kerr
  */
-public class SwiftClient extends Application {
+public class SwiftClient extends Application implements Settings {
 	public static void main(String[] args) {
+		println("Welcome to Swift Drive!");
+		println("Version " + VER_MAJOR + " Release " + VER_MINOR + " Patch " + VER_PATCH);
+
 		Application.launch(SwiftClient.class, (String[]) null);
+	}
+
+	public static void println(String s) {
+		System.out.println("[ Start  ] " + s);
 	}
 
 	private Parent root;

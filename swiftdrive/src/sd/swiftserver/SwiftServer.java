@@ -22,7 +22,6 @@ import sd.swiftglobal.rk.Settings;
  */
 public class SwiftServer extends Application implements Settings {
 	public static void main(String[] args) {
-		println("\n");
 		println("Welcome to Swift Drive!");
 		println("Version " + VER_MAJOR + " Release " + VER_MINOR + " Patch " + VER_PATCH);
 		

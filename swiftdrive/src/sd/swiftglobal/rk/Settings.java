@@ -23,12 +23,12 @@ import sd.swiftglobal.rk.util.Logging;
  */
 public interface Settings {
 	/** The version number as a double (Major.Minor) */
-	public static final double VERSION = 01.08;
+	public static final double VERSION = 01.09;
 
 	/** Version (VER) numbers for the project */
 	public static final int VER_MAJOR = 1,
-		   					VER_MINOR = 8,
-							VER_PATCH = 4;
+		   					VER_MINOR = 9,
+							VER_PATCH = 3;
 	
 	/** Data (DAT) type headers for transfer **/
 	public static final int DAT_NULL = 0,
@@ -49,7 +49,7 @@ public interface Settings {
 	/** Local (LC) Environment Variables **/
 	public static final String LC_DIV  = System.getProperty("file.separator"),
 							   LC_USER = System.getProperty("user.home"),
-							   LC_PATH = LC_USER + LC_DIV + "swiftserver" + LC_DIV,
+							   LC_PATH = LC_USER + LC_DIV + "swift" + LC_DIV,
 							   LC_TASK = LC_PATH + "task" + LC_DIV,
 							   LC_VERS = LC_PATH + "vers" + LC_DIV;
 

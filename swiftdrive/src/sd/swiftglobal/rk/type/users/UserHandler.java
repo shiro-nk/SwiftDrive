@@ -41,7 +41,7 @@ public class UserHandler extends Handler<User> implements Settings, Logging {
 		}
 
 		if(!isClient) {
-			try(SwiftFront file = new SwiftFront(new File(LC_PATH + "users_public"))) {
+			try(SwiftFront file = new SwiftFront(new File(LC_PATH + "public_users"))) {
 				for(User u : getArray()) file.add(u.getRealname() + ";" + u.getUsername() + "\n");
 				file.toData();
 				file.write();

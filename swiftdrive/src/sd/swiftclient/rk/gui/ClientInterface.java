@@ -338,21 +338,16 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	 */
 	public void downloadUsers() {
 		try {
-			SwiftFile file = client.sfcmd(new ServerCommand(CMD_READ_FILE, "users_public"));
-			file.setFile(new File(LC_PATH + "users_public"), false);
+			SwiftFile file = client.sfcmd(new ServerCommand(CMD_READ_FILE, "public_users"));
+			file.setFile(new File(LC_PATH + "public_users"), false);
 			file.write();
 
 			users = new UserHandler(true);
-//			users.setSource(new SwiftFront(new File(LC_PATH + "users_public")));
 		}
 		catch(SwiftException | IOException x) {
 			x.printStackTrace();
 			terminate(client);
 		}
-
-		if(users != null)
-		for(User u : users.getArray()) System.out.println(u);
-		else System.out.println("fail");
 	}
 
 	/**
@@ -415,7 +410,6 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	 * @param t Task to download
 	 */
 	public void updateTask(Task t) {
-		System.out.println("" + upload_stask + reload_task + update_task);
 		if(!logout) {
 			Thread update = new Thread(new Runnable() {
 				public void run() {
@@ -460,7 +454,6 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 			catch(InterruptedException ix) {
 	
 			}
-			System.out.println(update_task);
 		}
 	}
 
@@ -469,17 +462,12 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 	 * Repeats the download process for all tasks known to the client
 	 */
 	public void refreshTasks() {
-		System.out.println("\n\n\n" + reload_task + "\n\n\n");
 		if(!reload_task && !logout) {
 			reload_task = true;
 			task_btn.disarm();
 			new Thread(new Runnable() {
 				public void run() {
-					System.out.println(update_task);
-					System.out.println(upload_stask);
 					while(locked || update_task || upload_stask) {
-					System.out.println(update_task);
-					System.out.println(upload_stask);
 						if(locked) {
 							synchronized(lock) {
 								try {
@@ -500,12 +488,10 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 					}
 		
 					synchronized(lock) { lock.notifyAll(); }
-					System.out.println(locked + "FFSDF");
 					locked = false;
 
 					Platform.runLater(new Runnable() {
 						public void run() {
-							System.out.println("runlater");
 							list_pnl.getChildren().clear();
 							for(Task t : tasks.getArray()) {
 								TaskController tskctrl = new TaskController();
@@ -514,10 +500,8 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 								list_pnl.getChildren().add(tskctrl);
 							}
 							task_btn.arm();
-							System.out.println("xrunlater");
 						}
 					});
-					System.out.println("\n\n\t\t RELOAD DONE \n\n\t\t");
 					setProgressVisible(false);
 					reload_task = false;
 				}

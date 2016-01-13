@@ -72,8 +72,6 @@ public class TaskList extends VBox {
 	 * task found in the file.
 	 */
 	public void reloadTasks() {
-		System.out.println("Task: " + tasks + "; Parent: " + parent);
-
 		try {
 			tasks = new TaskHandler(false);
 		}

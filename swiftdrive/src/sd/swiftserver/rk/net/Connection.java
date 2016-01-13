@@ -140,6 +140,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 
 						case DAT_VERS:
 							echo("Returning version info");
+							break;
 
 						case DAT_STSK:
 							String atskname = readUTF(),
@@ -331,6 +332,7 @@ public class Connection implements SwiftNetTool, Runnable, Closeable, Settings, 
 						echo((append ? "Appending" : "Writing") + " file to " + path, LOG_SEC);
 						swap.write(new File(path).toPath(), append);
 						break;
+
 					case CMD_APPND_DATA:
 						append = true;
 					case CMD_WRITE_DATA:
