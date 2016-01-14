@@ -1,5 +1,5 @@
 /bin/
-/jar/swiftdrive.jar
+/jar/*.jar
 
 *.swp
 

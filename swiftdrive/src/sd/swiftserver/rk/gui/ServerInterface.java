@@ -59,7 +59,6 @@ public class ServerInterface implements Initializable, Settings {
 	@FXML private VBox ctrl_pnl;
 	@FXML private VBox open_pnl;
 	@FXML private VBox srry_pnl;
-	@FXML private VBox help_pnl;
 
 	@FXML private TextField port_fld;
 
@@ -124,7 +123,6 @@ public class ServerInterface implements Initializable, Settings {
 		back_img.setOpacity(0.10);
 		ctrl_pnl.setVisible(false);
 		open_pnl.setVisible(false);
-		help_pnl.setVisible(false);
 		srry_pnl.setVisible(false);
 
 		tasklist.setVisible(false);
