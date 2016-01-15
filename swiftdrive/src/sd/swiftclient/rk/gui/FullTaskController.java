@@ -125,6 +125,8 @@ public class FullTaskController extends VBox {
 	 */
 	public void refresh(boolean update, SubTask subtask) {
 		//parent.setProgressVisible(true);
+		prog_bar.setProgress(task.getPercent());
+
 		if(update) {
 			parent.uploadSubtask(task, subtask);
 			parent.updateTask(task);

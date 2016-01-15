@@ -166,7 +166,7 @@ public class ClientInterface implements Settings, Initializable, SwiftNetContain
 							timer = new Timer();
 							timer.scheduleAtFixedRate(new TimerTask() {
 								public void run() {
-									if(((fullctrl != null && !fullctrl.isVisible()) ||
+									if(((fullctrl != null && fullctrl.isVisible()) ||
 									    (task_pnl != null && task_pnl.isVisible())) && (!locked && !upload_stask && !reload_task && !logout)) {
 										refreshTasks();
 									}
