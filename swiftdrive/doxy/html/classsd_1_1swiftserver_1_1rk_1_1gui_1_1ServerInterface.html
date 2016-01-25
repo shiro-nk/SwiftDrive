@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -64,10 +72,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,11 +105,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftserver</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>gui</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface.html">ServerInterface</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -98,12 +116,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Inheritance diagram for sd.swiftserver.rk.gui.ServerInterface:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface.png" usemap="#sd.swiftserver.rk.gui.ServerInterface_map" alt=""/>
-  <map id="sd.swiftserver.rk.gui.ServerInterface_map" name="sd.swiftserver.rk.gui.ServerInterface_map">
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1Settings.html" alt="sd.swiftglobal.rk.Settings" shape="rect" coords="230,0,450,24"/>
-</map>
- </div></div>
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface__inherit__graph.png" border="0" usemap="#sd_8swiftserver_8rk_8gui_8ServerInterface_inherit__map" alt="Inheritance graph"/></div>
+<!-- MAP 0 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for sd.swiftserver.rk.gui.ServerInterface:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface__coll__graph.png" border="0" usemap="#sd_8swiftserver_8rk_8gui_8ServerInterface_coll__map" alt="Collaboration graph"/></div>
+<!-- MAP 1 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -358,6 +379,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 <p><b>Get Server:</b><br />
  </p><dl class="section return"><dt>Returns</dt><dd>The server linked to this controller </dd></dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a387a1d67c1891b37a79964e9b3293269_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a387a1d67c1891b37a79964e9b3293269_icgraph" alt=""/></div>
+<!-- MAP 2 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a861a6f19595e9c97212ef29946810ac1"></a>
@@ -374,6 +403,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 </div><div class="memdoc">
 <p><b>Get Task List Controller:</b><br />
  </p><dl class="section return"><dt>Returns</dt><dd>The tasklist controller used by the main controller </dd></dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a861a6f19595e9c97212ef29946810ac1_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a861a6f19595e9c97212ef29946810ac1_icgraph" alt=""/></div>
+<!-- MAP 3 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -392,6 +429,22 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 <p><b>Get User Handler:</b><br />
  TODO: Retractor this method! (Handler and List are not the same) </p><dl class="section return"><dt>Returns</dt><dd>The user handler used by the userlist controller </dd></dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a70e43393ffef448eac20efe50f67374c_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a70e43393ffef448eac20efe50f67374c_cgraph" alt=""/></div>
+<!-- MAP 4 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a70e43393ffef448eac20efe50f67374c_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a70e43393ffef448eac20efe50f67374c_icgraph" alt=""/></div>
+<!-- MAP 5 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a54dd334cafe11ec46d43a1ca8ad5b5f5"></a>
@@ -409,6 +462,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 <p><b>Halt Server:</b><br />
  Stop the server immediately. This method will disregard all clients and shutdown the server. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a54dd334cafe11ec46d43a1ca8ad5b5f5_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a54dd334cafe11ec46d43a1ca8ad5b5f5_cgraph" alt=""/></div>
+<!-- MAP 6 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a0035675afa30044562b10da0f0162e54"></a>
@@ -425,6 +486,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 </div><div class="memdoc">
 <p><b>Hide All Panels:</b><br />
  Hide all panels from screen, leaving a blank screen to the right of the menu panel. This method is called whenever another panel from the stack is about to be displayed or when the GUI is being reset to its default state. </p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a0035675afa30044562b10da0f0162e54_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a0035675afa30044562b10da0f0162e54_icgraph" alt=""/></div>
+<!-- MAP 7 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -454,6 +523,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 <p><b>Initialize:</b><br />
  Loads all the required panel components before displaying the screen. <br />
  This method also schedules the <a class="el" href="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface.html#acf93b2764cbcd02ca55a3a676d39a93f">refresh()</a> function to execute every 1 second. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_aea6bad908cdd95f6f85ba805511bc9d4_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_aea6bad908cdd95f6f85ba805511bc9d4_cgraph" alt=""/></div>
+<!-- MAP 8 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -491,6 +568,22 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 <br />
  At the moment, this method will refresh the connection information as long as the connection control panel is visible. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_acf93b2764cbcd02ca55a3a676d39a93f_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_acf93b2764cbcd02ca55a3a676d39a93f_cgraph" alt=""/></div>
+<!-- MAP 9 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_acf93b2764cbcd02ca55a3a676d39a93f_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_acf93b2764cbcd02ca55a3a676d39a93f_icgraph" alt=""/></div>
+<!-- MAP 10 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a4b29750ebcb3bce9df24ed413fd09497"></a>
@@ -508,6 +601,22 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 <p><b>Refresh Information:</b><br />
  This method takes the server status and stylizes it for output on the screen. Hostname and address information will not be updated here due to the uncertain load times. The information displayed includes server run status, number of connected clients, and port. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a4b29750ebcb3bce9df24ed413fd09497_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a4b29750ebcb3bce9df24ed413fd09497_cgraph" alt=""/></div>
+<!-- MAP 11 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a4b29750ebcb3bce9df24ed413fd09497_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a4b29750ebcb3bce9df24ed413fd09497_icgraph" alt=""/></div>
+<!-- MAP 12 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a3a36cc729a29421267c588459f358dbd"></a>
@@ -524,6 +633,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 </div><div class="memdoc">
 <p><b>Set the Host Connection Port:</b><br />
  This method takes information from the GUI to change the port to which clients can connect to. The port input must meet the following criteria (checked below): Not blank/null, must only contain numbers, and must be between 101 and 65535 (inclusive). If the port does not meet one or more of these criteria, the appropriate error message will be displayed </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a3a36cc729a29421267c588459f358dbd_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a3a36cc729a29421267c588459f358dbd_cgraph" alt=""/></div>
+<!-- MAP 13 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -545,6 +662,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 </p>
 <p>The reason address information is handled here rather than in the actual <a class="el" href="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface.html#a4b29750ebcb3bce9df24ed413fd09497">refreshInfo()</a> function is because getting the ip address takes longer on some networks. Due to this variable timing, it can't be used in the periodic refreshing of the screen as it might cause the GUI to lock up. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a6ec3605f9e0f955c8d18021cd2f9a56e_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a6ec3605f9e0f955c8d18021cd2f9a56e_cgraph" alt=""/></div>
+<!-- MAP 14 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a17d0b9a73f26d2e92162db75e2b9a18a"></a>
@@ -561,6 +686,22 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 </div><div class="memdoc">
 <p><b>Show Welcome Message:</b><br />
  Shows the welcome message screen </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a17d0b9a73f26d2e92162db75e2b9a18a_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a17d0b9a73f26d2e92162db75e2b9a18a_cgraph" alt=""/></div>
+<!-- MAP 15 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a17d0b9a73f26d2e92162db75e2b9a18a_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a17d0b9a73f26d2e92162db75e2b9a18a_icgraph" alt=""/></div>
+<!-- MAP 16 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -579,6 +720,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 <p><b>Show Task Screen:</b><br />
  If the server is not active, this method will reload the tasklist and then display the resulting list to the screen. In the event that the server is running, the error screen will appear to prevent any changes to the content while clients are accessing. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_abcd88000a9caa34ec190efa701d12078_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_abcd88000a9caa34ec190efa701d12078_cgraph" alt=""/></div>
+<!-- MAP 17 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a3b3467c7b7b3d072ac2fdef55a0952cb"></a>
@@ -595,6 +744,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 </div><div class="memdoc">
 <p><b>Show User Screen:</b><br />
  This method will reload the userlist and then display the list to the screen as long as the server is offline. If the server is active, the error screen will appear to prevent the admin from making changes. Changes made while clients are still accessing it will cause some glitches either on the client or server and data will be lost. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a3b3467c7b7b3d072ac2fdef55a0952cb_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a3b3467c7b7b3d072ac2fdef55a0952cb_cgraph" alt=""/></div>
+<!-- MAP 18 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -613,6 +770,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 <p><b>Initialize Server:</b><br />
  The following method will attempt initialize the method as long as it meets the following criteria: the server isn't already online, and there is at least 1 task configured in the task list. The reason for the task list requiring at least 1 task is to ensure the admin doesn't forget to configure the task, and to prevent the client from hanging while waiting for a non-existent task (a problem that occurred with older versions of SwiftDrive due to for loops starting at 0 inclusive) </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a2198c14fd7f7ddbfee736b0e8250317b_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_a2198c14fd7f7ddbfee736b0e8250317b_cgraph" alt=""/></div>
+<!-- MAP 19 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="af5a96ffa7930f0226349e3df7c79a05b"></a>
@@ -630,17 +795,29 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 <p><b>Stop Server:</b><br />
  Closes the server using the "nice" method. This method will call the server's "nice" shutdown method which waits for all the clients to disconnect before halting. For the alternative where the server responds immediately, use <a class="el" href="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface.html#a54dd334cafe11ec46d43a1ca8ad5b5f5">haltServer()</a>. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_af5a96ffa7930f0226349e3df7c79a05b_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface_af5a96ffa7930f0226349e3df7c79a05b_cgraph" alt=""/></div>
+<!-- MAP 20 -->
+</div>
+</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/data/swiftspace/swiftdrive/src/sd/swiftserver/rk/gui/ServerInterface.java</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.11
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftserver</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>gui</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface.html">ServerInterface</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
+  </ul>
+</div>
 </body>
 </html>

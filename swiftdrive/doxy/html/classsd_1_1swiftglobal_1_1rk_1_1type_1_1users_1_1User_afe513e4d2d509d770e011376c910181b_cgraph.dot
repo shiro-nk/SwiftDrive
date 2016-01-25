@@ -1,0 +1,9 @@
+digraph "sd.swiftglobal.rk.type.users.User.getName"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="sd.swiftglobal.rk.type.users.\lUser.getName",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="sd.swiftglobal.rk.type.users.\lUser.getUsername",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1User.html#ac6d7437f7793007475f9ded4f5967b80"];
+}

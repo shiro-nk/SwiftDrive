@@ -1,0 +1,23 @@
+digraph "sd.swiftserver.rk.gui.ServerInterface.startServer"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="sd.swiftserver.rk.gui.Server\lInterface.startServer",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="sd.swiftserver.rk.gui.Task\lList.getTaskHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList.html#a0497def2771332caa9903c9e03a50734"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="sd.swiftserver.rk.net.Server.set\lTasklist",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1net_1_1Server.html#a0e9f6c05fe94433b4f769a3c4608ac3f"];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="sd.swiftserver.rk.net.Server.set\lUserlist",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1net_1_1Server.html#a6518b644ce175846a6c8de98dd28bbde"];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="sd.swiftserver.rk.gui.User\lList.getUserHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList.html#a9d9931b939f701b631b0cd8ab41f6f70"];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="sd.swiftserver.rk.gui.Server\lInterface.refreshInfo",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface.html#a4b29750ebcb3bce9df24ed413fd09497"];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="sd.swiftserver.rk.net.Server.dead",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1net_1_1Server.html#a8f32a1886688b05b7e1d1667a3a9a8e1"];
+  Node6 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="sd.swiftserver.rk.net.Server.closing",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1net_1_1Server.html#a3fca0307a8f70f89f5d8410e37fd6962"];
+  Node6 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="sd.swiftserver.rk.net.Server.get\lNumConnections",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1net_1_1Server.html#ab1f6e9ec3e883be17b0077ca41c82188"];
+}

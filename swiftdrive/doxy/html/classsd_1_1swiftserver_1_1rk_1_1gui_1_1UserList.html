@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -64,10 +72,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,11 +105,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftserver</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>gui</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList.html">UserList</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -98,11 +116,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Inheritance diagram for sd.swiftserver.rk.gui.UserList:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList.png" usemap="#sd.swiftserver.rk.gui.UserList_map" alt=""/>
-  <map id="sd.swiftserver.rk.gui.UserList_map" name="sd.swiftserver.rk.gui.UserList_map">
-</map>
- </div></div>
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList__inherit__graph.png" border="0" usemap="#sd_8swiftserver_8rk_8gui_8UserList_inherit__map" alt="Inheritance graph"/></div>
+<!-- MAP 0 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for sd.swiftserver.rk.gui.UserList:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList__coll__graph.png" border="0" usemap="#sd_8swiftserver_8rk_8gui_8UserList_coll__map" alt="Collaboration graph"/></div>
+<!-- MAP 1 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -140,6 +162,14 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p><b>Constructor:</b> Loads the fxml file into an object </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a3edcc3675fe3924e8a0c1bde638a16c2_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a3edcc3675fe3924e8a0c1bde638a16c2_cgraph" alt=""/></div>
+<!-- MAP 2 -->
+</div>
+</p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -157,6 +187,14 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p><b>Create New User:</b><br />
  Create a new user with the given information (screen name, user name, and password) as long as it meets the following criteria: not blank/null and does not share a screen/user name with another user. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a356f2428dd69bea9e451aa3e8a17696e_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a356f2428dd69bea9e451aa3e8a17696e_cgraph" alt=""/></div>
+<!-- MAP 3 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -176,6 +214,14 @@ Public Member Functions</h2></td></tr>
 <p><b>Display a Message:</b><br />
  Display the given error/warning message on screen in the place of the normal GUI </p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a2f8a39e354656c4511d95d850c000e60_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a2f8a39e354656c4511d95d850c000e60_icgraph" alt=""/></div>
+<!-- MAP 4 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a9d9931b939f701b631b0cd8ab41f6f70"></a>
@@ -191,6 +237,14 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>The <b>UserHandler</b> used to display the list </dd></dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a9d9931b939f701b631b0cd8ab41f6f70_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a9d9931b939f701b631b0cd8ab41f6f70_icgraph" alt=""/></div>
+<!-- MAP 5 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -208,6 +262,22 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p><b>Reload Users:</b><br />
  Reload the user index from file, clear all the information already on screen, and then dynamically load the <b><a class="el" href="classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserController.html">UserController</a></b> for each user found in the file. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a1445148955b132fe2ae7b3737f239239_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a1445148955b132fe2ae7b3737f239239_cgraph" alt=""/></div>
+<!-- MAP 6 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a1445148955b132fe2ae7b3737f239239_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a1445148955b132fe2ae7b3737f239239_icgraph" alt=""/></div>
+<!-- MAP 7 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -231,6 +301,22 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a589ca2a82b8088cc6b73be46c7207e08_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a589ca2a82b8088cc6b73be46c7207e08_cgraph" alt=""/></div>
+<!-- MAP 8 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a589ca2a82b8088cc6b73be46c7207e08_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a589ca2a82b8088cc6b73be46c7207e08_icgraph" alt=""/></div>
+<!-- MAP 9 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a683a65fa0270f1167dbc5a0946396971"></a>
@@ -248,17 +334,29 @@ Public Member Functions</h2></td></tr>
 <p><b>Hide Messages:</b><br />
  Hide all error/warning messages from the screen and show the normal GUI forms instead. </p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a683a65fa0270f1167dbc5a0946396971_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList_a683a65fa0270f1167dbc5a0946396971_icgraph" alt=""/></div>
+<!-- MAP 10 -->
+</div>
+</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/data/swiftspace/swiftdrive/src/sd/swiftserver/rk/gui/UserList.java</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.11
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftserver</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>gui</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList.html">UserList</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
+  </ul>
+</div>
 </body>
 </html>

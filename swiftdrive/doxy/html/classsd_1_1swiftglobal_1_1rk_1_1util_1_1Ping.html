@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -64,10 +72,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,11 +105,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftglobal</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>util</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.html">Ping</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
@@ -99,13 +117,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Inheritance diagram for sd.swiftglobal.rk.util.Ping:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.png" usemap="#sd.swiftglobal.rk.util.Ping_map" alt=""/>
-  <map id="sd.swiftglobal.rk.util.Ping_map" name="sd.swiftglobal.rk.util.Ping_map">
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1Settings.html" alt="sd.swiftglobal.rk.Settings" shape="rect" coords="0,0,172,24"/>
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging.html" alt="sd.swiftglobal.rk.util.Logging" shape="rect" coords="182,0,354,24"/>
-</map>
- </div></div>
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping__inherit__graph.png" border="0" usemap="#sd_8swiftglobal_8rk_8util_8Ping_inherit__map" alt="Inheritance graph"/></div>
+<!-- MAP 0 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for sd.swiftglobal.rk.util.Ping:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping__coll__graph.png" border="0" usemap="#sd_8swiftglobal_8rk_8util_8Ping_coll__map" alt="Collaboration graph"/></div>
+<!-- MAP 1 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -427,6 +447,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 <p><b><a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.html">Ping</a> Activation:</b><br />
  Re-enables the ping thread. This method is called in order to restart the ping countdown. This is done by unlocking the <b>ping</b> variable, allowing the <a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.html#a40542298de470b70571bfa71fabed62d">run()</a> method to continue. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_a02c79a6bf4cc483c472904d650e8bf52_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_a02c79a6bf4cc483c472904d650e8bf52_cgraph" alt=""/></div>
+<!-- MAP 2 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_a02c79a6bf4cc483c472904d650e8bf52_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_a02c79a6bf4cc483c472904d650e8bf52_icgraph" alt=""/></div>
+<!-- MAP 3 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a04f008cd0de1fb9ffe2edca5872d82da"></a>
@@ -443,6 +479,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 </div><div class="memdoc">
 <p><b>Close:</b><br />
  Called when ping fails in order to destroy the client and ping. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_a04f008cd0de1fb9ffe2edca5872d82da_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_a04f008cd0de1fb9ffe2edca5872d82da_cgraph" alt=""/></div>
+<!-- MAP 4 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_a04f008cd0de1fb9ffe2edca5872d82da_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_a04f008cd0de1fb9ffe2edca5872d82da_icgraph" alt=""/></div>
+<!-- MAP 5 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -463,6 +515,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 <br />
 </p>
 <p><b>Note:</b> This method does not yield to send-receive processes </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_a338a0c1affd8bf5deb87cafdff7103f4_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_a338a0c1affd8bf5deb87cafdff7103f4_cgraph" alt=""/></div>
+<!-- MAP 6 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_a338a0c1affd8bf5deb87cafdff7103f4_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_a338a0c1affd8bf5deb87cafdff7103f4_icgraph" alt=""/></div>
+<!-- MAP 7 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -495,6 +563,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 
 <p>Implements <a class="el" href="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging.html#aec1de6a9c47071a9869fc000bca8aa2e">sd.swiftglobal.rk.util.Logging</a>.</p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_aa0f4f60ee9a24ee9d7b19f73f42e4159_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_aa0f4f60ee9a24ee9d7b19f73f42e4159_cgraph" alt=""/></div>
+<!-- MAP 8 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_aa0f4f60ee9a24ee9d7b19f73f42e4159_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_aa0f4f60ee9a24ee9d7b19f73f42e4159_icgraph" alt=""/></div>
+<!-- MAP 9 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="ac64058e066965587f770a24baa863e24"></a>
@@ -514,6 +598,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 <br />
 </p>
 <p><b>Note:</b> See <a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.html#a338a0c1affd8bf5deb87cafdff7103f4">deactivate()</a> and <a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.html#afd5c1014e01497824548d9e49cd0139d">standby()</a> for more information </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_ac64058e066965587f770a24baa863e24_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_ac64058e066965587f770a24baa863e24_cgraph" alt=""/></div>
+<!-- MAP 10 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_ac64058e066965587f770a24baa863e24_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_ac64058e066965587f770a24baa863e24_icgraph" alt=""/></div>
+<!-- MAP 11 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -538,6 +638,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 </p>
 <p><b>Note:</b> The reason I have a separate thread for running rather than making this entire class a thread is to avoid locking methods, such as <a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.html#a02c79a6bf4cc483c472904d650e8bf52">activate()</a> or <a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.html#a338a0c1affd8bf5deb87cafdff7103f4">deactivate()</a>, while the thread is waiting. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_a40542298de470b70571bfa71fabed62d_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_a40542298de470b70571bfa71fabed62d_cgraph" alt=""/></div>
+<!-- MAP 12 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="afd5c1014e01497824548d9e49cd0139d"></a>
@@ -554,6 +662,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 </div><div class="memdoc">
 <p><b>Standby:</b><br />
  Causes the running method to yield runtime to the <a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.html#a40542298de470b70571bfa71fabed62d">run()</a> method while <a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.html#a40542298de470b70571bfa71fabed62d">run()</a> is sending and receiving. This is intended to protect the client-server connection from losing it's position. <a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.html#afd5c1014e01497824548d9e49cd0139d">standby()</a> works by checking whether the send-receive process is running. If it is running, the send-receive in <a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.html#a40542298de470b70571bfa71fabed62d">run()</a> would have locked <b>lock</b>. This method waits until <b>lock</b> is released by <a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.html#a40542298de470b70571bfa71fabed62d">run()</a> before allowing the calling method to proceed. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_afd5c1014e01497824548d9e49cd0139d_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_afd5c1014e01497824548d9e49cd0139d_cgraph" alt=""/></div>
+<!-- MAP 13 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_afd5c1014e01497824548d9e49cd0139d_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_afd5c1014e01497824548d9e49cd0139d_icgraph" alt=""/></div>
+<!-- MAP 14 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -575,17 +699,37 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 </p>
 <p><b>Note:</b> The reasons the <b>ping</b> variable is unlocked is to destroy any thread that may be waiting on this variable. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_ac2f1f750aef9420c3a5cefad9b5f1c7d_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_ac2f1f750aef9420c3a5cefad9b5f1c7d_cgraph" alt=""/></div>
+<!-- MAP 15 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_ac2f1f750aef9420c3a5cefad9b5f1c7d_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping_ac2f1f750aef9420c3a5cefad9b5f1c7d_icgraph" alt=""/></div>
+<!-- MAP 16 -->
+</div>
+</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/data/swiftspace/swiftdrive/src/sd/swiftglobal/rk/util/Ping.java</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.11
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftglobal</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>util</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.html">Ping</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
+  </ul>
+</div>
 </body>
 </html>

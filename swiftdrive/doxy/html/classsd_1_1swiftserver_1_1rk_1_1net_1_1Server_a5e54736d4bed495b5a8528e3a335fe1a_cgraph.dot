@@ -1,0 +1,11 @@
+digraph "sd.swiftserver.rk.net.Server.close"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="sd.swiftserver.rk.net.Server.close",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="sd.swiftserver.rk.net.Server.echo",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1net_1_1Server.html#abf5c6dfd8e1e3ddc8126c83441d3c9d1"];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="sd.swiftglobal.rk.util.Logging.print",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging.html#a6e61d070344ee13fbf3af10445161c1f"];
+}

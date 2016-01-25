@@ -1,0 +1,7 @@
+digraph "Graphical Class Hierarchy"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="sd.swiftglobal.rk.type.handler.\lHandler\< User \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1Handler.html"];
+}

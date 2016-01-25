@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -64,10 +72,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,11 +105,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftserver</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>gui</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList.html">TaskList</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -98,11 +116,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Inheritance diagram for sd.swiftserver.rk.gui.TaskList:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList.png" usemap="#sd.swiftserver.rk.gui.TaskList_map" alt=""/>
-  <map id="sd.swiftserver.rk.gui.TaskList_map" name="sd.swiftserver.rk.gui.TaskList_map">
-</map>
- </div></div>
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList__inherit__graph.png" border="0" usemap="#sd_8swiftserver_8rk_8gui_8TaskList_inherit__map" alt="Inheritance graph"/></div>
+<!-- MAP 0 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for sd.swiftserver.rk.gui.TaskList:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList__coll__graph.png" border="0" usemap="#sd_8swiftserver_8rk_8gui_8TaskList_coll__map" alt="Collaboration graph"/></div>
+<!-- MAP 1 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -165,6 +187,14 @@ Public Member Functions</h2></td></tr>
 <p><b>Create New Task:</b><br />
  Creates a new task (Name: "New Task", Description: "This is a new task") and displays it in the task list. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_aac1b22697aa0dd609e4a6b8290237839_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_aac1b22697aa0dd609e4a6b8290237839_cgraph" alt=""/></div>
+<!-- MAP 2 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="af7f63aa022c4bcb8b9efab62e32797b9"></a>
@@ -182,6 +212,22 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p><b>Delete Task:</b><br />
  Remove the given task from the <b>TaskHandler</b>, reload, and display. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_af7f63aa022c4bcb8b9efab62e32797b9_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_af7f63aa022c4bcb8b9efab62e32797b9_cgraph" alt=""/></div>
+<!-- MAP 3 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_af7f63aa022c4bcb8b9efab62e32797b9_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_af7f63aa022c4bcb8b9efab62e32797b9_icgraph" alt=""/></div>
+<!-- MAP 4 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -201,6 +247,22 @@ Public Member Functions</h2></td></tr>
 <p><b>Open / Expand Task:</b><br />
  Create a new <b><a class="el" href="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController.html">FullTaskController</a></b> for the given task and display the controller on screen using the blank panel. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_a194c41f80ce13a2ac02f0f5a2c2ed09d_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_a194c41f80ce13a2ac02f0f5a2c2ed09d_cgraph" alt=""/></div>
+<!-- MAP 5 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_a194c41f80ce13a2ac02f0f5a2c2ed09d_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_a194c41f80ce13a2ac02f0f5a2c2ed09d_icgraph" alt=""/></div>
+<!-- MAP 6 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a0497def2771332caa9903c9e03a50734"></a>
@@ -216,6 +278,14 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>The Task Index used in the controller </dd></dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_a0497def2771332caa9903c9e03a50734_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_a0497def2771332caa9903c9e03a50734_icgraph" alt=""/></div>
+<!-- MAP 7 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -234,6 +304,14 @@ Public Member Functions</h2></td></tr>
 <p><b>Hide All Panels:</b><br />
  Hides all the panels on screen </p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_aa3527e2d7aa0f1bfd2ba55c7b0d4e081_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_aa3527e2d7aa0f1bfd2ba55c7b0d4e081_icgraph" alt=""/></div>
+<!-- MAP 8 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a969433091985ae40005bc386277925b5"></a>
@@ -251,6 +329,14 @@ Public Member Functions</h2></td></tr>
 <p><b>Hide the full task controller:</b><br />
  Hides the current <a class="el" href="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController.html">FullTaskController</a> and replaces it with the list view </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_a969433091985ae40005bc386277925b5_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_a969433091985ae40005bc386277925b5_cgraph" alt=""/></div>
+<!-- MAP 9 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a90f207d4871d18e5f710ad4c362e978f"></a>
@@ -267,6 +353,22 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p><b>Reload Tasks:</b><br />
  Reload the task index from file, clear all the information already on screen, and then dynamically load the <b><a class="el" href="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskController.html">TaskController</a></b> for each task found in the file. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_a90f207d4871d18e5f710ad4c362e978f_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_a90f207d4871d18e5f710ad4c362e978f_cgraph" alt=""/></div>
+<!-- MAP 10 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_a90f207d4871d18e5f710ad4c362e978f_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_a90f207d4871d18e5f710ad4c362e978f_icgraph" alt=""/></div>
+<!-- MAP 11 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -290,6 +392,14 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_ac2949c2ee5d4990c0a8b5d005b57c898_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_ac2949c2ee5d4990c0a8b5d005b57c898_icgraph" alt=""/></div>
+<!-- MAP 12 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a23812762bdfb6926b8a6280ffd6805dd"></a>
@@ -307,17 +417,37 @@ Public Member Functions</h2></td></tr>
 <p><b>Show Task List:</b><br />
  Show the list of tasks on screen </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_a23812762bdfb6926b8a6280ffd6805dd_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_a23812762bdfb6926b8a6280ffd6805dd_cgraph" alt=""/></div>
+<!-- MAP 13 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_a23812762bdfb6926b8a6280ffd6805dd_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList_a23812762bdfb6926b8a6280ffd6805dd_icgraph" alt=""/></div>
+<!-- MAP 14 -->
+</div>
+</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/data/swiftspace/swiftdrive/src/sd/swiftserver/rk/gui/TaskList.java</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.11
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftserver</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>gui</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftserver_1_1rk_1_1gui_1_1TaskList.html">TaskList</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -1,0 +1,17 @@
+digraph "sd.swiftclient.rk.gui.TaskController.setTask"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="sd.swiftclient.rk.gui.Task\lController.setTask",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="sd.swiftglobal.rk.type.tasks.\lTask.getName",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task.html#a52de4a735942ba0e20e7c22a70e11a41"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="sd.swiftglobal.rk.type.tasks.\lTask.getPercent",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task.html#a83be3bf6c228200a80b31c45277ba094"];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="sd.swiftglobal.rk.type.handler.\lHandler.getList",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1Handler.html#a16f5a71b9bd1d684956cb1190a13a68d"];
+  Node3 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="sd.swiftglobal.rk.type.tasks.\lSubTask.setInfo",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask.html#a356469a042040c1d6b4f20d597701763"];
+  Node3 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="sd.swiftglobal.rk.type.handler.\lHandler.add",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1Handler.html#ae3c6c35ed35b5f29813d197e858a7e1a"];
+}

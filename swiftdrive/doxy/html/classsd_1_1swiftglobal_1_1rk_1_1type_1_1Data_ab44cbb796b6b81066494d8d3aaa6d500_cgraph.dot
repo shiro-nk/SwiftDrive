@@ -1,0 +1,13 @@
+digraph "sd.swiftglobal.rk.type.Data.setArray"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="sd.swiftglobal.rk.type.Data.set\lArray",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="sd.swiftglobal.rk.type.Data.reset",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1Data.html#a45433356c39bd090187592c410a0ca7d"];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="sd.swiftglobal.rk.type.Data.clear",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1Data.html#a127ca107d12e79a1bf40d0a75ad7e6cf"];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="sd.swiftglobal.rk.type.Data.resetPos",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1Data.html#aec5591f15662e3991d9162f46ca1c395"];
+}

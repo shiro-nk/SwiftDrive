@@ -1,0 +1,13 @@
+digraph "sd.swiftglobal.rk.expt.SwiftException.getErr"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="sd.swiftglobal.rk.expt.Swift\lException.getErr",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="sd.swiftclient.rk.net.Client.scmd",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1net_1_1Client.html#a3b060f2717089ec11a87a5eb52d68d97"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="sd.swiftclient.rk.net.Client.sfcmd",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1net_1_1Client.html#a0cd9d0ed06fa3e983667ce61a1081fa9"];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="sd.swiftglobal.rk.expt.Swift\lException.SwiftException",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1expt_1_1SwiftException.html#ae25ccceac6875dee6189727727c30c03"];
+}

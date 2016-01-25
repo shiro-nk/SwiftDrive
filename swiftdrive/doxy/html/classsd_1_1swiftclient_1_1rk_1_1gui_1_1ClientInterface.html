@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -64,10 +72,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,11 +105,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftclient</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>gui</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface.html">ClientInterface</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -98,13 +116,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Inheritance diagram for sd.swiftclient.rk.gui.ClientInterface:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface.png" usemap="#sd.swiftclient.rk.gui.ClientInterface_map" alt=""/>
-  <map id="sd.swiftclient.rk.gui.ClientInterface_map" name="sd.swiftclient.rk.gui.ClientInterface_map">
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1Settings.html" alt="sd.swiftglobal.rk.Settings" shape="rect" coords="0,0,278,24"/>
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1SwiftNet_1_1SwiftNetContainer.html" alt="sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer" shape="rect" coords="576,0,854,24"/>
-</map>
- </div></div>
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface__inherit__graph.png" border="0" usemap="#sd_8swiftclient_8rk_8gui_8ClientInterface_inherit__map" alt="Inheritance graph"/></div>
+<!-- MAP 0 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for sd.swiftclient.rk.gui.ClientInterface:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface__coll__graph.png" border="0" usemap="#sd_8swiftclient_8rk_8gui_8ClientInterface_coll__map" alt="Collaboration graph"/></div>
+<!-- MAP 1 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -380,6 +400,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 
 <p>Implements <a class="el" href="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1SwiftNet_1_1SwiftNetContainer.html#abe4414fa84fec9af9b69f663e1b986d1">sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer</a>.</p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a3c48479d8906406a7877ee5dbb1f2a9d_cgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a3c48479d8906406a7877ee5dbb1f2a9d_cgraph" alt=""/></div>
+<!-- MAP 2 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="ade6dc45015234e3610983333748c33ec"></a>
@@ -404,6 +432,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_ade6dc45015234e3610983333748c33ec_cgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_ade6dc45015234e3610983333748c33ec_cgraph" alt=""/></div>
+<!-- MAP 3 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a29e8f55b73dc6a6d57ccb64cfe8bb3e5"></a>
@@ -420,6 +456,22 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 </div><div class="memdoc">
 <p><b>Download Task Index File</b><br />
  Download the task index directly from the source. The index file is written to the local hard drive and is loaded to be used as a reference to download each task file. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a29e8f55b73dc6a6d57ccb64cfe8bb3e5_cgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a29e8f55b73dc6a6d57ccb64cfe8bb3e5_cgraph" alt=""/></div>
+<!-- MAP 4 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a29e8f55b73dc6a6d57ccb64cfe8bb3e5_icgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a29e8f55b73dc6a6d57ccb64cfe8bb3e5_icgraph" alt=""/></div>
+<!-- MAP 5 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -440,6 +492,22 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 </p>
 <p><b>Note:</b> The difference between public and standard is public does not include the users' passwords </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_af18010277f8e8bdcc185067637667ce4_cgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_af18010277f8e8bdcc185067637667ce4_cgraph" alt=""/></div>
+<!-- MAP 6 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_af18010277f8e8bdcc185067637667ce4_icgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_af18010277f8e8bdcc185067637667ce4_icgraph" alt=""/></div>
+<!-- MAP 7 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a8b18d51a52a2b8279579fc6d2fab59ed"></a>
@@ -458,6 +526,22 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 <p><b>Expand / Open Task</b><br />
  Replaces the list panel with a full, read-limited-write task panel with full task and subtask information. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a8b18d51a52a2b8279579fc6d2fab59ed_cgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a8b18d51a52a2b8279579fc6d2fab59ed_cgraph" alt=""/></div>
+<!-- MAP 8 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a8b18d51a52a2b8279579fc6d2fab59ed_icgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a8b18d51a52a2b8279579fc6d2fab59ed_icgraph" alt=""/></div>
+<!-- MAP 9 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a6045bec4ce335b29540d8f630d6b0a6e"></a>
@@ -474,6 +558,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>The client used for socket I/O </dd></dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a6045bec4ce335b29540d8f630d6b0a6e_icgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a6045bec4ce335b29540d8f630d6b0a6e_icgraph" alt=""/></div>
+<!-- MAP 10 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a74c274cbedbc627f9bb8151a9d2421fb"></a>
@@ -489,6 +581,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Index of users allowed on the server </dd></dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a74c274cbedbc627f9bb8151a9d2421fb_icgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a74c274cbedbc627f9bb8151a9d2421fb_icgraph" alt=""/></div>
+<!-- MAP 11 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -507,6 +607,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 <p><b>Hide All Panels</b><br />
  Hides all subpanels to allow for another panel to be displayed on screen </p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a25dbf60acdfe759e020cef704b2a3755_icgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a25dbf60acdfe759e020cef704b2a3755_icgraph" alt=""/></div>
+<!-- MAP 12 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a57f3b2f2fea15a5e2ca64f2f8e9fe428"></a>
@@ -523,6 +631,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 </div><div class="memdoc">
 <p><b>Hide Menu / Show Login</b><br />
  Hides the main panel and displays the login screen </p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a57f3b2f2fea15a5e2ca64f2f8e9fe428_icgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a57f3b2f2fea15a5e2ca64f2f8e9fe428_icgraph" alt=""/></div>
+<!-- MAP 13 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -552,6 +668,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 <p><b>Initialize</b><br />
  Initialize the Client Interface </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a39c5fbb9d278b3bf9584e0eab3ebb3a5_cgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a39c5fbb9d278b3bf9584e0eab3ebb3a5_cgraph" alt=""/></div>
+<!-- MAP 14 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a4b07775150f947d2f773e0096c378139"></a>
@@ -576,6 +700,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 username or password" will be displayed. <br />
  Finally, if everything checks out, the GUI will reset itself, download new information, and then display the welcome screen. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a4b07775150f947d2f773e0096c378139_cgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a4b07775150f947d2f773e0096c378139_cgraph" alt=""/></div>
+<!-- MAP 15 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a6cd1be125f29d289ee1962fc4f409180"></a>
@@ -592,6 +724,22 @@ username or password" will be displayed. <br />
 </div><div class="memdoc">
 <p><b>Logout</b><br />
  Waits for any operations to complete, then informs the server of the disconnection before returning to the login screen </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a6cd1be125f29d289ee1962fc4f409180_cgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a6cd1be125f29d289ee1962fc4f409180_cgraph" alt=""/></div>
+<!-- MAP 16 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a6cd1be125f29d289ee1962fc4f409180_icgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a6cd1be125f29d289ee1962fc4f409180_icgraph" alt=""/></div>
+<!-- MAP 17 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -627,6 +775,22 @@ username or password" will be displayed. <br />
 <p><b>Refresh All Task Information</b><br />
  Repeats the download process for all tasks known to the client </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a9252617e9249b37cb60260797e94b65f_cgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a9252617e9249b37cb60260797e94b65f_cgraph" alt=""/></div>
+<!-- MAP 18 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a9252617e9249b37cb60260797e94b65f_icgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a9252617e9249b37cb60260797e94b65f_icgraph" alt=""/></div>
+<!-- MAP 19 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="ae9168a74a31a7dde0adf24908a6ea27e"></a>
@@ -643,6 +807,22 @@ username or password" will be displayed. <br />
 </div><div class="memdoc">
 <p><b>Show Task List</b><br />
  Updates and displays the task list from the server. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_ae9168a74a31a7dde0adf24908a6ea27e_cgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_ae9168a74a31a7dde0adf24908a6ea27e_cgraph" alt=""/></div>
+<!-- MAP 20 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_ae9168a74a31a7dde0adf24908a6ea27e_icgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_ae9168a74a31a7dde0adf24908a6ea27e_icgraph" alt=""/></div>
+<!-- MAP 21 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -678,6 +858,22 @@ username or password" will be displayed. <br />
 <p><b>Display Welcome Message</b><br />
  Customizes the welcome screen to display the users realname, the address and port they are connected. Once this is complete, the welcome screen is displayed as a subpanel </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a5582e971bbd4dac889c64ed86e43e05d_cgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a5582e971bbd4dac889c64ed86e43e05d_cgraph" alt=""/></div>
+<!-- MAP 22 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a5582e971bbd4dac889c64ed86e43e05d_icgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a5582e971bbd4dac889c64ed86e43e05d_icgraph" alt=""/></div>
+<!-- MAP 23 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a409b6e8c040f9b1aded8d5824b73b5df"></a>
@@ -701,6 +897,22 @@ username or password" will be displayed. <br />
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a409b6e8c040f9b1aded8d5824b73b5df_cgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a409b6e8c040f9b1aded8d5824b73b5df_cgraph" alt=""/></div>
+<!-- MAP 24 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a409b6e8c040f9b1aded8d5824b73b5df_icgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a409b6e8c040f9b1aded8d5824b73b5df_icgraph" alt=""/></div>
+<!-- MAP 25 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -737,17 +949,37 @@ username or password" will be displayed. <br />
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a92d60aab2808b68a6347204aea9b0b12_cgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a92d60aab2808b68a6347204aea9b0b12_cgraph" alt=""/></div>
+<!-- MAP 26 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a92d60aab2808b68a6347204aea9b0b12_icgraph.png" border="0" usemap="#classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface_a92d60aab2808b68a6347204aea9b0b12_icgraph" alt=""/></div>
+<!-- MAP 27 -->
+</div>
+</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/data/swiftspace/swiftdrive/src/sd/swiftclient/rk/gui/ClientInterface.java</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.11
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftclient</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>gui</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface.html">ClientInterface</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -64,10 +72,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,11 +105,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftglobal</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>util</b></li><li class="navelem"><a class="el" href="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging.html">Logging</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -99,22 +117,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Inheritance diagram for sd.swiftglobal.rk.util.Logging:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging.png" usemap="#sd.swiftglobal.rk.util.Logging_map" alt=""/>
-  <map id="sd.swiftglobal.rk.util.Logging_map" name="sd.swiftglobal.rk.util.Logging_map">
-<area href="classsd_1_1swiftclient_1_1rk_1_1net_1_1Client.html" alt="sd.swiftclient.rk.net.Client" shape="rect" coords="251,56,492,80"/>
-<area href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1Data.html" alt="sd.swiftglobal.rk.type.Data" shape="rect" coords="251,112,492,136"/>
-<area href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile.html" alt="sd.swiftglobal.rk.type.SwiftFile" shape="rect" coords="251,168,492,192"/>
-<area href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task.html" alt="sd.swiftglobal.rk.type.tasks.Task" shape="rect" coords="251,224,492,248"/>
-<area href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1TaskHandler.html" alt="sd.swiftglobal.rk.type.tasks.TaskHandler" shape="rect" coords="251,280,492,304"/>
-<area href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1UserHandler.html" alt="sd.swiftglobal.rk.type.users.UserHandler" shape="rect" coords="251,336,492,360"/>
-<area href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.html" alt="sd.swiftglobal.rk.util.Ping" shape="rect" coords="251,392,492,416"/>
-<area href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1SwiftFront.html" alt="sd.swiftglobal.rk.util.SwiftFront" shape="rect" coords="251,448,492,472"/>
-<area href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Terminator.html" alt="sd.swiftglobal.rk.util.Terminator" shape="rect" coords="251,504,492,528"/>
-<area href="classsd_1_1swiftserver_1_1rk_1_1net_1_1Connection.html" alt="sd.swiftserver.rk.net.Connection" shape="rect" coords="251,560,492,584"/>
-<area href="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server.html" alt="sd.swiftserver.rk.net.Server" shape="rect" coords="251,616,492,640"/>
-</map>
- </div></div>
+<div class="center"><img src="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging__inherit__graph.png" border="0" usemap="#sd_8swiftglobal_8rk_8util_8Logging_inherit__map" alt="Inheritance graph"/></div>
+<!-- MAP 0 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -198,6 +203,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 
 <p>Implemented in <a class="el" href="classsd_1_1swiftclient_1_1rk_1_1net_1_1Client.html#a1f91b460f509dedf25d9c7a953e9c680">sd.swiftclient.rk.net.Client</a>, <a class="el" href="classsd_1_1swiftserver_1_1rk_1_1net_1_1Connection.html#a36450e97b21c4a8f731ca93ec962942c">sd.swiftserver.rk.net.Connection</a>, <a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Ping.html#aa0f4f60ee9a24ee9d7b19f73f42e4159">sd.swiftglobal.rk.util.Ping</a>, <a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task.html#a8b7a79c54cbbb33f988a8da8aaa2ede5">sd.swiftglobal.rk.type.tasks.Task</a>, <a class="el" href="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server.html#abf5c6dfd8e1e3ddc8126c83441d3c9d1">sd.swiftserver.rk.net.Server</a>, and <a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1UserHandler.html#a37e521655869db83f14e7d3513d684e3">sd.swiftglobal.rk.type.users.UserHandler</a>.</p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging_aec1de6a9c47071a9869fc000bca8aa2e_cgraph.png" border="0" usemap="#interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging_aec1de6a9c47071a9869fc000bca8aa2e_cgraph" alt=""/></div>
+<!-- MAP 1 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging_aec1de6a9c47071a9869fc000bca8aa2e_icgraph.png" border="0" usemap="#interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging_aec1de6a9c47071a9869fc000bca8aa2e_icgraph" alt=""/></div>
+<!-- MAP 2 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a89311bcfeec4f12e55f3d276e8f9fd87"></a>
@@ -221,6 +242,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 </dl>
 
 <p>Implemented in <a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1Terminator.html#a486f62b089fb6573908761c58062f4a2">sd.swiftglobal.rk.util.Terminator</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging_a89311bcfeec4f12e55f3d276e8f9fd87_cgraph.png" border="0" usemap="#interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging_a89311bcfeec4f12e55f3d276e8f9fd87_cgraph" alt=""/></div>
+<!-- MAP 3 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -256,6 +285,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging_ac8158bc7382ee75f09a9482aafa7900e_icgraph.png" border="0" usemap="#interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging_ac8158bc7382ee75f09a9482aafa7900e_icgraph" alt=""/></div>
+<!-- MAP 4 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a793164b17c90cf5ed34a938ee68a128c"></a>
@@ -277,6 +314,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging_a793164b17c90cf5ed34a938ee68a128c_cgraph.png" border="0" usemap="#interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging_a793164b17c90cf5ed34a938ee68a128c_cgraph" alt=""/></div>
+<!-- MAP 5 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -334,6 +379,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging_a6e61d070344ee13fbf3af10445161c1f_icgraph.png" border="0" usemap="#interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging_a6e61d070344ee13fbf3af10445161c1f_icgraph" alt=""/></div>
+<!-- MAP 6 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a25ade95b410a236a74fe7e8c160bc991"></a>
@@ -355,6 +408,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging_a25ade95b410a236a74fe7e8c160bc991_cgraph.png" border="0" usemap="#interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging_a25ade95b410a236a74fe7e8c160bc991_cgraph" alt=""/></div>
+<!-- MAP 7 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -384,11 +445,15 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 <li>/data/swiftspace/swiftdrive/src/sd/swiftglobal/rk/util/Logging.java</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.11
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftglobal</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>util</b></li><li class="navelem"><a class="el" href="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging.html">Logging</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
+  </ul>
+</div>
 </body>
 </html>

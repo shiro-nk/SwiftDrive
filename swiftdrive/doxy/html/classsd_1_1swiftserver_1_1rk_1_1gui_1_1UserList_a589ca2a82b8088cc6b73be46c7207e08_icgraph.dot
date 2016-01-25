@@ -1,0 +1,9 @@
+digraph "sd.swiftserver.rk.gui.UserList.setParent"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="sd.swiftserver.rk.gui.User\lList.setParent",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="sd.swiftserver.rk.gui.Server\lInterface.initialize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface.html#aea6bad908cdd95f6f85ba805511bc9d4"];
+}

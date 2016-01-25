@@ -1,0 +1,21 @@
+digraph "sd.swiftserver.rk.gui.UserList.displayWarning"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="sd.swiftserver.rk.gui.User\lList.displayWarning",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="sd.swiftserver.rk.gui.User\lController.delete",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserController.html#a93740eb2176925a7ed11919200531c5d"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="sd.swiftserver.rk.gui.User\lList.reload",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList.html#a1445148955b132fe2ae7b3737f239239"];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="sd.swiftserver.rk.gui.Server\lInterface.showUsers",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface.html#a3b3467c7b7b3d072ac2fdef55a0952cb"];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="sd.swiftserver.rk.gui.User\lList.createUser",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList.html#a356f2428dd69bea9e451aa3e8a17696e"];
+  Node3 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="sd.swiftserver.rk.gui.User\lList.setParent",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1gui_1_1UserList.html#a589ca2a82b8088cc6b73be46c7207e08"];
+  Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="sd.swiftserver.rk.gui.Server\lInterface.initialize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1gui_1_1ServerInterface.html#aea6bad908cdd95f6f85ba805511bc9d4"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

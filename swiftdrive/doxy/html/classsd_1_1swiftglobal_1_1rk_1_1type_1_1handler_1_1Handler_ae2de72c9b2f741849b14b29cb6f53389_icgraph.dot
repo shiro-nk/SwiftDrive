@@ -1,0 +1,17 @@
+digraph "sd.swiftglobal.rk.type.handler.Handler.getSource"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="sd.swiftglobal.rk.type.handler.\lHandler.getSource",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="sd.swiftglobal.rk.type.tasks.\lTask.setName",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task.html#ade684862e9c54dd41871f1e8b3051976"];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="sd.swiftserver.rk.gui.Full\lTaskController.createSubtask",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController.html#a3cd2c3057f3d043eb004c7d74e49213a"];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="sd.swiftserver.rk.gui.Full\lTaskController.save",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController.html#a76649cb72c268add8aedba2fc6891d8e"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="sd.swiftglobal.rk.type.tasks.\lTaskHandler.TaskHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1TaskHandler.html#aee5dc8dcb1d4ea413171fa61c3c53a6c"];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="sd.swiftglobal.rk.type.users.\lUserHandler.echo",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1UserHandler.html#a37e521655869db83f14e7d3513d684e3"];
+}

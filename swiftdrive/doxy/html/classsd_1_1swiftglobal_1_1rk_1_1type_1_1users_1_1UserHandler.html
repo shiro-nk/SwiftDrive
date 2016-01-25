@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -64,10 +72,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1UserHandler.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,11 +105,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftglobal</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>type</b></li><li class="navelem"><b>users</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1UserHandler.html">UserHandler</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -98,15 +116,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Inheritance diagram for sd.swiftglobal.rk.type.users.UserHandler:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1UserHandler.png" usemap="#sd.swiftglobal.rk.type.users.UserHandler_map" alt=""/>
-  <map id="sd.swiftglobal.rk.type.users.UserHandler_map" name="sd.swiftglobal.rk.type.users.UserHandler_map">
-<area href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1Handler.html" alt="sd.swiftglobal.rk.type.handler.Handler&lt; Type extends HandleType &gt;" shape="rect" coords="0,56,287,80"/>
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1Settings.html" alt="sd.swiftglobal.rk.Settings" shape="rect" coords="297,56,584,80"/>
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging.html" alt="sd.swiftglobal.rk.util.Logging" shape="rect" coords="594,56,881,80"/>
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1Settings.html" alt="sd.swiftglobal.rk.Settings" shape="rect" coords="0,0,287,24"/>
-</map>
- </div></div>
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1UserHandler__inherit__graph.png" border="0" usemap="#sd_8swiftglobal_8rk_8type_8users_8UserHandler_inherit__map" alt="Inheritance graph"/></div>
+<!-- MAP 0 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for sd.swiftglobal.rk.type.users.UserHandler:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1UserHandler__coll__graph.png" border="0" usemap="#sd_8swiftglobal_8rk_8type_8users_8UserHandler_coll__map" alt="Collaboration graph"/></div>
+<!-- MAP 1 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -424,6 +442,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1UserHandler_a6288fc2b41f9994da4a3875a7cd958a7_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1UserHandler_a6288fc2b41f9994da4a3875a7cd958a7_cgraph" alt=""/></div>
+<!-- MAP 2 -->
+</div>
+</p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -460,6 +486,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 
 <p>Implements <a class="el" href="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging.html#aec1de6a9c47071a9869fc000bca8aa2e">sd.swiftglobal.rk.util.Logging</a>.</p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1UserHandler_a37e521655869db83f14e7d3513d684e3_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1UserHandler_a37e521655869db83f14e7d3513d684e3_cgraph" alt=""/></div>
+<!-- MAP 3 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a0145e14974073492fdf2e04243c4f2fc"></a>
@@ -479,17 +513,29 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
  Finds a user based on their screen name (secondary identifier)</p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1User.html">User</a> with matching identifier; null if not found </dd></dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1UserHandler_a0145e14974073492fdf2e04243c4f2fc_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1UserHandler_a0145e14974073492fdf2e04243c4f2fc_icgraph" alt=""/></div>
+<!-- MAP 4 -->
+</div>
+</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/data/swiftspace/swiftdrive/src/sd/swiftglobal/rk/type/users/UserHandler.java</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.11
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftglobal</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>type</b></li><li class="navelem"><b>users</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1UserHandler.html">UserHandler</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
+  </ul>
+</div>
 </body>
 </html>

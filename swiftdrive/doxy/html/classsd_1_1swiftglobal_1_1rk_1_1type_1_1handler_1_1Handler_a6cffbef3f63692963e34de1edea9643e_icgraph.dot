@@ -1,0 +1,17 @@
+digraph "sd.swiftglobal.rk.type.handler.Handler.write"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="sd.swiftglobal.rk.type.handler.\lHandler.write",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="sd.swiftserver.rk.gui.Full\lTaskController.save",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController.html#a76649cb72c268add8aedba2fc6891d8e"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="sd.swiftglobal.rk.type.handler.\lHandler\< User \>::add",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1Handler.html#ae3c6c35ed35b5f29813d197e858a7e1a"];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="sd.swiftglobal.rk.type.handler.\lHandler\< User \>::remove",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1Handler.html#a020cd639a1a552e9301d4d0f6450a78b"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="sd.swiftglobal.rk.type.tasks.\lTaskHandler.TaskHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1TaskHandler.html#aee5dc8dcb1d4ea413171fa61c3c53a6c"];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="sd.swiftserver.rk.net.Connection.run",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftserver_1_1rk_1_1net_1_1Connection.html#a0ce288c9074ec09f5dbafc03417d677a"];
+}

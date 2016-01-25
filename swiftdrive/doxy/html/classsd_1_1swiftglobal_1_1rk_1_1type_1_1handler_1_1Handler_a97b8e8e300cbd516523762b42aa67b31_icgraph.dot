@@ -1,0 +1,13 @@
+digraph "sd.swiftglobal.rk.type.handler.Handler.setSource"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="sd.swiftglobal.rk.type.handler.\lHandler.setSource",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="sd.swiftglobal.rk.type.tasks.\lTask.Task",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task.html#aa6341a902c8e17151b116b66af271bde"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="sd.swiftglobal.rk.type.tasks.\lTaskHandler.TaskHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1TaskHandler.html#aee5dc8dcb1d4ea413171fa61c3c53a6c"];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="sd.swiftglobal.rk.type.users.\lUserHandler.UserHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1UserHandler.html#a6288fc2b41f9994da4a3875a7cd958a7"];
+}

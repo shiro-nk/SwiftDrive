@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -64,10 +72,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classsd_1_1swiftserver_1_1rk_1_1net_1_1Server.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,11 +105,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftserver</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>net</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server.html">Server</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -98,14 +116,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Inheritance diagram for sd.swiftserver.rk.net.Server:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server.png" usemap="#sd.swiftserver.rk.net.Server_map" alt=""/>
-  <map id="sd.swiftserver.rk.net.Server_map" name="sd.swiftserver.rk.net.Server_map">
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1SwiftNet_1_1SwiftNetContainer.html" alt="sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer" shape="rect" coords="0,0,278,24"/>
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1Settings.html" alt="sd.swiftglobal.rk.Settings" shape="rect" coords="576,0,854,24"/>
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging.html" alt="sd.swiftglobal.rk.util.Logging" shape="rect" coords="864,0,1142,24"/>
-</map>
- </div></div>
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server__inherit__graph.png" border="0" usemap="#sd_8swiftserver_8rk_8net_8Server_inherit__map" alt="Inheritance graph"/></div>
+<!-- MAP 0 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for sd.swiftserver.rk.net.Server:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server__coll__graph.png" border="0" usemap="#sd_8swiftserver_8rk_8net_8Server_coll__map" alt="Collaboration graph"/></div>
+<!-- MAP 1 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -422,6 +441,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a21d10b3bca469c0411c8e5b96e5dccf4_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a21d10b3bca469c0411c8e5b96e5dccf4_cgraph" alt=""/></div>
+<!-- MAP 2 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a0454ea783f8099c505171633c887abc1"></a>
@@ -462,6 +489,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 <p><b>Reset Array Indexes</b><br />
  Go through the array to find any objects that have been set to null. Remove those indexes, resize the array accordingly and reset all the connection indexes to conform to the new array. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a47583f11160a20d6af30a028b9dccdd6_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a47583f11160a20d6af30a028b9dccdd6_cgraph" alt=""/></div>
+<!-- MAP 3 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a47583f11160a20d6af30a028b9dccdd6_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a47583f11160a20d6af30a028b9dccdd6_icgraph" alt=""/></div>
+<!-- MAP 4 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a5e54736d4bed495b5a8528e3a335fe1a"></a>
@@ -479,6 +522,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 <p><b>Close</b><br />
  Destroy all connections to the server forcefully </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a5e54736d4bed495b5a8528e3a335fe1a_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a5e54736d4bed495b5a8528e3a335fe1a_cgraph" alt=""/></div>
+<!-- MAP 5 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a5e54736d4bed495b5a8528e3a335fe1a_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a5e54736d4bed495b5a8528e3a335fe1a_icgraph" alt=""/></div>
+<!-- MAP 6 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a3fca0307a8f70f89f5d8410e37fd6962"></a>
@@ -495,6 +554,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>True if trying to disconnect all clients </dd></dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a3fca0307a8f70f89f5d8410e37fd6962_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a3fca0307a8f70f89f5d8410e37fd6962_icgraph" alt=""/></div>
+<!-- MAP 7 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a8f32a1886688b05b7e1d1667a3a9a8e1"></a>
@@ -510,6 +577,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>True if there are no clients </dd></dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a8f32a1886688b05b7e1d1667a3a9a8e1_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a8f32a1886688b05b7e1d1667a3a9a8e1_icgraph" alt=""/></div>
+<!-- MAP 8 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -536,6 +611,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 
 <p>Implements <a class="el" href="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1SwiftNet_1_1SwiftNetContainer.html#abe4414fa84fec9af9b69f663e1b986d1">sd.swiftglobal.rk.util.SwiftNet.SwiftNetContainer</a>.</p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a3c22f69ce66ce7649d71e3a0ec3e4f77_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a3c22f69ce66ce7649d71e3a0ec3e4f77_cgraph" alt=""/></div>
+<!-- MAP 9 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="aacf9dfd4262c85c920a0588a8c5bb300"></a>
@@ -552,6 +635,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 </div><div class="memdoc">
 <p><b>Destroy</b><br />
  Destroy all connections to the server nicely </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_aacf9dfd4262c85c920a0588a8c5bb300_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_aacf9dfd4262c85c920a0588a8c5bb300_cgraph" alt=""/></div>
+<!-- MAP 10 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_aacf9dfd4262c85c920a0588a8c5bb300_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_aacf9dfd4262c85c920a0588a8c5bb300_icgraph" alt=""/></div>
+<!-- MAP 11 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -588,6 +687,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 
 <p>Implements <a class="el" href="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging.html#aec1de6a9c47071a9869fc000bca8aa2e">sd.swiftglobal.rk.util.Logging</a>.</p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_abf5c6dfd8e1e3ddc8126c83441d3c9d1_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_abf5c6dfd8e1e3ddc8126c83441d3c9d1_cgraph" alt=""/></div>
+<!-- MAP 12 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_abf5c6dfd8e1e3ddc8126c83441d3c9d1_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_abf5c6dfd8e1e3ddc8126c83441d3c9d1_icgraph" alt=""/></div>
+<!-- MAP 13 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="ab1f6e9ec3e883be17b0077ca41c82188"></a>
@@ -603,6 +718,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Number of clients connected to server </dd></dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_ab1f6e9ec3e883be17b0077ca41c82188_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_ab1f6e9ec3e883be17b0077ca41c82188_icgraph" alt=""/></div>
+<!-- MAP 14 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -637,6 +760,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 <p><b>Get List of Project Tasks</b><br />
  </p><dl class="section return"><dt>Returns</dt><dd>List of tasks on server </dd></dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a19af18abe5dfcdf4e21663cf88e850ec_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a19af18abe5dfcdf4e21663cf88e850ec_icgraph" alt=""/></div>
+<!-- MAP 15 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a6783c5351b87c7c084113f62467c8557"></a>
@@ -653,6 +784,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 </div><div class="memdoc">
 <p><b>Get List of Allowed Users</b><br />
  </p><dl class="section return"><dt>Returns</dt><dd>list of users capable of logging in </dd></dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a6783c5351b87c7c084113f62467c8557_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a6783c5351b87c7c084113f62467c8557_icgraph" alt=""/></div>
+<!-- MAP 16 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -671,6 +810,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 <p><b>Run</b><br />
  Listens for and accepts client connections. <br />
  Starts connection thread and indexes the connection in Client array </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a171c0567491881dcff149235ad6a928f_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a171c0567491881dcff149235ad6a928f_cgraph" alt=""/></div>
+<!-- MAP 17 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -695,6 +842,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a0e9f6c05fe94433b4f769a3c4608ac3f_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a0e9f6c05fe94433b4f769a3c4608ac3f_icgraph" alt=""/></div>
+<!-- MAP 18 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a6518b644ce175846a6c8de98dd28bbde"></a>
@@ -718,17 +873,29 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a6518b644ce175846a6c8de98dd28bbde_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1net_1_1Server_a6518b644ce175846a6c8de98dd28bbde_icgraph" alt=""/></div>
+<!-- MAP 19 -->
+</div>
+</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/data/swiftspace/swiftdrive/src/sd/swiftserver/rk/net/Server.java</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.11
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftserver</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>net</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftserver_1_1rk_1_1net_1_1Server.html">Server</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
+  </ul>
+</div>
 </body>
 </html>

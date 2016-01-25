@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -64,10 +72,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,11 +105,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftserver</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>gui</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController.html">FullTaskController</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -98,12 +116,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Inheritance diagram for sd.swiftserver.rk.gui.FullTaskController:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController.png" usemap="#sd.swiftserver.rk.gui.FullTaskController_map" alt=""/>
-  <map id="sd.swiftserver.rk.gui.FullTaskController_map" name="sd.swiftserver.rk.gui.FullTaskController_map">
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1Settings.html" alt="sd.swiftglobal.rk.Settings" shape="rect" coords="244,0,478,24"/>
-</map>
- </div></div>
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController__inherit__graph.png" border="0" usemap="#sd_8swiftserver_8rk_8gui_8FullTaskController_inherit__map" alt="Inheritance graph"/></div>
+<!-- MAP 0 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for sd.swiftserver.rk.gui.FullTaskController:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController__coll__graph.png" border="0" usemap="#sd_8swiftserver_8rk_8gui_8FullTaskController_coll__map" alt="Collaboration graph"/></div>
+<!-- MAP 1 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -348,6 +369,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 <p><b>Constructor:</b><br />
  Loads the FullTaskController.fxml file into an object </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a3633f31c9d1128d5c36de3d8cece718c_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a3633f31c9d1128d5c36de3d8cece718c_cgraph" alt=""/></div>
+<!-- MAP 2 -->
+</div>
+</p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -366,6 +395,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 <p><b>Create New Subtask:</b><br />
  Create a new subtask with the name given in the stsk_fld (subtask field). This method will create append a new subtask to the task and task GUI as long as the subtask name given in stsk_fld only contains alphanumeric characters. In the event that the subtask name is not valid, an error message will be displayed at the bottom. In the event that the task file could not be opened for reading or writing, a different error will appear. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a3cd2c3057f3d043eb004c7d74e49213a_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a3cd2c3057f3d043eb004c7d74e49213a_cgraph" alt=""/></div>
+<!-- MAP 3 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a349c1e3928f864f87c02c73f949ce97e"></a>
@@ -382,6 +419,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 </div><div class="memdoc">
 <p><b>Delete Task:</b><br />
  Sends the delete request to the tasklist (tasklist controls the index of tasks) </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a349c1e3928f864f87c02c73f949ce97e_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a349c1e3928f864f87c02c73f949ce97e_cgraph" alt=""/></div>
+<!-- MAP 4 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -400,6 +445,22 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 </div><div class="memdoc">
 <p><b>Delete Subtask:</b><br />
  Remove the specified subtask from the task list and reload the list. In the event that the file could not be saved, an error will be displayed </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a9c3e290ab23a1b0e155da3b0cf82af2e_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a9c3e290ab23a1b0e155da3b0cf82af2e_cgraph" alt=""/></div>
+<!-- MAP 5 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a9c3e290ab23a1b0e155da3b0cf82af2e_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a9c3e290ab23a1b0e155da3b0cf82af2e_icgraph" alt=""/></div>
+<!-- MAP 6 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -425,6 +486,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_aa01f4baaa3b12d3b56a6425737adc942_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_aa01f4baaa3b12d3b56a6425737adc942_icgraph" alt=""/></div>
+<!-- MAP 7 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a6edbaf0536052bda408ee17aae684a67"></a>
@@ -440,6 +509,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>The controlling server interface </dd></dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a6edbaf0536052bda408ee17aae684a67_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a6edbaf0536052bda408ee17aae684a67_icgraph" alt=""/></div>
+<!-- MAP 8 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -458,6 +535,22 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 <p><b>Refresh / Reload:</b><br />
  Take all the task information and display it on the GUI. This method dynamically loads all the subtasks to this component to allow for the editing of the task's subtasks. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a2bad4044b997038b135a6bb3c1cf6776_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a2bad4044b997038b135a6bb3c1cf6776_cgraph" alt=""/></div>
+<!-- MAP 9 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a2bad4044b997038b135a6bb3c1cf6776_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a2bad4044b997038b135a6bb3c1cf6776_icgraph" alt=""/></div>
+<!-- MAP 10 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a76649cb72c268add8aedba2fc6891d8e"></a>
@@ -474,6 +567,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 </div><div class="memdoc">
 <p><b>Save Task:</b><br />
  Saves the task the file. In the event that the task name (in name_fld) is invalid (contains non alphanumeric characters or spaces) an error will be displayed at the bottom of the screen. Similarity, if a task with that name already exists, the error will be shown. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a76649cb72c268add8aedba2fc6891d8e_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a76649cb72c268add8aedba2fc6891d8e_cgraph" alt=""/></div>
+<!-- MAP 11 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -496,6 +597,14 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_ad1dff979909a78fdff542e5c362ca17c_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_ad1dff979909a78fdff542e5c362ca17c_icgraph" alt=""/></div>
+<!-- MAP 12 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -521,6 +630,22 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a18120c572a03cc1fa9527c32ab0cade5_cgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a18120c572a03cc1fa9527c32ab0cade5_cgraph" alt=""/></div>
+<!-- MAP 13 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a18120c572a03cc1fa9527c32ab0cade5_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a18120c572a03cc1fa9527c32ab0cade5_icgraph" alt=""/></div>
+<!-- MAP 14 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a021f714eea61f2ff3904e4007e308cf6"></a>
@@ -538,17 +663,29 @@ static final int&#160;</td><td class="memItemRight" valign="bottom"><b>DEF_LOGL<
 <p><b>Suppress Messages:</b><br />
  Suppress all warning/error messages from the screen and display show the normal gui. </p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a021f714eea61f2ff3904e4007e308cf6_icgraph.png" border="0" usemap="#classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController_a021f714eea61f2ff3904e4007e308cf6_icgraph" alt=""/></div>
+<!-- MAP 15 -->
+</div>
+</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/data/swiftspace/swiftdrive/src/sd/swiftserver/rk/gui/FullTaskController.java</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.11
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftserver</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>gui</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftserver_1_1rk_1_1gui_1_1FullTaskController.html">FullTaskController</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
+  </ul>
+</div>
 </body>
 </html>

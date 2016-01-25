@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -64,10 +72,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,11 +105,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftglobal</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>type</b></li><li class="navelem"><b>tasks</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask.html">SubTask</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -99,12 +117,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Inheritance diagram for sd.swiftglobal.rk.type.tasks.SubTask:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask.png" usemap="#sd.swiftglobal.rk.type.tasks.SubTask_map" alt=""/>
-  <map id="sd.swiftglobal.rk.type.tasks.SubTask_map" name="sd.swiftglobal.rk.type.tasks.SubTask_map">
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1HandleType.html" alt="sd.swiftglobal.rk.type.handler.HandleType" shape="rect" coords="0,0,250,24"/>
-</map>
- </div></div>
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask__inherit__graph.png" border="0" usemap="#sd_8swiftglobal_8rk_8type_8tasks_8SubTask_inherit__map" alt="Inheritance graph"/></div>
+<!-- MAP 0 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for sd.swiftglobal.rk.type.tasks.SubTask:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask__coll__graph.png" border="0" usemap="#sd_8swiftglobal_8rk_8type_8tasks_8SubTask_coll__map" alt="Collaboration graph"/></div>
+<!-- MAP 1 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -181,6 +202,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a2e0959000b523e6f6ccc74dc9470de41_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a2e0959000b523e6f6ccc74dc9470de41_cgraph" alt=""/></div>
+<!-- MAP 2 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -269,6 +298,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Short description / metadata for the subtask </dd></dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a534c03c0e18f47f672ce2aed04e932e2_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a534c03c0e18f47f672ce2aed04e932e2_icgraph" alt=""/></div>
+<!-- MAP 3 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a4f5737e5a36d59e55306ff3a989a2ddc"></a>
@@ -284,6 +321,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>due date in dd/mm/yy format </dd></dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a4f5737e5a36d59e55306ff3a989a2ddc_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a4f5737e5a36d59e55306ff3a989a2ddc_icgraph" alt=""/></div>
+<!-- MAP 4 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -321,6 +366,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Gets the screen name of the task lead </dd></dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a28a94190711ef546c814ca7c1960acbc_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a28a94190711ef546c814ca7c1960acbc_icgraph" alt=""/></div>
+<!-- MAP 5 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="ac42f15a64b48d486625a4faef25d1efe"></a>
@@ -341,6 +394,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
 
 <p>Implements <a class="el" href="interfacesd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1HandleType.html#a41b3453f7b05d059f4a76973891bba10">sd.swiftglobal.rk.type.handler.HandleType</a>.</p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_ac42f15a64b48d486625a4faef25d1efe_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_ac42f15a64b48d486625a4faef25d1efe_icgraph" alt=""/></div>
+<!-- MAP 6 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a6ed0ddb692371468188fb88cc5747bcd"></a>
@@ -356,6 +417,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task.html">Task</a> priority (0: Low, 1: Normal, 2: High) </dd></dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a6ed0ddb692371468188fb88cc5747bcd_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a6ed0ddb692371468188fb88cc5747bcd_icgraph" alt=""/></div>
+<!-- MAP 7 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -373,6 +442,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>get start date in the dd/mm/yy format </dd></dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_af98ccd7aeff16e4457842842f81f2911_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_af98ccd7aeff16e4457842842f81f2911_icgraph" alt=""/></div>
+<!-- MAP 8 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a3541685afb6e24c4dbfae7c9d5cc63cc"></a>
@@ -388,6 +465,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Get TASK_STATUS </dd></dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a3541685afb6e24c4dbfae7c9d5cc63cc_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a3541685afb6e24c4dbfae7c9d5cc63cc_icgraph" alt=""/></div>
+<!-- MAP 9 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -411,6 +496,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a1dbbfab5cae09345cb56b3f045c25b13_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a1dbbfab5cae09345cb56b3f045c25b13_icgraph" alt=""/></div>
+<!-- MAP 10 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="af768c8b36e1c0ba68117575dae1a91e0"></a>
@@ -432,6 +525,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_af768c8b36e1c0ba68117575dae1a91e0_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_af768c8b36e1c0ba68117575dae1a91e0_icgraph" alt=""/></div>
+<!-- MAP 11 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -496,6 +597,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
 
 <p>Implements <a class="el" href="interfacesd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1HandleType.html#ae622acdb54f39cbd168cb69b50f5c6a3">sd.swiftglobal.rk.type.handler.HandleType</a>.</p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a356469a042040c1d6b4f20d597701763_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a356469a042040c1d6b4f20d597701763_icgraph" alt=""/></div>
+<!-- MAP 12 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a2a7277ecfcae1ba894102b2137e95c06"></a>
@@ -517,6 +626,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a2a7277ecfcae1ba894102b2137e95c06_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a2a7277ecfcae1ba894102b2137e95c06_icgraph" alt=""/></div>
+<!-- MAP 13 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -540,6 +657,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a64ac860176565c5b2da8f32c9880f814_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a64ac860176565c5b2da8f32c9880f814_icgraph" alt=""/></div>
+<!-- MAP 14 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a560bb7566e5495e9009c02b432dcd4e3"></a>
@@ -561,6 +686,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a560bb7566e5495e9009c02b432dcd4e3_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a560bb7566e5495e9009c02b432dcd4e3_icgraph" alt=""/></div>
+<!-- MAP 15 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -584,6 +717,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a247977b852d345eaf7e08fa6ed884e46_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a247977b852d345eaf7e08fa6ed884e46_icgraph" alt=""/></div>
+<!-- MAP 16 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a582c1ed0879d1ad77bcb65f274f835b7"></a>
@@ -602,6 +743,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
  Converts the raw filedata into useable object data. </p>
 
 <p>Implements <a class="el" href="interfacesd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1HandleType.html#ae34fbb712378a8f195d4444e005e80fd">sd.swiftglobal.rk.type.handler.HandleType</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a582c1ed0879d1ad77bcb65f274f835b7_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a582c1ed0879d1ad77bcb65f274f835b7_icgraph" alt=""/></div>
+<!-- MAP 17 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -622,17 +771,29 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>TASK_COMPLETE</
 
 <p>Implements <a class="el" href="interfacesd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1HandleType.html#aaea150b98e9660f300aa757803407c58">sd.swiftglobal.rk.type.handler.HandleType</a>.</p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a980979f3497bb3022f8bae2d3e85f3dc_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask_a980979f3497bb3022f8bae2d3e85f3dc_icgraph" alt=""/></div>
+<!-- MAP 18 -->
+</div>
+</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/data/swiftspace/swiftdrive/src/sd/swiftglobal/rk/type/tasks/SubTask.java</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.11
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftglobal</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>type</b></li><li class="navelem"><b>tasks</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1SubTask.html">SubTask</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
+  </ul>
+</div>
 </body>
 </html>

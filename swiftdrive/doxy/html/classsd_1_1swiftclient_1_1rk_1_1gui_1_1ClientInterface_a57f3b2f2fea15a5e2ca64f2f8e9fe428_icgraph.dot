@@ -1,0 +1,46 @@
+digraph "sd.swiftclient.rk.gui.ClientInterface.hideMenu"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="sd.swiftclient.rk.gui.Client\lInterface.hideMenu",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="sd.swiftclient.rk.gui.Client\lInterface.logout",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface.html#a6cd1be125f29d289ee1962fc4f409180"];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="sd.swiftclient.rk.gui.Client\lInterface.login",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface.html#a4b07775150f947d2f773e0096c378139"];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="sd.swiftclient.rk.gui.Client\lInterface.updateTask",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface.html#a409b6e8c040f9b1aded8d5824b73b5df"];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="sd.swiftclient.rk.gui.Client\lInterface.refreshTasks",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface.html#a9252617e9249b37cb60260797e94b65f"];
+  Node5 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="sd.swiftclient.rk.gui.Client\lInterface.showList",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface.html#ae9168a74a31a7dde0adf24908a6ea27e"];
+  Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="sd.swiftclient.rk.gui.Full\lTaskController.done",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1FullTaskController.html#a43c7e7f07c0fa3983a8e33c3bd937f34"];
+  Node5 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="sd.swiftclient.rk.gui.Full\lTaskController.refresh",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1FullTaskController.html#aec8a56584fe2f81d700f08db3f6d5770"];
+  Node8 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="sd.swiftclient.rk.gui.Full\lTaskController.setTask",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1FullTaskController.html#a48402ff9d25a825e79f3c1da3e57d7e2"];
+  Node9 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="sd.swiftclient.rk.gui.Client\lInterface.expandTask",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface.html#a8b18d51a52a2b8279579fc6d2fab59ed"];
+  Node10 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="sd.swiftclient.rk.gui.Task\lController.expand",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1TaskController.html#a99db0fac24fd23f0727e74fc133c4644"];
+  Node8 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="sd.swiftclient.rk.gui.Sub\lTaskController.refresh",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1SubTaskController.html#ab5ee95a4ebf644688bb8d4456368f1a8"];
+  Node12 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="sd.swiftclient.rk.gui.Sub\lTaskController.setSubtask",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1SubTaskController.html#a93efd91d5636b50de82553dcf516af60"];
+  Node13 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="sd.swiftclient.rk.gui.Sub\lTaskController.updateSubtask",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1SubTaskController.html#a20f2f760bee1f025559f911d35392b3f"];
+  Node14 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="sd.swiftclient.rk.gui.Full\lTaskController.updateTask",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1FullTaskController.html#a644102c5d6a4f6edf36fa07292d64208"];
+  Node15 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="sd.swiftclient.rk.gui.Sub\lTaskController.ignore",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1SubTaskController.html#a444d4ab9bbd8b8f86cdd2a6aeb59363a"];
+  Node12 -> Node17 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node17 [label="sd.swiftclient.rk.gui.Sub\lTaskController.complete",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1SubTaskController.html#a2ee8eb823851c2252252f8af59177814"];
+  Node2 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node18 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 [label="sd.swiftclient.rk.gui.Client\lInterface.dereference",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface.html#a3c48479d8906406a7877ee5dbb1f2a9d"];
+}

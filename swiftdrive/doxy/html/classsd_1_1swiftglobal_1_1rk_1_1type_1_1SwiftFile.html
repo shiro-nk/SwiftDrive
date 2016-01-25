@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -64,10 +72,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,11 +105,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftglobal</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>type</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile.html">SwiftFile</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -99,17 +117,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Inheritance diagram for sd.swiftglobal.rk.type.SwiftFile:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile.png" usemap="#sd.swiftglobal.rk.type.SwiftFile_map" alt=""/>
-  <map id="sd.swiftglobal.rk.type.SwiftFile_map" name="sd.swiftglobal.rk.type.SwiftFile_map">
-<area href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1Data.html" alt="sd.swiftglobal.rk.type.Data" shape="rect" coords="97,56,281,80"/>
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1Settings.html" alt="sd.swiftglobal.rk.Settings" shape="rect" coords="291,56,475,80"/>
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging.html" alt="sd.swiftglobal.rk.util.Logging" shape="rect" coords="485,56,669,80"/>
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1Settings.html" alt="sd.swiftglobal.rk.Settings" shape="rect" coords="0,0,184,24"/>
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging.html" alt="sd.swiftglobal.rk.util.Logging" shape="rect" coords="194,0,378,24"/>
-<area href="classsd_1_1swiftglobal_1_1rk_1_1util_1_1SwiftFront.html" alt="sd.swiftglobal.rk.util.SwiftFront" shape="rect" coords="291,168,475,192"/>
-</map>
- </div></div>
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile__inherit__graph.png" border="0" usemap="#sd_8swiftglobal_8rk_8type_8SwiftFile_inherit__map" alt="Inheritance graph"/></div>
+<!-- MAP 0 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for sd.swiftglobal.rk.type.SwiftFile:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile__coll__graph.png" border="0" usemap="#sd_8swiftglobal_8rk_8type_8SwiftFile_coll__map" alt="Collaboration graph"/></div>
+<!-- MAP 1 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -539,6 +555,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a6a0108c701ef8806522aa9734b294fae_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a6a0108c701ef8806522aa9734b294fae_cgraph" alt=""/></div>
+<!-- MAP 2 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a140c0f9c96e1194fb4ba88a6a6b004c5"></a>
@@ -571,6 +595,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a140c0f9c96e1194fb4ba88a6a6b004c5_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a140c0f9c96e1194fb4ba88a6a6b004c5_cgraph" alt=""/></div>
+<!-- MAP 3 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -612,6 +644,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_afafde7967ae82d7d91a4bbd4796a95a5_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_afafde7967ae82d7d91a4bbd4796a95a5_cgraph" alt=""/></div>
+<!-- MAP 4 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a957e79a81573dd2b19be2f9e88baaa01"></a>
@@ -651,6 +691,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a957e79a81573dd2b19be2f9e88baaa01_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a957e79a81573dd2b19be2f9e88baaa01_cgraph" alt=""/></div>
+<!-- MAP 5 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -692,6 +740,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a3ee2dab2f6fce0b8860ef9eca51cf544_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a3ee2dab2f6fce0b8860ef9eca51cf544_cgraph" alt=""/></div>
+<!-- MAP 6 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="aa070c33aaba8b620f8da20864b13e01a"></a>
@@ -713,6 +769,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_aa070c33aaba8b620f8da20864b13e01a_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_aa070c33aaba8b620f8da20864b13e01a_cgraph" alt=""/></div>
+<!-- MAP 7 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -742,6 +806,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_ac9eee244595d652c84e986907840c022_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_ac9eee244595d652c84e986907840c022_cgraph" alt=""/></div>
+<!-- MAP 8 -->
+</div>
+</p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -765,6 +837,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_aad800d2149d6eb430afde1c08f1261b5_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_aad800d2149d6eb430afde1c08f1261b5_cgraph" alt=""/></div>
+<!-- MAP 9 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_aad800d2149d6eb430afde1c08f1261b5_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_aad800d2149d6eb430afde1c08f1261b5_icgraph" alt=""/></div>
+<!-- MAP 10 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -790,6 +878,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 </div><div class="memdoc">
 <p>See if information is present in the byte data array </p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a5b3d3ef1b77ca22bbdabafab52b9f402_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a5b3d3ef1b77ca22bbdabafab52b9f402_icgraph" alt=""/></div>
+<!-- MAP 11 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a5b5816a22fa22320f6d78635c274bc7c"></a>
@@ -814,6 +910,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 </div><div class="memdoc">
 <p>See if a file has been set </p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a5b5816a22fa22320f6d78635c274bc7c_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a5b5816a22fa22320f6d78635c274bc7c_icgraph" alt=""/></div>
+<!-- MAP 12 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="aa42ec15204f29b57748bb80b73707ca7"></a>
@@ -835,6 +939,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_aa42ec15204f29b57748bb80b73707ca7_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_aa42ec15204f29b57748bb80b73707ca7_cgraph" alt=""/></div>
+<!-- MAP 13 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_aa42ec15204f29b57748bb80b73707ca7_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_aa42ec15204f29b57748bb80b73707ca7_icgraph" alt=""/></div>
+<!-- MAP 14 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -867,6 +987,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
       </table>
 </div><div class="memdoc">
 <p>Convert byte array to plain text </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_aa4066f246405943ae81cd80e8bf75440_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_aa4066f246405943ae81cd80e8bf75440_cgraph" alt=""/></div>
+<!-- MAP 15 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_aa4066f246405943ae81cd80e8bf75440_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_aa4066f246405943ae81cd80e8bf75440_icgraph" alt=""/></div>
+<!-- MAP 16 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -916,6 +1052,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 </div><div class="memdoc">
 <p>Get the file the <a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile.html">SwiftFile</a> points to </p><dl class="section return"><dt>Returns</dt><dd>file </dd></dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a297e74b53cddacd7526edd1f38a104be_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a297e74b53cddacd7526edd1f38a104be_icgraph" alt=""/></div>
+<!-- MAP 17 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="ab695ff2fad1f4efc619535e74ecde31b"></a>
@@ -954,6 +1098,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a840309a5ea9e53989714dd5ad15483c2_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a840309a5ea9e53989714dd5ad15483c2_cgraph" alt=""/></div>
+<!-- MAP 18 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a840309a5ea9e53989714dd5ad15483c2_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a840309a5ea9e53989714dd5ad15483c2_icgraph" alt=""/></div>
+<!-- MAP 19 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a73dcdfc6d4c6cdc58760d400aaa44f13"></a>
@@ -981,6 +1141,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a73dcdfc6d4c6cdc58760d400aaa44f13_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a73dcdfc6d4c6cdc58760d400aaa44f13_cgraph" alt=""/></div>
+<!-- MAP 20 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a73dcdfc6d4c6cdc58760d400aaa44f13_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a73dcdfc6d4c6cdc58760d400aaa44f13_icgraph" alt=""/></div>
+<!-- MAP 21 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -1011,6 +1187,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_ae809f75451e99e6a319a80cbdae994c1_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_ae809f75451e99e6a319a80cbdae994c1_cgraph" alt=""/></div>
+<!-- MAP 22 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_ae809f75451e99e6a319a80cbdae994c1_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_ae809f75451e99e6a319a80cbdae994c1_icgraph" alt=""/></div>
+<!-- MAP 23 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a17fac8b426f6d37390cf8c6a9bd3f62a"></a>
@@ -1033,6 +1225,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a17fac8b426f6d37390cf8c6a9bd3f62a_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a17fac8b426f6d37390cf8c6a9bd3f62a_cgraph" alt=""/></div>
+<!-- MAP 24 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a17fac8b426f6d37390cf8c6a9bd3f62a_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a17fac8b426f6d37390cf8c6a9bd3f62a_icgraph" alt=""/></div>
+<!-- MAP 25 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="af414f9e1754e51b2500dfadc5f6b3551"></a>
@@ -1054,6 +1262,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_af414f9e1754e51b2500dfadc5f6b3551_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_af414f9e1754e51b2500dfadc5f6b3551_cgraph" alt=""/></div>
+<!-- MAP 26 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_af414f9e1754e51b2500dfadc5f6b3551_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_af414f9e1754e51b2500dfadc5f6b3551_icgraph" alt=""/></div>
+<!-- MAP 27 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -1095,6 +1319,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a972fc52311e666b52b0e3802c599c16e_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a972fc52311e666b52b0e3802c599c16e_cgraph" alt=""/></div>
+<!-- MAP 28 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="affeb29218be53a606c69640eccbaa92c"></a>
@@ -1134,6 +1366,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_affeb29218be53a606c69640eccbaa92c_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_affeb29218be53a606c69640eccbaa92c_cgraph" alt=""/></div>
+<!-- MAP 29 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -1175,6 +1415,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a912cfd713ade429090782be8f60475a4_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a912cfd713ade429090782be8f60475a4_cgraph" alt=""/></div>
+<!-- MAP 30 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a30064f423c441a86376f3fdc684974ae"></a>
@@ -1190,6 +1438,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
       </table>
 </div><div class="memdoc">
 <p>Convert plain text to byte array </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a30064f423c441a86376f3fdc684974ae_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a30064f423c441a86376f3fdc684974ae_cgraph" alt=""/></div>
+<!-- MAP 31 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a30064f423c441a86376f3fdc684974ae_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a30064f423c441a86376f3fdc684974ae_icgraph" alt=""/></div>
+<!-- MAP 32 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -1231,6 +1495,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a6380347f6f699ad8a28514c3f394abec_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a6380347f6f699ad8a28514c3f394abec_cgraph" alt=""/></div>
+<!-- MAP 33 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a6380347f6f699ad8a28514c3f394abec_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a6380347f6f699ad8a28514c3f394abec_icgraph" alt=""/></div>
+<!-- MAP 34 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a55b540e36e942679f0acc1c8c6eb72ed"></a>
@@ -1253,6 +1533,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a55b540e36e942679f0acc1c8c6eb72ed_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a55b540e36e942679f0acc1c8c6eb72ed_icgraph" alt=""/></div>
+<!-- MAP 35 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -1283,17 +1571,29 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a347b3d24a68adf94d71897e4c71cc795_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile_a347b3d24a68adf94d71897e4c71cc795_cgraph" alt=""/></div>
+<!-- MAP 36 -->
+</div>
+</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/data/swiftspace/swiftdrive/src/sd/swiftglobal/rk/type/SwiftFile.java</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.11
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftglobal</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>type</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1SwiftFile.html">SwiftFile</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
+  </ul>
+</div>
 </body>
 </html>

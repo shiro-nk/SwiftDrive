@@ -1,0 +1,11 @@
+digraph "sd.swiftclient.rk.gui.ClientInterface.showOpen"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="sd.swiftclient.rk.gui.Client\lInterface.showOpen",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="sd.swiftclient.rk.gui.Client\lInterface.hideAll",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftclient_1_1rk_1_1gui_1_1ClientInterface.html#a25dbf60acdfe759e020cef704b2a3755"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="sd.swiftglobal.rk.type.users.\lUser.getRealname",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsd_1_1swiftglobal_1_1rk_1_1type_1_1users_1_1User.html#a1f5818662dd0da72c3e8ac097e03c3d2"];
+}

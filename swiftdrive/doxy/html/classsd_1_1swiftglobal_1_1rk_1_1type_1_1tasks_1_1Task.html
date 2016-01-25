@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -64,10 +72,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -82,11 +105,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftglobal</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>type</b></li><li class="navelem"><b>tasks</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task.html">Task</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -98,16 +116,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Inheritance diagram for sd.swiftglobal.rk.type.tasks.Task:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task.png" usemap="#sd.swiftglobal.rk.type.tasks.Task_map" alt=""/>
-  <map id="sd.swiftglobal.rk.type.tasks.Task_map" name="sd.swiftglobal.rk.type.tasks.Task_map">
-<area href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1Handler.html" alt="sd.swiftglobal.rk.type.handler.Handler&lt; Type extends HandleType &gt;" shape="rect" coords="0,56,309,80"/>
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1HandleType.html" alt="sd.swiftglobal.rk.type.handler.HandleType" shape="rect" coords="319,56,628,80"/>
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1Settings.html" alt="sd.swiftglobal.rk.Settings" shape="rect" coords="638,56,947,80"/>
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging.html" alt="sd.swiftglobal.rk.util.Logging" shape="rect" coords="957,56,1266,80"/>
-<area href="interfacesd_1_1swiftglobal_1_1rk_1_1Settings.html" alt="sd.swiftglobal.rk.Settings" shape="rect" coords="0,0,309,24"/>
-</map>
- </div></div>
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task__inherit__graph.png" border="0" usemap="#sd_8swiftglobal_8rk_8type_8tasks_8Task_inherit__map" alt="Inheritance graph"/></div>
+<!-- MAP 0 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for sd.swiftglobal.rk.type.tasks.Task:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task__coll__graph.png" border="0" usemap="#sd_8swiftglobal_8rk_8type_8tasks_8Task_coll__map" alt="Collaboration graph"/></div>
+<!-- MAP 1 -->
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -469,6 +486,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_af1c6bf6c6ad3dd56398e5407b2c408d2_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_af1c6bf6c6ad3dd56398e5407b2c408d2_cgraph" alt=""/></div>
+<!-- MAP 2 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a77ca008496ad365a55da80947587f291"></a>
@@ -588,6 +613,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_aa6341a902c8e17151b116b66af271bde_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_aa6341a902c8e17151b116b66af271bde_cgraph" alt=""/></div>
+<!-- MAP 3 -->
+</div>
+</p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -624,6 +657,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 
 <p>Implements <a class="el" href="interfacesd_1_1swiftglobal_1_1rk_1_1util_1_1Logging.html#aec1de6a9c47071a9869fc000bca8aa2e">sd.swiftglobal.rk.util.Logging</a>.</p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_a8b7a79c54cbbb33f988a8da8aaa2ede5_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_a8b7a79c54cbbb33f988a8da8aaa2ede5_cgraph" alt=""/></div>
+<!-- MAP 4 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a8d7a5f755a69f674b669d345dfbd5b99"></a>
@@ -640,6 +681,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 </div><div class="memdoc">
 <p><b>Get <a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task.html">Task</a> Description:</b><br />
  </p><dl class="section return"><dt>Returns</dt><dd><a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task.html">Task</a> description </dd></dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_a8d7a5f755a69f674b669d345dfbd5b99_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_a8d7a5f755a69f674b669d345dfbd5b99_icgraph" alt=""/></div>
+<!-- MAP 5 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -681,6 +730,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 
 <p>Implements <a class="el" href="interfacesd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1HandleType.html#a41b3453f7b05d059f4a76973891bba10">sd.swiftglobal.rk.type.handler.HandleType</a>.</p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_a52de4a735942ba0e20e7c22a70e11a41_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_a52de4a735942ba0e20e7c22a70e11a41_icgraph" alt=""/></div>
+<!-- MAP 6 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a83be3bf6c228200a80b31c45277ba094"></a>
@@ -698,6 +755,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 <p><b>Calculate Complete:</b><br />
  Goes through each subtask in it's index and takes it's status. If the status is <em>Complete</em> 1 is added to the average and number of tasks. If the status is <em>Pending</em> 1 is added to the task, but not the average. If the status is <em>Cancelled</em> the subtask is ignored.</p>
 <dl class="section return"><dt>Returns</dt><dd>Percent complete (as a decimal) </dd></dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_a83be3bf6c228200a80b31c45277ba094_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_a83be3bf6c228200a80b31c45277ba094_cgraph" alt=""/></div>
+<!-- MAP 7 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_a83be3bf6c228200a80b31c45277ba094_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_a83be3bf6c228200a80b31c45277ba094_icgraph" alt=""/></div>
+<!-- MAP 8 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -722,6 +795,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </table>
   </dd>
 </dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_aae68faffa7b5e4f12f2da049c885e837_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_aae68faffa7b5e4f12f2da049c885e837_icgraph" alt=""/></div>
+<!-- MAP 9 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -748,6 +829,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 </dl>
 
 <p>Implements <a class="el" href="interfacesd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1HandleType.html#a547b7f26250734d55a78126f92d2e4fc">sd.swiftglobal.rk.type.handler.HandleType</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_a700821686daf91a97b473b9e53156226_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_a700821686daf91a97b473b9e53156226_icgraph" alt=""/></div>
+<!-- MAP 10 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -786,6 +875,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 
 <p>Implements <a class="el" href="interfacesd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1HandleType.html#ae622acdb54f39cbd168cb69b50f5c6a3">sd.swiftglobal.rk.type.handler.HandleType</a>.</p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_a9f30ee68ecae57fb11ac4bb5fcb60cca_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_a9f30ee68ecae57fb11ac4bb5fcb60cca_cgraph" alt=""/></div>
+<!-- MAP 11 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="ade684862e9c54dd41871f1e8b3051976"></a>
@@ -817,6 +914,22 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_ade684862e9c54dd41871f1e8b3051976_cgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_ade684862e9c54dd41871f1e8b3051976_cgraph" alt=""/></div>
+<!-- MAP 12 -->
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_ade684862e9c54dd41871f1e8b3051976_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_ade684862e9c54dd41871f1e8b3051976_icgraph" alt=""/></div>
+<!-- MAP 13 -->
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a91b07f34b5577ffc892967074d06fe1c"></a>
@@ -835,6 +948,14 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
  Converts the raw filedata into useable object data. </p>
 
 <p>Implements <a class="el" href="interfacesd_1_1swiftglobal_1_1rk_1_1type_1_1handler_1_1HandleType.html#ae34fbb712378a8f195d4444e005e80fd">sd.swiftglobal.rk.type.handler.HandleType</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_a91b07f34b5577ffc892967074d06fe1c_icgraph.png" border="0" usemap="#classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task_a91b07f34b5577ffc892967074d06fe1c_icgraph" alt=""/></div>
+<!-- MAP 14 -->
+</div>
+</p>
 
 </div>
 </div>
@@ -861,11 +982,15 @@ static final String&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DI
 <li>/data/swiftspace/swiftdrive/src/sd/swiftglobal/rk/type/tasks/Task.java</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.11
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>sd</b></li><li class="navelem"><b>swiftglobal</b></li><li class="navelem"><b>rk</b></li><li class="navelem"><b>type</b></li><li class="navelem"><b>tasks</b></li><li class="navelem"><a class="el" href="classsd_1_1swiftglobal_1_1rk_1_1type_1_1tasks_1_1Task.html">Task</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
+  </ul>
+</div>
 </body>
 </html>
