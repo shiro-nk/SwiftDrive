@@ -1,8 +1,26 @@
 Swift Drive: A Simple Project Management System
 
 ICS4U Term Project
+A simple java group task managment system composed of a server and client.
+A team leader would be able to run a local server, create a list of users,
+create a list of tasks, and keep track of progress. Clients could in turn
+connect to the server, log in, and change their progress.
 
-Copyright (c) 2015 Ryan Kerr
+Disclaimers:
+This code was written for, and only for, the ICS4U term project and is
+not intended for distribution. The network code in this project is
+**insecure** as I was learning how to use sockets at the time and the
+code was only intended for a demo in a secure environment. If you choose
+to do so, please use this code at your own risk.
+
+While all the code in the final version(s) is written by me, there exists 
+many older versions in the commit history which contain parts of a GUI 
+interface, complete with art, produced with Mohan Pan. Since none of 
+said code is included in the final version, the copyright below has been
+modified to reflect that.
+
+Final Version: Copyright (c) 2015-2017 Ryan Kerr
+Legacy GUI: Copyright (c) 2015-2017 Ryan Kerr, Mohan Pan
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
